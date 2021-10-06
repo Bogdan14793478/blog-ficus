@@ -1,31 +1,37 @@
 import React from 'react'
+import './Login.css'
 import 'materialize-css/dist/css/materialize.min.css'
 import 'materialize-css/dist/css/materialize.min.css'
-
 
 const Login = () => {
     return (
-        <div>
-            <div class="col">
-                <div class="col s12">
-                    <div class="col input">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">email</i>
-                            <input type="text" id="autocomplete-input" class="autocomplete" />
-                            {/* <label for="autocomplete-input">Autocomplete</label> */}
+        <div >
+            <div className="row">
+                <div className="col s12 s14 offset-14">
+                    <div className="card">
+                        <div className="card-action red white-text">
+                            <h3>Login Form</h3>
                         </div>
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">password</i>
-                            <input type="text" id="autocomplete-input" class="autocomplete" />
-                            {/* <label for="autocomplete-input">Autocomplete</label> */}
+                        <div className="card-content">
+                            <div className="form-field">
+                                <label for="email">Email</label>
+                                <input type="text" id="email" />
+                            </div>
+                            <div className="form-field">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" />
+                            </div>
+                            <div className="form-field">
+                                <input type="checkbox" id="remember" />
+                                <label for="remember">Remember me</label>
+                            </div>
+                            <div>
+                                <button className="btn-large red">Login</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {/* <button>Forgot password?</button> */}
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                <i class="material-icons right"></i>
-            </button>
         </div>
     )
 }

@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "./components/Author/Login";
+import Register from "./components/Author/Register";
 
 function App() {
   return (
@@ -11,13 +12,17 @@ function App() {
           <Login />
         </Route>
       </Switch>
-      <div className="mainContainer">
-        {/* <Navbar /> */}
-
-        <Switch>
-          <Route path="/">{/* <Home /> */}</Route>
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/register">
+          <Register />
+        </Route>
+      </Switch>
+      {/* <Navbar>??? /> */}
+      <Switch>
+        <Route path="/homepage">
+          {/* <Home /> */}
+          </Route>
+      </Switch>
     </Router>
   );
 }

@@ -1,5 +1,16 @@
-.input{
-    padding: 100px;
-width: 600px;
-height: 400px;
+.input {
+  padding: 100px;
+  width: 600px;
+  height: 400px;
 }
+
+.emailInput{
+    width: 600px;
+}
+
+.card{
+    max-width: 600px;
+    justify-content: center;
+    margin-left: 510px !important;
+}
+

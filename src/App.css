@@ -1,12 +1,26 @@
-*{
+/* *{
   padding: 0;
   margin: 0;
+} */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* .mainContainer{
-  width: 600px !important;
-  height: 40vh !important; 
-  margin: 0 120px !important;
-  justify-content: center;
-  box-sizing: border-box;
-} */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
