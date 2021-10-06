@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pre-commit": "lint-staged",
-    "lint": "eslint --fix src/**/*.{js,jsx} --no-error-on-unmatched-pattern"
+    "lint": "eslint src/**/*.{js,jsx} --no-error-on-unmatched-pattern"
   },
   "husky": {
     "hooks": {

@@ -1,22 +1,15 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Login } from "./components/Author/Login";
+import Login from "./components/Authorization/Login";
 
 export function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
+        <Route path="/login" render={() => <Login />} />
+        <Route path="/homepage" />
       </Switch>
-      <div className="mainContainer" style={{ scale: 1 }}>
-        {/* <Navbar /> */}
-        <Switch>
-          <Route path="/" />
-        </Switch>
-      </div>
     </Router>
   );
 }

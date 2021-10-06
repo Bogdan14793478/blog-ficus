@@ -1,0 +1,19 @@
+.input {
+  padding: 100px;
+  width: 600px;
+  height: 400px;
+}
+#allblock {
+  margin-left: 690px;
+}
+
+.email-input {
+  width: 600px;
+}
+
+.card {
+  max-width: 600px;
+  justify-content: center;
+}
+
+
