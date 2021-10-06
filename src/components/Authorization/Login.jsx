@@ -6,7 +6,6 @@ import 'materialize-css/dist/css/materialize.min.css'
 const Login = () => {
     
     return (
-        // <div >
             <div className="row">
                 <div id="allblock" className="col s12 s14 offset-14 allblock">
                     <div className="card">
@@ -33,7 +32,6 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        // </div>
     )
 }
 export default Login;
