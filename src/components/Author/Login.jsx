@@ -1,32 +1,42 @@
-import React from 'react'
-import 'materialize-css/dist/css/materialize.min.css'
-import 'materialize-css/dist/css/materialize.min.css'
+import React from "react";
+import "materialize-css/dist/css/materialize.min.css";
 
-
-const Login = () => {
-    return (
-        <div>
-            <div class="col">
-                <div class="col s12">
-                    <div class="col input">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">email</i>
-                            <input type="text" id="autocomplete-input" class="autocomplete" />
-                            {/* <label for="autocomplete-input">Autocomplete</label> */}
-                        </div>
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">password</i>
-                            <input type="text" id="autocomplete-input" class="autocomplete" />
-                            {/* <label for="autocomplete-input">Autocomplete</label> */}
-                        </div>
-                    </div>
-                </div>
+export const Login = () => {
+  return (
+    <div>
+      <div className="col">
+        <div className="col s12">
+          <div className="col input">
+            <div className="input-field col s12">
+              <i className="material-icons prefix">email</i>
+              <input
+                type="text"
+                id="autocomplete-input"
+                className="autocomplete"
+              />
+              {/* <label for="autocomplete-input">Autocomplete</label> */}
             </div>
-            {/* <button>Forgot password?</button> */}
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                <i class="material-icons right"></i>
-            </button>
+            <div className="input-field col s12">
+              <i className="material-icons prefix">password</i>
+              <input
+                type="text"
+                id="autocomplete-input"
+                className="autocomplete"
+              />
+              {/* <label for="autocomplete-input">Autocomplete</label> */}
+            </div>
+          </div>
         </div>
-    )
-}
-export default Login;
+      </div>
+      {/* <button>Forgot password?</button> */}
+      <button
+        className="btn waves-effect waves-light"
+        type="submit"
+        name="action"
+      >
+        Submit
+        <i className="material-icons right" />
+      </button>
+    </div>
+  );
+};

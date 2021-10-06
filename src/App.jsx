@@ -1,9 +1,9 @@
+import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
-import Login from "./components/Author/Login";
+import { Login } from "./components/Author/Login";
 
-function App() {
+export function App() {
   return (
     <Router>
       <Switch>
@@ -11,15 +11,14 @@ function App() {
           <Login />
         </Route>
       </Switch>
-      <div className="mainContainer">
+      <div className="mainContainer" style={{ scale: 1 }}>
         {/* <Navbar /> */}
-
         <Switch>
-          <Route path="/">{/* <Home /> */}</Route>
+          <Route path="/" />
         </Switch>
       </div>
     </Router>
   );
 }
 
-export default App;
+// export default App;
