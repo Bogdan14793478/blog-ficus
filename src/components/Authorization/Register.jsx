@@ -5,9 +5,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react"
 import axios from "axios"
+// import { NavLink } from "react-router-dom"
 import "./Login.css"
 import {registerUrl} from "../../api/getPost"
 import "materialize-css/dist/css/materialize.min.css"
+// import LOGIN_ROUTE from '../../utils/const'
 
 const Register = (props) => {
   //   const [user, setUser] = useState({""})
@@ -51,6 +53,8 @@ const Register = (props) => {
         if (result.data.user) {
           props.setUser(result.data.user)
           localStorage.setItem('password', result.data.access_token);
+          // <NavLink to={LOGIN_ROUTE}></NavLink>
+          // window.location.href = 'http://localhost:3000/login';
           window.location.href = '/';
         }
         if (result.error) {

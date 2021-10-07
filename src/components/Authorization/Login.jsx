@@ -1,3 +1,4 @@
+/* eslint-disable spaced-comment */
 /* eslint-disable prefer-const */
 /* eslint-disable import/no-default-export */
 /* eslint-disable no-console */
@@ -7,12 +8,15 @@
 import React, { useState } from "react"
 import axios from "axios"
 import "./Login.css"
-import {loginUrl, loginUrlGet} from '../../api/getPost'
+import { loginUrl, loginUrlGet } from "../../api/getPost"
 import "materialize-css/dist/css/materialize.min.css"
+// import { NavLink } from "react-router-dom"
+// import { Redirect } from "react-router"
 
-const Login = ({setUser}) => {
+const Login = ({ setUser }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  // eslint-disable-next-line no-unused-vars
   let [errors, setErrors] = useState({
     email: false,
     password: false,
@@ -27,8 +31,8 @@ const Login = ({setUser}) => {
   }
 
   const onGetUser = () => {
-    axios.get(loginUrlGet, {
-    })
+    axios.get(loginUrlGet, {})
+
   }
 
   const onSubmit = () => {
@@ -41,15 +45,18 @@ const Login = ({setUser}) => {
         password,
       })
       .then((result) => {
-        if (result.data.message) {
-             onGetUser();
+        if (result.data.user) {
+          onGetUser()
+          console.log(result, "login")
+          setUser(result.data.user)
+          sessionStorage.setItem("user", JSON.stringify(result.data.user))
+          localStorage.setItem("passport", result.data.access_token)
+          window.location.href = "/"   //перенапрвление на страницу??
+          // <Redirect to="/" />   //перенапрвление на страницу??
+          // <NavLink
         }
-        console.log(result, 'login');
-        setUser(result.data.user);
-        sessionStorage.setItem('user', JSON.stringify(result.data.user)); 
-        localStorage.setItem('passport', result.data.access_token);
-        window.location.href = '/';
-    });
+        
+      })
   }
 
   return (
@@ -96,6 +103,7 @@ const Login = ({setUser}) => {
                 type="button"
                 className="btn-large red"
                 onClick={() => onSubmit()}
+                
               >
                 Login
               </button>

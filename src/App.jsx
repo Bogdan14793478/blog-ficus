@@ -7,6 +7,7 @@ import Register from "./components/Authorization/Register"
 // eslint-disable-next-line prettier/prettier
 import {getRegisterUrl} from "./api/getPost"
 import Login from "./components/Authorization/Login"
+import { HomePage } from "./components/Pages/HomePage"
 
 export function App() {
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")))
@@ -36,7 +37,7 @@ export function App() {
         <Route path="/login" setUser={setUser} render={() => <Login />} />
         <Route path="/register" setUser={setUser} render={() => <Register />} />
 
-        <Route path="/homepage" />
+        <Route path="/" render={() => <HomePage />} />
       </Switch>
     </Router>
   )
