@@ -6,12 +6,12 @@
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react"
+import { useHistory } from "react-router-dom"
 import axios from "axios"
 import "./Login.css"
 import { loginUrl, loginUrlGet } from "../../api/getPost"
 import "materialize-css/dist/css/materialize.min.css"
-// import { NavLink } from "react-router-dom"
-// import { Redirect } from "react-router"
+
 
 const Login = ({ setUser }) => {
   const [email, setEmail] = useState("")
@@ -29,6 +29,14 @@ const Login = ({ setUser }) => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value)
   }
+
+  
+  
+  let history = useHistory();
+
+  function handleClick(){
+    history.push("/");
+  } 
 
   const onGetUser = () => {
     axios.get(loginUrlGet, {})
@@ -51,9 +59,7 @@ const Login = ({ setUser }) => {
           setUser(result.data.user)
           sessionStorage.setItem("user", JSON.stringify(result.data.user))
           localStorage.setItem("passport", result.data.access_token)
-          window.location.href = "/"   //перенапрвление на страницу??
-          // <Redirect to="/" />   //перенапрвление на страницу??
-          // <NavLink
+          // window.location.href = "/"   //перенапрвление на страницу??
         }
         
       })
@@ -102,8 +108,8 @@ const Login = ({ setUser }) => {
               <button
                 type="button"
                 className="btn-large red"
-                onClick={() => onSubmit()}
-                
+                // eslint-disable-next-line no-sequences
+                onClick={() => onSubmit, handleClick }
               >
                 Login
               </button>
