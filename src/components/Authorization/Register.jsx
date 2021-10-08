@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom"
 import { onSubmitRegister } from "../../api/user"
 import "./Login.css"
 import { validateEmail } from "../../const.js/const"
-// import { registerUrl } from "../../api/getPost"
 import "materialize-css/dist/css/materialize.min.css"
 
 export const Register = ({ setUser }) => {

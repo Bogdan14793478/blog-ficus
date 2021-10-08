@@ -9,9 +9,6 @@ const onGetUser = () => {
 }
 
 export const onSubmit = ({ email, password, setUser, errors }) => {
-  // if (!email && Object.keys(errors).length !== 0) {
-  //   return
-  // }
   axios
     .post(`${basePath}auth/`, {
       email,
@@ -62,11 +59,9 @@ export const onSubmitRegister = ({ email, errors, password, setUser }) => {
       if (result.data.user) {
         setUser(result.data.user)
         locStorageRegistr(result)
-        // localStorage.setItem("password", result.data.access_token)
       }
       if (result.error) {
         locStorageRegistr(result)
-        // localStorage.setItem("password", result.data.access_token)
       }
     })
 }
