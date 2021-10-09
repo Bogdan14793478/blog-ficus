@@ -5,45 +5,35 @@ import { locStorageLogin, locStorageRegistr } from "../utils/helpers"
 // login
 
 const onGetUser = () => {
-  axios.get(`${basePath}auth/user/`, {})
+  axios.get(`${basePath}auth/user/`, {}).then((result2) => console.log(result2))
+  // при запросе пишет Unauthorized, why?? 403 error
 }
 
-export const onSubmit = ({ email, password, setUser, errors }) => {
+export const onSubmit = ({ email, password, setUser }) => {
   axios
     .post(`${basePath}auth/`, {
       email,
       password,
     })
     .then((result) => {
-      if (result.data.user) {
-        setUser(result.data.user)
+      if (result.status === 200) {
+        console.log("hi")
         locStorageLogin(result)
         onGetUser()
+        // setUser(result.statusText) // not a function???
+        if (result.data.token) {
+          return true
+        }
+        return false
       }
+      return false
     })
-  return true
+    .catch((e) => {
+      console.log(e)
+    })
 }
 
 export const rezOnSubmit = onSubmit
-
-// export const onSubmit = (ourParam) => {
-//   console.log(ourParam.email, "1234")
-//   if (!ourParam.email && Object.keys(ourParam.errors).length !== 0) {
-//     return
-//   }
-//   axios
-//     .post(`${basePath}auth/`, {
-//       email: ourParam.email,
-//       password: ourParam.password,
-//     })
-//     .then((result) => {
-//       if (result.data.user) {
-//         ourParam.setUser(result.data.user)
-//         locStorageLogin(result)
-//         onGetUser()
-//       }
-//     })
-// }
 
 // Register
 export const onSubmitRegister = ({ email, errors, password, setUser }) => {
@@ -56,12 +46,18 @@ export const onSubmitRegister = ({ email, errors, password, setUser }) => {
       password,
     })
     .then((result) => {
-      if (result.data.user) {
-        setUser(result.data.user)
-        locStorageRegistr(result)
+      if (result.status === 200 && result.statusText === "OK") {
+        // setUser(result.config.data) не читает данные по date, почему??
+        // locStorageRegistr(result)
+        // does not read data from date, why??
+        alert("Registration successful")
       }
-      if (result.error) {
-        locStorageRegistr(result)
+      if (result.status >= 400) {
+        // locStorageRegistr(result)
+        alert("Registration not successful, try again")
       }
+    })
+    .catch((e) => {
+      console.log(e)
     })
 }

@@ -13,6 +13,10 @@ export const Login = ({ setUser }) => {
   })
   const history = useHistory()
 
+  function handlePush() {
+    history.push("/")
+  }
+
   const handleEmailChange = (event) => {
     setEmail(event.target.value)
   }
@@ -21,16 +25,11 @@ export const Login = ({ setUser }) => {
     setPassword(event.target.value)
   }
 
-  function handlePush() {
-    history.push("/")
-  }
-
-  async function onClickLogin(em, pa, se, e) {
+  async function onClickLogin(em, pa, se) {
     try {
-      const param = { em, pa, se, e }
+      const param = { em, pa, se }
       const ourParam = { ...param.em }
       onSubmit(ourParam)
-      console.log(onSubmit)
       await (rezOnSubmit ? handlePush() : alert("Вы не вошли"))
     } catch (err) {
       console.error(err)
@@ -88,7 +87,7 @@ export const Login = ({ setUser }) => {
                 <button
                   type="button"
                   className="btn-large red"
-                  onClick={() => onClickLogin({ email, password, setUser, errors })}
+                  onClick={() => onClickLogin({ email, password, setUser })}
                 >
                   Login
                 </button>

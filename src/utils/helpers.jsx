@@ -1,8 +1,12 @@
-export const locStorageLogin = ({ result }) => {
-  sessionStorage.setItem("user", JSON.stringify(result.data.user))
-  localStorage.setItem("passport", result.data.access_token)
+export const locStorageLogin = (result) => {
+  console.log(result.config.data, result.data.token, "locStorage")
+  sessionStorage.setItem("user", JSON.stringify(result.config.data))
+  localStorage.setItem("passport", result.data.token)
 }
 
 export const locStorageRegistr = ({ result }) => {
-  localStorage.setItem("password", result.data.access_token)
+  // if (result.data) {
+  // localStorage.setItem("email", result.data.email)
+  // localStorage.setItem("id", result.data.id)
+  // } else alert("Email must be uniq")
 }
