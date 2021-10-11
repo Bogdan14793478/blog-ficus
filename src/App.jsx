@@ -3,7 +3,7 @@ import "./App.css"
 import axios from "axios"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { Register } from "./components/Authorization/Register"
-import { getRegisterUrl } from "./api/getPost"
+import { basePath } from "./api/getPost"
 import { Login } from "./components/Authorization/Login"
 import { HomePage } from "./components/Pages/HomePage"
 
@@ -17,7 +17,7 @@ export function App() {
     }
 
     if (user === null && token.length > 0) {
-      axios.get(getRegisterUrl, config).then((result) => {
+      axios.get(`${basePath}users/`, config).then((result) => {
         if (result.data) {
           sessionStorage.setItem("user", JSON.stringify(result.data))
           setUser(result.data)

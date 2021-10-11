@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
 import "materialize-css/dist/css/materialize.min.css"
-import { onSubmit, rezOnSubmit } from "../../api/user"
+import { onSubmit, onSubmit as rezOnSubmit } from "../../api/user"
 
 export const Login = ({ setUser }) => {
   const [email, setEmail] = useState("")
@@ -25,11 +25,9 @@ export const Login = ({ setUser }) => {
     setPassword(event.target.value)
   }
 
-  async function onClickLogin(em, pa, se) {
+  async function onClickLogin(loginData) {
     try {
-      const param = { em, pa, se }
-      const ourParam = { ...param.em }
-      onSubmit(ourParam)
+      onSubmit(loginData)
       await (rezOnSubmit ? handlePush() : alert("Вы не вошли"))
     } catch (err) {
       console.error(err)

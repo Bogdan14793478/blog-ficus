@@ -5,7 +5,17 @@ import { locStorageLogin, locStorageRegistr } from "../utils/helpers"
 // login
 
 const onGetUser = () => {
-  axios.get(`${basePath}auth/user/`, {}).then((result2) => console.log(result2))
+  axios
+    .get(`${basePath}auth/user/`, {})
+    .then((result) => {
+      if (localStorage.getItem("passport").length > 0) {
+        console.log("i am login almost")
+        console.log(result, "auth/user")
+      }
+    })
+    .catch((e) => {
+      console.log(e)
+    })
   // при запросе пишет Unauthorized, why?? 403 error
 }
 
@@ -17,7 +27,7 @@ export const onSubmit = ({ email, password, setUser }) => {
     })
     .then((result) => {
       if (result.status === 200) {
-        console.log("hi")
+        // console.log("hi")
         locStorageLogin(result)
         onGetUser()
         // setUser(result.statusText) // not a function???
@@ -33,8 +43,6 @@ export const onSubmit = ({ email, password, setUser }) => {
     })
 }
 
-export const rezOnSubmit = onSubmit
-
 // Register
 export const onSubmitRegister = ({ email, errors, password, setUser }) => {
   if (!email && Object.keys(errors).length !== 0) {
@@ -47,17 +55,13 @@ export const onSubmitRegister = ({ email, errors, password, setUser }) => {
     })
     .then((result) => {
       if (result.status === 200 && result.statusText === "OK") {
-        // setUser(result.config.data) не читает данные по date, почему??
-        // locStorageRegistr(result)
-        // does not read data from date, why??
+        locStorageRegistr(result)
         alert("Registration successful")
-      }
-      if (result.status >= 400) {
-        // locStorageRegistr(result)
-        alert("Registration not successful, try again")
+        setUser(result.data.token) // not a function
       }
     })
     .catch((e) => {
       console.log(e)
+      alert("Registration not successful, try again")
     })
 }

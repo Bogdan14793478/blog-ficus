@@ -2,13 +2,13 @@ import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 import { onSubmitRegister } from "../../api/user"
 import "./Login.css"
-import { validateEmail } from "../../const.js/const"
+import { validateEmail } from "../../utils/validators"
 import "materialize-css/dist/css/materialize.min.css"
 
 export const Register = ({ setUser }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [errors, setErrors] = useState("")
+  const [errors, setErrors] = useState({})
   const history = useHistory()
 
   function handlePush() {
@@ -20,7 +20,7 @@ export const Register = ({ setUser }) => {
 
     const clonedErrors = { ...errors }
     const isValidEmail = validateEmail(event.target.value)
-    if (!isValidEmail && event.target.value.length > 0) {
+    if (!isValidEmail) {
       clonedErrors.email = "Email is not valid"
     } else {
       delete clonedErrors.email
@@ -32,8 +32,8 @@ export const Register = ({ setUser }) => {
     setPassword(event.target.value)
   }
 
-  const goToLogin = (em, pas, er, sU) => {
-    onSubmitRegister(em, er, pas, sU)
+  const goToLogin = (loginData) => {
+    onSubmitRegister(loginData)
     handlePush()
   }
   return (
