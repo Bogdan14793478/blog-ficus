@@ -1,10 +1,11 @@
+/* eslint-disable no-unreachable */
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
 import "materialize-css/dist/css/materialize.min.css"
 import { onSubmit, onSubmit as rezOnSubmit } from "../../api/user"
 
-export const Login = ({ setUser }) => {
+export const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState({
@@ -85,7 +86,7 @@ export const Login = ({ setUser }) => {
                 <button
                   type="button"
                   className="btn-large red"
-                  onClick={() => onClickLogin({ email, password, setUser })}
+                  onClick={() => onClickLogin({ email, password })}
                 >
                   Login
                 </button>

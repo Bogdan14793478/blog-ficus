@@ -34,5 +34,6 @@ module.exports = {
     "no-inline-comments": "warn",
     "import/no-default-export": "error",
     "import/prefer-default-export": "off",
+    "no-underscore-dangle": "off",
   },
 }

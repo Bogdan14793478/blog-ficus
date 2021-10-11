@@ -1,14 +1,12 @@
-import axios from "axios"
-import { basePath } from "./getPost"
-import { locStorageLogin, locStorageRegistr } from "../utils/helpers"
-
+import { setToStorageLogin, setToStorageRegisrt } from "../utils/helpers"
+import { axiosInstance } from "./axios"
 // login
 
 const onGetUser = () => {
-  axios
-    .get(`${basePath}auth/user/`, {})
+  axiosInstance
+    .get("auth/user/", {})
     .then((result) => {
-      if (localStorage.getItem("passport").length > 0) {
+      if (result.data) {
         console.log("i am login almost")
         console.log(result, "auth/user")
       }
@@ -16,21 +14,19 @@ const onGetUser = () => {
     .catch((e) => {
       console.log(e)
     })
-  // при запросе пишет Unauthorized, why?? 403 error
 }
 
-export const onSubmit = ({ email, password, setUser }) => {
-  axios
-    .post(`${basePath}auth/`, {
+export const onSubmit = ({ email, password }) => {
+  axiosInstance
+    .post("auth/", {
       email,
       password,
     })
     .then((result) => {
       if (result.status === 200) {
         // console.log("hi")
-        locStorageLogin(result)
+        setToStorageLogin(result.data.token)
         onGetUser()
-        // setUser(result.statusText) // not a function???
         if (result.data.token) {
           return true
         }
@@ -44,20 +40,19 @@ export const onSubmit = ({ email, password, setUser }) => {
 }
 
 // Register
-export const onSubmitRegister = ({ email, errors, password, setUser }) => {
+export const onSubmitRegister = ({ email, errors, password }) => {
   if (!email && Object.keys(errors).length !== 0) {
     return
   }
-  axios
-    .post(`${basePath}users/`, {
+  axiosInstance
+    .post("users/", {
       email,
       password,
     })
     .then((result) => {
       if (result.status === 200 && result.statusText === "OK") {
-        locStorageRegistr(result)
+        setToStorageRegisrt(result.data.email, result.data._id)
         alert("Registration successful")
-        setUser(result.data.token) // not a function
       }
     })
     .catch((e) => {

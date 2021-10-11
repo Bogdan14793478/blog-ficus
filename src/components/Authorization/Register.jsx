@@ -5,7 +5,7 @@ import "./Login.css"
 import { validateEmail } from "../../utils/validators"
 import "materialize-css/dist/css/materialize.min.css"
 
-export const Register = ({ setUser }) => {
+export const Register = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState({})
@@ -81,7 +81,7 @@ export const Register = ({ setUser }) => {
                 <button
                   type="button"
                   className="btn-large red"
-                  onClick={() => goToLogin({ email, password, errors, setUser })}
+                  onClick={() => goToLogin({ email, password, errors })}
                 >
                   Registration
                 </button>
