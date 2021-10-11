@@ -6,8 +6,10 @@ import { validateEmail } from "../../utils/validators"
 import "materialize-css/dist/css/materialize.min.css"
 
 export const Register = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [registerData, setRegisterData] = useState({
+    email: "",
+    password: "",
+  })
   const [errors, setErrors] = useState({})
   const history = useHistory()
 
@@ -15,21 +17,21 @@ export const Register = () => {
     history.push("/login")
   }
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value)
+  const handleChange = (event) => {
+    const { value, name } = event.target
+    setRegisterData({
+      ...registerData,
+      [name]: value,
+    })
 
     const clonedErrors = { ...errors }
     const isValidEmail = validateEmail(event.target.value)
     if (!isValidEmail) {
-      clonedErrors.email = "Email is not valid"
+      clonedErrors.email = "Email or password is not valid"
     } else {
       delete clonedErrors.email
     }
     setErrors(clonedErrors)
-  }
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
   }
 
   const goToLogin = (loginData) => {
@@ -56,8 +58,8 @@ export const Register = () => {
                     variant="outlined"
                     required
                     label="Email Address"
-                    onChange={handleEmailChange}
-                    value={email}
+                    onChange={handleChange}
+                    value={registerData.email}
                   />
                 </label>
               </div>
@@ -67,8 +69,8 @@ export const Register = () => {
                   <input
                     type="password"
                     id="password"
-                    onChange={handlePasswordChange}
-                    value={password}
+                    onChange={handleChange}
+                    value={registerData.password}
                     variant="outlined"
                     required
                     name="password"
@@ -81,7 +83,13 @@ export const Register = () => {
                 <button
                   type="button"
                   className="btn-large red"
-                  onClick={() => goToLogin({ email, password, errors })}
+                  onClick={() =>
+                    goToLogin({
+                      email: registerData.email,
+                      password: registerData.password,
+                      errors,
+                    })
+                  }
                 >
                   Registration
                 </button>

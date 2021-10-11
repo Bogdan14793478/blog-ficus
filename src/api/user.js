@@ -1,4 +1,4 @@
-import { setToStorageLogin, setToStorageRegisrt } from "../utils/helpers"
+import { isetToStorage } from "../utils/helpers"
 import { axiosInstance } from "./axios"
 // login
 
@@ -25,7 +25,7 @@ export const onSubmit = ({ email, password }) => {
     .then((result) => {
       if (result.status === 200) {
         // console.log("hi")
-        setToStorageLogin(result.data.token)
+        isetToStorage(result.data.token, "passport")
         onGetUser()
         if (result.data.token) {
           return true
@@ -51,7 +51,7 @@ export const onSubmitRegister = ({ email, errors, password }) => {
     })
     .then((result) => {
       if (result.status === 200 && result.statusText === "OK") {
-        setToStorageRegisrt(result.data.email, result.data._id)
+        isetToStorage(result.data.email, "email", result.data._id, "id")
         alert("Registration successful")
       }
     })

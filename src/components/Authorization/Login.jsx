@@ -6,8 +6,10 @@ import "materialize-css/dist/css/materialize.min.css"
 import { onSubmit, onSubmit as rezOnSubmit } from "../../api/user"
 
 export const Login = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  })
   const [errors, setErrors] = useState({
     email: false,
     password: false,
@@ -18,17 +20,18 @@ export const Login = () => {
     history.push("/")
   }
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value)
+  const handleLoginFormChange = (event) => {
+    const { value, name } = event.target
+
+    setLoginData({
+      ...loginData,
+      [name]: value, // [изменяемый ключ]: значение
+    })
   }
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
-  }
-
-  async function onClickLogin(loginData) {
+  async function onClickLogin(data) {
     try {
-      onSubmit(loginData)
+      onSubmit(data)
       await (rezOnSubmit ? handlePush() : alert("Вы не вошли"))
     } catch (err) {
       console.error(err)
@@ -54,9 +57,9 @@ export const Login = () => {
                     name="email"
                     variant="outlined"
                     required
-                    value={email}
+                    value={loginData.email}
                     label="Email Address"
-                    onChange={handleEmailChange}
+                    onChange={handleLoginFormChange}
                   />
                 </label>
               </div>
@@ -66,8 +69,8 @@ export const Login = () => {
                   <input
                     type="password"
                     id="password"
-                    onChange={handlePasswordChange}
-                    value={password}
+                    onChange={handleLoginFormChange}
+                    value={loginData.password}
                     variant="outlined"
                     required
                     name="password"
@@ -86,7 +89,12 @@ export const Login = () => {
                 <button
                   type="button"
                   className="btn-large red"
-                  onClick={() => onClickLogin({ email, password })}
+                  onClick={() =>
+                    onClickLogin({
+                      email: loginData.email,
+                      password: loginData.password,
+                    })
+                  }
                 >
                   Login
                 </button>

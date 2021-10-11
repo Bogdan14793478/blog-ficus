@@ -13,13 +13,6 @@ axiosInstance.interceptors.request.use(
       return request
     }
     return request
-
-    // localStorage.setItem("passport", config.data.token)
-
-    // взять токен
-    // добавить в хеадерс
-    // учесть момент если токена нет
-    // получить токен и сделать проверку если его нет
   },
   (error) => {
     console.log(error)
