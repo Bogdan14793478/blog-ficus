@@ -2,7 +2,7 @@ import { setToStorage } from "../utils/helpers"
 import { axiosInstance } from "./axios"
 // login
 
-const onGetUser = () => {
+const fetchUser = () => {
   axiosInstance
     .get("auth/user/", {})
     .then((result) => {
@@ -27,7 +27,7 @@ export const onSubmit = ({ email, password }) => {
         setToStorage(result.data.token, "passport")
       }
     })
-    .then(onGetUser())
+    .then(fetchUser())
     .catch((e) => {
       console.log(e)
       return false

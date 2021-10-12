@@ -19,7 +19,7 @@ export const Login = () => {
   const history = useHistory()
 
   function handlePush() {
-    history.push("/")
+    history.push("/home")
   }
 
   const handleLoginFormChange = (event) => {

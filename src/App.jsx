@@ -13,7 +13,7 @@ export function App() {
 
         <Route path="/register" component={Register} />
 
-        <Route path="/" component={HomePage} />
+        <Route path="/home" component={HomePage} />
       </Switch>
     </Router>
   )

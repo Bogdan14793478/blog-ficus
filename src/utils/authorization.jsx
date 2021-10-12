@@ -1,12 +1,13 @@
 import { onSubmitRegister, onSubmit } from "../api/user"
 import { notvalidFuncvalidFunc } from "./validators"
+import { removeToStorage } from "./helpers"
 
 export async function regPlusLogin(data) {
   let res = true
   try {
     if (data.key === "register") {
       console.log(data, " registerData")
-      await localStorage.removeItem("id")
+      await removeToStorage("id")
       await onSubmitRegister(data)
       if (notvalidFuncvalidFunc) {
         res = true
@@ -15,7 +16,7 @@ export async function regPlusLogin(data) {
         res = false
       }
     } else if (data.key === "login") {
-      localStorage.removeItem("passport")
+      removeToStorage("passport")
       const status = await onSubmit(data)
       if (status) {
         // (onSubmit(data) !== false)
