@@ -13,7 +13,7 @@ export const Register = () => {
   const [errors, setErrors] = useState({})
   const history = useHistory()
 
-  function handlePush() {
+  function redirectToLogin() {
     history.push("/login")
   }
 
@@ -39,7 +39,7 @@ export const Register = () => {
 
   async function startRegistr(data) {
     regPlusLogin(data)
-    handlePush()
+    redirectToLogin()
   }
 
   return (

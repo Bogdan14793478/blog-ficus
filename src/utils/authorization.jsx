@@ -1,5 +1,5 @@
-import { onSubmitRegister, onSubmit } from "../api/user"
-import { notvalidFuncvalidFunc } from "./validators"
+import { onSubmitRegister, signUp } from "../api/user"
+import { validateRegistr } from "./validators"
 import { removeToStorage } from "./helpers"
 
 export async function regPlusLogin(data) {
@@ -9,7 +9,7 @@ export async function regPlusLogin(data) {
       console.log(data, " registerData")
       await removeToStorage("id")
       await onSubmitRegister(data)
-      if (notvalidFuncvalidFunc) {
+      if (validateRegistr) {
         res = true
       } else {
         alert("Вы не зарeгестрировались")
@@ -17,9 +17,8 @@ export async function regPlusLogin(data) {
       }
     } else if (data.key === "login") {
       removeToStorage("passport")
-      const status = await onSubmit(data)
+      const status = await signUp(data)
       if (status) {
-        // (onSubmit(data) !== false)
         res = true
       } else {
         alert("Вы не вошли")

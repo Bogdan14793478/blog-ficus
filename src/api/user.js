@@ -16,7 +16,7 @@ const fetchUser = () => {
     })
 }
 
-export const onSubmit = ({ email, password }) => {
+export const signUp = ({ email, password }) => {
   return axiosInstance
     .post("auth/", {
       email,
@@ -35,7 +35,7 @@ export const onSubmit = ({ email, password }) => {
 }
 
 // Register
-export const onSubmitRegister = ({ email, errors, password }) => {
+export const onSubmitRegister = ({ email, password }) => {
   axiosInstance
     .post("users/", {
       email,
@@ -49,7 +49,7 @@ export const onSubmitRegister = ({ email, errors, password }) => {
       }
     })
     .catch((e) => {
-      console.log(e, errors)
+      console.log(e)
       alert("Registration not successful, try again")
     })
 }

@@ -5,7 +5,6 @@ import "./Login.css"
 import { regPlusLogin } from "../../utils/authorization"
 
 import "materialize-css/dist/css/materialize.min.css"
-import { onSubmit, onSubmit as rezOnSubmit } from "../../api/user"
 
 export const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -18,7 +17,7 @@ export const Login = () => {
   })
   const history = useHistory()
 
-  function handlePush() {
+  function redirectToHome() {
     history.push("/home")
   }
 
@@ -33,7 +32,7 @@ export const Login = () => {
 
   async function startLogin(data) {
     const status = await regPlusLogin(data)
-    if (status) handlePush()
+    if (status) redirectToHome()
   }
 
   return (
