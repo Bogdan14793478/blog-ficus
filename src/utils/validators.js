@@ -5,11 +5,9 @@ export const validateLoginData = (e) => {
 }
 
 export const notvalidFuncvalidFunc = (data) => {
-  console.log(data.email, " loginData.email")
   let res = true
   if (!data.email || Object.keys(data.errors).length !== 0) {
     res = false
   }
-  console.log(res, " res2")
   return res
 }

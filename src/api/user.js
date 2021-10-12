@@ -17,7 +17,6 @@ const onGetUser = () => {
 }
 
 export const onSubmit = ({ email, password }) => {
-  console.log(email, password, "email, password")
   return axiosInstance
     .post("auth/", {
       email,
@@ -25,7 +24,6 @@ export const onSubmit = ({ email, password }) => {
     })
     .then((result) => {
       if (result.data) {
-        console.log("hi")
         setToStorage(result.data.token, "passport")
       }
     })

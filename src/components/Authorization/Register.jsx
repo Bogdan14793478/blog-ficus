@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
-// import { onSubmitRegister } from "../../api/user"
 import "./Login.css"
 import { regPlusLogin } from "../../utils/authorization"
 import { validateLoginData } from "../../utils/validators"

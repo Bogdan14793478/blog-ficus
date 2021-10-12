@@ -28,6 +28,5 @@ export async function regPlusLogin(data) {
   } catch (error) {
     console.log(error)
   }
-  console.log(res, "res auth")
   return res
 }
