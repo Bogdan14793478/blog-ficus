@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
-import { onSubmitRegister } from "../../api/user"
+// import { onSubmitRegister } from "../../api/user"
 import "./Login.css"
-import { validateEmail, notvalidFuncvalidFunc } from "../../utils/validators"
+import { regPlusLogin } from "../../utils/authorization"
+import { validateLoginData } from "../../utils/validators"
 import "materialize-css/dist/css/materialize.min.css"
 
 export const Register = () => {
@@ -19,7 +20,7 @@ export const Register = () => {
 
   const afterHandleChange = (event) => {
     const clonedErrors = { ...errors }
-    const isValidEmail = validateEmail(event.target.value)
+    const isValidEmail = validateLoginData(event.target.value)
     if (!isValidEmail) {
       clonedErrors.email = "Email or password is not valid"
     } else {
@@ -37,17 +38,9 @@ export const Register = () => {
     afterHandleChange(event)
   }
 
-  async function goToLogin(data) {
-    try {
-      console.log(data, " registerData")
-      await localStorage.removeItem("id")
-      await onSubmitRegister(data)
-      if (notvalidFuncvalidFunc) {
-        handlePush()
-      } else alert("Вы не зарeгестрировались")
-    } catch (err) {
-      console.error(err)
-    }
+  async function startRegistr(data) {
+    regPlusLogin(data)
+    handlePush()
   }
 
   return (
@@ -96,10 +89,10 @@ export const Register = () => {
                   type="button"
                   className="btn-large red"
                   onClick={() =>
-                    goToLogin({
+                    startRegistr({
+                      key: "register",
                       email: registerData.email,
                       password: registerData.password,
-                      errors,
                     })
                   }
                 >

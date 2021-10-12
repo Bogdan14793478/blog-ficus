@@ -29,7 +29,7 @@ export const onSubmit = ({ email, password }) => {
         setToStorage(result.data.token, "passport")
       }
     })
-    .then(() => onGetUser())
+    .then(onGetUser())
     .catch((e) => {
       console.log(e)
       return false
@@ -51,7 +51,7 @@ export const onSubmitRegister = ({ email, errors, password }) => {
       }
     })
     .catch((e) => {
-      console.log(e)
+      console.log(e, errors)
       alert("Registration not successful, try again")
     })
 }

@@ -2,6 +2,8 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
+import { regPlusLogin } from "../../utils/authorization"
+
 import "materialize-css/dist/css/materialize.min.css"
 import { onSubmit, onSubmit as rezOnSubmit } from "../../api/user"
 
@@ -29,16 +31,9 @@ export const Login = () => {
     })
   }
 
-  async function onClickLogin() {
-    try {
-      localStorage.removeItem("passport")
-      await onSubmit(loginData)
-      if (localStorage.getItem("passport")) {
-        handlePush()
-      } else alert("Вы не вошли")
-    } catch (err) {
-      console.error(err)
-    }
+  async function startLogin(data) {
+    const status = await regPlusLogin(data)
+    if (status) handlePush()
   }
 
   return (
@@ -92,7 +87,14 @@ export const Login = () => {
                 <button
                   type="button"
                   className="btn-large red"
-                  onClick={onClickLogin}
+                  // onClick={onClickLogin}
+                  onClick={() =>
+                    startLogin({
+                      key: "login",
+                      email: loginData.email,
+                      password: loginData.password,
+                    })
+                  }
                 >
                   Login
                 </button>
