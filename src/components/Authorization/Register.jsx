@@ -35,14 +35,6 @@ export const Register = () => {
       [name]: value,
     })
     afterHandleChange(event)
-    // const clonedErrors = { ...errors }
-    // const isValidEmail = validateEmail(event.target.value)
-    // if (!isValidEmail) {
-    //   clonedErrors.email = "Email or password is not valid"
-    // } else {
-    //   delete clonedErrors.email
-    // }
-    // setErrors(clonedErrors)
   }
 
   async function goToLogin(data) {
@@ -58,15 +50,6 @@ export const Register = () => {
     }
   }
 
-  // const goToLogin = (loginData) => {
-  //   console.log(loginData, " loginData")
-  //   if (notvalidFuncvalidFunc(loginData) === false) {
-  //     alert("email not valid, password can`t be more ten sumbols")
-  //   } else if (notvalidFuncvalidFunc(loginData) === true) {
-  //     onSubmitRegister(loginData)
-  //     handlePush()
-  //   }
-  // }
   return (
     <div className="row">
       <div id="allblock" className="col s12 s14 offset-14 allblock">
