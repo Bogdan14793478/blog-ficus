@@ -29,10 +29,13 @@ export const Login = () => {
     })
   }
 
-  async function onClickLogin(data) {
+  async function onClickLogin() {
     try {
-      onSubmit(data)
-      await (rezOnSubmit ? handlePush() : alert("Вы не вошли"))
+      localStorage.removeItem("passport")
+      await onSubmit(loginData)
+      if (localStorage.getItem("passport")) {
+        handlePush()
+      } else alert("Вы не вошли")
     } catch (err) {
       console.error(err)
     }
@@ -89,12 +92,7 @@ export const Login = () => {
                 <button
                   type="button"
                   className="btn-large red"
-                  onClick={() =>
-                    onClickLogin({
-                      email: loginData.email,
-                      password: loginData.password,
-                    })
-                  }
+                  onClick={onClickLogin}
                 >
                   Login
                 </button>

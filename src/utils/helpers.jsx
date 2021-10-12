@@ -1,3 +1,3 @@
-export const isetToStorage = (data, key) => {
+export const setToStorage = (data, key) => {
   localStorage.setItem(key, data)
 }

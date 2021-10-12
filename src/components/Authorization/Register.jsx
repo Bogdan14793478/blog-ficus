@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 import { onSubmitRegister } from "../../api/user"
 import "./Login.css"
-import { validateEmail } from "../../utils/validators"
+import { validateEmail, notvalidFuncvalidFunc } from "../../utils/validators"
 import "materialize-css/dist/css/materialize.min.css"
 
 export const Register = () => {
@@ -17,13 +17,7 @@ export const Register = () => {
     history.push("/login")
   }
 
-  const handleChange = (event) => {
-    const { value, name } = event.target
-    setRegisterData({
-      ...registerData,
-      [name]: value,
-    })
-
+  const afterHandleChange = (event) => {
     const clonedErrors = { ...errors }
     const isValidEmail = validateEmail(event.target.value)
     if (!isValidEmail) {
@@ -34,10 +28,45 @@ export const Register = () => {
     setErrors(clonedErrors)
   }
 
-  const goToLogin = (loginData) => {
-    onSubmitRegister(loginData)
-    handlePush()
+  const handleChange = (event) => {
+    const { value, name } = event.target
+    setRegisterData({
+      ...registerData,
+      [name]: value,
+    })
+    afterHandleChange(event)
+    // const clonedErrors = { ...errors }
+    // const isValidEmail = validateEmail(event.target.value)
+    // if (!isValidEmail) {
+    //   clonedErrors.email = "Email or password is not valid"
+    // } else {
+    //   delete clonedErrors.email
+    // }
+    // setErrors(clonedErrors)
   }
+
+  async function goToLogin(data) {
+    try {
+      console.log(data, " registerData")
+      await localStorage.removeItem("id")
+      await onSubmitRegister(data)
+      if (notvalidFuncvalidFunc) {
+        handlePush()
+      } else alert("Вы не зарeгестрировались")
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  // const goToLogin = (loginData) => {
+  //   console.log(loginData, " loginData")
+  //   if (notvalidFuncvalidFunc(loginData) === false) {
+  //     alert("email not valid, password can`t be more ten sumbols")
+  //   } else if (notvalidFuncvalidFunc(loginData) === true) {
+  //     onSubmitRegister(loginData)
+  //     handlePush()
+  //   }
+  // }
   return (
     <div className="row">
       <div id="allblock" className="col s12 s14 offset-14 allblock">
