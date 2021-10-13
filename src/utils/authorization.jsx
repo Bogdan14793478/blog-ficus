@@ -6,7 +6,6 @@ export async function registerOrLogin(data) {
   let res = true
   try {
     if (data.type === "register") {
-      console.log(data, " registerData")
       await removeToStorage("id")
       await onSubmitRegister(data)
       const validData = await validateRegistr(data)
