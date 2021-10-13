@@ -17,23 +17,24 @@ const fetchUser = () => {
 }
 
 export const signUp = ({ email, password }) => {
+  debugger
   return axiosInstance
     .post("auth/", {
       email,
       password,
     })
     .then((result) => {
+      debugger
       if (result.data) {
         setToStorage(result.data.token, "passport")
       }
     })
-    .then(fetchUser())
+    .then(fetchUser)
     .catch((e) => {
       console.log(e)
       return false
     })
 }
-
 // Register
 export const onSubmitRegister = ({ email, password }) => {
   axiosInstance

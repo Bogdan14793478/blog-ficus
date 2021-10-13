@@ -4,6 +4,7 @@ import { removeToStorage } from "./helpers"
 
 export async function regPlusLogin(data) {
   let res = true
+  debugger
   try {
     if (data.key === "register") {
       console.log(data, " registerData")
@@ -18,7 +19,7 @@ export async function regPlusLogin(data) {
     } else if (data.key === "login") {
       removeToStorage("passport")
       const status = await signUp(data)
-      if (status) {
+      if (data) {
         res = true
       } else {
         alert("Вы не вошли")

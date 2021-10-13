@@ -31,6 +31,7 @@ export const Login = () => {
   }
 
   async function startLogin(data) {
+    debugger
     const status = await regPlusLogin(data)
     if (status) redirectToHome()
   }
