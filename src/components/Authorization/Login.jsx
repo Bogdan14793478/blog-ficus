@@ -1,8 +1,7 @@
-/* eslint-disable no-unreachable */
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
-import { regPlusLogin } from "../../utils/authorization"
+import { registerOrLogin } from "../../utils/authorization"
 
 import "materialize-css/dist/css/materialize.min.css"
 
@@ -29,11 +28,12 @@ export const Login = () => {
       [name]: value, // [изменяемый ключ]: значение
     })
   }
-
-  async function startLogin(data) {
-    debugger
-    const status = await regPlusLogin(data)
-    if (status) redirectToHome()
+  const onClickLogin = (data) => {
+    return async function startLogin() {
+      const status = await registerOrLogin(data)
+      if (!status) alert("Login not succesful")
+      if (status) redirectToHome()
+    }
   }
 
   return (
@@ -88,13 +88,11 @@ export const Login = () => {
                   type="button"
                   className="btn-large red"
                   // onClick={onClickLogin}
-                  onClick={() =>
-                    startLogin({
-                      key: "login",
-                      email: loginData.email,
-                      password: loginData.password,
-                    })
-                  }
+                  onClick={onClickLogin({
+                    type: "login",
+                    email: loginData.email,
+                    password: loginData.password,
+                  })}
                 >
                   Login
                 </button>

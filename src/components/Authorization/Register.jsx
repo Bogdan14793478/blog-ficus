@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
-import { regPlusLogin } from "../../utils/authorization"
+import { registerOrLogin } from "../../utils/authorization"
 import { validateLoginData } from "../../utils/validators"
 import "materialize-css/dist/css/materialize.min.css"
 
@@ -38,8 +38,11 @@ export const Register = () => {
   }
 
   async function startRegistr(data) {
-    regPlusLogin(data)
-    redirectToLogin()
+    const status = await registerOrLogin(data)
+    if (!status) alert("Registration not succesful")
+    if (status) {
+      redirectToLogin()
+    }
   }
 
   return (
@@ -89,7 +92,7 @@ export const Register = () => {
                   className="btn-large red"
                   onClick={() =>
                     startRegistr({
-                      key: "register",
+                      type: "register",
                       email: registerData.email,
                       password: registerData.password,
                     })

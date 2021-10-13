@@ -2,28 +2,29 @@ import { onSubmitRegister, signUp } from "../api/user"
 import { validateRegistr } from "./validators"
 import { removeToStorage } from "./helpers"
 
-export async function regPlusLogin(data) {
+export async function registerOrLogin(data) {
   let res = true
-  debugger
   try {
-    if (data.key === "register") {
+    if (data.type === "register") {
       console.log(data, " registerData")
       await removeToStorage("id")
       await onSubmitRegister(data)
-      if (validateRegistr) {
-        res = true
-      } else {
+      const validData = await validateRegistr(data)
+      if (!validData) {
         alert("Вы не зарeгестрировались")
         res = false
       }
-    } else if (data.key === "login") {
+      if (validData) {
+        res = true
+      }
+    } else if (data.type === "login") {
       removeToStorage("passport")
       const status = await signUp(data)
-      if (data) {
-        res = true
-      } else {
-        alert("Вы не вошли")
+      if (!status) {
         res = false
+      }
+      if (status) {
+        res = true
       }
     }
   } catch (error) {
