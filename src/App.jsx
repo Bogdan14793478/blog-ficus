@@ -7,14 +7,14 @@ import { HomePage } from "./components/Pages/HomePage"
 
 export function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
+    <Switch>
+      <Route exact path="/login" component={Login} />
 
-        <Route path="/register" component={Register} />
+      <Route exact path="/register" component={Register} />
 
-        <Route path="/home" component={HomePage} />
-      </Switch>
-    </Router>
+      <Route path="*" component={() => "404 Page not found"} />
+
+      <Route exact path="/home" component={HomePage} />
+    </Switch>
   )
 }
