@@ -1,20 +1,18 @@
 import React from "react"
 import "./App.css"
-import { Switch, Route } from "react-router-dom"
-import { Register } from "./components/Authorization/Register"
-import { Login } from "./components/Authorization/Login"
-import { HomePage } from "./components/Pages/HomePage"
+import { BrowserRouter } from "react-router-dom"
+import { registerOrLogin } from "./utils/authorization"
+import { AuthContext } from "./components/Authorization/AuthContext"
+import { useRoutes } from "./components/Authorization/routs"
 
 export function App() {
+  const isLogin = !!localStorage.getItem("passport")
+  console.log(isLogin, "isLogin")
+  const routes = useRoutes(isLogin)
+
   return (
-    <Switch>
-      <Route exact path="/login" component={Login} />
-
-      <Route exact path="/register" component={Register} />
-
-      <Route exact path="/home" component={HomePage} />
-
-      <Route path="*" component={() => "404 Page not found"} />
-    </Switch>
+    <AuthContext.Provider value={{ isLogin }}>
+      <BrowserRouter>{routes}</BrowserRouter>
+    </AuthContext.Provider>
   )
 }
