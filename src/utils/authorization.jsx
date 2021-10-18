@@ -10,7 +10,6 @@ export async function registerOrLogin(data) {
       await onSubmitRegister(data)
       const validData = await validateRegistr(data)
       if (!validData) {
-        alert("Вы не зарeгестрировались")
         res = false
       }
       if (validData) {
