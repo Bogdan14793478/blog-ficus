@@ -5,19 +5,19 @@ import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import { registerOrLogin } from "../../utils/authorization"
 import { Errors } from "./Errors"
+import { passworgExp } from "../../utils/helpers"
 
 const initialValues = {
   email: "",
   password: "",
 }
-const passworgRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Enter valid email").required("Required"),
   password: Yup.string()
     .min(6, "It`s to short")
     .max(10, "It`s to lond")
-    .matches(passworgRegExp, "password must have one Upper, lower case, number")
+    .matches(passworgExp, "password must have one Upper, lower case, number")
     .required("Required"),
 })
 
@@ -48,8 +48,9 @@ export const Register = () => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
+            validateOnMount
           >
-            {({ errors, values, handleChange }) => (
+            {({ errors, values, handleChange, isValid }) => (
               <Form>
                 <div className="card-action red white-text">
                   <h3>Register Form</h3>
@@ -89,7 +90,11 @@ export const Register = () => {
                     </label>
                   </div>
                   <div>
-                    <button type="submit" className="btn-large red">
+                    <button
+                      type="submit"
+                      disabled={!isValid}
+                      className="btn-large red"
+                    >
                       Registration
                     </button>
                   </div>

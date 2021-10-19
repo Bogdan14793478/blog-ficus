@@ -14,3 +14,5 @@ export const notifySuccess = (message) => {
 export const notifyError = (message) => {
   toast.error(message, { position: toast.POSITION.TOP_CENTER })
 }
+
+export const passworgExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/

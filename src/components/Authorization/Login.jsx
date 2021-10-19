@@ -5,6 +5,7 @@ import * as Yup from "yup"
 import "./Login.css"
 import { registerOrLogin } from "../../utils/authorization"
 import { Errors } from "./Errors"
+import { passworgExp } from "../../utils/helpers"
 
 const initialValues = {
   validateOnMount: true,
@@ -14,7 +15,11 @@ const initialValues = {
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Enter valid email").required("Required"),
-  password: Yup.string().required("Required"),
+  password: Yup.string()
+    .min(6, "It`s to short")
+    .max(10, "It`s to lond")
+    .matches(passworgExp, "password must have one Upper, lower case, number")
+    .required("Required"),
 })
 
 export const Login = () => {
@@ -45,8 +50,9 @@ export const Login = () => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
+            validateOnMount
           >
-            {({ errors, values, handleChange }) => (
+            {({ errors, values, handleChange, dirty, isValid }) => (
               <Form>
                 <div className="card-action red white-text">
                   <h3>Login Form</h3>
@@ -86,7 +92,11 @@ export const Login = () => {
                     </label>
                   </div>
                   <div>
-                    <button type="submit" className="btn-large red">
+                    <button
+                      type="submit"
+                      disabled={!(isValid && dirty)}
+                      className="btn-large red"
+                    >
                       Login
                     </button>
                   </div>
