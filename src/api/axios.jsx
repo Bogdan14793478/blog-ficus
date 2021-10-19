@@ -10,7 +10,7 @@ export const axiosInstance = axios.create({
 })
 
 const notifyWarm = () => {
-  toast.success("You are not login", { position: toast.POSITION.TOP_CENTER })
+  toast.error("You are not login", { position: toast.POSITION.TOP_CENTER })
 }
 axiosInstance.interceptors.request.use(
   (request) => {

@@ -25,7 +25,7 @@ const fetchUser = () => {
 
 export const signUp = ({ email, password }) => {
   const notifyWarm = () => {
-    toast.success("You are not login", { position: toast.POSITION.TOP_CENTER })
+    toast.error("You are not login", { position: toast.POSITION.TOP_CENTER })
   }
   return axiosInstance
     .post("auth/", {
