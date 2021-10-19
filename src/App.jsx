@@ -1,17 +1,10 @@
 import React from "react"
 import "./App.css"
 import { BrowserRouter } from "react-router-dom"
-import { AuthContext } from "./components/Authorization/AuthContext"
 import { useRoutes } from "./components/Authorization/routs"
 
 export function App() {
-  const isLogin = !!localStorage.getItem("passport")
-  console.log(isLogin, "isLogin")
-  const routes = useRoutes(isLogin)
+  const routes = useRoutes()
 
-  return (
-    <AuthContext.Provider value={{ isLogin }}>
-      <BrowserRouter>{routes}</BrowserRouter>
-    </AuthContext.Provider>
-  )
+  return <BrowserRouter>{routes}</BrowserRouter>
 }
