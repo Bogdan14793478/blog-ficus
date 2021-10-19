@@ -50,7 +50,7 @@ export const Register = () => {
             onSubmit={onSubmit}
             validateOnMount
           >
-            {({ errors, values, handleChange, isValid }) => (
+            {({ errors, values, handleChange, isValid, dirty }) => (
               <Form>
                 <div className="card-action red white-text">
                   <h3>Register Form</h3>
@@ -92,7 +92,7 @@ export const Register = () => {
                   <div>
                     <button
                       type="submit"
-                      disabled={!isValid}
+                      disabled={!(isValid && dirty)}
                       className="btn-large red"
                     >
                       Registration
