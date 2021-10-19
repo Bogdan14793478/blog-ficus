@@ -1,29 +1,15 @@
 import { onSubmitRegister, signUp } from "../api/user"
-import { validateRegistr } from "./validators"
-import { removeToStorage } from "./helpers"
+import { removeFromStorage } from "./helpers"
 
 export async function registerOrLogin(data) {
   let res = true
   try {
     if (data.type === "register") {
-      await removeToStorage("id")
-      await onSubmitRegister(data)
-      const validData = await validateRegistr(data)
-      if (!validData) {
-        res = false
-      }
-      if (validData) {
-        res = true
-      }
+      await removeFromStorage("id")
+      res = await onSubmitRegister(data)
     } else if (data.type === "login") {
-      removeToStorage("passport")
-      const status = await signUp(data)
-      if (!status) {
-        res = false
-      }
-      if (status) {
-        res = true
-      }
+      removeFromStorage("passport")
+      res = await signUp(data)
     }
   } catch (error) {
     console.log(error)

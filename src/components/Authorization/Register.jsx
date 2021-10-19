@@ -1,9 +1,25 @@
-import React, { useState } from "react"
+import React from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
-import { Form, Formik, ErrorMessage } from "formik"
+import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import { registerOrLogin } from "../../utils/authorization"
+import { Errors } from "./Errors"
+
+const initialValues = {
+  email: "",
+  password: "",
+}
+const passworgRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Enter valid email").required("Required"),
+  password: Yup.string()
+    .min(6, "It`s to short")
+    .max(10, "It`s to lond")
+    .matches(passworgRegExp, "password must have one Upper, lower case, number")
+    .required("Required"),
+})
 
 export const Register = () => {
   const history = useHistory()
@@ -12,36 +28,17 @@ export const Register = () => {
     history.push("/login")
   }
 
-  const initialValues = {
-    email: "",
-    password: "",
-  }
-
-  const passworgRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/
-
   async function startRegistr(data) {
     const status = await registerOrLogin(data)
-    if (!status) return
     if (status) {
       redirectToLogin()
     }
   }
   const onSubmit = (values, props) => {
     const type = { ...values, type: "register" }
-    // console.log(props, " propsonSubmit")
-    // alert(JSON.stringify(values), null, 2)
     startRegistr(type, props)
     props.resetForm()
   }
-
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Enter valid email").required("Required"),
-    password: Yup.string()
-      .min(6, "It`s to short")
-      .max(10, "It`s to lond")
-      .matches(passworgRegExp, "password must have one Upper, lower case, number")
-      .required("Required"),
-  })
 
   return (
     <div className="row">
@@ -52,7 +49,7 @@ export const Register = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {({ errors, values, handleChange, touched }) => (
+            {({ errors, values, handleChange }) => (
               <Form>
                 <div className="card-action red white-text">
                   <h3>Register Form</h3>
@@ -69,13 +66,10 @@ export const Register = () => {
                         variant="outlined"
                         required
                         label="Email"
-                        // fullwidth
                         value={values.email}
                         onChange={handleChange}
-                        helpertext={<ErrorMessage name="email" />}
-                        error={errors.name && touched.email}
                       />
-                      {JSON.stringify(errors)}
+                      <Errors errors={errors} />
                     </label>
                   </div>
                   <div className="form-field">
@@ -86,14 +80,11 @@ export const Register = () => {
                         id="password"
                         onChange={handleChange}
                         value={values.password}
-                        helpertext={<ErrorMessage name="password" />}
-                        error={errors.password && touched.password}
-                        // fullwidth
                         variant="outlined"
                         required
                         name="password"
                         label="Password"
-                        autoComplete="current-password"
+                        autoComplete="password"
                       />
                     </label>
                   </div>

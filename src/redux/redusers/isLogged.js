@@ -1,8 +1,8 @@
 // const user = {
 //     informUser: {},
 // }
-// export const stateUserReducer = (state = user, action) => {
-//     witch(action.type) {
+// export const stateUserReduser = (state = user, action) => {
+//     switch(action.type) {
 //         case "USER_SIGN_IN":
 //             console.log(action.payload)
 //       return { ...state, informUser: { ...action.payload } }
@@ -13,4 +13,4 @@
 //     }
 //     return state
 // }
-// // export default statePostReducer
+// // export default statePostReduser

@@ -1,9 +1,9 @@
 import React from "react"
 import { Route, Switch } from "react-router"
-import { PrivateRoute } from "./PrivateRouter"
-import { Login } from "./Login"
-import { Register } from "./Register"
-import { HomePage } from "../Pages/HomePage"
+import { PrivateRoute } from "../components/Authorization/PrivateRouter"
+import { Login } from "../components/Authorization/Login"
+import { Register } from "../components/Authorization/Register"
+import { HomePage } from "../components/Pages/HomePage"
 
 export const useRoutes = () => {
   return (

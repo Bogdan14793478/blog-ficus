@@ -1,10 +1,10 @@
 // import { combineReducers } from "redux"
 // import { userPosts } from "./post"
-// import { stateUserReducer } from "./isLogged"
+// import { stateUserReduser } from "./isLogged"
 
-// export const rootReducer = combineReducers({
+// export const rootReduser = combineRedusers({
 //   post: userPosts,
-//   user: stateUserReducer,
+//   user: stateUserReduser,
 // })
 
-// // export default rootReducer
+// // export default rootReduser

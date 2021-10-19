@@ -1,9 +1,21 @@
-import React, { useState, useContext } from "react"
+import React from "react"
 import { useHistory } from "react-router-dom"
-import { Form, Formik, ErrorMessage } from "formik"
+import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import "./Login.css"
 import { registerOrLogin } from "../../utils/authorization"
+import { Errors } from "./Errors"
+
+const initialValues = {
+  validateOnMount: true,
+  email: "",
+  password: "",
+}
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Enter valid email").required("Required"),
+  password: Yup.string().required("Required"),
+})
 
 export const Login = () => {
   const history = useHistory()
@@ -14,15 +26,9 @@ export const Login = () => {
 
   async function onClickLogin(data) {
     const status = await registerOrLogin(data)
-    if (!status) return
     if (status) {
       redirectToHome()
     }
-  }
-
-  const initialValues = {
-    email: "",
-    password: "",
   }
 
   const onSubmit = (values, props) => {
@@ -30,11 +36,6 @@ export const Login = () => {
     onClickLogin(type, props)
     props.resetForm()
   }
-
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().required("Required"),
-    password: Yup.string().required("Required"),
-  })
 
   return (
     <div className="row">
@@ -45,29 +46,27 @@ export const Login = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {({ errors, values, handleChange, touched }) => (
+            {({ errors, values, handleChange }) => (
               <Form>
                 <div className="card-action red white-text">
                   <h3>Login Form</h3>
                 </div>
                 <div className="card-content">
                   <div className="form-field">
-                    <label htmlFor="email-address">
+                    <label htmlFor="Email Address">
                       Email
                       <input
-                        type="text"
-                        id="email-address"
+                        type="email"
+                        id="email"
                         autoComplete="email"
                         name="email"
                         variant="outlined"
                         required
                         value={values.email}
-                        label="Email Address"
+                        label="Email"
                         onChange={handleChange}
-                        helpertext={<ErrorMessage name="email" />}
-                        error={errors.name && touched.email}
                       />
-                      {JSON.stringify(errors)}
+                      <Errors errors={errors} />
                     </label>
                   </div>
                   <div className="form-field">
@@ -78,13 +77,11 @@ export const Login = () => {
                         id="password"
                         onChange={handleChange}
                         value={values.password}
-                        helpertext={<ErrorMessage name="password" />}
-                        error={errors.password && touched.password}
                         variant="outlined"
                         required
                         name="password"
                         label="Password"
-                        autoComplete="current-password"
+                        autoComplete="password"
                       />
                     </label>
                   </div>

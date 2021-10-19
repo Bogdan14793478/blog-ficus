@@ -1,21 +1,15 @@
 import { toast } from "react-toastify"
-import { setToStorage } from "../utils/helpers"
+import { setToStorage, notifySuccess, notifyError } from "../utils/helpers"
 import { axiosInstance } from "./axios"
-import "react-toastify/dist/ReactToastify.css"
 
-toast.configure()
 // login
 
 const fetchUser = () => {
-  const notifySuccess = () => {
-    toast.success("You a authorizated", { position: toast.POSITION.TOP_CENTER })
-  }
-
   axiosInstance
     .get("auth/user/", {})
     .then((result) => {
       if (result.data) {
-        notifySuccess()
+        notifySuccess("You a authorizated")
       }
     })
     .catch((e) => {
@@ -24,9 +18,6 @@ const fetchUser = () => {
 }
 
 export const signUp = ({ email, password }) => {
-  const notifyWarm = () => {
-    toast.error("You are not login", { position: toast.POSITION.TOP_CENTER })
-  }
   return axiosInstance
     .post("auth/", {
       email,
@@ -42,20 +33,13 @@ export const signUp = ({ email, password }) => {
       return true
     })
     .catch((e) => {
-      console.log(e)
-      notifyWarm()
+      const err = e.response.data.error
+      notifyError(err)
       return false
     })
 }
 // Register
 export const onSubmitRegister = ({ email, password }) => {
-  const notifyRegSuccess = () => {
-    toast.success("You are registered", { position: toast.POSITION.TOP_CENTER })
-  }
-
-  const notifyRegErr = () => {
-    toast.error("You are not registered", { position: toast.POSITION.TOP_CENTER })
-  }
   axiosInstance
     .post("users/", {
       email,
@@ -65,13 +49,11 @@ export const onSubmitRegister = ({ email, password }) => {
       if (result.data) {
         setToStorage(result.data.email, "email")
         setToStorage(result.data._id, "id")
-        // alert("Registration successful")
-        notifyRegSuccess()
+        notifySuccess("You are registered")
       }
     })
     .catch((e) => {
-      console.log(e)
-      // alert("Registration not successful, try again")
-      notifyRegErr()
+      const err = e.response.data.error
+      notifyError(err)
     })
 }
