@@ -5,16 +5,11 @@ import { axiosInstance } from "./axios"
 // login
 
 const fetchUser = () => {
-  axiosInstance
-    .get("auth/user/", {})
-    .then((result) => {
-      if (result.data) {
-        notifySuccess("You a authorizated")
-      }
-    })
-    .catch((e) => {
-      console.log(e)
-    })
+  axiosInstance.get("auth/user/", {}).then((result) => {
+    if (result.data) {
+      notifySuccess("You a authorizated")
+    }
+  })
 }
 
 export const signUp = ({ email, password }) => {
@@ -31,11 +26,6 @@ export const signUp = ({ email, password }) => {
     .then(fetchUser)
     .then(() => {
       return true
-    })
-    .catch((e) => {
-      const err = e.response.data.error
-      notifyError(err)
-      return false
     })
 }
 // Register
