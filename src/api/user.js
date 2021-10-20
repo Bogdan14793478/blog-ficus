@@ -1,5 +1,4 @@
-import { toast } from "react-toastify"
-import { setToStorage, notifySuccess, notifyError } from "../utils/helpers"
+import { setToStorage, notifySuccess } from "../utils/helpers"
 import { axiosInstance } from "./axios"
 
 // login
@@ -41,9 +40,5 @@ export const onSubmitRegister = ({ email, password }) => {
         setToStorage(result.data._id, "id")
         notifySuccess("You are registered")
       }
-    })
-    .catch((e) => {
-      const err = e.response.data.error
-      notifyError(err)
     })
 }
