@@ -10,6 +10,7 @@ import { News } from "../components/Pages/News/News"
 import "../App.css"
 import { Ficus } from "../components/Pages/Ficus/Ficus"
 import ButtonAppBar from "../components/Pages/Navbar/NavbarTwo"
+import { HomePage } from "../components/Pages/HomePage/HomePage"
 
 export const useRoutes = () => {
   const isAuth = !!localStorage.getItem("passport")
@@ -32,6 +33,7 @@ export const useRoutes = () => {
             <PrivateRoute exact path="/dialogs" component={Dialogs} />
             <PrivateRoute exact path="/news" component={News} />
             <PrivateRoute exact path="/ficus" component={Ficus} />
+            <PrivateRoute exact path="/home" component={HomePage} />
 
             <Route exact path="/login" component={Login} />
 
