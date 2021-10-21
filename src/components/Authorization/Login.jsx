@@ -72,7 +72,6 @@ export const Login = () => {
                         label="Email"
                         onChange={handleChange}
                       />
-                      <Errors errors={errors} />
                     </label>
                   </div>
                   <div className="form-field">
@@ -92,6 +91,7 @@ export const Login = () => {
                     </label>
                   </div>
                   <div>
+                    <Errors errors={errors} />
                     <button
                       type="submit"
                       disabled={!(isValid && dirty)}

@@ -4,7 +4,7 @@ import { axiosInstance } from "./axios"
 // login
 
 const fetchUser = () => {
-  axiosInstance.get("auth/user/", {}).then((result) => {
+  axiosInstance.get("auth/user/").then((result) => {
     if (result.data) {
       notifySuccess("You a authorizated")
     }
@@ -29,16 +29,15 @@ export const signUp = ({ email, password }) => {
 }
 // Register
 export const onSubmitRegister = ({ email, password }) => {
-  axiosInstance
+  return axiosInstance
     .post("users/", {
       email,
       password,
     })
     .then((result) => {
-      if (result.data) {
-        setToStorage(result.data.email, "email")
-        setToStorage(result.data._id, "id")
-        notifySuccess("You are registered")
-      }
+      setToStorage(result.data.email, "email")
+      setToStorage(result.data._id, "id")
+      notifySuccess("You are registered")
+      return true
     })
 }
