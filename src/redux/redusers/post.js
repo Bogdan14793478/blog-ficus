@@ -1,18 +1,20 @@
-// const initial = {
-//   post: {},
-// }
+const initial = {
+  posts: [],
+}
 
-// export const userPosts = (state = initial, action) => {
-//   switch (action.type) {
-//     case "CREATE_NEW_POST":
-//       console.log(action.payload)
-//       const item = { ...action.payload } or
-//       return { ...state, item} or
-//       return { ...state, post: { ...action.payload } }
-//     case "DELETE_POST":
-//       return state
-//   }
-//   return state
-// }
-
-// // export default userPosts
+export const userPosts = (state = initial, action) => {
+  console.log(action, "action")
+  switch (action.type) {
+    case "GET_ALL_POST":
+      return { ...state, posts: [...state.posts] }
+    case "CREATE_NEW_POST":
+      console.log(action.payload, "action.payload")
+      return { ...state, posts: [...state.posts, action.payload] }
+    // case "UPDATE_POST":
+    //   return { ...state, post: action.payload } ??
+    case "DELETE_POST":
+      return state
+    default:
+      return state
+  }
+}

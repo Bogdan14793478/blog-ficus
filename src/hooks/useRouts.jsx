@@ -9,8 +9,9 @@ import { News } from "../components/Pages/News/News"
 // import { Navbar } from "../components/Pages/Navbar/Navbar"
 import "../App.css"
 import { Ficus } from "../components/Pages/Ficus/Ficus"
-import ButtonAppBar from "../components/Pages/Navbar/NavbarTwo"
-import { HomePage } from "../components/Pages/HomePage/HomePage"
+// import { HomePage } from "../components/Pages/HomePage/HomePage"
+import { NavbarMaterial } from "../components/Pages/Navbar/NavbarMaterial"
+import { HomePage2Code } from "../components/Pages/HomePage/HomePage2Code"
 
 export const useRoutes = () => {
   const isAuth = !!localStorage.getItem("passport")
@@ -25,21 +26,22 @@ export const useRoutes = () => {
   }
   if (isAuth) {
     return (
-      <div className="app-wrapper">
-        {/* <ButtonAppBar /> */}
-        <div className="app-wrapper-content">
-          <Switch>
-            <PrivateRoute exact path="/profile" component={Profile} />
-            <PrivateRoute exact path="/dialogs" component={Dialogs} />
-            <PrivateRoute exact path="/news" component={News} />
-            <PrivateRoute exact path="/ficus" component={Ficus} />
-            <PrivateRoute exact path="/home" component={HomePage} />
+      <div>
+        <div className="app-wrapper">
+          {/* <ButtonAppBar /> */}
+          <NavbarMaterial />
+          <div className="app-wrapper-content">
+            <Switch>
+              <PrivateRoute exact path="/profile" component={Profile} />
+              <PrivateRoute exact path="/dialogs" component={Dialogs} />
+              <PrivateRoute exact path="/news" component={News} />
+              <PrivateRoute exact path="/ficus" component={Ficus} />
+              {/* <PrivateRoute exact path="/home" component={HomePage} /> */}
+              <PrivateRoute exact path="/home" component={HomePage2Code} />
 
-            <Route exact path="/login" component={Login} />
-
-            <Route exact path="/register" component={Register} />
-            <Redirect to="/login" />
-          </Switch>
+              <Redirect to="/login" />
+            </Switch>
+          </div>
         </div>
       </div>
     )
