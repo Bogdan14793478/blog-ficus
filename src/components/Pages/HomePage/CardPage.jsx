@@ -14,7 +14,6 @@ export const MediaCard = ({ item }) => {
   const dispatch = useDispatch()
   const posts = useSelector((state) => state.post.posts)
 
-  console.log(item, "item")
   const id = item._id
 
   const onClickDeletePost = () => {

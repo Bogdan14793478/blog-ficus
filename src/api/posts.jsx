@@ -13,7 +13,6 @@ export function getAllPosts(currentPage, perPage) {
     axiosInstance
       .get(`posts?limit=${currentPage}&skip=${perPage}`, {})
       .then((res) => {
-        console.log(res, "resAllPost")
         dispatch(actionGetAllPosts(res.data.data))
       })
       .catch((err) => {
