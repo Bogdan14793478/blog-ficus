@@ -41,7 +41,7 @@ export const userPosts = (state = initial, action) => {
     case DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== action.payload.data._id),
+        posts: state.posts.filter((post) => post._id !== action.payload),
       }
     case ERROR_DELETE_POST:
       return {

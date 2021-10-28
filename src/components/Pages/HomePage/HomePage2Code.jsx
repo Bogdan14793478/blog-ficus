@@ -11,10 +11,13 @@ import { createNumberPages } from "../../../hooks/countPages"
 
 export const HomePage2Code = () => {
   const dispatch = useDispatch()
-  const posts = useSelector((state) => state.post.posts)
-  const totalCount = useSelector((state) => state.post.totalCount)
-  const perPage = useSelector((state) => state.post.perPage)
-  const currentPage = useSelector((state) => state.post.currentPage)
+  const { totalCount, perPage, currentPage, posts } = useSelector(
+    (state) => state.post
+  )
+  // const posts = useSelector((state) => state.post.posts)
+  // const totalCount = useSelector((state) => state.post.totalCount)
+  // const perPage = useSelector((state) => state.post.perPage)
+  // const currentPage = useSelector((state) => state.post.currentPage)
   const [searchValue, setSearchValue] = useState("")
 
   const [title, setTitle] = useState("")

@@ -18,7 +18,7 @@ export const useRoutes = () => {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Redirect to="/register" />
+        {/* <Redirect to="/register" /> */}
       </Switch>
     )
   }
