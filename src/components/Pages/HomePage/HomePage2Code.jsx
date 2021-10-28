@@ -1,111 +1,53 @@
-import React, { useState } from "react"
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Fab, Grid, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { MediaCard } from "./CardPage"
+import { createNewPost, getAllPosts } from "../../../api/posts"
+import { actionGetCurrentPage } from "../../../redux/actions/types"
+import { createNumberPages } from "../../../hooks/countPages"
 
 export const HomePage2Code = () => {
-  const arr = [
-    {
-      name: "Bogdan",
-      title: 28,
-      id: 1,
-      poster:
-        "https://cdn.pixabay.com/photo/2018/10/13/20/15/man-3745031_960_720.jpg",
-    },
-    {
-      name: "Andrey",
-      title: 29,
-      id: 2,
-      poster:
-        "https://cdn.pixabay.com/photo/2018/10/13/20/15/man-3745031_960_720.jpg",
-    },
-    {
-      name: "Alexey",
-      title: 27,
-      id: 3,
-      poster:
-        "https://cdn.pixabay.com/photo/2018/10/13/20/15/man-3745031_960_720.jpg",
-    },
-    {
-      name: "Bogdan",
-      title: 28,
-      id: 4,
-      poster:
-        "https://cdn.pixabay.com/photo/2018/10/13/20/15/man-3745031_960_720.jpg",
-    },
-    {
-      name: "Andrey",
-      title: 29,
-      id: 5,
-      poster:
-        "https://cdn.pixabay.com/photo/2018/10/13/20/15/man-3745031_960_720.jpg",
-    },
-    {
-      name: "Alexey",
-      title: 27,
-      id: 6,
-      poster:
-        "https://cdn.pixabay.com/photo/2018/10/13/20/15/man-3745031_960_720.jpg",
-    },
-    {
-      name: "Bogdan",
-      title: 28,
-      id: 7,
-      poster:
-        "https://cdn.pixabay.com/photo/2018/10/13/20/15/man-3745031_960_720.jpg",
-    },
-    {
-      name: "Andrey",
-      title: 29,
-      id: 8,
-      poster:
-        "https://cdn.pixabay.com/photo/2018/10/13/20/15/man-3745031_960_720.jpg",
-    },
-    {
-      name: "Alexey",
-      title: 27,
-      id: 9,
-      poster:
-        "https://cdn.pixabay.com/photo/2018/10/13/20/15/man-3745031_960_720.jpg",
-    },
-  ]
-
-  const [title, setTitle] = useState("")
-  const [shortText, setShortText] = useState("")
-  const [longText, setLongText] = useState("")
-  const id = Date.now()
-
   const dispatch = useDispatch()
   const posts = useSelector((state) => state.post.posts)
-  //   const [loading, setLoading] = useState(false)
-  const onClick = () => {
-    // setLoading(true)
-    dispatch(
-      {
-        type: "CREATE_NEW_POST",
-        payload: [
-          title,
-          shortText,
-          longText,
-          id,
-          //   parentId: userId
-        ],
-      },
-      //   setLoading(false),
-      setTitle(""),
-      setShortText(""),
-      setLongText("")
-    )
+  const totalCount = useSelector((state) => state.post.totalCount)
+  const perPage = useSelector((state) => state.post.perPage)
+  const currentPage = useSelector((state) => state.post.currentPage)
+  const [searchValue, setSearchValue] = useState("")
+
+  const [title, setTitle] = useState("")
+  const [fullText, setShortText] = useState("")
+  const [description, setLongText] = useState("")
+  const id = Date.now()
+  const pagesCount = Math.ceil(totalCount / perPage)
+  const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+  createNumberPages(pages, pagesCount, currentPage)
+
+  function startGetAllPost() {
+    getAllPosts()
   }
-  //   if (loading) {
-  //     return <h1>Loadingggg</h1>
-  //   }
+
+  const loadAllpost = () => {
+    startGetAllPost()
+  }
+
+  const clickCreateNewPost = () => {
+    dispatch(createNewPost({ title, fullText, description }))
+    setTitle("")
+    setShortText("")
+    setLongText("")
+  }
+
+  useEffect(() => {
+    dispatch(getAllPosts(searchValue, currentPage, perPage))
+  }, [searchValue, dispatch, currentPage, perPage])
 
   return (
     <div>
       <h4>Home Page</h4>
-      {posts}
       <form>
         <TextField
           id="standard-basic"
@@ -120,7 +62,7 @@ export const HomePage2Code = () => {
         <TextField
           id="standard-basic"
           label="Enter post text"
-          value={shortText}
+          value={fullText}
           variant="standard"
           sx={{ width: "300px", marginLeft: "20px" }}
           onChange={(event) => {
@@ -130,24 +72,40 @@ export const HomePage2Code = () => {
         <TextField
           id="standard-basic"
           label="Add new post"
-          value={longText}
+          value={description}
           variant="standard"
           sx={{ width: "300px", marginLeft: "20px" }}
           onChange={(event) => {
             setLongText(event.target.value)
           }}
         />
-        <Fab color="primary" aria-label="addSmall">
-          <AddCircleIcon onClick={onClick} sx={{ fontSize: "small" }} />
+        <Fab color="primary" aria-label="edit">
+          <AddCircleIcon onClick={clickCreateNewPost} sx={{ fontSize: "big" }} />
+        </Fab>
+        <Fab color="primary" aria-label="edit">
+          <AddCircleIcon onClick={loadAllpost} sx={{ fontSize: "big" }} />
         </Fab>
       </form>
-
       <Grid container spacing={2}>
-        {posts.map((item) => (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <MediaCard key={item.id} item={item} />
+        {posts?.map((item) => (
+          <MediaCard key={item._id} item={item} />
         ))}
       </Grid>
+      {/* <Fab color="primary" aria-label="edit">
+        <AddCircleIcon onClick={loadMorePosts} sx={{ fontSize: "big" }} />
+      </Fab> загрузить более */}
+      <div className="pages">
+        {pages.map((page, i) => (
+          <span
+            // eslint-disable-next-line react/no-array-index-key
+            key={`page-${i}`}
+            className={currentPage === page ? "current-page" : "page"}
+            onClick={() => dispatch(actionGetCurrentPage(page))}
+          >
+            {page}
+          </span>
+        ))}
+      </div>
     </div>
   )
 }

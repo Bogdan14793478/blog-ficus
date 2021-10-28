@@ -83,7 +83,7 @@
 //   const handleChange = (e) => {
 //     const { value } = e.target
 //     console.log(post, " setPost")
-//     setPost(value)
+//     setPost({…post,  [e.target.name]: value}) //!!!
 //   }
 //   const saveNewPost = () => {
 //     dispatch({

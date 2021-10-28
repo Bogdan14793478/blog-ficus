@@ -38,7 +38,7 @@ export const NavbarMaterial = () => {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const classes = useStyles()
 
-  console.log(theme, "theme")
+  // console.log(theme, "theme")
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
