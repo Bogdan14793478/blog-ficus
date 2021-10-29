@@ -1,10 +1,10 @@
 import React from "react"
+import { Link, useHistory } from "react-router-dom"
 import { AccountCircle, Message } from "@mui/icons-material"
 import {
   AppBar,
   Button,
   IconButton,
-  List,
   ListItem,
   ListItemText,
   Menu,
@@ -14,7 +14,7 @@ import {
 } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory"
-import { theme } from "../../../utils/themeNavbar"
+import { removeFromStorage } from "../../../utils/helpers"
 
 const useStyles = makeStyles({
   boxFigureStyle: {
@@ -35,6 +35,12 @@ const useStyles = makeStyles({
 })
 
 export const NavbarMaterial = () => {
+  const history = useHistory()
+
+  function redirectToLogin() {
+    history.push("/login")
+  }
+
   const [anchorEl, setAnchorEl] = React.useState(null)
   const classes = useStyles()
 
@@ -44,6 +50,10 @@ export const NavbarMaterial = () => {
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+  const onClickLogout = () => {
+    removeFromStorage("passport")
+    redirectToLogin()
   }
 
   return (
@@ -55,33 +65,33 @@ export const NavbarMaterial = () => {
         <IconButton color="inherit">
           <Message />
         </IconButton>
-        <List>
-          <ListItem button component="a" href="/home">
+        <Link to="/home">
+          <ListItem button component="a">
             <ListItemText
               disableTypography
-              style={{ fontSize: 20 }}
+              style={{ fontSize: 20, color: "white" }}
               primary="Ficus"
             />
           </ListItem>
-        </List>
-        <List>
-          <ListItem button component="a" href="/dialogs">
+        </Link>
+        <Link to="dialogs">
+          <ListItem button component="a">
             <ListItemText
               primary="Posts"
               disableTypography
-              style={{ fontSize: 20 }}
+              style={{ fontSize: 20, color: "white" }}
             />
           </ListItem>
-        </List>
-        <List>
-          <ListItem button component="a" href="/profile">
+        </Link>
+        <Link to="profile">
+          <ListItem button component="a">
             <ListItemText
               primary="Users"
               disableTypography
-              style={{ fontSize: 20 }}
+              style={{ fontSize: 20, color: "white" }}
             />
           </ListItem>
-        </List>
+        </Link>
         <div>
           <IconButton
             size="large"
@@ -119,7 +129,7 @@ export const NavbarMaterial = () => {
               <Button>Setting</Button>
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <Button>Log Out</Button>
+              <Button onClick={onClickLogout}>Log Out</Button>
             </MenuItem>
           </Menu>
         </div>

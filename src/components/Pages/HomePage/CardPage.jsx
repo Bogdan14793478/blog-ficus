@@ -13,11 +13,8 @@ import { deletePost } from "../../../api/posts"
 export const MediaCard = ({ item }) => {
   const dispatch = useDispatch()
   const posts = useSelector((state) => state.post.posts)
-
-  const id = item._id
-
   const onClickDeletePost = () => {
-    dispatch(deletePost(id))
+    dispatch(deletePost(item._id))
   }
   return (
     <Grid item xs={12} md={4}>

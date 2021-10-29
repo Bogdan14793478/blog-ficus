@@ -13,17 +13,17 @@ const initial = {
   posts: [],
   error: [],
   currentPage: 1,
-  perPage: 10,
-  totalCount: 0,
+  skip: 0,
 }
 
 export const userPosts = (state = initial, action) => {
+  console.log(action.payload, " action.type")
   switch (action.type) {
     case GET_ALL_POST:
       return {
         ...state,
-        posts: [...state.posts, ...action.payload],
-        totalCount: action.payload.totalCount,
+        posts: [...state.posts, ...action.payload.data],
+        skip: state.skip + 10,
       }
     case GET_ALL_POST_FAILURE:
       return {
@@ -51,11 +51,6 @@ export const userPosts = (state = initial, action) => {
       return {
         ...state,
         currentPage: action.payload,
-      }
-    case SET_PER_PAGE:
-      return {
-        ...state,
-        perPage: action.payload,
       }
     default:
       return state

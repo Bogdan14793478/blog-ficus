@@ -8,12 +8,13 @@ import {
   actionErrorDeletePosts,
 } from "../redux/actions/types"
 
-export function getAllPosts(currentPage, perPage) {
+export function getAllPosts(skip) {
   return async (dispatch) => {
     axiosInstance
-      .get(`posts?limit=${currentPage}&skip=${perPage}`, {})
+      .get(`posts?skip=${skip}`, {})
       .then((res) => {
-        dispatch(actionGetAllPosts(res.data.data))
+        console.log(res.data, "data")
+        dispatch(actionGetAllPosts(res.data))
       })
       .catch((err) => {
         dispatch(getAllPostFailure(err.message))
