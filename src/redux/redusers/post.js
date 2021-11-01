@@ -6,7 +6,7 @@ import {
   GET_ALL_POST_FAILURE,
   ERROR_CREATE_NEW_POST,
   SET_CURRENT_PAGE,
-  SET_PER_PAGE,
+  POST_DELETE_ALL_INFORM,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
 const initial = {
@@ -14,6 +14,7 @@ const initial = {
   error: [],
   currentPage: 1,
   skip: 0,
+  totalPost: 0,
 }
 
 export const userPosts = (state = initial, action) => {
@@ -24,6 +25,7 @@ export const userPosts = (state = initial, action) => {
         ...state,
         posts: [...state.posts, ...action.payload.data],
         skip: state.skip + 10,
+        totalPost: action.payload.pagination.total,
       }
     case GET_ALL_POST_FAILURE:
       return {
@@ -51,6 +53,11 @@ export const userPosts = (state = initial, action) => {
       return {
         ...state,
         currentPage: action.payload,
+      }
+    case POST_DELETE_ALL_INFORM:
+      return {
+        ...state,
+        posts: [null],
       }
     default:
       return state

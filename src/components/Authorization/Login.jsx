@@ -1,11 +1,14 @@
-import React from "react"
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react"
 import { useHistory } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import "./Login.css"
 import { registerOrLogin } from "../../utils/authorization"
 import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
+import { userIsAuth } from "../../redux/actions/types"
 
 const initialValues = {
   validateOnMount: true,
@@ -23,10 +26,14 @@ const validationSchema = Yup.object().shape({
 })
 
 export const Login = () => {
+  const dispatch = useDispatch()
+  const isAuth = useSelector((state) => state.user.isAuth)
+
   const history = useHistory()
 
   function redirectToHome() {
     history.push("/home")
+    dispatch(userIsAuth(true))
   }
 
   async function onClickLogin(data) {
@@ -39,8 +46,10 @@ export const Login = () => {
   const onSubmit = (values, props) => {
     const type = { ...values, type: "login" }
     onClickLogin(type, props)
-    props.resetForm()
+    props.resetForm(userIsAuth, true)
   }
+
+  useEffect(() => {}, [dispatch])
 
   return (
     <div className="row">

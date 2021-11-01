@@ -1,3 +1,4 @@
+/* eslint-disable prefer-spread */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect } from "react"
@@ -10,23 +11,27 @@ import { MediaCard } from "./CardPage"
 import { Errors } from "../../Authorization/Errors"
 import { createNewPost, getAllPosts } from "../../../api/posts"
 import { actionGetCurrentPage } from "../../../redux/actions/types"
+import { createPage } from "../../../utils/countPagination"
 
-export const HomePage2Code = () => {
+const initialValues = {
+  title: "",
+  fullText: "",
+  description: "",
+}
+export const HomePage = () => {
   const dispatch = useDispatch()
-  const { currentPage, posts, skip } = useSelector((state) => state.post)
+  const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
+  const allPost = Math.ceil(totalPost / 10)
 
-  const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-
+  // const pages = Array.apply(null, { length: allPost }).map(Number.call, Number)
+  // console.log(pages, " pag")
+  const pages = []
+  createPage(pages, allPost, currentPage)
   useEffect(() => {
     dispatch(getAllPosts(skip))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentPage])
 
-  const initialValues = {
-    title: "",
-    fullText: "",
-    description: "",
-  }
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Required"),
     fullText: Yup.string().min(20, "its too short").required("Required"),
@@ -34,7 +39,6 @@ export const HomePage2Code = () => {
   })
 
   const onSubmit = (values, props) => {
-    console.log(values, " Values")
     dispatch(createNewPost(values))
     props.resetForm()
   }
@@ -105,7 +109,6 @@ export const HomePage2Code = () => {
           </span>
         ))}
       </div>
-      <Pagination count={10} color="primary" />
     </div>
   )
 }

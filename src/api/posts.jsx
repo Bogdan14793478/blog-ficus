@@ -22,14 +22,10 @@ export function getAllPosts(skip) {
   }
 }
 
-export function createNewPost({ title, fullText, description }) {
+export function createNewPost(data) {
   return async (dispatch) => {
     axiosInstance
-      .post("posts/", {
-        title,
-        fullText,
-        description,
-      })
+      .post("posts/", data)
       .then((res) => {
         dispatch(actionCreateNewPosts(res))
       })
@@ -39,10 +35,10 @@ export function createNewPost({ title, fullText, description }) {
   }
 }
 
-export function deletePost(id) {
+export function deletePost(postId) {
   return async (dispatch) => {
     axiosInstance
-      .delete(`posts/${id}`, { postId: id })
+      .delete(`posts/${postId}`, { postId })
       .then((res) => {
         dispatch(actionDeletePosts(res.config.postId))
       })

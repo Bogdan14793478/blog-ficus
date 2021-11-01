@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, useHistory } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import { AccountCircle, Message } from "@mui/icons-material"
 import {
   AppBar,
@@ -14,6 +15,11 @@ import {
 } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory"
+import {
+  userIsAuth,
+  userDeleteAllInform,
+  postDeleteAllInform,
+} from "../../../redux/actions/types"
 import { removeFromStorage } from "../../../utils/helpers"
 
 const useStyles = makeStyles({
@@ -35,14 +41,16 @@ const useStyles = makeStyles({
 })
 
 export const NavbarMaterial = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const classes = useStyles()
+
+  const dispatch = useDispatch()
+
   const history = useHistory()
 
   function redirectToLogin() {
     history.push("/login")
   }
-
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const classes = useStyles()
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
@@ -52,6 +60,9 @@ export const NavbarMaterial = () => {
     setAnchorEl(null)
   }
   const onClickLogout = () => {
+    dispatch(userIsAuth(false))
+    dispatch(userDeleteAllInform())
+    dispatch(postDeleteAllInform(null))
     removeFromStorage("passport")
     redirectToLogin()
   }

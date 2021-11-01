@@ -2,6 +2,8 @@ import React from "react"
 import "./App.css"
 import { ThemeProvider } from "@mui/material"
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
+import { useSelector } from "react-redux"
+
 import { PrivateRoute } from "./components/Authorization/PrivateRouter"
 
 // import { useRoutes } from "./hooks/useRouts"
@@ -16,12 +18,12 @@ import { Profile } from "./components/Pages/Profile/Profile"
 import { Dialogs } from "./components/Pages/Dialogs/Dialogs"
 import { News } from "./components/Pages/News/News"
 import { Ficus } from "./components/Pages/Ficus/Ficus"
-import { HomePage2Code } from "./components/Pages/HomePage/HomePage2Code"
+import { HomePage } from "./components/Pages/HomePage/HomePage"
 
 toast.configure()
 
 export function App() {
-  const isAuth = !!localStorage.getItem("passport")
+  const isAuth = useSelector((state) => state.user.isAuth)
 
   if (!isAuth) {
     return (
@@ -35,28 +37,26 @@ export function App() {
       </BrowserRouter>
     )
   }
-  if (isAuth) {
-    return (
-      <div>
-        <BrowserRouter>
-          <ThemeProvider theme={theme}>
-            <div className="app-wrapper">
-              <NavbarMaterial />
-              <div className="app-wrapper-content">
-                <Switch>
-                  <PrivateRoute exact path="/profile" component={Profile} />
-                  <PrivateRoute exact path="/dialogs" component={Dialogs} />
-                  <PrivateRoute exact path="/news" component={News} />
-                  <PrivateRoute exact path="/ficus" component={Ficus} />
-                  <PrivateRoute exact path="/home" component={HomePage2Code} />
+  return (
+    <div>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <div className="app-wrapper">
+            <NavbarMaterial />
+            <div className="app-wrapper-content">
+              <Switch>
+                <PrivateRoute exact path="/profile" component={Profile} />
+                <PrivateRoute exact path="/dialogs" component={Dialogs} />
+                <PrivateRoute exact path="/news" component={News} />
+                <PrivateRoute exact path="/ficus" component={Ficus} />
+                <PrivateRoute exact path="/home" component={HomePage} />
 
-                  <Redirect to="/home" />
-                </Switch>
-              </div>
+                <Redirect to="/home" />
+              </Switch>
             </div>
-          </ThemeProvider>
-        </BrowserRouter>
-      </div>
-    )
-  }
+          </div>
+        </ThemeProvider>
+      </BrowserRouter>
+    </div>
+  )
 }
