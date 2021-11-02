@@ -1,5 +1,7 @@
 import React from "react"
 import "./App.css"
+import { useLocation } from "react-router"
+
 import { ThemeProvider } from "@mui/material"
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
 import { useSelector } from "react-redux"
@@ -51,8 +53,7 @@ export function App() {
                 <PrivateRoute exact path="/news" component={News} />
                 <PrivateRoute exact path="/ficus" component={Ficus} />
                 <PrivateRoute exact path="/home" component={HomePage} />
-
-                {/* <Redirect to="/home" /> */}
+                <PrivateRoute exact path="/home/page/:page" component={HomePage} />
               </Switch>
             </div>
           </div>

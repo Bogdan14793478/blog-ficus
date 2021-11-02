@@ -4,19 +4,16 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory } from "react-router"
+import { useParams } from "react-router"
+import { Link } from "react-router-dom"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
-import { Fab, Grid, Pagination, TextField } from "@mui/material"
+import { Fab, Grid, Pagination, PaginationItem, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { MediaCard } from "./CardPage"
 import { Errors } from "../../Authorization/Errors"
 import { createNewPost, getAllPosts } from "../../../api/posts"
-import {
-  actionGetCurrentPage,
-  actionGetAllPosts,
-} from "../../../redux/actions/types"
-import { createPage } from "../../../utils/countPagination"
+import { actionGetCurrentPage } from "../../../redux/actions/types"
 
 const initialValues = {
   title: "",
@@ -24,32 +21,19 @@ const initialValues = {
   description: "",
 }
 export const HomePage = () => {
+  const { page: locationElement } = useParams()
   const dispatch = useDispatch()
-  const history = useHistory()
-  console.log(history, "history")
-
-  const { posts, skip, totalPost } = useSelector((state) => state.post)
-  // eslint-disable-next-line prefer-const
-  let currentPage = useSelector((state) => state.post.currentPage)
-
-  // const onChange = (data) => {
-  //   currentPage = data
-  //   console.log(currentPage, "currentPageIndex")
-  //   return data
-  // }
-
-  // const pages = []
-  // createPage(pages, totalPost, currentPage)
+  console.log(locationElement, "locationElement")
+  const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
+  const interval = locationElement * skip - 10
 
   useEffect(() => {
-    if (currentPage === 1) {
-      dispatch(getAllPosts(0), actionGetCurrentPage(currentPage))
-    } else {
-      dispatch(
-        getAllPosts(skip * currentPage - 10),
-        actionGetCurrentPage(currentPage)
-      )
-    }
+    dispatch(
+      getAllPosts(interval, locationElement),
+      actionGetCurrentPage(currentPage)
+    )
+    return true
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentPage])
 
@@ -118,25 +102,18 @@ export const HomePage = () => {
           <MediaCard key={item._id} item={item} />
         ))}
       </Grid>
-      {/* <div className="pages">
-        {pages.map((page, i) => (
-          <span
-            // eslint-disable-next-line react/no-array-index-key
-            key={`page-${i}`}
-            className={currentPage === page ? "current-page" : "page"}
-            onClick={() => dispatch(actionGetCurrentPage(page))}
-          >
-            {page}
-          </span>
-        ))}
-      </div> */}
       <Pagination
         count={totalPost}
-        defaultPage={currentPage}
-        onChange={(e, page) => (
-          dispatch(actionGetCurrentPage(page)), history.push(`/home?page=${page}`)
+        defaultPage={locationElement}
+        onChange={(e, page) => dispatch(actionGetCurrentPage(page))}
+        renderItem={(item) => (
+          <PaginationItem
+            component={Link}
+            to={`/home/page/${item.page}`}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...item}
+          />
         )}
-        // onChange={(e) => onChange(e.nativeEvent.srcElement.firstChild.data)}
       />
     </div>
   )

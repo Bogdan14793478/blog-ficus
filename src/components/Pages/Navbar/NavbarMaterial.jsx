@@ -6,7 +6,6 @@ import {
   AppBar,
   Button,
   IconButton,
-  ListItem,
   ListItemText,
   Menu,
   MenuItem,
@@ -77,31 +76,25 @@ export const NavbarMaterial = () => {
           <Message />
         </IconButton>
         <Link to="/home">
-          <ListItem button component="a">
-            <ListItemText
-              disableTypography
-              style={{ fontSize: 20, color: "white" }}
-              primary="Ficus"
-            />
-          </ListItem>
+          <ListItemText
+            disableTypography
+            style={{ fontSize: 20, color: "white", marginLeft: "10px" }}
+            primary="Ficus"
+          />
         </Link>
         <Link to="dialogs">
-          <ListItem button component="a">
-            <ListItemText
-              primary="Posts"
-              disableTypography
-              style={{ fontSize: 20, color: "white" }}
-            />
-          </ListItem>
+          <ListItemText
+            primary="Posts"
+            disableTypography
+            style={{ fontSize: 20, color: "white", marginLeft: "10px" }}
+          />
         </Link>
         <Link to="profile">
-          <ListItem button component="a">
-            <ListItemText
-              primary="Users"
-              disableTypography
-              style={{ fontSize: 20, color: "white" }}
-            />
-          </ListItem>
+          <ListItemText
+            primary="Users"
+            disableTypography
+            style={{ fontSize: 20, color: "white", marginLeft: "10px" }}
+          />
         </Link>
         <div>
           <IconButton
