@@ -30,8 +30,9 @@ export function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <Switch>
-            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Register} />
+            <Redirect to="/" />
           </Switch>
         </ThemeProvider>
       </BrowserRouter>
@@ -51,7 +52,7 @@ export function App() {
                 <PrivateRoute exact path="/ficus" component={Ficus} />
                 <PrivateRoute exact path="/home" component={HomePage} />
 
-                <Redirect to="/home" />
+                {/* <Redirect to="/home" /> */}
               </Switch>
             </div>
           </div>

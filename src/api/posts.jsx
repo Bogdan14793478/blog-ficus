@@ -11,7 +11,7 @@ import {
 export function getAllPosts(skip) {
   return async (dispatch) => {
     axiosInstance
-      .get(`posts?skip=${skip}`, {})
+      .get(`posts?skip=${skip}`)
       .then((res) => {
         console.log(res.data, "data")
         dispatch(actionGetAllPosts(res.data))
@@ -25,7 +25,7 @@ export function getAllPosts(skip) {
 export function createNewPost(data) {
   return async (dispatch) => {
     axiosInstance
-      .post("posts/", data)
+      .post("posts", data)
       .then((res) => {
         dispatch(actionCreateNewPosts(res))
       })

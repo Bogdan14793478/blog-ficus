@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react"
 import { useHistory } from "react-router-dom"
@@ -36,6 +37,10 @@ export const Login = () => {
     dispatch(userIsAuth(true))
   }
 
+  function readyRegister() {
+    history.push("/register")
+  }
+
   async function onClickLogin(data) {
     const status = await registerOrLogin(data)
     if (status) {
@@ -48,8 +53,6 @@ export const Login = () => {
     onClickLogin(type, props)
     props.resetForm(userIsAuth, true)
   }
-
-  useEffect(() => {}, [dispatch])
 
   return (
     <div className="row">
@@ -101,13 +104,18 @@ export const Login = () => {
                   </div>
                   <div>
                     <Errors errors={errors} />
-                    <button
-                      type="submit"
-                      disabled={!(isValid && dirty)}
-                      className="btn-large red"
-                    >
-                      Login
-                    </button>
+                    <div className="btn-tp">
+                      <button
+                        type="submit"
+                        disabled={!(isValid && dirty)}
+                        className="btn-large red"
+                      >
+                        Login
+                      </button>
+                      <button className="btn-already-log" onClick={readyRegister}>
+                        Need to register?
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Form>

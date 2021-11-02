@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
@@ -25,7 +26,11 @@ export const Register = () => {
   const history = useHistory()
 
   function redirectToLogin() {
-    history.push("/login")
+    history.push("/")
+  }
+
+  function readyLogin() {
+    history.push("/")
   }
 
   async function startRegistr(data) {
@@ -42,7 +47,7 @@ export const Register = () => {
 
   return (
     <div className="row">
-      <div id="allblock" className="col s12 s14 offset-14 allblock">
+      <div id="allblock" className="col s12 s14 offset-14">
         <div className="card">
           <Formik
             initialValues={initialValues}
@@ -90,13 +95,18 @@ export const Register = () => {
                   </div>
                   <div>
                     <Errors errors={errors} />
-                    <button
-                      type="submit"
-                      disabled={!(isValid && dirty)}
-                      className="btn-large red"
-                    >
-                      Registration
-                    </button>
+                    <div className="btn-tp">
+                      <button
+                        type="submit"
+                        disabled={!(isValid && dirty)}
+                        className="btn-large red"
+                      >
+                        Registration
+                      </button>
+                      <button className="btn-already-log" onClick={readyLogin}>
+                        login yet?
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Form>

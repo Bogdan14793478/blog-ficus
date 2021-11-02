@@ -13,7 +13,7 @@ const initial = {
   posts: [],
   error: [],
   currentPage: 1,
-  skip: 0,
+  skip: 10,
   totalPost: 0,
 }
 
@@ -23,9 +23,9 @@ export const userPosts = (state = initial, action) => {
     case GET_ALL_POST:
       return {
         ...state,
-        posts: [...state.posts, ...action.payload.data],
-        skip: state.skip + 10,
-        totalPost: action.payload.pagination.total,
+        posts: [...action.payload.data],
+        skip: state.skip,
+        totalPost: Math.ceil(action.payload.pagination.total / 10),
       }
     case GET_ALL_POST_FAILURE:
       return {

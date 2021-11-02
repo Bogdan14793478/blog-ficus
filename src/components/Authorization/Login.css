@@ -3,17 +3,36 @@
   width: 600px;
   height: 400px;
 }
-#allblock {
-  margin-left: 690px;
-}
+/* #allblock { */
+/* margin-left: 690px; */
+/* } */
 
 .email-input {
   width: 600px;
 }
 
 .card {
-  max-width: 600px;
+  min-width: 600px;
   justify-content: center;
 }
 
+.btn-tp {
+  display: flex;
+  justify-content: space-between;
+}
 
+.btn-already-log {
+  width: 150px;
+  background-color: #51f542;
+}
+
+.row {
+  height: 100vh;
+}
+
+#allblock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
