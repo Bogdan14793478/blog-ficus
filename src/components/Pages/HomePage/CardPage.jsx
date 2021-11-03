@@ -24,16 +24,18 @@ export const MediaCard = ({ item }) => {
           marginLeft: "10px",
           marginTop: "10px",
           padding: "10px",
+          wordWrap: "break-word",
         }}
       >
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          className="cardTittleText"
+        >
           {item.title}
-          <DeleteIcon
-            onClick={onClickDeletePost}
-            sx={{ marginLeft: "200px", marginTop: "10px" }}
-          />
+          <DeleteIcon onClick={onClickDeletePost} sx={{ marginLeft: "294px" }} />
         </Typography>
-        {/* <CardMedia component="img" height="140" image={item.poster} alt="nature" /> */}
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {item.fullText}

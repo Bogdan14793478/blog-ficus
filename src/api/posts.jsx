@@ -9,10 +9,10 @@ import {
   actionErrorDeletePosts,
 } from "../redux/actions/types"
 
-export function getAllPosts(skip, paramSearch) {
+export function getAllPosts(skip) {
   return async (dispatch) => {
     axiosInstance
-      .get(`posts?skip=${skip}&paramSearch=${paramSearch}`)
+      .get(`posts?skip=${skip}`)
       .then((res) => {
         console.log(res.data, "data")
         dispatch(actionGetAllPosts(res.data))

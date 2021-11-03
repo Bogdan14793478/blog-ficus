@@ -57,7 +57,7 @@ export const userPosts = (state = initial, action) => {
     case POST_DELETE_ALL_INFORM:
       return {
         ...state,
-        posts: [null],
+        posts: [],
       }
     default:
       return state

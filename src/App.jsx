@@ -16,7 +16,7 @@ import { theme } from "./utils/themeNavbar"
 import { NavbarMaterial } from "./components/Pages/Navbar/NavbarMaterial"
 import { Login } from "./components/Authorization/Login"
 import { Register } from "./components/Authorization/Register"
-import { Profile } from "./components/Pages/Profile/Profile"
+import { Users } from "./components/Pages/Users/Users"
 import { Dialogs } from "./components/Pages/Dialogs/Dialogs"
 import { News } from "./components/Pages/News/News"
 import { Ficus } from "./components/Pages/Ficus/Ficus"
@@ -48,12 +48,11 @@ export function App() {
             <NavbarMaterial />
             <div className="app-wrapper-content">
               <Switch>
-                <PrivateRoute exact path="/../profile" component={Profile} />
-                <PrivateRoute exact path="/../dialogs" component={Dialogs} />
-                <PrivateRoute exact path="/../news" component={News} />
-                <PrivateRoute exact path="/../ficus" component={Ficus} />
-                <PrivateRoute exact path="/home/page/1" component={HomePage} />
-                <PrivateRoute exact path="/home/page/:page" component={HomePage} />
+                <PrivateRoute exact path="/users" component={Users} />
+                <PrivateRoute exact path="/ficus" component={Dialogs} />
+                <PrivateRoute exact path="/news" component={News} />
+                <PrivateRoute exact path="/ficus" component={Ficus} />
+                <PrivateRoute exact path="/posts/page/:page" component={HomePage} />
               </Switch>
             </div>
           </div>

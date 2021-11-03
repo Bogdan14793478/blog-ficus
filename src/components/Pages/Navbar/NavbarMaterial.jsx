@@ -75,21 +75,21 @@ export const NavbarMaterial = () => {
         <IconButton color="inherit">
           <Message />
         </IconButton>
-        <Link to="/home/page/1">
+        <Link to="/ficus">
           <ListItemText
             disableTypography
             style={{ fontSize: 20, color: "white", marginLeft: "10px" }}
             primary="Ficus"
           />
         </Link>
-        <Link to="/../dialogs">
+        <Link to="/posts/page/1">
           <ListItemText
             primary="Posts"
             disableTypography
             style={{ fontSize: 20, color: "white", marginLeft: "10px" }}
           />
         </Link>
-        <Link to="/../profile">
+        <Link to="/users">
           <ListItemText
             primary="Users"
             disableTypography
@@ -106,8 +106,8 @@ export const NavbarMaterial = () => {
             color="inherit"
             sx={{ ml: 90 }}
           >
-            <AccountCircle />
-            <Typography variant="h6" component="span">
+            <AccountCircle sx={{ width: "auto" }} />
+            <Typography variant="h6" sx={{ width: "auto" }} component="span">
               User
             </Typography>
           </IconButton>

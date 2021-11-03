@@ -33,8 +33,8 @@ export const Login = () => {
   const history = useHistory()
 
   function redirectToHome() {
-    history.push("/home/page/1")
     dispatch(userIsAuth(true))
+    history.push("/posts/page/1")
   }
 
   function readyRegister() {
@@ -46,12 +46,13 @@ export const Login = () => {
     if (status) {
       redirectToHome()
     }
+    return status
   }
 
   const onSubmit = (values, props) => {
     const type = { ...values, type: "login" }
     onClickLogin(type, props)
-    props.resetForm(userIsAuth, true)
+    props.resetForm()
   }
 
   return (

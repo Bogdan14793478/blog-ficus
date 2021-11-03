@@ -36,9 +36,7 @@ dd {
 .content img {
   max-width: 100%;
 }
-.item {
-  color: yellow;
-}
+
 .pages {
   margin: 20px 0;
 }
@@ -55,3 +53,16 @@ dd {
   font-weight: 700;
   background-color: azure;
 }
+.generalPageName {
+  padding: 15px 19px 25px 50px;
+}
+
+.cardTittleText {
+  max-width: 290px;
+  height: auto;
+}
+
+nav ul{
+  justify-content: center;
+}
+

@@ -29,10 +29,6 @@ export const Register = () => {
     history.push("/")
   }
 
-  function readyLogin() {
-    history.push("/")
-  }
-
   async function startRegistr(data) {
     const status = await registerOrLogin(data)
     if (status) {
@@ -103,7 +99,7 @@ export const Register = () => {
                       >
                         Registration
                       </button>
-                      <button className="btn-already-log" onClick={readyLogin}>
+                      <button className="btn-already-log" onClick={redirectToLogin}>
                         login yet?
                       </button>
                     </div>
