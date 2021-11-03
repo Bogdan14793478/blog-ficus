@@ -48,11 +48,11 @@ export function App() {
             <NavbarMaterial />
             <div className="app-wrapper-content">
               <Switch>
-                <PrivateRoute exact path="/profile" component={Profile} />
-                <PrivateRoute exact path="/dialogs" component={Dialogs} />
-                <PrivateRoute exact path="/news" component={News} />
-                <PrivateRoute exact path="/ficus" component={Ficus} />
-                <PrivateRoute exact path="/home" component={HomePage} />
+                <PrivateRoute exact path="/../profile" component={Profile} />
+                <PrivateRoute exact path="/../dialogs" component={Dialogs} />
+                <PrivateRoute exact path="/../news" component={News} />
+                <PrivateRoute exact path="/../ficus" component={Ficus} />
+                <PrivateRoute exact path="/home/page/1" component={HomePage} />
                 <PrivateRoute exact path="/home/page/:page" component={HomePage} />
               </Switch>
             </div>

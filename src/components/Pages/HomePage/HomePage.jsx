@@ -23,7 +23,7 @@ const initialValues = {
 export const HomePage = () => {
   const { page: locationElement } = useParams()
   const dispatch = useDispatch()
-  console.log(locationElement, "locationElement")
+  console.log(typeof locationElement, "locationElement")
   const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
   const interval = locationElement * skip - 10
 
@@ -104,7 +104,7 @@ export const HomePage = () => {
       </Grid>
       <Pagination
         count={totalPost}
-        defaultPage={locationElement}
+        page={+locationElement || 1}
         onChange={(e, page) => dispatch(actionGetCurrentPage(page))}
         renderItem={(item) => (
           <PaginationItem

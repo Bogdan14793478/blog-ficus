@@ -33,7 +33,7 @@ export const Login = () => {
   const history = useHistory()
 
   function redirectToHome() {
-    history.push("/home")
+    history.push("/home/page/1")
     dispatch(userIsAuth(true))
   }
 

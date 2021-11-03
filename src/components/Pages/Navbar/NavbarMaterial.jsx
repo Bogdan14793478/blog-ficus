@@ -75,21 +75,21 @@ export const NavbarMaterial = () => {
         <IconButton color="inherit">
           <Message />
         </IconButton>
-        <Link to="/home">
+        <Link to="/home/page/1">
           <ListItemText
             disableTypography
             style={{ fontSize: 20, color: "white", marginLeft: "10px" }}
             primary="Ficus"
           />
         </Link>
-        <Link to="dialogs">
+        <Link to="/../dialogs">
           <ListItemText
             primary="Posts"
             disableTypography
             style={{ fontSize: 20, color: "white", marginLeft: "10px" }}
           />
         </Link>
-        <Link to="profile">
+        <Link to="/../profile">
           <ListItemText
             primary="Users"
             disableTypography
