@@ -10,12 +10,13 @@ import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { deletePost } from "../../../api/posts"
 
-export const MediaCard = ({ item }) => {
+export const MediaCard = ({ item, ShowAllPost }) => {
   const dispatch = useDispatch()
   const posts = useSelector((state) => state.post.posts)
   const onClickDeletePost = () => {
     dispatch(deletePost(item._id))
   }
+
   return (
     <Grid item xs={12} md={4}>
       <Card
@@ -34,7 +35,11 @@ export const MediaCard = ({ item }) => {
           className="cardTittleText"
         >
           {item.title}
-          <DeleteIcon onClick={onClickDeletePost} sx={{ marginLeft: "294px" }} />
+          {ShowAllPost ? (
+            <DeleteIcon onClick={onClickDeletePost} sx={{ marginLeft: "294px" }} />
+          ) : (
+            ""
+          )}
         </Typography>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

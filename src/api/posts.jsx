@@ -9,8 +9,21 @@ import {
   actionErrorDeletePosts,
 } from "../redux/actions/types"
 
-export function getAllPosts(skip) {
+export function getAllPosts(skip, numberId) {
   return async (dispatch) => {
+    console.log("numberId", numberId, skip)
+    if (numberId) {
+      axiosInstance
+        .get(`posts?postedBy=${numberId}&skip=${skip}`)
+        .then((res) => {
+          console.log(res.data, "data")
+          dispatch(actionGetAllPosts(res.data))
+        })
+        .catch((err) => {
+          dispatch(getAllPostFailure(err.message))
+        })
+      return
+    }
     axiosInstance
       .get(`posts?skip=${skip}`)
       .then((res) => {

@@ -1,21 +1,23 @@
-import { USER_IS_AUTH, USER_DELETE_ALL_INFORM } from "../actions/const"
+import { USER_IS_AUTH, USER_DELETE_ALL_INFORM, INFORM_USER } from "../actions/const"
 
 const user = {
-  informUser: {},
+  informUser: "",
   isAuth: !!localStorage.getItem("passport"),
+  id: "",
 }
 export const stateUserReduser = (state = user, action) => {
   switch (action.type) {
     case USER_IS_AUTH:
       return { ...state, isAuth: action.payload }
     case USER_DELETE_ALL_INFORM:
-      return { ...state, informUser: {} }
-    // case "USER_SIGN_IN":
-    //   return { ...state, informUser: { ...action.payload } }
-    // case "USER_SIGN_OUT":
-    //   return state
+      return { ...state, informUser: "", id: "" }
+    case INFORM_USER:
+      return {
+        ...state,
+        informUser: action.payload.email,
+        id: action.payload._id,
+      }
     default:
       return state
   }
 }
-// export default statePostReduser

@@ -46,7 +46,7 @@ export const FormCreatePost = () => {
             />
             <TextField
               id="standard-basic"
-              label="Enter post text"
+              // label="Enter post text"
               value={values.fullText}
               name="fullText"
               variant="standard"
@@ -55,7 +55,7 @@ export const FormCreatePost = () => {
             />
             <TextField
               id="standard-basic"
-              label="Add new post"
+              // label="Add new post"
               value={values.description}
               name="description"
               variant="standard"

@@ -9,6 +9,7 @@ import {
   POST_DELETE_ALL_INFORM,
   USER_IS_AUTH,
   USER_DELETE_ALL_INFORM,
+  INFORM_USER,
 } from "./const"
 
 // POST
@@ -49,5 +50,10 @@ export const userIsAuth = (payload) => ({ type: USER_IS_AUTH, payload })
 
 export const userDeleteAllInform = (payload) => ({
   type: USER_DELETE_ALL_INFORM,
+  payload,
+})
+
+export const userInformIdEmail = (payload) => ({
+  type: INFORM_USER,
   payload,
 })

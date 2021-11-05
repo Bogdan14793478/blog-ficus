@@ -1,7 +1,17 @@
+import { useDispatch } from "react-redux"
 import { setToStorage, notifySuccess } from "../utils/helpers"
 import { axiosInstance } from "./axios"
+import { userInformIdEmail } from "../redux/actions/types"
 
 // login
+
+export function getIdandEmail() {
+  return async (dispatch) => {
+    axiosInstance.get("auth/user/").then((res) => {
+      dispatch(userInformIdEmail(res.data))
+    })
+  }
+}
 
 const fetchUser = () => {
   axiosInstance.get("auth/user/").then((result) => {
