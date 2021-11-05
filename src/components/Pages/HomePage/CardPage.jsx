@@ -39,6 +39,12 @@ export const MediaCard = ({ item, showAllPost }) => {
             <DeleteIcon onClick={onClickDeletePost} sx={{ marginLeft: "294px" }} />
           )}
         </Typography>
+        <CardMedia
+          component="img"
+          alt="green iguana"
+          height="140"
+          image={item.image}
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {item.fullText}

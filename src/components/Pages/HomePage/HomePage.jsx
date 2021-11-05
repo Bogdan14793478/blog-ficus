@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useHistory } from "react-router-dom"
-import { Grid, Pagination, PaginationItem } from "@mui/material"
+import { Grid } from "@mui/material"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
 import { MediaCard } from "./CardPage"
@@ -16,8 +16,11 @@ import { actionGetCurrentPage } from "../../../redux/actions/types"
 import { FormCreatePost } from "./FormCreatePost"
 import CustomizedDialogs from "./ModalPageCreatePost"
 import { AllPagin } from "../../Pagination"
+import { CustomizedInputBase } from "./SearchPosts"
+import { setToStorage, removeFromStorage } from "../../../utils/helpers"
 
 export const HomePage = () => {
+  const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
   const { page } = useParams()
   const dispatch = useDispatch()
@@ -36,11 +39,19 @@ export const HomePage = () => {
     setShowAllPost(bool)
   }
 
+  const startSearchInPosts = () => {
+    removeFromStorage("paramSearch")
+    setToStorage(searchPosts, "paramSearch")
+    dispatch(getAllPosts(ofset, id, searchPosts))
+  }
+
+  console.log(searchPosts, "searchPosts123")
+
   useEffect(() => {
     dispatch(getUserInfo())
     // showAllPost ? dispatch(getAllPosts(ofset, id)) : dispatch(getAllPosts(ofset))
     if (showAllPost) {
-      dispatch(getAllPosts(ofset, id))
+      dispatch(getAllPosts(ofset, id, searchPosts))
       return
     }
     dispatch(getAllPosts(ofset))
@@ -55,6 +66,11 @@ export const HomePage = () => {
           <Button onClick={() => filterPosts(false)}>Show all posts</Button>
           <Button onClick={() => filterPosts(true, id)}>Show my posts</Button>
         </ButtonGroup>
+        <CustomizedInputBase
+          setSearchPosts={setSearchPosts}
+          startSearchInPosts={startSearchInPosts}
+          searchPosts={searchPosts}
+        />
         <CustomizedDialogs>
           <FormCreatePost />
         </CustomizedDialogs>

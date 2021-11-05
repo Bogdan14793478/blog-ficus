@@ -1,4 +1,5 @@
 import { axiosInstance } from "./axios"
+import { removeFromStorage } from "../utils/helpers"
 
 import {
   actionGetAllPosts,
@@ -11,12 +12,18 @@ import {
 
 export function getAllPosts(skip, numberId) {
   return async (dispatch) => {
-    console.log("numberId", numberId, skip)
+    const searchPosts = localStorage.getItem("paramSearch")
+    console.log("numberId", numberId, skip, searchPosts)
     axiosInstance
-      .get(`posts?skip=${skip}&${numberId ? `postedBy=${numberId}` : ""}`)
+      .get(
+        `posts?skip=${skip}&${numberId ? `postedBy=${numberId}` : ""}&${
+          searchPosts ? `search=${searchPosts}` : ""
+        }`
+      )
       .then((res) => {
-        console.log(res.data, "data")
+        // console.log(res.data, "dataGetAllPost")
         dispatch(actionGetAllPosts(res.data))
+        removeFromStorage("paramSearch")
       })
       .catch((err) => {
         dispatch(getAllPostFailure(err.message))
