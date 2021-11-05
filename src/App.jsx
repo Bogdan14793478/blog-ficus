@@ -19,7 +19,6 @@ import { Register } from "./components/Authorization/Register"
 import { Users } from "./components/Pages/Users/Users"
 import { Dialogs } from "./components/Pages/Dialogs/Dialogs"
 import { News } from "./components/Pages/News/News"
-import { Ficus } from "./components/Pages/Ficus/Ficus"
 import { HomePage } from "./components/Pages/HomePage/HomePage"
 
 toast.configure()
@@ -51,7 +50,6 @@ export function App() {
                 <PrivateRoute exact path="/users" component={Users} />
                 <PrivateRoute exact path="/ficus" component={Dialogs} />
                 <PrivateRoute exact path="/news" component={News} />
-                <PrivateRoute exact path="/ficus" component={Ficus} />
                 <PrivateRoute exact path="/posts/page/:page" component={HomePage} />
               </Switch>
             </div>

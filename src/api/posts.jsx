@@ -11,25 +11,16 @@ import {
 
 export function getAllPosts(skip, numberId) {
   return async (dispatch) => {
-    if (numberId) {
-      axiosInstance
-        .get(`posts?postedBy=${numberId}&skip=${skip}`)
-        .then((res) => {
-          dispatch(actionGetAllPosts(res.data))
-        })
-        .catch((err) => {
-          dispatch(getAllPostFailure(err.message))
-        })
-    } else {
-      axiosInstance
-        .get(`posts?skip=${skip}`)
-        .then((res) => {
-          dispatch(actionGetAllPosts(res.data))
-        })
-        .catch((err) => {
-          dispatch(getAllPostFailure(err.message))
-        })
-    }
+    console.log("numberId", numberId, skip)
+    axiosInstance
+      .get(`posts?skip=${skip}&${numberId ? `postedBy=${numberId}` : ""}`)
+      .then((res) => {
+        console.log(res.data, "data")
+        dispatch(actionGetAllPosts(res.data))
+      })
+      .catch((err) => {
+        dispatch(getAllPostFailure(err.message))
+      })
   }
 }
 

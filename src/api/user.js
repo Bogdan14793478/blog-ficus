@@ -5,7 +5,7 @@ import { userInformIdEmail } from "../redux/actions/types"
 
 // login
 
-export function getIdandEmail() {
+export function getUserInfo() {
   return async (dispatch) => {
     axiosInstance.get("auth/user/").then((res) => {
       dispatch(userInformIdEmail(res.data))

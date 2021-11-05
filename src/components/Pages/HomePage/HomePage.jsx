@@ -11,43 +11,38 @@ import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
 import { MediaCard } from "./CardPage"
 import { getAllPosts } from "../../../api/posts"
-import { getIdandEmail } from "../../../api/user"
+import { getUserInfo } from "../../../api/user"
 import { actionGetCurrentPage } from "../../../redux/actions/types"
 import { FormCreatePost } from "./FormCreatePost"
 import CustomizedDialogs from "./ModalPageCreatePost"
 import { AllPagin } from "../../Pagination"
 
 export const HomePage = () => {
-  const [ShowAllPost, setShowAllPost] = useState(false)
-  const { page: locationElement } = useParams()
+  const [showAllPost, setShowAllPost] = useState(false)
+  const { page } = useParams()
   const dispatch = useDispatch()
   const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
   const { id, informUser } = useSelector((state) => state.user)
   const history = useHistory()
-  const ofset = locationElement * skip - 10
+  const ofset = page * skip - 10
 
   const handleClick = () => {
     history.push("/posts/page/1")
   }
 
-  const filterPosts = (number) => {
+  const filterPosts = (bool, number) => {
     dispatch(getAllPosts(0, number))
     handleClick()
-    setShowAllPost(true)
-  }
-  const showAllPosts = () => {
-    dispatch(getAllPosts(0))
-    handleClick()
-    setShowAllPost(false)
+    setShowAllPost(bool)
   }
 
   useEffect(() => {
-    if (ShowAllPost) {
-      dispatch(getIdandEmail())
+    dispatch(getUserInfo())
+    // showAllPost ? dispatch(getAllPosts(ofset, id)) : dispatch(getAllPosts(ofset))
+    if (showAllPost) {
       dispatch(getAllPosts(ofset, id))
       return
     }
-    dispatch(getIdandEmail())
     dispatch(getAllPosts(ofset))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentPage, id])
@@ -57,42 +52,26 @@ export const HomePage = () => {
       <h4 className="generalPageName">Home Page</h4>
       <div className="buttonHomePage">
         <ButtonGroup disableElevation variant="contained">
-          <Button onClick={showAllPosts}>Show all posts</Button>
-          <Button onClick={() => filterPosts(id)}>Show my posts</Button>
+          <Button onClick={() => filterPosts(false)}>Show all posts</Button>
+          <Button onClick={() => filterPosts(true, id)}>Show my posts</Button>
         </ButtonGroup>
         <CustomizedDialogs>
           <FormCreatePost />
         </CustomizedDialogs>
       </div>
-      {ShowAllPost ? (
-        <>
-          {/* Filter post */}
-          <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
-            {posts?.map((item) => (
-              <MediaCard key={item._id} item={item} ShowAllPost={ShowAllPost} />
-            ))}
-          </Grid>
-          <AllPagin
-            totalPost={totalPost}
-            locationElement={locationElement}
-            actionGetCurrentPage={actionGetCurrentPage}
-            id={id}
-          />
-        </>
-      ) : (
-        <>
-          <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
-            {posts?.map((item) => (
-              <MediaCard key={item._id} item={item} />
-            ))}
-          </Grid>
-          <AllPagin
-            totalPost={totalPost}
-            locationElement={locationElement}
-            actionGetCurrentPage={actionGetCurrentPage}
-          />
-        </>
-      )}
+      <>
+        <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
+          {posts?.map((item) => (
+            <MediaCard key={item._id} item={item} showAllPost={showAllPost} />
+          ))}
+        </Grid>
+        <AllPagin
+          totalPost={totalPost}
+          page={page}
+          actionGetCurrentPage={actionGetCurrentPage}
+          id={id}
+        />
+      </>
     </div>
   )
 }

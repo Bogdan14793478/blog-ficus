@@ -18,6 +18,7 @@ const initial = {
 }
 
 export const userPosts = (state = initial, action) => {
+  console.log(action.payload, " action.type")
   switch (action.type) {
     case GET_ALL_POST:
       return {

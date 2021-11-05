@@ -46,7 +46,6 @@ export const Login = () => {
     if (status) {
       redirectToHome()
     }
-    return status
   }
 
   const onSubmit = (values, props) => {
