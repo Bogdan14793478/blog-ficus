@@ -22,17 +22,17 @@ export function getAllPosts(skip, numberId) {
         .catch((err) => {
           dispatch(getAllPostFailure(err.message))
         })
-      return
+    } else {
+      axiosInstance
+        .get(`posts?skip=${skip}`)
+        .then((res) => {
+          console.log(res.data, "data")
+          dispatch(actionGetAllPosts(res.data))
+        })
+        .catch((err) => {
+          dispatch(getAllPostFailure(err.message))
+        })
     }
-    axiosInstance
-      .get(`posts?skip=${skip}`)
-      .then((res) => {
-        console.log(res.data, "data")
-        dispatch(actionGetAllPosts(res.data))
-      })
-      .catch((err) => {
-        dispatch(getAllPostFailure(err.message))
-      })
   }
 }
 

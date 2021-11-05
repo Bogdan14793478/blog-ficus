@@ -16,7 +16,7 @@ export const AllPagin = ({
       <Pagination
         id="paginationComponent"
         count={totalPost}
-        page={+locationElement || 1}
+        page={+locationElement}
         onChange={(e, page) => dispatch(actionGetCurrentPage(page))}
         renderItem={(item) => (
           <PaginationItem
@@ -33,7 +33,7 @@ export const AllPagin = ({
     <Pagination
       id="paginationComponent"
       count={totalPost}
-      page={+locationElement || 1}
+      page={+locationElement}
       onChange={(e, page) => dispatch(actionGetCurrentPage(page))}
       renderItem={(item) => (
         <PaginationItem

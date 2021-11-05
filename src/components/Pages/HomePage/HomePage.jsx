@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
+import { useHistory } from "react-router-dom"
 import { Grid, Pagination, PaginationItem } from "@mui/material"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
@@ -18,18 +19,25 @@ import { AllPagin } from "../../Pagination"
 
 export const HomePage = () => {
   const [ShowAllPost, setShowAllPost] = useState(false)
-  const { page: locationElement } = useParams()
+  const { page: locationElement } = useParams() // получаем доступ к номеру стр в url
   const dispatch = useDispatch()
   const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
   const { id, informUser } = useSelector((state) => state.user)
+  const history = useHistory()
   const ofset = locationElement * skip - 10
 
+  const handleClick = () => {
+    history.push("/posts/page/1")
+  }
+
   const filterPosts = (number) => {
-    dispatch(getAllPosts(ofset, number))
+    dispatch(getAllPosts(0, number))
+    handleClick()
     setShowAllPost(true)
   }
   const showAllPosts = () => {
-    dispatch(getAllPosts(ofset))
+    dispatch(getAllPosts(0))
+    handleClick()
     setShowAllPost(false)
   }
 

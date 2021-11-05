@@ -53,11 +53,6 @@ export function App() {
                 <PrivateRoute exact path="/news" component={News} />
                 <PrivateRoute exact path="/ficus" component={Ficus} />
                 <PrivateRoute exact path="/posts/page/:page" component={HomePage} />
-                <PrivateRoute
-                  exact
-                  path="/posts/postedBy/:id/page/:page"
-                  component={HomePage}
-                />
               </Switch>
             </div>
           </div>
