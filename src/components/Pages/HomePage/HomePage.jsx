@@ -93,44 +93,6 @@ export const HomePage = () => {
           />
         </>
       )}
-      {/* <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
-        {posts?.map((item) => (
-          <MediaCard key={item._id} item={item} />
-        ))}
-      </Grid>
-      <Pagination
-        id="paginationComponent"
-        count={totalPost}
-        page={+locationElement || 1}
-        onChange={(e, page) => dispatch(actionGetCurrentPage(page))}
-        renderItem={(item) => (
-          <PaginationItem
-            component={Link}
-            to={`/posts/page/${item.page}`}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...item}
-          />
-        )}
-      /> */}
-      {/* <AllPagin
-        totalPost={totalPost}
-        locationElement={locationElement}
-        actionGetCurrentPage={actionGetCurrentPage}
-      /> */}
-      {/* <Pagination
-        id="paginationComponent"
-        count={totalPost}
-        page={+locationElement || 1}
-        onChange={(e, page) => dispatch(actionGetCurrentPage(page))}
-        renderItem={(item) => (
-          <PaginationItem
-            component={Link}
-            to={`/posts/page/${item.page}`}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...item}
-          />
-        )}
-      /> */}
     </div>
   )
 }
