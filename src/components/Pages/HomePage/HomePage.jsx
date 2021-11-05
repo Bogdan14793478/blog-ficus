@@ -19,7 +19,7 @@ import { AllPagin } from "../../Pagination"
 
 export const HomePage = () => {
   const [ShowAllPost, setShowAllPost] = useState(false)
-  const { page: locationElement } = useParams() // получаем доступ к номеру стр в url
+  const { page: locationElement } = useParams()
   const dispatch = useDispatch()
   const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
   const { id, informUser } = useSelector((state) => state.user)

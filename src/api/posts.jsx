@@ -11,12 +11,10 @@ import {
 
 export function getAllPosts(skip, numberId) {
   return async (dispatch) => {
-    console.log("numberId", numberId, skip)
     if (numberId) {
       axiosInstance
         .get(`posts?postedBy=${numberId}&skip=${skip}`)
         .then((res) => {
-          console.log(res.data, "data")
           dispatch(actionGetAllPosts(res.data))
         })
         .catch((err) => {
@@ -26,7 +24,6 @@ export function getAllPosts(skip, numberId) {
       axiosInstance
         .get(`posts?skip=${skip}`)
         .then((res) => {
-          console.log(res.data, "data")
           dispatch(actionGetAllPosts(res.data))
         })
         .catch((err) => {
