@@ -10,6 +10,19 @@ import {
   actionErrorDeletePosts,
 } from "../redux/actions/types"
 
+export function updatePost(data, numberPost) {
+  return async (dispatch) => {
+    axiosInstance
+      .patch(`posts/${numberPost}`, data)
+      .then((res) => {
+        dispatch(actionGetAllPosts(res.data))
+      })
+      .catch((err) => {
+        dispatch(actionErrorCreateNewPosts(err.message))
+      })
+  }
+}
+
 export function getAllPosts(skip, numberId) {
   return async (dispatch) => {
     const searchPosts = localStorage.getItem("paramSearch")

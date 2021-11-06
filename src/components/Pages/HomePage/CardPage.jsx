@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
 import CardContent from "@mui/material/CardContent"
@@ -8,13 +8,21 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { deletePost } from "../../../api/posts"
+import { deletePost, updatePost } from "../../../api/posts"
+import CustomizedDialogs from "./ModalPageCreatePost"
+import { FormCreatePost } from "./FormCreatePost"
 
 export const MediaCard = ({ item, showAllPost }) => {
+  const [flag, setFlag] = React.useState(false)
   const dispatch = useDispatch()
-  const posts = useSelector((state) => state.post.posts)
+  const buttonName = "Update post"
+  const buttonNameOnForm = "Correct your post"
+  const idPost = item._id
   const onClickDeletePost = () => {
     dispatch(deletePost(item._id))
+  }
+  const onClick = () => {
+    setFlag(true)
   }
 
   return (
@@ -39,22 +47,42 @@ export const MediaCard = ({ item, showAllPost }) => {
             <DeleteIcon onClick={onClickDeletePost} sx={{ marginLeft: "294px" }} />
           )}
         </Typography>
-        <CardMedia
+        {/* <CardMedia
           component="img"
           alt="green iguana"
           height="140"
           image={item.image}
-        />
+        /> */}
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            className="cardTittleText"
+          >
             {item.fullText}
           </Typography>
+        </CardContent>
+        <CardContent>
           <Typography variant="body2" color="text.secondary">
             {item.description}
           </Typography>
         </CardContent>
         <CardActions>
           <Button size="small">Like {item?.likes?.length}</Button>
+          {showAllPost && (
+            <Button size="small" onClick={onClick}>
+              Update post?
+            </Button>
+          )}
+          {flag && (
+            <CustomizedDialogs
+              buttonName={buttonName}
+              buttonNameOnForm={buttonNameOnForm}
+            >
+              <FormCreatePost typeAxiosParam={updatePost} idPost={idPost} />
+            </CustomizedDialogs>
+          )}
         </CardActions>
       </Card>
     </Grid>

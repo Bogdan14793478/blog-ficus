@@ -10,7 +10,7 @@ import { Grid } from "@mui/material"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
 import { MediaCard } from "./CardPage"
-import { getAllPosts } from "../../../api/posts"
+import { getAllPosts, createNewPost } from "../../../api/posts"
 import { getUserInfo } from "../../../api/user"
 import { actionGetCurrentPage } from "../../../redux/actions/types"
 import { FormCreatePost } from "./FormCreatePost"
@@ -28,6 +28,8 @@ export const HomePage = () => {
   const { id, informUser } = useSelector((state) => state.user)
   const history = useHistory()
   const ofset = page * skip - 10
+  const buttonName = "New post"
+  const buttonNameOnForm = "Enter new post"
 
   const handleClick = () => {
     history.push("/posts/page/1")
@@ -71,8 +73,11 @@ export const HomePage = () => {
           startSearchInPosts={startSearchInPosts}
           searchPosts={searchPosts}
         />
-        <CustomizedDialogs>
-          <FormCreatePost />
+        <CustomizedDialogs
+          buttonName={buttonName}
+          buttonNameOnForm={buttonNameOnForm}
+        >
+          <FormCreatePost typeAxiosParam={createNewPost} />
         </CustomizedDialogs>
       </div>
       <>

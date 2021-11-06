@@ -5,14 +5,14 @@ import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
-import { createNewPost } from "../../../api/posts"
+// import { createNewPost } from "../../../api/posts"
 
 const initialValues = {
   title: "",
   fullText: "",
   description: "",
 }
-export const FormCreatePost = () => {
+export const FormCreatePost = ({ typeAxiosParam, idPost }) => {
   const dispatch = useDispatch()
 
   const validationSchema = Yup.object().shape({
@@ -22,7 +22,7 @@ export const FormCreatePost = () => {
   })
 
   const onSubmit = (values, props) => {
-    dispatch(createNewPost(values))
+    dispatch(typeAxiosParam(values, idPost))
     props.resetForm()
   }
 

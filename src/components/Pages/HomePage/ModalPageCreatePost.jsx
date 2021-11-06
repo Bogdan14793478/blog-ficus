@@ -52,7 +52,11 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 }
 
-export default function CustomizedDialogs({ children }) {
+export default function CustomizedDialogs({
+  children,
+  buttonName,
+  buttonNameOnForm,
+}) {
   const [open, setOpen] = React.useState(false)
 
   const handleClickOpen = () => {
@@ -65,7 +69,7 @@ export default function CustomizedDialogs({ children }) {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        New post
+        {buttonName}
       </Button>
       <BootstrapDialog
         onClose={handleClose}
@@ -73,7 +77,7 @@ export default function CustomizedDialogs({ children }) {
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Enter new post
+          {buttonNameOnForm}
         </BootstrapDialogTitle>
         <DialogContent dividers>{children}</DialogContent>
       </BootstrapDialog>
