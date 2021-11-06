@@ -26,7 +26,6 @@ export function updatePost(data, numberPost) {
 export function getAllPosts(skip, numberId) {
   return async (dispatch) => {
     const searchPosts = localStorage.getItem("paramSearch")
-    console.log("numberId", numberId, skip, searchPosts)
     axiosInstance
       .get(
         `posts?skip=${skip}&${numberId ? `postedBy=${numberId}` : ""}&${
@@ -34,7 +33,6 @@ export function getAllPosts(skip, numberId) {
         }`
       )
       .then((res) => {
-        // console.log(res.data, "dataGetAllPost")
         dispatch(actionGetAllPosts(res.data))
         removeFromStorage("paramSearch")
       })

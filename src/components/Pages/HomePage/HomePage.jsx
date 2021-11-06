@@ -47,7 +47,6 @@ export const HomePage = () => {
     dispatch(getAllPosts(ofset, id, searchPosts))
   }
 
-  console.log(searchPosts, "searchPosts123")
 
   useEffect(() => {
     dispatch(getUserInfo())
