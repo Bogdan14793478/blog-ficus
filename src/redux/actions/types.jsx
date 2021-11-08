@@ -7,6 +7,7 @@ import {
   GET_ALL_POST_FAILURE,
   SET_CURRENT_PAGE,
   POST_DELETE_ALL_INFORM,
+  POST_PLUS_OR_MINUS_LIKE,
   USER_IS_AUTH,
   USER_DELETE_ALL_INFORM,
   INFORM_USER,
@@ -41,6 +42,11 @@ export const actionGetCurrentPage = (page) => ({
 
 export const postDeleteAllInform = (payload) => ({
   type: POST_DELETE_ALL_INFORM,
+  payload,
+})
+
+export const actionpostPlusOrMinusLike = (payload) => ({
+  type: POST_PLUS_OR_MINUS_LIKE,
   payload,
 })
 

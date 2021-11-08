@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-sequences */
 /* eslint-disable prefer-spread */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -41,20 +42,19 @@ export const HomePage = () => {
     setShowAllPost(bool)
   }
 
-  const startSearchInPosts = () => {
-    removeFromStorage("paramSearch")
-    setToStorage(searchPosts, "paramSearch")
-    dispatch(getAllPosts(ofset, id, searchPosts))
+  const startSearchInPosts = (e) => {
+    e.preventDefault()
+    showAllPost
+      ? dispatch(getAllPosts(ofset, id, searchPosts))
+      : dispatch(getAllPosts(ofset, null, searchPosts))
+    setSearchPosts("")
   }
 
   useEffect(() => {
     dispatch(getUserInfo())
-    // showAllPost ? dispatch(getAllPosts(ofset, id)) : dispatch(getAllPosts(ofset))
-    if (showAllPost) {
-      dispatch(getAllPosts(ofset, id, searchPosts))
-      return
-    }
-    dispatch(getAllPosts(ofset))
+    showAllPost
+      ? dispatch(getAllPosts(ofset, id, searchPosts))
+      : dispatch(getAllPosts(ofset))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentPage, id])
 
@@ -81,7 +81,12 @@ export const HomePage = () => {
       <>
         <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
           {posts?.map((item) => (
-            <MediaCard key={item._id} item={item} showAllPost={showAllPost} />
+            <MediaCard
+              key={item._id}
+              item={item}
+              showAllPost={showAllPost}
+              idUser={id}
+            />
           ))}
         </Grid>
         <AllPagin

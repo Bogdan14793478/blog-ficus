@@ -8,14 +8,17 @@ import {
   actionErrorCreateNewPosts,
   actionDeletePosts,
   actionErrorDeletePosts,
+  actionpostPlusOrMinusLike,
 } from "../redux/actions/types"
 
-export function putLikePost(numberPost) {
+export function putLikePost(numberPost, idUser) {
   return async (dispatch) => {
     axiosInstance
       .put(`posts/like/${numberPost}`)
       .then((res) => {
-        dispatch(actionGetAllPosts(res.data))
+        console.log(res, " res like")
+        console.log(idUser, " idUser")
+        dispatch(actionpostPlusOrMinusLike(idUser))
       })
       .catch((err) => {
         dispatch(actionErrorCreateNewPosts(err.message))
@@ -36,13 +39,13 @@ export function updatePost(data, numberPost) {
   }
 }
 
-export function getAllPosts(skip, numberId) {
+export function getAllPosts(skip, numberId, searchPosts) {
+  // const params = new
   return async (dispatch) => {
-    const searchPosts = localStorage.getItem("paramSearch")
     axiosInstance
       .get(
-        `posts?skip=${skip}&${numberId ? `postedBy=${numberId}` : ""}&${
-          searchPosts ? `search=${searchPosts}` : ""
+        `posts?skip=${skip}${numberId ? `&postedBy=${numberId}` : ""}${
+          searchPosts ? `&search=${searchPosts}` : ""
         }`
       )
       .then((res) => {

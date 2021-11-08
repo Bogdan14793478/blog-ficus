@@ -12,7 +12,7 @@ import { deletePost, putLikePost, updatePost } from "../../../api/posts"
 import CustomizedDialogs from "./ModalPageCreatePost"
 import { FormCreatePost } from "./FormCreatePost"
 
-export const MediaCard = ({ item, showAllPost }) => {
+export const MediaCard = ({ item, showAllPost, idUser }) => {
   const [flagUpdatePost, setFlag] = React.useState(false)
 
   const dispatch = useDispatch()
@@ -27,7 +27,7 @@ export const MediaCard = ({ item, showAllPost }) => {
   }
 
   const onClickPutLikePost = () => {
-    dispatch(putLikePost(idPost))
+    dispatch(putLikePost(idPost, idUser))
   }
 
   React.useEffect(() => {}, [item.likes.length])

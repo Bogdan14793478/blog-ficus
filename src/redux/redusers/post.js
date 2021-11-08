@@ -7,6 +7,7 @@ import {
   ERROR_CREATE_NEW_POST,
   SET_CURRENT_PAGE,
   POST_DELETE_ALL_INFORM,
+  POST_PLUS_OR_MINUS_LIKE,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
 const initial = {
@@ -15,6 +16,7 @@ const initial = {
   currentPage: 1,
   skip: 10,
   totalPost: 0,
+  likesPost: [],
 }
 
 export const userPosts = (state = initial, action) => {
@@ -59,6 +61,15 @@ export const userPosts = (state = initial, action) => {
         ...state,
         posts: [],
       }
+    // case POST_PLUS_OR_MINUS_LIKE:
+    //   return {
+    //     ...state,
+    //     likesPost: state.posts.post.likes.map((like) => like !== action.payload)
+    //       ? [...like, like.push(action.payload)]
+    //       : [...like],
+
+    //     // .push(action.payload),
+    //   }
     default:
       return state
   }
