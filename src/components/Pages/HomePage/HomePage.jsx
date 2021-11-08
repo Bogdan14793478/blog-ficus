@@ -47,7 +47,6 @@ export const HomePage = () => {
     dispatch(getAllPosts(ofset, id, searchPosts))
   }
 
-
   useEffect(() => {
     dispatch(getUserInfo())
     // showAllPost ? dispatch(getAllPosts(ofset, id)) : dispatch(getAllPosts(ofset))

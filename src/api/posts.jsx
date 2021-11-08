@@ -10,6 +10,19 @@ import {
   actionErrorDeletePosts,
 } from "../redux/actions/types"
 
+export function putLikePost(numberPost) {
+  return async (dispatch) => {
+    axiosInstance
+      .put(`posts/like/${numberPost}`)
+      .then((res) => {
+        dispatch(actionGetAllPosts(res.data))
+      })
+      .catch((err) => {
+        dispatch(actionErrorCreateNewPosts(err.message))
+      })
+  }
+}
+
 export function updatePost(data, numberPost) {
   return async (dispatch) => {
     axiosInstance

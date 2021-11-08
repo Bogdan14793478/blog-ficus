@@ -8,22 +8,29 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { deletePost, updatePost } from "../../../api/posts"
+import { deletePost, putLikePost, updatePost } from "../../../api/posts"
 import CustomizedDialogs from "./ModalPageCreatePost"
 import { FormCreatePost } from "./FormCreatePost"
 
 export const MediaCard = ({ item, showAllPost }) => {
-  const [flag, setFlag] = React.useState(false)
+  const [flagUpdatePost, setFlag] = React.useState(false)
+
   const dispatch = useDispatch()
   const buttonName = "Update post"
   const buttonNameOnForm = "Correct your post"
   const idPost = item._id
   const onClickDeletePost = () => {
-    dispatch(deletePost(item._id))
+    dispatch(deletePost(idPost))
   }
   const onClick = () => {
     setFlag(true)
   }
+
+  const onClickPutLikePost = () => {
+    dispatch(putLikePost(idPost))
+  }
+
+  React.useEffect(() => {}, [item.likes.length])
 
   return (
     <Grid item xs={12} md={4}>
@@ -69,13 +76,15 @@ export const MediaCard = ({ item, showAllPost }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Like {item?.likes?.length}</Button>
+          <Button size="small" onClick={onClickPutLikePost}>
+            Like {item?.likes?.length}
+          </Button>
           {showAllPost && (
             <Button size="small" onClick={onClick}>
               Update post?
             </Button>
           )}
-          {flag && (
+          {flagUpdatePost && (
             <CustomizedDialogs
               buttonName={buttonName}
               buttonNameOnForm={buttonNameOnForm}
