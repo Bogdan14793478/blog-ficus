@@ -3,6 +3,7 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from "react"
+import { useState } from "react"
 import PropTypes from "prop-types"
 import Button from "@mui/material/Button"
 import { styled } from "@mui/material/styles"
@@ -45,17 +46,12 @@ const BootstrapDialogTitle = (props) => {
   )
 }
 
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-}
-
 export default function CustomizedDialogs({
   children,
   buttonName,
   buttonNameOnForm,
 }) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   const handleClickOpen = () => {
     setOpen(true)

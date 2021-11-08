@@ -12,14 +12,15 @@ const initialValues = {
   fullText: "",
   description: "",
 }
+
+const validationSchema = Yup.object().shape({
+  title: Yup.string().required("Required"),
+  fullText: Yup.string().min(20, "its too short").required("Required"),
+  description: Yup.string().required("Required"),
+})
+
 export const FormCreatePost = ({ typeAxiosParam, idPost }) => {
   const dispatch = useDispatch()
-
-  const validationSchema = Yup.object().shape({
-    title: Yup.string().required("Required"),
-    fullText: Yup.string().min(20, "its too short").required("Required"),
-    description: Yup.string().required("Required"),
-  })
 
   const onSubmit = (values, props) => {
     dispatch(typeAxiosParam(values, idPost))

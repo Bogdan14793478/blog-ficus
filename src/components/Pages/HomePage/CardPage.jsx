@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
@@ -11,26 +12,30 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import { deletePost, putLikePost, updatePost } from "../../../api/posts"
 import CustomizedDialogs from "./ModalPageCreatePost"
 import { FormCreatePost } from "./FormCreatePost"
+import {
+  cardPageButtonName,
+  cardPageButtonNameOnForm,
+} from "../../../constantsName/constantsName"
 
 export const MediaCard = ({ item, showAllPost, idUser }) => {
-  const [flagUpdatePost, setFlag] = React.useState(false)
+  const [flagUpdatePost, setFlag] = useState(false)
 
   const dispatch = useDispatch()
-  const buttonName = "Update post"
-  const buttonNameOnForm = "Correct your post"
-  const idPost = item._id
   const onClickDeletePost = () => {
-    dispatch(deletePost(idPost))
+    dispatch(deletePost(item._id))
   }
   const onClick = () => {
     setFlag(true)
   }
 
   const onClickPutLikePost = () => {
-    dispatch(putLikePost(idPost, idUser))
+    dispatch(putLikePost(item._id, idUser))
   }
 
-  React.useEffect(() => {}, [item.likes.length])
+  // useEffect(() => {
+  //   onClickPutLikePost()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [item])
 
   return (
     <Grid item xs={12} md={4}>
@@ -86,10 +91,10 @@ export const MediaCard = ({ item, showAllPost, idUser }) => {
           )}
           {flagUpdatePost && (
             <CustomizedDialogs
-              buttonName={buttonName}
-              buttonNameOnForm={buttonNameOnForm}
+              buttonName={cardPageButtonName}
+              buttonNameOnForm={cardPageButtonNameOnForm}
             >
-              <FormCreatePost typeAxiosParam={updatePost} idPost={idPost} />
+              <FormCreatePost typeAxiosParam={updatePost} idPost={item._id} />
             </CustomizedDialogs>
           )}
         </CardActions>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { AccountCircle, Message } from "@mui/icons-material"
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 })
 
 export const NavbarMaterial = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null)
+  const [anchorEl, setAnchorEl] = useState(null)
   const classes = useStyles()
 
   const dispatch = useDispatch()

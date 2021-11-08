@@ -18,7 +18,10 @@ import { FormCreatePost } from "./FormCreatePost"
 import CustomizedDialogs from "./ModalPageCreatePost"
 import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
-import { setToStorage, removeFromStorage } from "../../../utils/helpers"
+import {
+  homePageButtonName,
+  homePageButtonNameOnForm,
+} from "../../../constantsName/constantsName"
 
 export const HomePage = () => {
   const [searchPosts, setSearchPosts] = useState("")
@@ -29,8 +32,6 @@ export const HomePage = () => {
   const { id, informUser } = useSelector((state) => state.user)
   const history = useHistory()
   const ofset = page * skip - 10
-  const buttonName = "New post"
-  const buttonNameOnForm = "Enter new post"
 
   const handleClick = () => {
     history.push("/posts/page/1")
@@ -72,8 +73,8 @@ export const HomePage = () => {
           searchPosts={searchPosts}
         />
         <CustomizedDialogs
-          buttonName={buttonName}
-          buttonNameOnForm={buttonNameOnForm}
+          buttonName={homePageButtonName}
+          buttonNameOnForm={homePageButtonNameOnForm}
         >
           <FormCreatePost typeAxiosParam={createNewPost} />
         </CustomizedDialogs>

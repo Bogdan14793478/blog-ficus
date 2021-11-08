@@ -18,7 +18,6 @@ export const CustomizedInputBase = ({
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search in posts"
-        inputProps={{ "aria-label": "search google maps" }}
         value={searchPosts}
         onChange={(event) => {
           setSearchPosts(event.target.value)
