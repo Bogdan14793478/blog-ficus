@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useHistory } from "react-router-dom"
+import { makeStyles } from "@material-ui/core/styles"
 import { Grid } from "@mui/material"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
@@ -23,9 +24,22 @@ import {
   homePageButtonNameOnForm,
 } from "../../../constantsName/constantsName"
 
+// const useStyles = makeStyles((theme) => ({
+//   activeBtn: {
+//     backgroundColor: "#e0d5d5",
+//   },
+//   primary: {
+//     backgroundColor: "#bf453b",
+//   },
+// }))
+
 export const HomePage = () => {
   const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
+  // const classes = useStyles()
+  const [flag, setFlag] = useState(true)
+  const [color, setColor] = useState("primary")
+  const [anotherColor, setAnotherColor] = useState("secondary")
   const { page } = useParams()
   const dispatch = useDispatch()
   const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
@@ -64,8 +78,22 @@ export const HomePage = () => {
       <h4 className="generalPageName">Home Page</h4>
       <div className="buttonHomePage">
         <ButtonGroup disableElevation variant="contained">
-          <Button onClick={() => filterPosts(false)}>Show all posts</Button>
-          <Button onClick={() => filterPosts(true, id)}>Show my posts</Button>
+          <Button
+            color={flag ? color : anotherColor}
+            onClick={() => {
+              filterPosts(false), setFlag(true)
+            }}
+          >
+            Show all posts
+          </Button>
+          <Button
+            color={flag ? anotherColor : color}
+            onClick={() => {
+              filterPosts(true, id), setFlag(false)
+            }}
+          >
+            Show my posts
+          </Button>
         </ButtonGroup>
         <CustomizedInputBase
           setSearchPosts={setSearchPosts}
