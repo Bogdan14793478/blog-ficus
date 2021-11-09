@@ -22,7 +22,6 @@ axiosInstance.interceptors.response.use(
     return resp
   },
   (error) => {
-    console.log(error.response.data.error, "error.response.data.error")
     const err = error.response.data.error
     notifyError(err)
     if (err === checkingTokenForValidationByTime) {
