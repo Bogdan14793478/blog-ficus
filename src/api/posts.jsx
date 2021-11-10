@@ -16,9 +16,6 @@ export function putLikePost(numberPost, idUser, idPost) {
     axiosInstance
       .put(`posts/like/${numberPost}`)
       .then((res) => {
-        console.log(res, " res like")
-        console.log(idUser, " idUser when like")
-        console.log(idPost, " idPost when like")
         dispatch(actionpostPlusOrMinusLike({ idPost, idUser }))
       })
       .catch((err) => {
