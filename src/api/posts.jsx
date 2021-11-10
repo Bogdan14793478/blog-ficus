@@ -11,14 +11,15 @@ import {
   actionpostPlusOrMinusLike,
 } from "../redux/actions/types"
 
-export function putLikePost(numberPost, idUser) {
+export function putLikePost(numberPost, idUser, idPost) {
   return async (dispatch) => {
     axiosInstance
       .put(`posts/like/${numberPost}`)
       .then((res) => {
         console.log(res, " res like")
-        console.log(idUser, " idUser")
-        dispatch(actionpostPlusOrMinusLike(idUser))
+        console.log(idUser, " idUser when like")
+        console.log(idPost, " idPost when like")
+        dispatch(actionpostPlusOrMinusLike({ idPost, idUser }))
       })
       .catch((err) => {
         dispatch(actionErrorCreateNewPosts(err.message))

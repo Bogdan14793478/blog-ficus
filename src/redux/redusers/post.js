@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import {
   GET_ALL_POST,
   CREATE_NEW_POST,
@@ -16,10 +17,10 @@ const initial = {
   currentPage: 1,
   skip: 10,
   totalPost: 0,
-  likesPost: [],
 }
 
 export const userPosts = (state = initial, action) => {
+  console.log(action.payload, "action")
   switch (action.type) {
     case GET_ALL_POST:
       return {
@@ -60,15 +61,23 @@ export const userPosts = (state = initial, action) => {
         ...state,
         posts: [],
       }
-    // case POST_PLUS_OR_MINUS_LIKE:
-    //   return {
-    //     ...state,
-    //     likesPost: state.posts.post.likes.map((like) => like !== action.payload)
-    //       ? [...like, like.push(action.payload)]
-    //       : [...like],
-
-    //     // .push(action.payload),
-    //   }
+    case POST_PLUS_OR_MINUS_LIKE:
+      // eslint-disable-next-line array-callback-return
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post._id === action.payload.idPost) {
+            if (post.likes.includes(action.payload.idUser)) {
+              post.likes = post.likes.filter(
+                (like) => like !== action.payload.idUser
+              )
+            } else {
+              post.likes.push(action.payload.idUser)
+            }
+          }
+          return post
+        }),
+      }
     default:
       return state
   }
