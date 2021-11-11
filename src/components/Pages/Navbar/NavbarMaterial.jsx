@@ -29,13 +29,22 @@ const useStyles = makeStyles({
     zIndex: "999",
     marginLeft: "44px",
     marginTop: "-22px",
+    webkitTapHighlightColor: "transparent",
   },
   userUp: {
     matginTop: "2px",
+    webkitTapHighlightColor: "transparent",
   },
   menu: {
     position: "relative",
     zIndex: "1",
+    webkitTapHighlightColor: "transparent",
+  },
+  linkClassNavbar: {
+    fontSize: "20px",
+    color: "#fff",
+    marginLeft: "10px",
+    webkitTapHighlightColor: "transparent",
   },
 })
 
@@ -78,7 +87,7 @@ export const NavbarMaterial = () => {
         <Link to="/ficus">
           <ListItemText
             disableTypography
-            style={{ fontSize: 20, color: "white", marginLeft: "10px" }}
+            className={classes.linkClassNavbar}
             primary="Ficus"
           />
         </Link>
@@ -86,14 +95,14 @@ export const NavbarMaterial = () => {
           <ListItemText
             primary="Posts"
             disableTypography
-            style={{ fontSize: 20, color: "white", marginLeft: "10px" }}
+            className={classes.linkClassNavbar}
           />
         </Link>
         <Link to="/users">
           <ListItemText
             primary="Users"
             disableTypography
-            style={{ fontSize: 20, color: "white", marginLeft: "10px" }}
+            className={classes.linkClassNavbar}
           />
         </Link>
         <div>

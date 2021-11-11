@@ -1,5 +1,4 @@
 import { axiosInstance } from "./axios"
-import { removeFromStorage } from "../utils/helpers"
 
 import {
   actionGetAllPosts,
@@ -40,16 +39,19 @@ export function updatePost(data, numberPost) {
 export function getAllPosts(skip, numberId, searchPosts) {
   const params = new URLSearchParams({
     skip,
-    postedBy: numberId || "",
-    search: searchPosts || "",
   })
+  if (searchPosts) {
+    params.set("search", searchPosts)
+  }
+  if (numberId) {
+    params.set("postedBy", numberId)
+  }
   const url = `posts?${params.toString()}`
   return async (dispatch) => {
     axiosInstance
       .get(url)
       .then((res) => {
         dispatch(actionGetAllPosts(res.data))
-        removeFromStorage("paramSearch")
       })
       .catch((err) => {
         dispatch(getAllPostFailure(err.message))

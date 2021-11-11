@@ -62,15 +62,20 @@ dd {
   height: auto;
 }
 
-nav ul{
+nav ul {
   justify-content: center;
 }
 
-.buttonHomePage{
+.buttonHomePage {
   display: flex;
   justify-content: space-around;
   padding-bottom: 20px;
 }
 
+.primaryColorBtn {
+  color: #bf453b;
+}
 
-
+.secondaryColorBtn {
+  color: #e0d5d5;
+}

@@ -1,18 +1,25 @@
-import { useDispatch } from "react-redux"
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/self-closing-comp */
+// import { useDispatch } from "react-redux"
+// import { Link } from "react-router-dom"
 import { setToStorage, notifySuccess } from "../utils/helpers"
 import { axiosInstance } from "./axios"
-import { userInformIdEmail } from "../redux/actions/types"
-
-// login
+import {
+  takeInformUser,
+  // getAllPostFailure
+} from "../redux/actions/types"
+// import { getAllPosts } from "./posts"
+import history from "../components/history"
 
 export function getUserInfo() {
   return async (dispatch) => {
     axiosInstance.get("auth/user/").then((res) => {
-      dispatch(userInformIdEmail(res.data))
+      dispatch(takeInformUser(res.data))
     })
   }
 }
 
+// login
 const fetchUser = () => {
   axiosInstance.get("auth/user/").then((result) => {
     if (result.data) {

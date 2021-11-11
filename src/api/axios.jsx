@@ -1,6 +1,6 @@
 import axios from "axios"
 import { notifyError, removeFromStorage } from "../utils/helpers"
-import { checkingTokenForValidationByTime } from "../constantsName/constantsName"
+import { Labels } from "../constantsName/constants"
 
 const baseURL = "http://51.158.179.21/api/v1/"
 
@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     const err = error.response.data.error
     notifyError(err)
-    if (err === checkingTokenForValidationByTime) {
+    if (err === Labels.checkingTokenForValidationByTime) {
       removeFromStorage("passport")
     }
     return Promise.reject(error)

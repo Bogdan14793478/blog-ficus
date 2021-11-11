@@ -1,3 +1,5 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-param-reassign */
 import {
   GET_ALL_POST,
@@ -62,21 +64,37 @@ export const userPosts = (state = initial, action) => {
       }
     case POST_PLUS_OR_MINUS_LIKE:
       // eslint-disable-next-line array-callback-return
+      const findPost = state.posts.find((post) => {
+        return post._id === action.payload.idPost
+      })
       return {
         ...state,
-        posts: state.posts.map((post) => {
-          if (post._id === action.payload.idPost) {
-            if (post.likes.includes(action.payload.idUser)) {
-              post.likes = post.likes.filter(
-                (like) => like !== action.payload.idUser
-              )
-            } else {
-              post.likes.push(action.payload.idUser)
-            }
-          }
-          return post
-        }),
+        posts: [
+          ...state.posts(
+            findPost.likes.includes(action.payload.idUser)
+              ? (findPost.likes = findPost.likes.filter(
+                  (like) => like !== action.payload.idUser
+                ))
+              : findPost.likes.push(action.payload.idUser)
+          ),
+        ],
       }
+
+    // return {
+    //   ...state,
+    //   posts: state.posts.map((post) => {
+    //     if (post._id === action.payload.idPost) {
+    //       if (post.likes.includes(action.payload.idUser)) {
+    //         post.likes = post.likes.filter(
+    //           (like) => like !== action.payload.idUser
+    //         )
+    //       } else {
+    //         post.likes.push(action.payload.idUser)
+    //       }
+    //     }
+    //     return post
+    //   }),
+    // }
     default:
       return state
   }

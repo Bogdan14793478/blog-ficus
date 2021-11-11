@@ -4,7 +4,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from "react"
 import { useState } from "react"
-import PropTypes from "prop-types"
 import Button from "@mui/material/Button"
 import { styled } from "@mui/material/styles"
 import Dialog from "@mui/material/Dialog"

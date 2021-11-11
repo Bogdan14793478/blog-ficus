@@ -3,7 +3,7 @@ import { Pagination, PaginationItem } from "@mui/material"
 import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
-export const AllPagin = ({ totalPost, page, actionGetCurrentPage, id }) => {
+export const AllPagin = ({ totalPost, page, actionGetCurrentPage }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const dispatch = useDispatch()
 

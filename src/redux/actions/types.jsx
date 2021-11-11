@@ -59,7 +59,7 @@ export const userDeleteAllInform = (payload) => ({
   payload,
 })
 
-export const userInformIdEmail = (payload) => ({
+export const takeInformUser = (payload) => ({
   type: INFORM_USER,
   payload,
 })

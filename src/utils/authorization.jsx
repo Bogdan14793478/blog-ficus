@@ -1,5 +1,5 @@
 /* eslint-disable no-return-await */
-import { onSubmitRegister, signUp } from "../api/user"
+import { onSubmitRegister, signUp } from "../api/auth"
 import { removeFromStorage } from "./helpers"
 
 export async function registerOrLogin(data) {

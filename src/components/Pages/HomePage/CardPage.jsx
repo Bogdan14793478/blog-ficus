@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
 import CardContent from "@mui/material/CardContent"
+import CardMedia from "@mui/material/CardMedia"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import { Grid } from "@mui/material"
@@ -11,20 +12,16 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import { deletePost, putLikePost, updatePost } from "../../../api/posts"
 import CustomizedDialogs from "./ModalPageCreatePost"
 import { FormCreatePost } from "./FormCreatePost"
-import {
-  cardPageButtonName,
-  cardPageButtonNameOnForm,
-} from "../../../constantsName/constantsName"
+import { Labels } from "../../../constantsName/constants"
 
 export const MediaCard = ({ item, showAllPost, idUser }) => {
-  const [flagUpdatePost, setFlag] = useState(false)
-
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
   const dispatch = useDispatch()
   const onClickDeletePost = () => {
     dispatch(deletePost(item._id))
   }
   const onClick = () => {
-    setFlag(true)
+    setIsUpdateModalOpen(true)
   }
 
   const onClickPutLikePost = () => {
@@ -53,6 +50,12 @@ export const MediaCard = ({ item, showAllPost, idUser }) => {
             <DeleteIcon onClick={onClickDeletePost} sx={{ marginLeft: "294px" }} />
           )}
         </Typography>
+        {/* <CardMedia
+          component="img"
+          alt="green iguana"
+          height="140"
+          image={item.image}
+        /> */}
         <CardContent>
           <Typography
             gutterBottom
@@ -77,10 +80,10 @@ export const MediaCard = ({ item, showAllPost, idUser }) => {
               Update post?
             </Button>
           )}
-          {flagUpdatePost && (
+          {isUpdateModalOpen && (
             <CustomizedDialogs
-              buttonName={cardPageButtonName}
-              buttonNameOnForm={cardPageButtonNameOnForm}
+              buttonName={Labels.cardPageButtonName}
+              buttonNameOnForm={Labels.cardPageButtonNameOnForm}
             >
               <FormCreatePost typeAxiosParam={updatePost} idPost={item._id} />
             </CustomizedDialogs>
