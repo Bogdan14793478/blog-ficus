@@ -5,7 +5,7 @@ import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
-import { Labels } from "../../../constantsName/constants"
+import { Labels, ErrorMsg } from "../../../constantsName/constants"
 
 const initialValues = {
   title: "",
@@ -14,11 +14,11 @@ const initialValues = {
 }
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required(Labels.formCreatePageYupRequired),
+  title: Yup.string().required(ErrorMsg.resultRequired),
   fullText: Yup.string()
-    .min(20, Labels.formCreatePageYupRoolToFullText)
-    .required(Labels.formCreatePageYupRequired),
-  description: Yup.string().required(Labels.formCreatePageYupRequired),
+    .min(20, ErrorMsg.checkShortPassword)
+    .required(ErrorMsg.resultRequired),
+  description: Yup.string().required(ErrorMsg.resultRequired),
 })
 
 export const FormCreatePost = ({ typeAxiosParam, postId }) => {

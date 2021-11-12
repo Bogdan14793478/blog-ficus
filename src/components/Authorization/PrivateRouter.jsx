@@ -4,9 +4,7 @@ import { Route, Redirect } from "react-router-dom"
 import { Labels } from "../../constantsName/constants"
 
 export const PrivateRoute = ({ component: Component, path, props, ...rest }) => {
-  const isAuthenticated = !!localStorage.getItem(
-    Labels.isLoggedNameOfKeyInLocalStorage
-  )
+  const isAuthenticated = !!localStorage.getItem(Labels.token)
 
   return (
     <Route

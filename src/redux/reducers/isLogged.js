@@ -3,7 +3,7 @@ import { Labels } from "../../constantsName/constants"
 
 const user = {
   informUser: "",
-  isAuth: !!localStorage.getItem(Labels.isLoggedNameOfKeyInLocalStorage),
+  isAuth: !!localStorage.getItem(Labels.token),
   id: "",
 }
 export const stateUserReduser = (state = user, action) => {

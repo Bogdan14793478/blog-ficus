@@ -9,7 +9,7 @@ export const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use((request) => {
-  const newToken = localStorage.getItem(Labels.isLoggedNameOfKeyInLocalStorage)
+  const newToken = localStorage.getItem(Labels.token)
   if (newToken != null) {
     request.headers.Authorization = `Bearer ${newToken}`
     return request
@@ -24,8 +24,8 @@ axiosInstance.interceptors.response.use(
   (error) => {
     const err = error.response.data.error
     notifyError(err)
-    if (err === Labels.checkingTokenForValidationByTime) {
-      removeFromStorage(Labels.isLoggedNameOfKeyInLocalStorage)
+    if (err === Labels.checkingTokenUnauth) {
+      removeFromStorage(Labels.token)
     }
     return Promise.reject(error)
   }

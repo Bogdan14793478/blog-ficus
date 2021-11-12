@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
@@ -28,7 +27,7 @@ export const HomePage = () => {
   const ofset = page * skip - 10
 
   const redirectToPagePosts = () => {
-    history.push(Labels.homePageRedirectToPagePosts)
+    history.push("/posts/page/1")
   }
 
   const filterPosts = (resultOnClick, userId) => {
@@ -37,7 +36,7 @@ export const HomePage = () => {
     setShowAllPost(resultOnClick)
   }
   const takeParamForAllPosts = () => {
-    showAllPost
+    return showAllPost
       ? dispatch(getAllPosts(ofset, id, searchPosts))
       : dispatch(getAllPosts(ofset, null, searchPosts))
   }
@@ -52,6 +51,9 @@ export const HomePage = () => {
     filterPosts(resultOnClick, userId)
     setActiveTab(!resultOnClick)
   }
+  // const startOpenThirdPage = () => {
+  //   filterPosts(0)
+  // }
 
   useEffect(() => {
     dispatch(getUserInfo())
@@ -64,19 +66,19 @@ export const HomePage = () => {
       <h4 className="generalPageName">{Labels.homePageName}</h4>
       <div className="buttonHomePage">
         <ButtonGroup disableElevation variant="contained">
-          {showAllPost ? (
-            <Button onClick={() => startFilterPost(false)}>
-              {Labels.homePageFirstNameButton}
-            </Button>
-          ) : (
-            <Button
-              onClick={() => {
-                startFilterPost(true, id)
-              }}
-            >
-              {Labels.homePageButtonSecondName}
-            </Button>
-          )}
+          <Button onClick={() => startFilterPost(false)}>
+            {Labels.showAllPosts}
+          </Button>
+          <Button
+            onClick={() => {
+              startFilterPost(true, id)
+            }}
+          >
+            {Labels.filteredMyPosts}
+          </Button>
+          {/* <Button onClick={startOpenThirdPage}>
+            {Labels.homePageButtonThirdName}
+          </Button> */}
         </ButtonGroup>
         <CustomizedInputBase
           setSearchPosts={setSearchPosts}
@@ -85,7 +87,7 @@ export const HomePage = () => {
         />
         <CustomizedDialogs
           buttonName={Labels.homePageButton}
-          buttonNameOnForm={Labels.homePageButtonNameOnForm}
+          buttonNameOnForm={Labels.enterNewPost}
         >
           <FormCreatePost typeAxiosParam={createNewPost} />
         </CustomizedDialogs>

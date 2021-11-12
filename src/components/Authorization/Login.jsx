@@ -9,7 +9,7 @@ import { registerOrLogin } from "../../utils/authorization"
 import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
 import { userIsAuth } from "../../redux/actions/types"
-import { Labels } from "../../constantsName/constants"
+import { Labels, ErrorMsg } from "../../constantsName/constants"
 
 const initialValues = {
   validateOnMount: true,
@@ -19,13 +19,13 @@ const initialValues = {
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
-    .email(Labels.loginRegisterPageYupEmailValid)
-    .required(Labels.formCreatePageYupRequired),
+    .email(ErrorMsg.enterInformEmail)
+    .required(ErrorMsg.resultRequired),
   password: Yup.string()
-    .min(6, Labels.loginRegPageSchemaPasswordShort)
-    .max(10, Labels.loginRegPageSchemaPasswordLong)
-    .matches(passworgExp, Labels.loginRegPageSchemaOrderPassword)
-    .required(Labels.formCreatePageYupRequired),
+    .min(6, ErrorMsg.checkShortPassword)
+    .max(10, ErrorMsg.checkLongPassword)
+    .matches(passworgExp, ErrorMsg.mustPassword)
+    .required(ErrorMsg.resultRequired),
 })
 
 export const Login = () => {
@@ -36,11 +36,11 @@ export const Login = () => {
 
   function redirectToHome() {
     dispatch(userIsAuth(true))
-    history.push(Labels.homePageRedirectToPagePosts)
+    history.push("/posts/page/1")
   }
 
   function readyRegister() {
-    history.push(Labels.loginPageRedirectToRegisterPage)
+    history.push("/register")
   }
 
   async function onClickLogin(data) {
@@ -74,33 +74,33 @@ export const Login = () => {
                 <div className="card-content">
                   <div className="form-field">
                     <label htmlFor="Email Address">
-                      {Labels.loginPageEmail}
+                      {Labels.nameInputEmail}
                       <input
-                        type={Labels.loginRegisterPageEmail}
-                        id={Labels.loginRegisterPageEmail}
-                        autoComplete={Labels.loginRegisterPageEmail}
-                        name={Labels.loginRegisterPageEmail}
-                        variant={Labels.loginRegistrPageVariantInput}
+                        type="email"
+                        id="email"
+                        autoComplete="email"
+                        name="email"
+                        variant="outlined"
                         required
                         value={values.email}
-                        label={Labels.loginRegisterPageEmail}
+                        label="email"
                         onChange={handleChange}
                       />
                     </label>
                   </div>
                   <div className="form-field">
-                    <label htmlFor={Labels.loginRegisterPasswordPage}>
-                      {Labels.loginPagePassword}
+                    <label htmlFor="password">
+                      {Labels.nameInputPassword}
                       <input
-                        type={Labels.loginRegisterPasswordPage}
-                        id={Labels.loginRegisterPasswordPage}
+                        type="password"
+                        id="password"
                         onChange={handleChange}
                         value={values.password}
-                        variant={Labels.loginRegistrPageVariantInput}
+                        variant="outlined"
                         required
-                        name={Labels.loginRegisterPasswordPage}
-                        label={Labels.loginRegisterPasswordPage}
-                        autoComplete={Labels.loginRegisterPasswordPage}
+                        name="password"
+                        label="password"
+                        autoComplete="password"
                       />
                     </label>
                   </div>
@@ -108,14 +108,14 @@ export const Login = () => {
                     <Errors errors={errors} />
                     <div className="btn-tp">
                       <button
-                        type={Labels.loginRegisterPageSubmitType}
+                        type="submit"
                         disabled={!(isValid && dirty)}
                         className="btn-large red"
                       >
                         {Labels.loginPageBtnLogin}
                       </button>
                       <button className="btn-already-log" onClick={readyRegister}>
-                        {Labels.loginPageBtnNeedToRegister}
+                        {Labels.redirectRegPage}
                       </button>
                     </div>
                   </div>

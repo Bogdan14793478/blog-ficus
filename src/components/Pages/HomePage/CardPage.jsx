@@ -1,5 +1,4 @@
 import * as React from "react"
-import { useState } from "react"
 import { useDispatch } from "react-redux"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
@@ -15,13 +14,9 @@ import { FormCreatePost } from "./FormCreatePost"
 import { Labels } from "../../../constantsName/constants"
 
 export const MediaCard = ({ item, showAllPost, userId }) => {
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
   const dispatch = useDispatch()
   const onClickDeletePost = () => {
     dispatch(deletePost(item._id))
-  }
-  const onClick = () => {
-    setIsUpdateModalOpen(true)
   }
 
   const onClickPutLikePost = () => {
@@ -73,17 +68,12 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
         </CardContent>
         <CardActions>
           <Button size="small" onClick={onClickPutLikePost}>
-            {Labels.cardPageBtnLike} {item?.likes?.length}
+            {Labels.buttonLike} {item?.likes?.length}
           </Button>
           {showAllPost && (
-            <Button size="small" onClick={onClick}>
-              {Labels.cardPageBtnUpdatePost}
-            </Button>
-          )}
-          {isUpdateModalOpen && (
             <CustomizedDialogs
-              buttonName={Labels.cardPageButtonName}
-              buttonNameOnForm={Labels.cardPageButtonNameOnForm}
+              buttonName={Labels.updatePost}
+              buttonNameOnForm={Labels.updatePostinForm}
             >
               <FormCreatePost typeAxiosParam={updatePost} postId={item._id} />
             </CustomizedDialogs>

@@ -15,7 +15,7 @@ export function getUserInfo() {
 const fetchUser = () => {
   axiosInstance.get("auth/user/").then((result) => {
     if (result.data) {
-      notifySuccess(Labels.authPageTextResultSuccessfulLogin)
+      notifySuccess(Labels.successfulAuth)
     }
   })
 }
@@ -28,7 +28,7 @@ export const signUp = ({ email, password }) => {
     })
     .then((result) => {
       if (result.data) {
-        setToStorage(result.data.token, Labels.isLoggedNameOfKeyInLocalStorage)
+        setToStorage(result.data.token, Labels.token)
       }
     })
     .then(fetchUser)
@@ -46,7 +46,7 @@ export const onSubmitRegister = ({ email, password }) => {
     .then((result) => {
       setToStorage(result.data.email, Labels.postsPageEmail)
       setToStorage(result.data._id, Labels.postsPageId)
-      notifySuccess(Labels.authPageRegisterTextRegist)
+      notifySuccess(Labels.successfulRegister)
       return true
     })
 }

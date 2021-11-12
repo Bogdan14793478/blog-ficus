@@ -19,6 +19,8 @@ export const POST_DELETE_ALL_INFORM = "POST_DELETE_ALL_INFORM"
 
 export const POST_PLUS_OR_MINUS_LIKE = "POST_PLUS_OR_MINUS_LIKE"
 
+export const POST_PUT = "POST_PUT"
+
 // USER
 export const USER_IS_AUTH = "USER_IS_AUTH"
 
