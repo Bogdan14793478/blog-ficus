@@ -22,7 +22,6 @@ const initial = {
 }
 
 export const userPosts = (state = initial, action) => {
-  console.log(action.payload, "action.payload")
   switch (action.type) {
     case GET_ALL_POST:
       return {
@@ -68,20 +67,14 @@ export const userPosts = (state = initial, action) => {
       const findInx = state.posts.findIndex((post) => {
         return post._id === action.payload.postId
       })
-      console.log(findInx, "findInx")
-      // debugger
-
       const stateNew = state.posts[findInx].likes.includes(action.payload.userId)
-        ? // ? state.posts[findInx].likes.splice(state.posts[findInx].likes.length - 1, 1)
-          state.posts[findInx].likes.splice(
+        ? state.posts[findInx].likes.splice(
             state.posts[findInx].likes.find(
               (like) => like === action.payload.userId
             ),
             1
           )
         : state.posts[findInx].likes.push(action.payload.userId)
-
-      console.log(stateNew, "stateNew")
 
       return {
         ...state,
