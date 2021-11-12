@@ -1,5 +1,4 @@
 /* eslint-disable react/button-has-type */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react"
 import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
@@ -10,6 +9,7 @@ import { registerOrLogin } from "../../utils/authorization"
 import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
 import { userIsAuth } from "../../redux/actions/types"
+import { Labels } from "../../constantsName/constants"
 
 const initialValues = {
   validateOnMount: true,
@@ -18,12 +18,14 @@ const initialValues = {
 }
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Enter valid email").required("Required"),
+  email: Yup.string()
+    .email(Labels.loginRegisterPageYupEmailValid)
+    .required(Labels.formCreatePageYupRequired),
   password: Yup.string()
-    .min(6, "It`s to short")
-    .max(10, "It`s to lond")
-    .matches(passworgExp, "password must have one Upper, lower case, number")
-    .required("Required"),
+    .min(6, Labels.loginRegPageSchemaPasswordShort)
+    .max(10, Labels.loginRegPageSchemaPasswordLong)
+    .matches(passworgExp, Labels.loginRegPageSchemaOrderPassword)
+    .required(Labels.formCreatePageYupRequired),
 })
 
 export const Login = () => {
@@ -34,11 +36,11 @@ export const Login = () => {
 
   function redirectToHome() {
     dispatch(userIsAuth(true))
-    history.push("/posts/page/1")
+    history.push(Labels.homePageRedirectToPagePosts)
   }
 
   function readyRegister() {
-    history.push("/register")
+    history.push(Labels.loginPageRedirectToRegisterPage)
   }
 
   async function onClickLogin(data) {
@@ -67,38 +69,38 @@ export const Login = () => {
             {({ errors, values, handleChange, dirty, isValid }) => (
               <Form>
                 <div className="card-action red white-text">
-                  <h3>Login Form</h3>
+                  <h3>{Labels.loginPageNameTitle}</h3>
                 </div>
                 <div className="card-content">
                   <div className="form-field">
                     <label htmlFor="Email Address">
-                      Email
+                      {Labels.loginPageEmail}
                       <input
-                        type="email"
-                        id="email"
-                        autoComplete="email"
-                        name="email"
-                        variant="outlined"
+                        type={Labels.loginRegisterPageEmail}
+                        id={Labels.loginRegisterPageEmail}
+                        autoComplete={Labels.loginRegisterPageEmail}
+                        name={Labels.loginRegisterPageEmail}
+                        variant={Labels.loginRegistrPageVariantInput}
                         required
                         value={values.email}
-                        label="Email"
+                        label={Labels.loginRegisterPageEmail}
                         onChange={handleChange}
                       />
                     </label>
                   </div>
                   <div className="form-field">
-                    <label htmlFor="password">
-                      Password
+                    <label htmlFor={Labels.loginRegisterPasswordPage}>
+                      {Labels.loginPagePassword}
                       <input
-                        type="password"
-                        id="password"
+                        type={Labels.loginRegisterPasswordPage}
+                        id={Labels.loginRegisterPasswordPage}
                         onChange={handleChange}
                         value={values.password}
-                        variant="outlined"
+                        variant={Labels.loginRegistrPageVariantInput}
                         required
-                        name="password"
-                        label="Password"
-                        autoComplete="password"
+                        name={Labels.loginRegisterPasswordPage}
+                        label={Labels.loginRegisterPasswordPage}
+                        autoComplete={Labels.loginRegisterPasswordPage}
                       />
                     </label>
                   </div>
@@ -106,14 +108,14 @@ export const Login = () => {
                     <Errors errors={errors} />
                     <div className="btn-tp">
                       <button
-                        type="submit"
+                        type={Labels.loginRegisterPageSubmitType}
                         disabled={!(isValid && dirty)}
                         className="btn-large red"
                       >
-                        Login
+                        {Labels.loginPageBtnLogin}
                       </button>
                       <button className="btn-already-log" onClick={readyRegister}>
-                        Need to register?
+                        {Labels.loginPageBtnNeedToRegister}
                       </button>
                     </div>
                   </div>

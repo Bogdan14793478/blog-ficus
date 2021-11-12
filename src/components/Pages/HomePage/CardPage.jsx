@@ -14,7 +14,7 @@ import CustomizedDialogs from "./ModalPageCreatePost"
 import { FormCreatePost } from "./FormCreatePost"
 import { Labels } from "../../../constantsName/constants"
 
-export const MediaCard = ({ item, showAllPost, idUser }) => {
+export const MediaCard = ({ item, showAllPost, userId }) => {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
   const dispatch = useDispatch()
   const onClickDeletePost = () => {
@@ -25,7 +25,7 @@ export const MediaCard = ({ item, showAllPost, idUser }) => {
   }
 
   const onClickPutLikePost = () => {
-    dispatch(putLikePost(item._id, idUser, item._id))
+    dispatch(putLikePost(item._id, userId, item._id))
   }
 
   return (
@@ -50,12 +50,12 @@ export const MediaCard = ({ item, showAllPost, idUser }) => {
             <DeleteIcon onClick={onClickDeletePost} sx={{ marginLeft: "294px" }} />
           )}
         </Typography>
-        {/* <CardMedia
+        <CardMedia
           component="img"
           alt="green iguana"
           height="140"
           image={item.image}
-        /> */}
+        />
         <CardContent>
           <Typography
             gutterBottom
@@ -73,11 +73,11 @@ export const MediaCard = ({ item, showAllPost, idUser }) => {
         </CardContent>
         <CardActions>
           <Button size="small" onClick={onClickPutLikePost}>
-            Like {item?.likes?.length}
+            {Labels.cardPageBtnLike} {item?.likes?.length}
           </Button>
           {showAllPost && (
             <Button size="small" onClick={onClick}>
-              Update post?
+              {Labels.cardPageBtnUpdatePost}
             </Button>
           )}
           {isUpdateModalOpen && (
@@ -85,7 +85,7 @@ export const MediaCard = ({ item, showAllPost, idUser }) => {
               buttonName={Labels.cardPageButtonName}
               buttonNameOnForm={Labels.cardPageButtonNameOnForm}
             >
-              <FormCreatePost typeAxiosParam={updatePost} idPost={item._id} />
+              <FormCreatePost typeAxiosParam={updatePost} postId={item._id} />
             </CustomizedDialogs>
           )}
         </CardActions>

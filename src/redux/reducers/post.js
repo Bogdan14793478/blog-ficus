@@ -14,7 +14,7 @@ import {
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
 const initial = {
-  posts: [],
+  posts: [{ likes: [] }],
   error: [],
   currentPage: 1,
   skip: 10,
@@ -22,6 +22,7 @@ const initial = {
 }
 
 export const userPosts = (state = initial, action) => {
+  console.log(action.payload, "action.payload")
   switch (action.type) {
     case GET_ALL_POST:
       return {
@@ -64,37 +65,28 @@ export const userPosts = (state = initial, action) => {
       }
     case POST_PLUS_OR_MINUS_LIKE:
       // eslint-disable-next-line array-callback-return
-      const findPost = state.posts.find((post) => {
-        return post._id === action.payload.idPost
+      const findInx = state.posts.findIndex((post) => {
+        return post._id === action.payload.postId
       })
+      console.log(findInx, "findInx")
+      // debugger
+
+      const stateNew = state.posts[findInx].likes.includes(action.payload.userId)
+        ? // ? state.posts[findInx].likes.splice(state.posts[findInx].likes.length - 1, 1)
+          state.posts[findInx].likes.splice(
+            state.posts[findInx].likes.find(
+              (like) => like === action.payload.userId
+            ),
+            1
+          )
+        : state.posts[findInx].likes.push(action.payload.userId)
+
+      console.log(stateNew, "stateNew")
+
       return {
         ...state,
-        posts: [
-          ...state.posts(
-            findPost.likes.includes(action.payload.idUser)
-              ? (findPost.likes = findPost.likes.filter(
-                  (like) => like !== action.payload.idUser
-                ))
-              : findPost.likes.push(action.payload.idUser)
-          ),
-        ],
+        likes: stateNew,
       }
-
-    // return {
-    //   ...state,
-    //   posts: state.posts.map((post) => {
-    //     if (post._id === action.payload.idPost) {
-    //       if (post.likes.includes(action.payload.idUser)) {
-    //         post.likes = post.likes.filter(
-    //           (like) => like !== action.payload.idUser
-    //         )
-    //       } else {
-    //         post.likes.push(action.payload.idUser)
-    //       }
-    //     }
-    //     return post
-    //   }),
-    // }
     default:
       return state
   }

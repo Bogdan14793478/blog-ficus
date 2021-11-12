@@ -1,8 +1,9 @@
 import { USER_IS_AUTH, USER_DELETE_ALL_INFORM, INFORM_USER } from "../actions/const"
+import { Labels } from "../../constantsName/constants"
 
 const user = {
   informUser: "",
-  isAuth: !!localStorage.getItem("passport"),
+  isAuth: !!localStorage.getItem(Labels.isLoggedNameOfKeyInLocalStorage),
   id: "",
 }
 export const stateUserReduser = (state = user, action) => {

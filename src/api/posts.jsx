@@ -1,4 +1,5 @@
 import { axiosInstance } from "./axios"
+import { Labels } from "../constantsName/constants"
 
 import {
   actionGetAllPosts,
@@ -10,14 +11,15 @@ import {
   actionpostPlusOrMinusLike,
 } from "../redux/actions/types"
 
-export function putLikePost(numberPost, idUser, idPost) {
+export function putLikePost(numberPost, userId, postId) {
   return async (dispatch) => {
     axiosInstance
       .put(`posts/like/${numberPost}`)
       .then((res) => {
-        dispatch(actionpostPlusOrMinusLike({ idPost, idUser }))
+        dispatch(actionpostPlusOrMinusLike({ postId, userId }))
       })
       .catch((err) => {
+        console.log(err, Labels.postsPageError)
         dispatch(actionErrorCreateNewPosts(err.message))
       })
   }
@@ -31,6 +33,7 @@ export function updatePost(data, numberPost) {
         dispatch(actionGetAllPosts(res.data))
       })
       .catch((err) => {
+        console.log(err, Labels.postsPageError)
         dispatch(actionErrorCreateNewPosts(err.message))
       })
   }
@@ -54,6 +57,7 @@ export function getAllPosts(skip, numberId, searchPosts) {
         dispatch(actionGetAllPosts(res.data))
       })
       .catch((err) => {
+        console.log(err, Labels.postsPageError)
         dispatch(getAllPostFailure(err.message))
       })
   }
@@ -67,6 +71,7 @@ export function createNewPost(data) {
         dispatch(actionCreateNewPosts(res))
       })
       .catch((err) => {
+        console.log(err, Labels.postsPageError)
         dispatch(actionErrorCreateNewPosts(err.message))
       })
   }
@@ -80,6 +85,7 @@ export function deletePost(postId) {
         dispatch(actionDeletePosts(res.config.postId))
       })
       .catch((err) => {
+        console.log(err, Labels.postsPageError)
         dispatch(actionErrorDeletePosts(err.message))
       })
   }

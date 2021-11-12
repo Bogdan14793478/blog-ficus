@@ -1,6 +1,4 @@
-/* eslint-disable react/self-closing-comp */
 /* eslint-disable import/no-default-export */
-/* eslint-disable react/require-default-props */
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from "react"
 import { useState } from "react"

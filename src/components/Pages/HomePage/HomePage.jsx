@@ -1,8 +1,4 @@
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-sequences */
-/* eslint-disable prefer-spread */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
@@ -10,7 +6,6 @@ import { useHistory } from "react-router-dom"
 import { Grid } from "@mui/material"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
-import { makeStyles } from "@mui/styles"
 import { MediaCard } from "./CardPage"
 import { getAllPosts, createNewPost } from "../../../api/posts"
 import { getUserInfo } from "../../../api/auth"
@@ -21,36 +16,24 @@ import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
 import { Labels } from "../../../constantsName/constants"
 
-const useStyles = makeStyles({
-  primeColor: {
-    color: "#bf453b",
-  },
-  secondaryColor: {
-    color: "#e0d5d5",
-  },
-})
-
 export const HomePage = () => {
-  const classes = useStyles()
   const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
   const [activeTab, setActiveTab] = useState(true)
-  // const [color, setColor] = useState("primary")
-  // const [anotherColor, setAnotherColor] = useState("secondary")
   const { page } = useParams()
   const dispatch = useDispatch()
   const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
-  const { id, informUser } = useSelector((state) => state.user)
+  const { id } = useSelector((state) => state.user)
   const history = useHistory()
   const ofset = page * skip - 10
 
-  const handleClick = () => {
-    history.push("/posts/page/1")
+  const redirectToPagePosts = () => {
+    history.push(Labels.homePageRedirectToPagePosts)
   }
 
-  const filterPosts = (resultOnClick, idUser) => {
-    dispatch(getAllPosts(0, idUser))
-    handleClick()
+  const filterPosts = (resultOnClick, userId) => {
+    dispatch(getAllPosts(0, userId))
+    redirectToPagePosts()
     setShowAllPost(resultOnClick)
   }
   const takeParamForAllPosts = () => {
@@ -65,8 +48,9 @@ export const HomePage = () => {
     setSearchPosts("")
   }
 
-  const chengeColor = (resultOnClick, idUser) => {
-    filterPosts(resultOnClick, idUser), setActiveTab(!resultOnClick)
+  const startFilterPost = (resultOnClick, userId) => {
+    filterPosts(resultOnClick, userId)
+    setActiveTab(!resultOnClick)
   }
 
   useEffect(() => {
@@ -77,54 +61,22 @@ export const HomePage = () => {
 
   return (
     <div>
-      <h4 className="generalPageName">Home Page</h4>
+      <h4 className="generalPageName">{Labels.homePageName}</h4>
       <div className="buttonHomePage">
         <ButtonGroup disableElevation variant="contained">
-          <Button
-            // color={activeTab ? color : anotherColor}
-            {
-              activeTab
-                ? className={classes.primeColor}
-                : className={classes.secondaryColor}
-            }
-            onClick={() => chengeColor(false)}
-          >
-            Show all posts
-          </Button>
-
-          {activeTab ? (
-            <Button
-              className={classes.secondaryColor}
-              onClick={() => {
-                chengeColor(false)
-              }}
-            >
-              Show my posts
+          {showAllPost ? (
+            <Button onClick={() => startFilterPost(false)}>
+              {Labels.homePageFirstNameButton}
             </Button>
           ) : (
             <Button
-              className={classes.primeColor}
               onClick={() => {
-                chengeColor(true, id)
+                startFilterPost(true, id)
               }}
             >
-              Show my posts
+              {Labels.homePageButtonSecondName}
             </Button>
           )}
-
-          {/* <Button
-            // color={activeTab ? anotherColor : color}
-            color={
-              activeTab
-                ? (className={classes.secondaryColor})
-                : (className={classes.primeColor})
-            }
-            onClick={() => {
-              chengeColor(true, id)
-            }}
-          >
-            Show my posts
-          </Button> */}
         </ButtonGroup>
         <CustomizedInputBase
           setSearchPosts={setSearchPosts}
@@ -145,7 +97,7 @@ export const HomePage = () => {
               key={item._id}
               item={item}
               showAllPost={showAllPost}
-              idUser={id}
+              userId={id}
             />
           ))}
         </Grid>

@@ -1,11 +1,12 @@
 import React from "react"
+import { Labels } from "../../constantsName/constants"
 
 export function Errors({ errors }) {
   return Object.entries(errors).map(([key, error]) => {
     return (
       <ul key={key}>
         <li>
-          error {key}: {error}
+          {Labels.errorPage} {key}: {error}
         </li>
       </ul>
     )

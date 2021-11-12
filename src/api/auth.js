@@ -1,15 +1,7 @@
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/self-closing-comp */
-// import { useDispatch } from "react-redux"
-// import { Link } from "react-router-dom"
 import { setToStorage, notifySuccess } from "../utils/helpers"
 import { axiosInstance } from "./axios"
-import {
-  takeInformUser,
-  // getAllPostFailure
-} from "../redux/actions/types"
-// import { getAllPosts } from "./posts"
-import history from "../components/history"
+import { takeInformUser } from "../redux/actions/types"
+import { Labels } from "../constantsName/constants"
 
 export function getUserInfo() {
   return async (dispatch) => {
@@ -23,7 +15,7 @@ export function getUserInfo() {
 const fetchUser = () => {
   axiosInstance.get("auth/user/").then((result) => {
     if (result.data) {
-      notifySuccess("You a authorizated")
+      notifySuccess(Labels.authPageTextResultSuccessfulLogin)
     }
   })
 }
@@ -36,7 +28,7 @@ export const signUp = ({ email, password }) => {
     })
     .then((result) => {
       if (result.data) {
-        setToStorage(result.data.token, "passport")
+        setToStorage(result.data.token, Labels.isLoggedNameOfKeyInLocalStorage)
       }
     })
     .then(fetchUser)
@@ -52,9 +44,9 @@ export const onSubmitRegister = ({ email, password }) => {
       password,
     })
     .then((result) => {
-      setToStorage(result.data.email, "email")
-      setToStorage(result.data._id, "id")
-      notifySuccess("You are registered")
+      setToStorage(result.data.email, Labels.postsPageEmail)
+      setToStorage(result.data._id, Labels.postsPageId)
+      notifySuccess(Labels.authPageRegisterTextRegist)
       return true
     })
 }

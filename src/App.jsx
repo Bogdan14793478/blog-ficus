@@ -1,11 +1,10 @@
+/* eslint-disable import/order */
 import React from "react"
 import "./App.css"
-
 import { ThemeProvider } from "@mui/material"
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
+import { Router, Redirect, Route, Switch } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { PrivateRoute } from "./components/Authorization/PrivateRouter"
-// eslint-disable-next-line import/order
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { theme } from "./utils/themeNavbar"
@@ -24,7 +23,7 @@ export function App() {
   const isAuth = useSelector((state) => state.user.isAuth)
 
   return (
-    <BrowserRouter history={history}>
+    <Router history={history}>
       <ThemeProvider theme={theme}>
         <Switch>
           {!isAuth ? (
@@ -52,6 +51,6 @@ export function App() {
           )}
         </Switch>
       </ThemeProvider>
-    </BrowserRouter>
+    </Router>
   )
 }

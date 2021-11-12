@@ -1,10 +1,10 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/react-in-jsx-scope */
 import { Pagination, PaginationItem } from "@mui/material"
 import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
 export const AllPagin = ({ totalPost, page, actionGetCurrentPage }) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const dispatch = useDispatch()
 
   return (
@@ -14,12 +14,7 @@ export const AllPagin = ({ totalPost, page, actionGetCurrentPage }) => {
       page={+page}
       onChange={(e, numpage) => dispatch(actionGetCurrentPage(numpage))}
       renderItem={(item) => (
-        <PaginationItem
-          component={Link}
-          to={`/posts/page/${item.page}`}
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...item}
-        />
+        <PaginationItem component={Link} to={`/posts/page/${item.page}`} {...item} />
       )}
     />
   )

@@ -5,7 +5,7 @@ import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
-// import { createNewPost } from "../../../api/posts"
+import { Labels } from "../../../constantsName/constants"
 
 const initialValues = {
   title: "",
@@ -14,16 +14,18 @@ const initialValues = {
 }
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Required"),
-  fullText: Yup.string().min(20, "its too short").required("Required"),
-  description: Yup.string().required("Required"),
+  title: Yup.string().required(Labels.formCreatePageYupRequired),
+  fullText: Yup.string()
+    .min(20, Labels.formCreatePageYupRoolToFullText)
+    .required(Labels.formCreatePageYupRequired),
+  description: Yup.string().required(Labels.formCreatePageYupRequired),
 })
 
-export const FormCreatePost = ({ typeAxiosParam, idPost }) => {
+export const FormCreatePost = ({ typeAxiosParam, postId }) => {
   const dispatch = useDispatch()
 
   const onSubmit = (values, props) => {
-    dispatch(typeAxiosParam(values, idPost))
+    dispatch(typeAxiosParam(values, postId))
     props.resetForm()
   }
 
@@ -47,7 +49,7 @@ export const FormCreatePost = ({ typeAxiosParam, idPost }) => {
             />
             <TextField
               id="standard-basic"
-              // label="Enter post text"
+              label="Enter post text"
               value={values.fullText}
               name="fullText"
               variant="standard"
@@ -56,7 +58,7 @@ export const FormCreatePost = ({ typeAxiosParam, idPost }) => {
             />
             <TextField
               id="standard-basic"
-              // label="Add new post"
+              label="Add new post"
               value={values.description}
               name="description"
               variant="standard"
