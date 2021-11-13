@@ -24,7 +24,6 @@ import { Labels } from "../../../constantsName/constants"
 //     color: "#ffffff",
 //     background: "#bf453b",
 //     "&:active": {
-//       variant: "outlined",
 //       backgroundColor: "#e0d5d5",
 //       color: "#ffffff",
 //     },
@@ -50,10 +49,10 @@ export const HomePage = () => {
   const selectedPage = {
     showPosts: 1,
     myPost: 2,
-    helloW: 3,
+    helloWorld: 3,
   }
 
-  const filterPosts = (resultOnClick, userId) => {
+  const showMyPost = (resultOnClick, userId) => {
     dispatch(getAllPosts(0, userId))
     redirectToPagePosts()
     setShowAllPost(resultOnClick)
@@ -67,15 +66,18 @@ export const HomePage = () => {
   const startSearchInPosts = (e) => {
     e.preventDefault()
     takeParamForAllPosts()
-    setSearchPosts("")
+    setSearchPosts(searchPosts)
   }
+  console.log(searchPosts, "searchPosts")
 
   const startFilterPost = (numberPage, resultOnClick, userId) => {
-    filterPosts(resultOnClick, userId)
+    showMyPost(resultOnClick, userId)
     setActiveTab(numberPage)
+    setSearchPosts("")
   }
   const startOpenThirdPage = (numberPage) => {
     setActiveTab(numberPage)
+    setSearchPosts("")
     dispatch(postDeleteAllInform())
   }
 
@@ -91,24 +93,26 @@ export const HomePage = () => {
       <div className="buttonHomePage">
         <ButtonGroup>
           <Button
-            variant={activeTab === 1 ? "contained" : "outlined"}
+            variant={activeTab === selectedPage.showPosts ? "contained" : "outlined"}
             // className={classes.buttonBlue}
-            onClick={() => startFilterPost(1, false)}
+            onClick={() => startFilterPost(selectedPage.showPosts, false)}
           >
             {Labels.showAllPosts}
           </Button>
           <Button
-            variant={activeTab === 2 ? "contained" : "outlined"}
+            variant={activeTab === selectedPage.myPost ? "contained" : "outlined"}
             // className={classes.buttonBlue}
             onClick={() => {
-              startFilterPost(2, true, id)
+              startFilterPost(selectedPage.myPost, true, id)
             }}
           >
             {Labels.filteredMyPosts}
           </Button>
           <Button
-            variant={activeTab === 3 ? "contained" : "outlined"}
-            onClick={() => startOpenThirdPage(3, false)}
+            variant={
+              activeTab === selectedPage.helloWorld ? "contained" : "outlined"
+            }
+            onClick={() => startOpenThirdPage(selectedPage.helloWorld, false)}
           >
             {Labels.homePageButtonThirdName}
           </Button>
