@@ -9,7 +9,10 @@ import Button from "@mui/material/Button"
 import { MediaCard } from "./CardPage"
 import { getAllPosts, createNewPost } from "../../../api/posts"
 import { getUserInfo } from "../../../api/auth"
-import { actionGetCurrentPage } from "../../../redux/actions/types"
+import {
+  actionGetCurrentPage,
+  postDeleteAllInform,
+} from "../../../redux/actions/types"
 import { FormCreatePost } from "./FormCreatePost"
 import CustomizedDialogs from "./ModalPageCreatePost"
 import { AllPagin } from "../../Pagination"
@@ -31,7 +34,7 @@ import { Labels } from "../../../constantsName/constants"
 export const HomePage = () => {
   const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
-  const [activeTab, setActiveTab] = useState(true)
+  const [activeTab, setActiveTab] = useState(1)
   // const classes = useStyles()
   const { page } = useParams()
   const dispatch = useDispatch()
@@ -42,6 +45,12 @@ export const HomePage = () => {
 
   const redirectToPagePosts = () => {
     history.push("/posts/page/1")
+  }
+
+  const selectedPage = {
+    showPosts: 1,
+    myPost: 2,
+    helloW: 3,
   }
 
   const filterPosts = (resultOnClick, userId) => {
@@ -61,13 +70,14 @@ export const HomePage = () => {
     setSearchPosts("")
   }
 
-  const startFilterPost = (resultOnClick, userId) => {
+  const startFilterPost = (numberPage, resultOnClick, userId) => {
     filterPosts(resultOnClick, userId)
-    setActiveTab(!resultOnClick)
+    setActiveTab(numberPage)
   }
-  // const startOpenThirdPage = () => {
-  //   filterPosts(0)
-  // }
+  const startOpenThirdPage = (numberPage) => {
+    setActiveTab(numberPage)
+    dispatch(postDeleteAllInform())
+  }
 
   useEffect(() => {
     dispatch(getUserInfo())
@@ -81,24 +91,27 @@ export const HomePage = () => {
       <div className="buttonHomePage">
         <ButtonGroup>
           <Button
-            variant={activeTab ? "contained" : "outlined"}
+            variant={activeTab === 1 ? "contained" : "outlined"}
             // className={classes.buttonBlue}
-            onClick={() => startFilterPost(false)}
+            onClick={() => startFilterPost(1, false)}
           >
             {Labels.showAllPosts}
           </Button>
           <Button
-            variant={activeTab ? "outlined" : "contained"}
+            variant={activeTab === 2 ? "contained" : "outlined"}
             // className={classes.buttonBlue}
             onClick={() => {
-              startFilterPost(true, id)
+              startFilterPost(2, true, id)
             }}
           >
             {Labels.filteredMyPosts}
           </Button>
-          {/* <Button onClick={startOpenThirdPage}>
+          <Button
+            variant={activeTab === 3 ? "contained" : "outlined"}
+            onClick={() => startOpenThirdPage(3, false)}
+          >
             {Labels.homePageButtonThirdName}
-          </Button> */}
+          </Button>
         </ButtonGroup>
         <CustomizedInputBase
           setSearchPosts={setSearchPosts}
@@ -112,6 +125,7 @@ export const HomePage = () => {
           <FormCreatePost typeAxiosParam={createNewPost} />
         </CustomizedDialogs>
       </div>
+      <>{activeTab === 3 ? <h2>Hello World</h2> : ""}</>
       <>
         <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
           {posts?.map((item) => (
