@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useHistory } from "react-router-dom"
+import { makeStyles } from "@material-ui/styles"
 import { Grid } from "@mui/material"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
@@ -15,10 +16,23 @@ import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
 import { Labels } from "../../../constantsName/constants"
 
+// const useStyles = makeStyles({
+//   buttonBlue: {
+//     color: "#ffffff",
+//     background: "#bf453b",
+//     "&:active": {
+//       variant: "outlined",
+//       backgroundColor: "#e0d5d5",
+//       color: "#ffffff",
+//     },
+//   },
+// })
+
 export const HomePage = () => {
   const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
   const [activeTab, setActiveTab] = useState(true)
+  // const classes = useStyles()
   const { page } = useParams()
   const dispatch = useDispatch()
   const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
@@ -65,11 +79,17 @@ export const HomePage = () => {
     <div>
       <h4 className="generalPageName">{Labels.homePageName}</h4>
       <div className="buttonHomePage">
-        <ButtonGroup disableElevation variant="contained">
-          <Button onClick={() => startFilterPost(false)}>
+        <ButtonGroup>
+          <Button
+            variant={activeTab ? "contained" : "outlined"}
+            // className={classes.buttonBlue}
+            onClick={() => startFilterPost(false)}
+          >
             {Labels.showAllPosts}
           </Button>
           <Button
+            variant={activeTab ? "outlined" : "contained"}
+            // className={classes.buttonBlue}
             onClick={() => {
               startFilterPost(true, id)
             }}

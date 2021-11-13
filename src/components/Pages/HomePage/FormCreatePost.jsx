@@ -5,7 +5,7 @@ import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
-import { Labels, ErrorMsg } from "../../../constantsName/constants"
+import { ErrorMsg } from "../../../constantsName/constants"
 
 const initialValues = {
   title: "",
