@@ -20,6 +20,7 @@ import {
   postDeleteAllInform,
 } from "../../../redux/actions/types"
 import { removeFromStorage } from "../../../utils/helpers"
+import { Labels } from "../../../constantsName/constants"
 
 const useStyles = makeStyles({
   boxFigureStyle: {
@@ -78,73 +79,92 @@ export const NavbarMaterial = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h5" component="span">
-          Logo
-        </Typography>
-        <IconButton color="inherit">
-          <Message />
-        </IconButton>
-        <Link to="/ficus">
-          <ListItemText
-            disableTypography
-            className={classes.linkClassNavbar}
-            primary="Ficus"
-          />
-        </Link>
-        <Link to="/posts/page/1">
-          <ListItemText
-            primary="Posts"
-            disableTypography
-            className={classes.linkClassNavbar}
-          />
-        </Link>
-        <Link to="/users">
-          <ListItemText
-            primary="Users"
-            disableTypography
-            className={classes.linkClassNavbar}
-          />
-        </Link>
-        <div>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleMenu}
-            color="inherit"
-            sx={{ ml: 90 }}
-          >
-            <AccountCircle sx={{ width: "auto" }} />
-            <Typography variant="h6" sx={{ width: "auto" }} component="span">
-              User
+        <div className="navbarBtn">
+          <div className="leftGropuBtn">
+            <Typography variant="h5" component="span">
+              {Labels.labelNameNavbar}
             </Typography>
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            sx={{ mt: 7 }}
-            className={classes.menu}
-          >
-            <ChangeHistoryIcon className={classes.boxFigureStyle} />
-            <MenuItem onClick={handleClose}>
-              <Button>Setting</Button>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Button onClick={onClickLogout}>Log Out</Button>
-            </MenuItem>
-          </Menu>
+            <IconButton
+              color="inherit"
+              sx={{ webkitTapHighlightColor: "transparent" }}
+            >
+              <Message />
+            </IconButton>
+            <Link to="/ficus">
+              <ListItemText
+                disableTypography
+                className={classes.linkClassNavbar}
+                primary="Ficus"
+              />
+            </Link>
+            <Link to="/posts/page/1">
+              <ListItemText
+                primary="Posts"
+                disableTypography
+                className={classes.linkClassNavbar}
+              />
+            </Link>
+            <Link to="/users">
+              <ListItemText
+                primary="Users"
+                disableTypography
+                className={classes.linkClassNavbar}
+              />
+            </Link>
+          </div>
+
+          <div className="rightGropuBtn">
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle
+                sx={{
+                  webkitTapHighlightColor: "transparent",
+                }}
+              />
+              <Typography
+                variant="h6"
+                sx={{
+                  webkitTapHighlightColor: "transparent",
+                  margin: "0",
+                  paddingTop: "2px",
+                }}
+                component="span"
+              >
+                {Labels.iconNameNavbar}
+              </Typography>
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              sx={{ mt: 7 }}
+              className={classes.menu}
+            >
+              <ChangeHistoryIcon className={classes.boxFigureStyle} />
+              <MenuItem onClick={handleClose}>
+                <Button>Setting</Button>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Button onClick={onClickLogout}>Log Out</Button>
+              </MenuItem>
+            </Menu>
+          </div>
         </div>
       </Toolbar>
     </AppBar>

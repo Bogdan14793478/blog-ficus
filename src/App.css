@@ -72,3 +72,21 @@ nav ul {
   padding-bottom: 20px;
 }
 
+.navbarBtn{
+  display: flex;
+  justify-content: space-between;
+}
+
+.rightGropuBtn{
+  display: flex;
+  align-content: center;
+  margin-left: 765px;
+}
+
+.leftGropuBtn{
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+}

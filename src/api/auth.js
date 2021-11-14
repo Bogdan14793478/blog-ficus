@@ -1,7 +1,7 @@
 import { setToStorage, notifySuccess } from "../utils/helpers"
 import { axiosInstance } from "./axios"
 import { takeInformUser } from "../redux/actions/types"
-import { Labels } from "../constantsName/constants"
+import { Labels, InformPanel } from "../constantsName/constants"
 
 export function getUserInfo() {
   return async (dispatch) => {
@@ -15,7 +15,7 @@ export function getUserInfo() {
 const fetchUser = () => {
   axiosInstance.get("auth/user/").then((result) => {
     if (result.data) {
-      notifySuccess(Labels.successfulAuth)
+      notifySuccess(InformPanel.successfulAuth)
     }
   })
 }
@@ -44,9 +44,9 @@ export const onSubmitRegister = ({ email, password }) => {
       password,
     })
     .then((result) => {
-      setToStorage(result.data.email, Labels.postsPageEmail)
-      setToStorage(result.data._id, Labels.postsPageId)
-      notifySuccess(Labels.successfulRegister)
+      setToStorage(result.data.email, InformPanel.postsPageEmail)
+      setToStorage(result.data._id, InformPanel.postsPageId)
+      notifySuccess(InformPanel.successfulRegister)
       return true
     })
 }

@@ -68,7 +68,6 @@ export const HomePage = () => {
     takeParamForAllPosts()
     setSearchPosts(searchPosts)
   }
-  console.log(searchPosts, "searchPosts")
 
   const startFilterPost = (numberPage, resultOnClick, userId) => {
     showMyPost(resultOnClick, userId)
@@ -114,7 +113,7 @@ export const HomePage = () => {
             }
             onClick={() => startOpenThirdPage(selectedPage.helloWorld, false)}
           >
-            {Labels.homePageButtonThirdName}
+            {Labels.thirdPagePosts}
           </Button>
         </ButtonGroup>
         <CustomizedInputBase
@@ -123,7 +122,7 @@ export const HomePage = () => {
           searchPosts={searchPosts}
         />
         <CustomizedDialogs
-          buttonName={Labels.homePageButton}
+          buttonName={Labels.buttonNewPost}
           buttonNameOnForm={Labels.enterNewPost}
         >
           <FormCreatePost typeAxiosParam={createNewPost} />

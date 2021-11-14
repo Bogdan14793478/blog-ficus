@@ -3,12 +3,12 @@ export const Labels = {
   updatePostinForm: "Correct your post",
   checkingTokenUnauth: "Unauthorized",
   // home page
-  homePageButton: "New post",
+  buttonNewPost: "New post",
   enterNewPost: "Enter new post",
   homePageName: "Home Page",
   showAllPosts: "Show all posts",
   filteredMyPosts: "Show my posts",
-  homePageButtonThirdName: "Another Page",
+  thirdPagePosts: "Another Page",
   // formCreatePage && Login && Register
 
   loginPageNameTitle: "Login Form",
@@ -16,7 +16,7 @@ export const Labels = {
   nameInputEmail: "Email",
   nameInputPassword: "Password",
   loginPageBtnLogin: "Login",
-  redirectRegPage: "Need to register?",
+  redirectToRegister: "Need to register?",
   startRegistration: "Registration",
   redirectToLogin: "login yet?",
   // isLogged
@@ -25,12 +25,9 @@ export const Labels = {
   buttonLike: "Like",
   // ErrorPage
   errorPage: "error",
-  // authPage
-  successfulAuth: "You a authorizated",
-  successfulRegister: "You are registered",
-  messageError: "err",
-  postsPageEmail: "email",
-  postsPageId: "id",
+  // navbar
+  iconNameNavbar: "User",
+  labelNameNavbar: "Logo",
 }
 
 export const ErrorMsg = {
@@ -39,4 +36,12 @@ export const ErrorMsg = {
   checkShortPassword: "It`s to short",
   checkLongPassword: "It`s to lond",
   mustPassword: "password must have one Upper, lower case, number",
+}
+
+export const InformPanel = {
+  // auth
+  successfulAuth: "You a authorizated",
+  successfulRegister: "You are registered",
+  postsPageEmail: "email",
+  postsPageId: "id",
 }

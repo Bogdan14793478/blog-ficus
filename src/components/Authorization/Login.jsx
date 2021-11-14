@@ -115,7 +115,7 @@ export const Login = () => {
                         {Labels.loginPageBtnLogin}
                       </button>
                       <button className="btn-already-log" onClick={readyRegister}>
-                        {Labels.redirectRegPage}
+                        {Labels.redirectToRegister}
                       </button>
                     </div>
                   </div>
