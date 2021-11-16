@@ -51,13 +51,13 @@ export const HomePage = () => {
     setSearchPosts(searchPosts)
   }
 
-  const filterPosts = (numberPage, parameterAffectstheDisplay, userId) => {
+  const filterPosts = (numberShowBtn, parameterAffectstheDisplay, userId) => {
     showPostUser(parameterAffectstheDisplay, userId)
-    setActiveTab(numberPage)
+    setActiveTab(numberShowBtn)
     setSearchPosts("")
   }
-  const openTextPage = (numberPage) => {
-    setActiveTab(numberPage)
+  const openTextPage = (numberShowBtn) => {
+    setActiveTab(numberShowBtn)
     setSearchPosts("")
     dispatch(actionPostDeleteAllInform())
   }
