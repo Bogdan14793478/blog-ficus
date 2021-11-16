@@ -65,10 +65,10 @@ export const HomePage = () => {
   }
 
   // const handleClickOpenModal = () => {
-  //   setOpen(true)
+  //   setOpenModal(true)
   // }
   // const handleCloseModal = () => {
-  //   setOpen(false)
+  //   setOpenModal(false)
   // }
 
   useEffect(() => {

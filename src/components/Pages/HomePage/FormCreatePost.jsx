@@ -68,7 +68,7 @@ export const FormCreatePost = ({ typeAxiosParam, postId, handleCloseModal }) => 
               onChange={handleChange}
             />
             <Errors errors={errors} />
-            <Fab closeModal type="submit" color="primary" aria-label="edit">
+            <Fab type="submit" color="primary" aria-label="edit">
               <AddCircleIcon
                 sx={{
                   fontSize: "big",
