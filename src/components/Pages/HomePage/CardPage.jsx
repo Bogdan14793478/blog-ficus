@@ -69,7 +69,11 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={putLikeSelectedPost}>
+          <Button
+            style={{ backgroundColor: "transparent" }}
+            size="small"
+            onClick={putLikeSelectedPost}
+          >
             {Labels.buttonLike} {item?.likes?.length}
           </Button>
           {showAllPost && (
