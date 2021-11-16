@@ -83,7 +83,7 @@ export const userPosts = (state = initial, action) => {
       findPost.description = data.description
       findPost.postedBy = data.fullText
 
-      return { ...state, statePosts }
+      return { ...state, posts: statePosts }
     default:
       return state
   }

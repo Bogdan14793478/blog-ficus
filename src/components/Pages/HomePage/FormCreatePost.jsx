@@ -6,6 +6,7 @@ import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
+import { CustomizedDialogs } from "./ModalPageCreatePost"
 
 const initialValues = {
   title: "",
@@ -14,19 +15,20 @@ const initialValues = {
 }
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required(ErrorMsg.resultRequired),
+  title: Yup.string().min(5, "Need nore symbol").required(ErrorMsg.resultRequired),
   fullText: Yup.string()
     .min(20, ErrorMsg.checkShortPassword)
     .required(ErrorMsg.resultRequired),
   description: Yup.string().required(ErrorMsg.resultRequired),
 })
 
-export const FormCreatePost = ({ typeAxiosParam, postId }) => {
+export const FormCreatePost = ({ typeAxiosParam, postId, handleCloseModal }) => {
   const dispatch = useDispatch()
 
   const onSubmit = (values, props) => {
     dispatch(typeAxiosParam(values, postId))
     props.resetForm()
+    // handleCloseModal()
   }
 
   return (
@@ -66,7 +68,7 @@ export const FormCreatePost = ({ typeAxiosParam, postId }) => {
               onChange={handleChange}
             />
             <Errors errors={errors} />
-            <Fab type="submit" color="primary" aria-label="edit">
+            <Fab closeModal type="submit" color="primary" aria-label="edit">
               <AddCircleIcon
                 sx={{
                   fontSize: "big",

@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography"
 import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { deletePost, putLikePost, updatePost } from "../../../api/posts"
-import CustomizedDialogs from "./ModalPageCreatePost"
+import { CustomizedDialogs } from "./ModalPageCreatePost"
 import { FormCreatePost } from "./FormCreatePost"
 import { Labels } from "../../../constantsName/constants"
 
@@ -69,11 +69,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button
-            style={{ backgroundColor: "transparent" }}
-            size="small"
-            onClick={putLikeSelectedPost}
-          >
+          <Button size="small" onClick={putLikeSelectedPost}>
             {Labels.buttonLike} {item?.likes?.length}
           </Button>
           {showAllPost && (

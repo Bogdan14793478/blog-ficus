@@ -43,11 +43,14 @@ const BootstrapDialogTitle = (props) => {
   )
 }
 
-export default function CustomizedDialogs({
+export const CustomizedDialogs = ({
   children,
   buttonName,
   buttonNameOnForm,
-}) {
+  // handleCloseModal,
+  // handleClickOpenModal,
+  // openModal,
+}) => {
   const [open, setOpen] = useState(false)
 
   const handleClickOpen = () => {

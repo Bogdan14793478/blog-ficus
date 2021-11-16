@@ -13,7 +13,7 @@ import {
   actionPostDeleteAllInform,
 } from "../../../redux/actions/types"
 import { FormCreatePost } from "./FormCreatePost"
-import CustomizedDialogs from "./ModalPageCreatePost"
+import { CustomizedDialogs } from "./ModalPageCreatePost"
 import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
 import { Labels, Tabs } from "../../../constantsName/constants"
@@ -22,6 +22,8 @@ export const HomePage = () => {
   const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
   const [activeTab, setActiveTab] = useState(1)
+  // const [openModal, setOpenModal] = useState(false)
+
   const { page } = useParams()
   const dispatch = useDispatch()
   const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
@@ -61,6 +63,13 @@ export const HomePage = () => {
     setSearchPosts("")
     dispatch(actionPostDeleteAllInform())
   }
+
+  // const handleClickOpenModal = () => {
+  //   setOpen(true)
+  // }
+  // const handleCloseModal = () => {
+  //   setOpen(false)
+  // }
 
   useEffect(() => {
     dispatch(getUserInfo())
