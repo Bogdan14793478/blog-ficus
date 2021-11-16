@@ -17,7 +17,7 @@ import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory"
 import {
   userIsAuth,
   userDeleteAllInform,
-  postDeleteAllInform,
+  actionPostDeleteAllInform,
 } from "../../../redux/actions/types"
 import { removeFromStorage } from "../../../utils/helpers"
 import { Labels } from "../../../constantsName/constants"
@@ -71,7 +71,7 @@ export const NavbarMaterial = () => {
   const onClickLogout = () => {
     dispatch(userIsAuth(false))
     dispatch(userDeleteAllInform())
-    dispatch(postDeleteAllInform(null))
+    dispatch(actionPostDeleteAllInform(null))
     removeFromStorage("passport")
     redirectToLogin()
   }
@@ -84,10 +84,8 @@ export const NavbarMaterial = () => {
             <Typography variant="h5" component="span">
               {Labels.labelNameNavbar}
             </Typography>
-            <IconButton
-              color="inherit"
-              sx={{ webkitTapHighlightColor: "transparent" }}
-            >
+            <IconButton color="inherit" style={{ backgroundColor: "transparent" }}>
+              {" "}
               <Message />
             </IconButton>
             <Link to="/ficus">
@@ -104,7 +102,7 @@ export const NavbarMaterial = () => {
                 className={classes.linkClassNavbar}
               />
             </Link>
-            <Link to="/users">
+            <Link to="/users/user/1">
               <ListItemText
                 primary="Users"
                 disableTypography
@@ -121,16 +119,13 @@ export const NavbarMaterial = () => {
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
+              style={{ backgroundColor: "transparent" }}
             >
-              <AccountCircle
-                sx={{
-                  webkitTapHighlightColor: "transparent",
-                }}
-              />
+              <AccountCircle />
               <Typography
                 variant="h6"
+                style={{ backgroundColor: "transparent" }}
                 sx={{
-                  webkitTapHighlightColor: "transparent",
                   margin: "0",
                   paddingTop: "2px",
                 }}
@@ -158,10 +153,10 @@ export const NavbarMaterial = () => {
             >
               <ChangeHistoryIcon className={classes.boxFigureStyle} />
               <MenuItem onClick={handleClose}>
-                <Button>Setting</Button>
+                <Button>{Labels.settingInfo}</Button>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Button onClick={onClickLogout}>Log Out</Button>
+                <Button onClick={onClickLogout}>{Labels.logout}</Button>
               </MenuItem>
             </Menu>
           </div>

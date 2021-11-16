@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import * as React from "react"
 import { useDispatch } from "react-redux"
 import Card from "@mui/material/Card"
@@ -15,11 +16,11 @@ import { Labels } from "../../../constantsName/constants"
 
 export const MediaCard = ({ item, showAllPost, userId }) => {
   const dispatch = useDispatch()
-  const onClickDeletePost = () => {
+  const deleteSelectedPost = () => {
     dispatch(deletePost(item._id))
   }
 
-  const onClickPutLikePost = () => {
+  const putLikeSelectedPost = () => {
     dispatch(putLikePost(item._id, userId, item._id))
   }
 
@@ -42,15 +43,16 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
         >
           {item.title}
           {showAllPost && (
-            <DeleteIcon onClick={onClickDeletePost} sx={{ marginLeft: "294px" }} />
+            <DeleteIcon onClick={deleteSelectedPost} sx={{ marginLeft: "294px" }} />
           )}
         </Typography>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          height="140"
-          image={item.image}
-        />
+        {item.image && (
+          <CardMedia
+            component="img"
+            height="140"
+            image={`http://51.158.179.21${item.image}`}
+          />
+        )}
         <CardContent>
           <Typography
             gutterBottom
@@ -67,7 +69,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={onClickPutLikePost}>
+          <Button size="small" onClick={putLikeSelectedPost}>
             {Labels.buttonLike} {item?.likes?.length}
           </Button>
           {showAllPost && (

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useHistory } from "react-router-dom"
-import { makeStyles } from "@material-ui/styles"
 import { Grid } from "@mui/material"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
@@ -11,114 +10,105 @@ import { getAllPosts, createNewPost } from "../../../api/posts"
 import { getUserInfo } from "../../../api/auth"
 import {
   actionGetCurrentPage,
-  postDeleteAllInform,
+  actionPostDeleteAllInform,
 } from "../../../redux/actions/types"
 import { FormCreatePost } from "./FormCreatePost"
 import CustomizedDialogs from "./ModalPageCreatePost"
 import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
-import { Labels } from "../../../constantsName/constants"
-
-// const useStyles = makeStyles({
-//   buttonBlue: {
-//     color: "#ffffff",
-//     background: "#bf453b",
-//     "&:active": {
-//       backgroundColor: "#e0d5d5",
-//       color: "#ffffff",
-//     },
-//   },
-// })
+import { Labels, Tabs } from "../../../constantsName/constants"
 
 export const HomePage = () => {
   const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
   const [activeTab, setActiveTab] = useState(1)
-  // const classes = useStyles()
   const { page } = useParams()
   const dispatch = useDispatch()
   const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
   const { id } = useSelector((state) => state.user)
   const history = useHistory()
   const ofset = page * skip - 10
+  const namePage = Labels.urlPostsPage
 
   const redirectToPagePosts = () => {
     history.push("/posts/page/1")
   }
 
-  const selectedPage = {
-    showPosts: 1,
-    myPost: 2,
-    helloWorld: 3,
-  }
-
-  const showMyPost = (resultOnClick, userId) => {
+  const showPostUser = (displayParam, userId) => {
     dispatch(getAllPosts(0, userId))
     redirectToPagePosts()
-    setShowAllPost(resultOnClick)
+    setShowAllPost(displayParam)
   }
-  const takeParamForAllPosts = () => {
+  const passParamToGetPosts = () => {
     return showAllPost
       ? dispatch(getAllPosts(ofset, id, searchPosts))
       : dispatch(getAllPosts(ofset, null, searchPosts))
   }
 
-  const startSearchInPosts = (e) => {
+  const searchInPosts = (e) => {
     e.preventDefault()
-    takeParamForAllPosts()
+    passParamToGetPosts()
     setSearchPosts(searchPosts)
   }
 
-  const startFilterPost = (numberPage, resultOnClick, userId) => {
-    showMyPost(resultOnClick, userId)
+  const filterPosts = (numberPage, displayParam, userId) => {
+    showPostUser(displayParam, userId)
     setActiveTab(numberPage)
     setSearchPosts("")
   }
-  const startOpenThirdPage = (numberPage) => {
+  const openTextPage = (numberPage) => {
     setActiveTab(numberPage)
     setSearchPosts("")
-    dispatch(postDeleteAllInform())
+    dispatch(actionPostDeleteAllInform())
   }
 
   useEffect(() => {
     dispatch(getUserInfo())
-    takeParamForAllPosts()
+    passParamToGetPosts()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentPage, id])
 
   return (
     <div>
-      <h4 className="generalPageName">{Labels.homePageName}</h4>
+      <h4 className="generalPageName">{Labels.namePagePost}</h4>
       <div className="buttonHomePage">
         <ButtonGroup>
           <Button
-            variant={activeTab === selectedPage.showPosts ? "contained" : "outlined"}
-            // className={classes.buttonBlue}
-            onClick={() => startFilterPost(selectedPage.showPosts, false)}
+            variant={activeTab === Tabs.AllPosts ? "contained" : "outlined"}
+            onClick={() => filterPosts(Tabs.AllPosts, false)}
+            style={{
+              backgroundColor: "transparent",
+              color: "#000000",
+            }}
           >
             {Labels.showAllPosts}
           </Button>
           <Button
-            variant={activeTab === selectedPage.myPost ? "contained" : "outlined"}
-            // className={classes.buttonBlue}
+            variant={activeTab === Tabs.MyPosts ? "contained" : "outlined"}
             onClick={() => {
-              startFilterPost(selectedPage.myPost, true, id)
+              filterPosts(Tabs.MyPosts, true, id)
+            }}
+            style={{
+              backgroundColor: "transparent",
+              color: "#000000",
             }}
           >
             {Labels.filteredMyPosts}
           </Button>
           <Button
-            variant={
-              activeTab === selectedPage.helloWorld ? "contained" : "outlined"
-            }
-            onClick={() => startOpenThirdPage(selectedPage.helloWorld, false)}
+            variant={activeTab === Tabs.EmptyPage ? "contained" : "outlined"}
+            onClick={() => openTextPage(Tabs.EmptyPage, false)}
+            style={{
+              backgroundColor: "transparent",
+              color: "#000000",
+            }}
           >
-            {Labels.thirdPagePosts}
+            {Labels.btnTextPage}
           </Button>
         </ButtonGroup>
         <CustomizedInputBase
           setSearchPosts={setSearchPosts}
-          startSearchInPosts={startSearchInPosts}
+          startSearchInPosts={searchInPosts}
           searchPosts={searchPosts}
         />
         <CustomizedDialogs
@@ -128,7 +118,7 @@ export const HomePage = () => {
           <FormCreatePost typeAxiosParam={createNewPost} />
         </CustomizedDialogs>
       </div>
-      <>{activeTab === 3 ? <h2>Hello World</h2> : ""}</>
+      <>{activeTab === Tabs.EmptyPage ? <h2>{Labels.textNamePage}</h2> : ""}</>
       <>
         <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
           {posts?.map((item) => (
@@ -144,6 +134,7 @@ export const HomePage = () => {
           totalPost={totalPost}
           page={page}
           actionGetCurrentPage={actionGetCurrentPage}
+          namePage={namePage}
         />
       </>
     </div>

@@ -4,7 +4,7 @@ import { Pagination, PaginationItem } from "@mui/material"
 import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
-export const AllPagin = ({ totalPost, page, actionGetCurrentPage }) => {
+export const AllPagin = ({ totalPost, page, actionGetCurrentPage, namePage }) => {
   const dispatch = useDispatch()
 
   return (
@@ -14,7 +14,7 @@ export const AllPagin = ({ totalPost, page, actionGetCurrentPage }) => {
       page={+page}
       onChange={(e, numpage) => dispatch(actionGetCurrentPage(numpage))}
       renderItem={(item) => (
-        <PaginationItem component={Link} to={`/posts/page/${item.page}`} {...item} />
+        <PaginationItem component={Link} to={`${namePage}${item.page}`} {...item} />
       )}
     />
   )

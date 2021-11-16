@@ -90,3 +90,8 @@ nav ul {
   flex-wrap: wrap;
   align-items: center;
 }
+
+.buttonBlue:focus{
+  background-color: "#bf453b";
+  color: "ffffff";
+}

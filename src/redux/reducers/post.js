@@ -21,7 +21,6 @@ const initial = {
 }
 
 export const userPosts = (state = initial, action) => {
-  console.log(action.payload, "action.payload")
   switch (action.type) {
     case GET_ALL_POST:
       return {
@@ -74,21 +73,15 @@ export const userPosts = (state = initial, action) => {
 
     case POST_PUT:
       const statePosts = [...state.posts]
-      const { data } = { ...action.payload }
+      const { data } = action.payload
       const postId = action.payload.numberPost
 
       const findIndx = statePosts.findIndex((putPost) => putPost._id === postId)
       const findPost = statePosts[findIndx]
+
       findPost.title = data.title
       findPost.description = data.description
       findPost.postedBy = data.fullText
-      // const combinedObj = {
-      //   ...statePosts,
-      //   ...data,
-      //   title: data.title,
-      //   description: data.description,
-      //   postedBy: data.fullText,
-      // }                                      how i can use it??
 
       return { ...state, statePosts }
     default:

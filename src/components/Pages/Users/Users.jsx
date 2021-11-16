@@ -1,47 +1,41 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
-import { useHistory } from "react-router-dom"
 import { Grid } from "@mui/material"
-import ButtonGroup from "@mui/material/ButtonGroup"
-import Button from "@mui/material/Button"
-import { getAllPosts, createNewPost } from "../../../api/posts"
-import { getUserInfo } from "../../../api/auth"
-import { actionGetCurrentPage } from "../../../redux/actions/types"
-// import { FormCreatePost } from "./FormCreatePost"
-// import CustomizedDialogs from "./ModalPageCreatePost"
+import { actionUsersGetCurrentPage } from "../../../redux/actions/types"
 import { AllPagin } from "../../Pagination"
-// import { CustomizedInputBase } from "./SearchPosts"
+import MediaCard from "./UsersPage"
+import { getAllUsers } from "../../../api/usersAxios"
+import { Labels } from "../../../constantsName/constants"
 
 export const Users = () => {
-  // const [searchPosts, setSearchPosts] = useState("")
-  // const [showAllPost, setShowAllPost] = useState(false)
-  // const [flag, setFlag] = useState(true)
-  // const [color, setColor] = useState("primary")
-  // const [anotherColor, setAnotherColor] = useState("secondary")
   const { page } = useParams()
   const dispatch = useDispatch()
-  const { currentPage, users, skip, totalPost, id, informUser } = useSelector(
+  const { currentPage, users, skip, totalPost, id } = useSelector(
     (state) => state.user
   )
+  const namePage = Labels.ulrUsersPage
 
-  const history = useHistory()
   const ofset = page * skip - 10
 
-  const handleClick = () => {
-    history.push("/posts/page/1")
-  }
-
+  useEffect(() => {
+    dispatch(getAllUsers(0))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, currentPage, id])
   return (
     <div>
-      <h2>Users</h2>
-      <h4 className="generalPageName">User Page</h4>
+      <h4 className="generalPageName">{Labels.nameHeaderUserPage}</h4>
       <>
+        <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
+          {users?.map((item) => (
+            <MediaCard key={item._id} item={item} userId={id} />
+          ))}
+        </Grid>
         <AllPagin
           totalPost={totalPost}
           page={page}
-          actionGetCurrentPage={actionGetCurrentPage}
-          id={id}
+          actionGetCurrentPage={actionUsersGetCurrentPage}
+          namePage={namePage}
         />
       </>
     </div>

@@ -5,10 +5,12 @@ export const Labels = {
   // home page
   buttonNewPost: "New post",
   enterNewPost: "Enter new post",
-  homePageName: "Home Page",
+  namePagePost: "Home Page",
   showAllPosts: "Show all posts",
   filteredMyPosts: "Show my posts",
-  thirdPagePosts: "Another Page",
+  btnTextPage: "Another Page",
+  urlPostsPage: "/posts/page/",
+  ulrUsersPage: "/users/user",
   // formCreatePage && Login && Register
 
   loginPageNameTitle: "Login Form",
@@ -28,6 +30,13 @@ export const Labels = {
   // navbar
   iconNameNavbar: "User",
   labelNameNavbar: "Logo",
+  textNamePage: "Hello world",
+  buttonUserInform: "more information",
+  // users page
+  nameHeaderUserPage: "Users Page",
+  // NavbarPage
+  settingInfo: "Setting",
+  logout: "Log Out",
 }
 
 export const ErrorMsg = {
@@ -44,4 +53,10 @@ export const InformPanel = {
   successfulRegister: "You are registered",
   postsPageEmail: "email",
   postsPageId: "id",
+}
+
+export const Tabs = {
+  AllPosts: 1,
+  MyPosts: 2,
+  EmptyPage: 3,
 }

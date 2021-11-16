@@ -37,7 +37,7 @@ export function App() {
               <div className="app-wrapper">
                 <NavbarMaterial />
                 <div className="app-wrapper-content">
-                  <PrivateRoute exact path="/users" component={Users} />
+                  <PrivateRoute exact path="/users/user/:user" component={Users} />
                   <PrivateRoute exact path="/ficus" component={Dialogs} />
                   <PrivateRoute exact path="/news" component={News} />`
                   <PrivateRoute

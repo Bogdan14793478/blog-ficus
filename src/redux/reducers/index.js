@@ -1,6 +1,6 @@
 import { combineReducers } from "redux"
 import { userPosts } from "./post"
-import { stateUserReduser } from "./isLogged"
+import { stateUserReduser } from "./users"
 
 export const rootReducer = combineReducers({
   post: userPosts,

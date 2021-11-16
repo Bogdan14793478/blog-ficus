@@ -59,7 +59,11 @@ export default function CustomizedDialogs({
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button
+        variant="outlined"
+        onClick={handleClickOpen}
+        style={{ backgroundColor: "transparent" }}
+      >
         {buttonName}
       </Button>
       <BootstrapDialog

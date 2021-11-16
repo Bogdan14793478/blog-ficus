@@ -39,7 +39,7 @@ export const Login = () => {
     history.push("/posts/page/1")
   }
 
-  function readyRegister() {
+  function redirectToRegister() {
     history.push("/register")
   }
 
@@ -114,7 +114,10 @@ export const Login = () => {
                       >
                         {Labels.loginPageBtnLogin}
                       </button>
-                      <button className="btn-already-log" onClick={readyRegister}>
+                      <button
+                        className="btn-already-log"
+                        onClick={redirectToRegister}
+                      >
                         {Labels.redirectToRegister}
                       </button>
                     </div>

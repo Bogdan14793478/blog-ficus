@@ -9,6 +9,8 @@ import {
   USER_IS_AUTH,
   USER_DELETE_ALL_INFORM,
   INFORM_USER,
+  GET_ALL_USERS,
+  SET_CURRENT_PAGE_USERS,
 } from "./const"
 
 // POST
@@ -23,7 +25,7 @@ export const actionGetCurrentPage = (page) => ({
   payload: page,
 })
 
-export const postDeleteAllInform = (payload) => ({
+export const actionPostDeleteAllInform = (payload) => ({
   type: POST_DELETE_ALL_INFORM,
   payload,
 })
@@ -50,4 +52,14 @@ export const userDeleteAllInform = (payload) => ({
 export const takeInformUser = (payload) => ({
   type: INFORM_USER,
   payload,
+})
+
+export const actiongetAllUsers = (payload) => ({
+  type: GET_ALL_USERS,
+  payload,
+})
+
+export const actionUsersGetCurrentPage = (page) => ({
+  type: SET_CURRENT_PAGE_USERS,
+  payload: page,
 })
