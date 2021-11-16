@@ -12,7 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import { deletePost, putLikePost, updatePost } from "../../../api/posts"
 import { CustomizedDialogs } from "./ModalPageCreatePost"
 import { FormCreatePost } from "./FormCreatePost"
-import { Labels } from "../../../constantsName/constants"
+import { Labels, UrlAdress } from "../../../constantsName/constants"
 
 export const MediaCard = ({ item, showAllPost, userId }) => {
   const dispatch = useDispatch()
@@ -50,7 +50,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           <CardMedia
             component="img"
             height="140"
-            image={`http://51.158.179.21${item.image}`}
+            image={`${UrlAdress.urlPageServer}${item.image}`}
           />
         )}
         <CardContent>

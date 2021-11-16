@@ -60,3 +60,7 @@ export const Tabs = {
   MyPosts: 2,
   EmptyPage: 3,
 }
+
+export const UrlAdress = {
+  urlPageServer: "http://51.158.179.21",
+}

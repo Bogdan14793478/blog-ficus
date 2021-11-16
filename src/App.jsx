@@ -39,7 +39,7 @@ export function App() {
                 <div className="app-wrapper-content">
                   <PrivateRoute exact path="/users/user/:user" component={Users} />
                   <PrivateRoute exact path="/ficus" component={Dialogs} />
-                  <PrivateRoute exact path="/news" component={News} />`
+                  <PrivateRoute exact path="/news" component={News} />
                   <PrivateRoute
                     exact
                     path="/posts/page/:page"

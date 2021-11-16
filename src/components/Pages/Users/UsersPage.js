@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent"
 import CardMedia from "@mui/material/CardMedia"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
-import { Labels } from "../../../constantsName/constants"
+import { Labels, UrlAdress } from "../../../constantsName/constants"
 
 export default function MediaCard({ item }) {
   return (
@@ -27,7 +27,7 @@ export default function MediaCard({ item }) {
         <CardMedia
           component="img"
           height="140"
-          image={`http://51.158.179.21${item.avatar}`}
+          image={`${UrlAdress.urlPageServer}${item.avatar}`}
         />
       )}
 
