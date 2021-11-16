@@ -34,10 +34,10 @@ export const HomePage = () => {
     history.push("/posts/page/1")
   }
 
-  const showPostUser = (displayParam, userId) => {
+  const showPostUser = (parameterAffectstheDisplay, userId) => {
     dispatch(getAllPosts(0, userId))
     redirectToPagePosts()
-    setShowAllPost(displayParam)
+    setShowAllPost(parameterAffectstheDisplay)
   }
   const passParamToGetPosts = () => {
     return showAllPost
@@ -51,8 +51,8 @@ export const HomePage = () => {
     setSearchPosts(searchPosts)
   }
 
-  const filterPosts = (numberPage, displayParam, userId) => {
-    showPostUser(displayParam, userId)
+  const filterPosts = (numberPage, parameterAffectstheDisplay, userId) => {
+    showPostUser(parameterAffectstheDisplay, userId)
     setActiveTab(numberPage)
     setSearchPosts("")
   }
