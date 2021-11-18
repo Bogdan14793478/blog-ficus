@@ -47,6 +47,16 @@ const useStyles = makeStyles({
     marginLeft: "10px",
     webkitTapHighlightColor: "transparent",
   },
+  root: {
+    backgroundColor: "transparent",
+    background: "linear-gradient(1deg, #bf453b 0%, #bf453b 0%)",
+    // border: 0,
+    // borderRadius: 3,
+    // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    // color: "white",
+    // height: 48,
+    // padding: "0 30px",
+  },
 })
 
 export const NavbarMaterial = () => {
@@ -84,7 +94,7 @@ export const NavbarMaterial = () => {
             <Typography variant="h5" component="span">
               {Labels.labelNameNavbar}
             </Typography>
-            <IconButton color="inherit" style={{ backgroundColor: "transparent" }}>
+            <IconButton color="inherit" className={classes.root}>
               {" "}
               <Message />
             </IconButton>
@@ -119,12 +129,12 @@ export const NavbarMaterial = () => {
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
-              style={{ backgroundColor: "transparent" }}
+              className={classes.root}
             >
               <AccountCircle />
               <Typography
                 variant="h6"
-                style={{ backgroundColor: "transparent" }}
+                className={classes.root}
                 sx={{
                   margin: "0",
                   paddingTop: "2px",

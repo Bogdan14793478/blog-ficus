@@ -4,6 +4,7 @@ import * as React from "react"
 import { useState } from "react"
 import Button from "@mui/material/Button"
 import { styled } from "@mui/material/styles"
+import { makeStyles } from "@mui/styles"
 import Dialog from "@mui/material/Dialog"
 import DialogTitle from "@mui/material/DialogTitle"
 import DialogContent from "@mui/material/DialogContent"
@@ -19,6 +20,12 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }))
+
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "transparent",
+  },
+})
 
 const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props
@@ -46,6 +53,7 @@ const BootstrapDialogTitle = (props) => {
 
 export const ModalProvider = ({ children, buttonName, buttonNameOnForm }) => {
   const [open, setOpen] = useState(false)
+  const classes = useStyles()
 
   const handleClickOpenModal = () => {
     setOpen(true)
@@ -65,7 +73,7 @@ export const ModalProvider = ({ children, buttonName, buttonNameOnForm }) => {
       <Button
         variant="outlined"
         onClick={handleClickOpenModal}
-        style={{ backgroundColor: "transparent" }}
+        className={classes.root}
       >
         {buttonName}
       </Button>

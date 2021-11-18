@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom"
 import { Grid } from "@mui/material"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
+import { makeStyles } from "@mui/styles"
 import { MediaCard } from "./CardPage"
 import { getAllPosts, createNewPost } from "../../../api/posts"
 import { getUserInfo } from "../../../api/auth"
@@ -13,11 +14,23 @@ import {
   actionPostDeleteAllInform,
 } from "../../../redux/actions/types"
 import { FormCreatePost } from "./FormCreatePost"
-// import { CustomizedDialogs } from "./ModalPageCreatePost"
 import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
 import { Labels, Tabs } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
+
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "transparent",
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    color: "white",
+    height: 48,
+    padding: "0 30px",
+  },
+})
 
 export const HomePage = () => {
   const [searchPosts, setSearchPosts] = useState("")
@@ -31,6 +44,7 @@ export const HomePage = () => {
   const history = useHistory()
   const ofset = page * skip - 10
   const namePage = Labels.urlPostsPage
+  const classes = useStyles()
 
   const redirectToPagePosts = () => {
     history.push("/posts/page/1")
@@ -78,10 +92,7 @@ export const HomePage = () => {
           <Button
             variant={activeTab === Tabs.AllPosts ? "contained" : "outlined"}
             onClick={() => filterPosts(Tabs.AllPosts, false)}
-            style={{
-              backgroundColor: "transparent",
-              color: "#000000",
-            }}
+            className={classes.root}
           >
             {Labels.showAllPosts}
           </Button>
@@ -90,20 +101,14 @@ export const HomePage = () => {
             onClick={() => {
               filterPosts(Tabs.MyPosts, true, id)
             }}
-            style={{
-              backgroundColor: "transparent",
-              color: "#000000",
-            }}
+            className={classes.root}
           >
             {Labels.filteredMyPosts}
           </Button>
           <Button
             variant={activeTab === Tabs.EmptyPage ? "contained" : "outlined"}
             onClick={() => openTextPage(Tabs.EmptyPage, false)}
-            style={{
-              backgroundColor: "transparent",
-              color: "#000000",
-            }}
+            className={classes.root}
           >
             {Labels.btnTextPage}
           </Button>
