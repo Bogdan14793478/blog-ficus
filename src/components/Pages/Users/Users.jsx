@@ -24,7 +24,7 @@ export const Users = () => {
   }, [dispatch, currentPage, id])
   return (
     <div>
-      <h4 className="generalPageName">{Labels.nameHeaderUserPage}</h4>
+      <h4 className="general-page-name">{Labels.nameHeaderUserPage}</h4>
       <>
         <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
           {users?.map((item) => (

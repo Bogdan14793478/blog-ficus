@@ -13,16 +13,16 @@ import {
   actionPostDeleteAllInform,
 } from "../../../redux/actions/types"
 import { FormCreatePost } from "./FormCreatePost"
-import { CustomizedDialogs } from "./ModalPageCreatePost"
+// import { CustomizedDialogs } from "./ModalPageCreatePost"
 import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
 import { Labels, Tabs } from "../../../constantsName/constants"
+import { ModalProvider } from "../../../context/ModalContext"
 
 export const HomePage = () => {
   const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
   const [activeTab, setActiveTab] = useState(1)
-  // const [openModal, setOpenModal] = useState(false)
 
   const { page } = useParams()
   const dispatch = useDispatch()
@@ -64,13 +64,6 @@ export const HomePage = () => {
     dispatch(actionPostDeleteAllInform())
   }
 
-  // const handleClickOpenModal = () => {
-  //   setOpenModal(true)
-  // }
-  // const handleCloseModal = () => {
-  //   setOpenModal(false)
-  // }
-
   useEffect(() => {
     dispatch(getUserInfo())
     passParamToGetPosts()
@@ -79,8 +72,8 @@ export const HomePage = () => {
 
   return (
     <div>
-      <h4 className="generalPageName">{Labels.namePagePost}</h4>
-      <div className="buttonHomePage">
+      <h4 className="general-page-name">{Labels.namePagePost}</h4>
+      <div className="button-home-page">
         <ButtonGroup>
           <Button
             variant={activeTab === Tabs.AllPosts ? "contained" : "outlined"}
@@ -120,25 +113,30 @@ export const HomePage = () => {
           startSearchInPosts={searchInPosts}
           searchPosts={searchPosts}
         />
-        <CustomizedDialogs
+        <ModalProvider
           buttonName={Labels.buttonNewPost}
           buttonNameOnForm={Labels.enterNewPost}
         >
           <FormCreatePost typeAxiosParam={createNewPost} />
-        </CustomizedDialogs>
+        </ModalProvider>
       </div>
       <>{activeTab === Tabs.EmptyPage ? <h2>{Labels.textNamePage}</h2> : ""}</>
       <>
-        <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
-          {posts?.map((item) => (
-            <MediaCard
-              key={item._id}
-              item={item}
-              showAllPost={showAllPost}
-              userId={id}
-            />
-          ))}
-        </Grid>
+        {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
+          <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
+            {posts?.map((item) => (
+              <MediaCard
+                key={item._id}
+                item={item}
+                showAllPost={showAllPost}
+                userId={id}
+              />
+            ))}
+          </Grid>
+        ) : (
+          ""
+        )}
+
         <AllPagin
           totalPost={totalPost}
           page={page}

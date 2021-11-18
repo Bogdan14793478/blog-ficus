@@ -79,8 +79,8 @@ export const NavbarMaterial = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <div className="navbarBtn">
-          <div className="leftGropuBtn">
+        <div className="navbar-btn">
+          <div className="left-group-btn">
             <Typography variant="h5" component="span">
               {Labels.labelNameNavbar}
             </Typography>
@@ -111,7 +111,7 @@ export const NavbarMaterial = () => {
             </Link>
           </div>
 
-          <div className="rightGropuBtn">
+          <div className="right-group-btn">
             <IconButton
               size="large"
               aria-label="account of current user"

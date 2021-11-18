@@ -10,9 +10,10 @@ import Typography from "@mui/material/Typography"
 import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { deletePost, putLikePost, updatePost } from "../../../api/posts"
-import { CustomizedDialogs } from "./ModalPageCreatePost"
+// import { CustomizedDialogs } from "./ModalPageCreatePost"
 import { FormCreatePost } from "./FormCreatePost"
 import { Labels, UrlAdress } from "../../../constantsName/constants"
+import { ModalProvider } from "../../../context/ModalContext"
 
 export const MediaCard = ({ item, showAllPost, userId }) => {
   const dispatch = useDispatch()
@@ -39,7 +40,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           gutterBottom
           variant="h5"
           component="div"
-          className="cardTittleText"
+          className="card-tittle-text"
         >
           {item.title}
           {showAllPost && (
@@ -58,7 +59,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
             gutterBottom
             variant="h5"
             component="div"
-            className="cardTittleText"
+            className="card-tittle-text"
           >
             {item.fullText}
           </Typography>
@@ -73,12 +74,12 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
             {Labels.buttonLike} {item?.likes?.length}
           </Button>
           {showAllPost && (
-            <CustomizedDialogs
+            <ModalProvider
               buttonName={Labels.updatePost}
               buttonNameOnForm={Labels.updatePostinForm}
             >
               <FormCreatePost typeAxiosParam={updatePost} postId={item._id} />
-            </CustomizedDialogs>
+            </ModalProvider>
           )}
         </CardActions>
       </Card>

@@ -53,11 +53,11 @@ dd {
   font-weight: 700;
   background-color: azure;
 }
-.generalPageName {
+.general-page-name {
   padding: 15px 19px 25px 50px;
 }
 
-.cardTittleText {
+.card-tittle-text {
   max-width: 290px;
   height: auto;
 }
@@ -66,32 +66,27 @@ nav ul {
   justify-content: center;
 }
 
-.buttonHomePage {
+.button-home-page {
   display: flex;
   justify-content: space-around;
   padding-bottom: 20px;
 }
 
-.navbarBtn{
+.navbar-btn {
   display: flex;
   justify-content: space-between;
 }
 
-.rightGropuBtn{
+.right-group-btn {
   display: flex;
   align-content: center;
   margin-left: 765px;
 }
 
-.leftGropuBtn{
+.left-group-btn {
   display: flex;
   align-content: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
   align-items: center;
-}
-
-.buttonBlue:focus{
-  background-color: "#bf453b";
-  color: "ffffff";
 }

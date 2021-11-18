@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useDispatch } from "react-redux"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
@@ -6,7 +6,7 @@ import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
-import { CustomizedDialogs } from "./ModalPageCreatePost"
+import { ModalContext } from "../../../context"
 
 const initialValues = {
   title: "",
@@ -22,13 +22,14 @@ const validationSchema = Yup.object().shape({
   description: Yup.string().required(ErrorMsg.resultRequired),
 })
 
-export const FormCreatePost = ({ typeAxiosParam, postId, handleCloseModal }) => {
+export const FormCreatePost = ({ typeAxiosParam, postId }) => {
+  const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
   const onSubmit = (values, props) => {
     dispatch(typeAxiosParam(values, postId))
     props.resetForm()
-    // handleCloseModal()
+    handleClickCloseModal()
   }
 
   return (
