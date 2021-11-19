@@ -6,6 +6,8 @@ import {
   POST_DELETE_ALL_INFORM,
   POST_PLUS_OR_MINUS_LIKE,
   POST_PUT,
+  SAVE_IMG_POST,
+  TOGLE_IS_FETCHING,
   USER_IS_AUTH,
   USER_DELETE_ALL_INFORM,
   INFORM_USER,
@@ -37,6 +39,16 @@ export const actionpostPlusOrMinusLike = (payload) => ({
 
 export const actionputPostFromDispatch = (payload) => ({
   type: POST_PUT,
+  payload,
+})
+
+export const actionSaveImgPost = (payload) => ({
+  type: SAVE_IMG_POST,
+  payload,
+})
+
+export const actionTogleIsFetching = (payload) => ({
+  type: TOGLE_IS_FETCHING,
   payload,
 })
 

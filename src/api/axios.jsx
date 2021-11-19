@@ -2,7 +2,7 @@ import axios from "axios"
 import { notifyError, removeFromStorage } from "../utils/helpers"
 import { Labels } from "../constantsName/constants"
 
-const baseURL = "http://51.158.179.21/api/v1/"
+const baseURL = `${process.env.REACT_APP_URL_SERVER_ADRESS}/api/v1/`
 
 export const axiosInstance = axios.create({
   baseURL,

@@ -21,6 +21,10 @@ export const POST_PLUS_OR_MINUS_LIKE = "POST_PLUS_OR_MINUS_LIKE"
 
 export const POST_PUT = "POST_PUT"
 
+export const SAVE_IMG_POST = "SAVE_IMG_POST"
+
+export const TOGLE_IS_FETCHING = "TOGLE_IS_FETCHING"
+
 // USER
 export const USER_IS_AUTH = "USER_IS_AUTH"
 

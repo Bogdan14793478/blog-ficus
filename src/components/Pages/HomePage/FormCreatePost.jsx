@@ -1,4 +1,5 @@
-import React, { useContext } from "react"
+/* eslint-disable react/jsx-fragments */
+import React, { Fragment, useContext } from "react"
 import { useDispatch } from "react-redux"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
@@ -7,6 +8,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
+import { saveImagePost } from "../../../api/posts"
 
 const initialValues = {
   title: "",
@@ -15,21 +17,30 @@ const initialValues = {
 }
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().min(5, "Need nore symbol").required(ErrorMsg.resultRequired),
+  title: Yup.string()
+    .min(5, ErrorMsg.roolMinTitle)
+    .required(ErrorMsg.resultRequired),
   fullText: Yup.string()
     .min(20, ErrorMsg.checkShortPassword)
     .required(ErrorMsg.resultRequired),
   description: Yup.string().required(ErrorMsg.resultRequired),
 })
 
-export const FormCreatePost = ({ typeAxiosParam, postId }) => {
+export const FormCreatePost = ({ onSubmitPost, postId }) => {
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
   const onSubmit = (values, props) => {
-    dispatch(typeAxiosParam(values, postId))
+    dispatch(onSubmitPost(values, postId))
     props.resetForm()
     handleClickCloseModal()
+  }
+
+  const handleCapture = (e) => {
+    if (e.target.files.length) {
+      console.log(e.target.files[0], "e.target.files[0]")
+      dispatch(saveImagePost(e.target.files[0], postId))
+    }
   }
 
   return (
@@ -68,6 +79,14 @@ export const FormCreatePost = ({ typeAxiosParam, postId }) => {
               sx={{ width: "300px", marginLeft: "20px" }}
               onChange={handleChange}
             />
+            <Fragment>
+              <input
+                accept="image/*"
+                id="icon-button-photo"
+                onChange={handleCapture}
+                type="file"
+              />
+            </Fragment>
             <Errors errors={errors} />
             <Fab type="submit" color="primary" aria-label="edit">
               <AddCircleIcon

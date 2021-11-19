@@ -40,6 +40,7 @@ export const Labels = {
 }
 
 export const ErrorMsg = {
+  roolMinTitle: "Need nore characters",
   enterInformEmail: "Enter valid email",
   resultRequired: "Required",
   checkShortPassword: "It`s to short",

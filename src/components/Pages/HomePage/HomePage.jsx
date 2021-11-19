@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
@@ -18,6 +19,7 @@ import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
 import { Labels, Tabs } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
+import rainbow from "../../../img/1.gif"
 
 const useStyles = makeStyles({
   root: {
@@ -35,11 +37,13 @@ const useStyles = makeStyles({
 export const HomePage = () => {
   const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
-  const [activeTab, setActiveTab] = useState(1)
+  const [activeTab, setActiveTab] = useState(Tabs.AllPosts)
 
   const { page } = useParams()
   const dispatch = useDispatch()
-  const { currentPage, posts, skip, totalPost } = useSelector((state) => state.post)
+  const { currentPage, posts, skip, totalPost, isFetching } = useSelector(
+    (state) => state.post
+  )
   const { id } = useSelector((state) => state.user)
   const history = useHistory()
   const ofset = page * skip - 10
@@ -122,32 +126,42 @@ export const HomePage = () => {
           buttonName={Labels.buttonNewPost}
           buttonNameOnForm={Labels.enterNewPost}
         >
-          <FormCreatePost typeAxiosParam={createNewPost} />
+          <FormCreatePost onSubmitPost={createNewPost} />
         </ModalProvider>
       </div>
-      <>{activeTab === Tabs.EmptyPage ? <h2>{Labels.textNamePage}</h2> : ""}</>
-      <>
-        {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
-          <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
-            {posts?.map((item) => (
-              <MediaCard
-                key={item._id}
-                item={item}
-                showAllPost={showAllPost}
-                userId={id}
-              />
-            ))}
-          </Grid>
-        ) : (
-          ""
-        )}
+      <>{activeTab === Tabs.EmptyPage && <h2>{Labels.textNamePage}</h2>}</>
 
-        <AllPagin
-          totalPost={totalPost}
-          page={page}
-          actionGetCurrentPage={actionGetCurrentPage}
-          namePage={namePage}
-        />
+      <>
+        {isFetching ? (
+          <img
+            src={rainbow}
+            style={{ alignItems: "center", justifyContent: "center" }}
+          />
+        ) : (
+          <>
+            {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
+              <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
+                {posts?.map((item) => (
+                  <MediaCard
+                    key={item._id}
+                    item={item}
+                    showAllPost={showAllPost}
+                    userId={id}
+                  />
+                ))}
+              </Grid>
+            ) : (
+              ""
+            )}
+
+            <AllPagin
+              totalPost={totalPost}
+              page={page}
+              actionGetCurrentPage={actionGetCurrentPage}
+              namePage={namePage}
+            />
+          </>
+        )}
       </>
     </div>
   )

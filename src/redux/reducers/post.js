@@ -10,6 +10,8 @@ import {
   POST_DELETE_ALL_INFORM,
   POST_PLUS_OR_MINUS_LIKE,
   POST_PUT,
+  SAVE_IMG_POST,
+  TOGLE_IS_FETCHING,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
 const initial = {
@@ -18,10 +20,15 @@ const initial = {
   currentPage: 1,
   skip: 10,
   totalPost: 0,
+  image: "",
+  isFetching: false,
 }
 
 export const userPosts = (state = initial, action) => {
+  console.log(action.payload, "action.payload")
   switch (action.type) {
+    case TOGLE_IS_FETCHING:
+      return { ...state, isFetching: action.payload }
     case GET_ALL_POST:
       return {
         ...state,
@@ -55,7 +62,7 @@ export const userPosts = (state = initial, action) => {
       }
     case POST_PLUS_OR_MINUS_LIKE:
       const posts = [...state.posts]
-      const findInx = posts.findIndex((post) => post._id === action.payload.postId)
+      const findInx = posts.findIndex((post) => post._id === action.payload.itemId)
 
       const post = posts[findInx]
 
@@ -84,6 +91,19 @@ export const userPosts = (state = initial, action) => {
       findPost.postedBy = data.fullText
 
       return { ...state, posts: statePosts }
+    case SAVE_IMG_POST:
+      const stateNewPosts = [...state.posts]
+      const imgData = action.payload.res.data.image
+      const imgPost = action.payload.postId
+      const findNewIndx = stateNewPosts.findIndex(
+        (findImgPost) => findImgPost._id === imgPost
+      )
+      const findImgPost = stateNewPosts[findNewIndx]
+      findImgPost.image = imgData
+      return {
+        ...state,
+        posts: stateNewPosts,
+      }
     default:
       return state
   }

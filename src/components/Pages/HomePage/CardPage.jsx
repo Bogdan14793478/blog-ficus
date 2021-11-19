@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-duplicate-props */
-import * as React from "react"
+import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
@@ -11,17 +11,21 @@ import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { deletePost, putLikePost, updatePost } from "../../../api/posts"
 import { FormCreatePost } from "./FormCreatePost"
-import { Labels, UrlAdress } from "../../../constantsName/constants"
+import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
+import { actionpostPlusOrMinusLike } from "../../../redux/actions/types"
 
 export const MediaCard = ({ item, showAllPost, userId }) => {
+  const countLikes = item?.likes?.length
   const dispatch = useDispatch()
   const deleteSelectedPost = () => {
     dispatch(deletePost(item._id))
   }
 
   const putLikeSelectedPost = () => {
-    dispatch(putLikePost(item._id, userId, item._id))
+    const itemId = item._id
+    putLikePost(itemId)
+    dispatch(actionpostPlusOrMinusLike({ itemId, userId }))
   }
 
   return (
@@ -50,7 +54,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           <CardMedia
             component="img"
             height="140"
-            image={`${UrlAdress.urlPageServer}${item.image}`}
+            image={`${process.env.REACT_APP_URL_SERVER_ADRESS}${item.image}`}
           />
         )}
         <CardContent>
@@ -70,14 +74,14 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
         </CardContent>
         <CardActions>
           <Button size="small" onClick={putLikeSelectedPost}>
-            {Labels.buttonLike} {item?.likes?.length}
+            {Labels.buttonLike} {countLikes}
           </Button>
           {showAllPost && (
             <ModalProvider
               buttonName={Labels.updatePost}
               buttonNameOnForm={Labels.updatePostinForm}
             >
-              <FormCreatePost typeAxiosParam={updatePost} postId={item._id} />
+              <FormCreatePost onSubmitPost={updatePost} postId={item._id} />
             </ModalProvider>
           )}
         </CardActions>
