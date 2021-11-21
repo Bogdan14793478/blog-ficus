@@ -10,7 +10,7 @@ export const Labels = {
   filteredMyPosts: "Show my posts",
   btnTextPage: "Another Page",
   urlPostsPage: "/posts/page/",
-  ulrUsersPage: "/users/user",
+  ulrUsersPage: "/users/user/",
   // formCreatePage && Login && Register
 
   loginPageNameTitle: "Login Form",

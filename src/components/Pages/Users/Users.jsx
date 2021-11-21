@@ -18,8 +18,14 @@ export const Users = () => {
 
   const ofset = page * skip - 10
 
+  const passParamToGetPosts = () => {
+    console.log(page, "page")
+    dispatch(getAllUsers(ofset))
+  }
+
   useEffect(() => {
-    dispatch(getAllUsers(0))
+    // dispatch(getAllUsers(0))
+    passParamToGetPosts()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentPage, id])
   return (

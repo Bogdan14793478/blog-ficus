@@ -92,17 +92,17 @@ export const userPosts = (state = initial, action) => {
 
       return { ...state, posts: statePosts }
     case SAVE_IMG_POST:
-      const stateNewPosts = [...state.posts]
+      const statePostImg = [...state.posts]
       const imgData = action.payload.res.data.image
       const imgPost = action.payload.postId
-      const findNewIndx = stateNewPosts.findIndex(
+      const findImgIndx = statePostImg.findIndex(
         (findImgPost) => findImgPost._id === imgPost
       )
-      const findImgPost = stateNewPosts[findNewIndx]
+      const findImgPost = statePostImg[findImgIndx]
       findImgPost.image = imgData
       return {
         ...state,
-        posts: stateNewPosts,
+        posts: statePostImg,
       }
     default:
       return state
