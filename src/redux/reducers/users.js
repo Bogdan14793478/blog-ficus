@@ -4,6 +4,7 @@ import {
   INFORM_USER,
   GET_ALL_USERS,
   SET_CURRENT_PAGE_USERS,
+  GET_INFORM_USER,
 } from "../actions/const"
 import { Labels } from "../../constantsName/constants"
 
@@ -39,6 +40,11 @@ export const stateUserReduser = (state = user, action) => {
       return {
         ...state,
         currentPage: action.payload,
+      }
+    case GET_INFORM_USER:
+      return {
+        ...state,
+        users: action.payload,
       }
     default:
       return state

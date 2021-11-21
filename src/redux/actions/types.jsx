@@ -13,6 +13,7 @@ import {
   INFORM_USER,
   GET_ALL_USERS,
   SET_CURRENT_PAGE_USERS,
+  GET_INFORM_USER,
 } from "./const"
 
 // POST
@@ -74,4 +75,9 @@ export const actiongetAllUsers = (payload) => ({
 export const actionUsersGetCurrentPage = (page) => ({
   type: SET_CURRENT_PAGE_USERS,
   payload: page,
+})
+
+export const actionGetInfotmUser = (payload) => ({
+  type: GET_INFORM_USER,
+  payload,
 })

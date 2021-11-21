@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { AccountCircle, Message } from "@mui/icons-material"
 import {
   AppBar,
@@ -21,6 +21,7 @@ import {
 } from "../../../redux/actions/types"
 import { removeFromStorage } from "../../../utils/helpers"
 import { Labels } from "../../../constantsName/constants"
+import { getUsersInform } from "../../../api/usersAxios"
 
 const useStyles = makeStyles({
   boxFigureStyle: {
@@ -56,6 +57,7 @@ const useStyles = makeStyles({
 export const NavbarMaterial = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const classes = useStyles()
+  const { id } = useSelector((state) => state.user)
 
   const dispatch = useDispatch()
 
@@ -71,6 +73,7 @@ export const NavbarMaterial = () => {
 
   const handleClose = () => {
     setAnchorEl(null)
+    dispatch(getUsersInform(id))
   }
   const onClickLogout = () => {
     dispatch(userIsAuth(false))
