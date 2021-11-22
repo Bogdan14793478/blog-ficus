@@ -1,5 +1,4 @@
 import { axiosInstance } from "./axios"
-
 import {
   actionGetAllPosts,
   actionCreateNewPosts,
@@ -13,11 +12,22 @@ export function putLikePost(numberPost) {
   axiosInstance.put(`posts/like/${numberPost}`)
 }
 
-export function updatePost(data, numberPost) {
+export function updatePost(data, photoFile, numberPost) {
+  const formData = new FormData()
+  formData.append("image", photoFile)
   return async (dispatch) => {
     axiosInstance.patch(`posts/${numberPost}`, data).then((res) => {
       dispatch(actionputPostFromDispatch({ data, numberPost }))
     })
+    axiosInstance
+      .put(`posts/upload/${numberPost}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        dispatch(actionSaveImgPost({ res, numberPost }))
+      })
   }
 }
 
@@ -41,11 +51,25 @@ export function getAllPosts(skip, numberId, searchPosts) {
   }
 }
 
-export function createNewPost(data) {
+export function createNewPost(data, photoFile) {
+  // eslint-disable-next-line no-var
+  let numberPost = ""
+  const formData = new FormData()
+  formData.append("image", photoFile)
   return async (dispatch) => {
-    axiosInstance.post("posts", data).then((res) => {
+    await axiosInstance.post("posts", data).then((res) => {
+      numberPost = res.data._id
       dispatch(actionCreateNewPosts(res))
     })
+    axiosInstance
+      .put(`posts/upload/${numberPost}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        dispatch(actionSaveImgPost({ res, numberPost }))
+      })
   }
 }
 
@@ -54,21 +78,5 @@ export function deletePost(postId) {
     axiosInstance.delete(`posts/${postId}`, { postId }).then((res) => {
       dispatch(actionDeletePosts(res.config.postId))
     })
-  }
-}
-
-export function saveImagePost(photoFile, postId) {
-  const formData = new FormData()
-  formData.append("image", photoFile)
-  return async (dispatch) => {
-    axiosInstance
-      .put(`posts/upload/${postId}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        dispatch(actionSaveImgPost({ res, postId }))
-      })
   }
 }

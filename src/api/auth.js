@@ -6,6 +6,7 @@ import { Labels, InformPanel } from "../constantsName/constants"
 export function getUserInfo() {
   return async (dispatch) => {
     axiosInstance.get("auth/user/").then((res) => {
+      console.log(res, "res")
       dispatch(takeInformUser(res.data))
     })
   }

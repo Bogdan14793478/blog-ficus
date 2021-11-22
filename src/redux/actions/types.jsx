@@ -14,6 +14,7 @@ import {
   GET_ALL_USERS,
   SET_CURRENT_PAGE_USERS,
   GET_INFORM_USER,
+  DELETE_USER,
 } from "./const"
 
 // POST
@@ -77,7 +78,7 @@ export const actionUsersGetCurrentPage = (page) => ({
   payload: page,
 })
 
-export const actionGetInfotmUser = (payload) => ({
-  type: GET_INFORM_USER,
+export const actionDeleteUser = (payload) => ({
+  type: DELETE_USER,
   payload,
 })

@@ -21,7 +21,6 @@ import {
 } from "../../../redux/actions/types"
 import { removeFromStorage } from "../../../utils/helpers"
 import { Labels } from "../../../constantsName/constants"
-import { getUsersInform } from "../../../api/usersAxios"
 
 const useStyles = makeStyles({
   boxFigureStyle: {
@@ -57,14 +56,14 @@ const useStyles = makeStyles({
 export const NavbarMaterial = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const classes = useStyles()
-  const { id } = useSelector((state) => state.user)
-
   const dispatch = useDispatch()
-
   const history = useHistory()
 
   function redirectToLogin() {
     history.push("/login")
+  }
+  function redirectToSetting() {
+    history.push("/setting")
   }
 
   const handleMenu = (event) => {
@@ -73,7 +72,11 @@ export const NavbarMaterial = () => {
 
   const handleClose = () => {
     setAnchorEl(null)
-    dispatch(getUsersInform(id))
+  }
+
+  const transferToSetting = () => {
+    handleClose()
+    redirectToSetting()
   }
   const onClickLogout = () => {
     dispatch(userIsAuth(false))
@@ -159,7 +162,7 @@ export const NavbarMaterial = () => {
               className={classes.menu}
             >
               <ChangeHistoryIcon className={classes.boxFigureStyle} />
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={transferToSetting}>
                 <Button>{Labels.settingInfo}</Button>
               </MenuItem>
               <MenuItem onClick={handleClose}>

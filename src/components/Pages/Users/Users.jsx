@@ -20,52 +20,24 @@ export const Users = () => {
 
   const ofset = page * skip - 10
 
-  const showAllUsers = () => {
-    dispatch(getAllUsers(0))
-  }
   const passParamToGetUsers = () => {
     dispatch(getAllUsers(ofset))
   }
 
   useEffect(() => {
     dispatch(getUserInfo())
-    dispatch(getAllUsers(0))
-    // passParamToGetUsers()  need find page
+    passParamToGetUsers()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentPage, id])
   return (
     <div>
       <h4 className="general-page-name">{Labels.nameHeaderUserPage}</h4>
       <>
-        {
-          // eslint-disable-next-line valid-typeof
-          Array.isArray(users) ? (
-            <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
-              {users?.map((item) => (
-                <MediaCard key={item._id} item={item} userId={id} />
-              ))}
-            </Grid>
-          ) : (
-            <>
-              <Grid
-                container
-                spacing={2}
-                sx={{ marginBottom: "20px", marginLeft: "50px" }}
-              >
-                <p>
-                  {Labels.inputUserID} {users._id}
-                  <br />
-                  {Labels.inputUserEmail} {users.email} <br />
-                  {Labels.inputUserDateCreateAccount} {users.dateCreated} <br />
-                </p>
-              </Grid>
-              <Button onClick={showAllUsers}>
-                {Labels.btnUserPageShowAllUsers}
-              </Button>
-            </>
-          )
-        }
-
+        <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
+          {users?.map((item) => (
+            <MediaCard key={item._id} item={item} userId={id} />
+          ))}
+        </Grid>
         <AllPagin
           totalPost={totalPost}
           page={page}

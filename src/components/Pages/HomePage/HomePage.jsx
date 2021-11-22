@@ -40,6 +40,7 @@ export const HomePage = () => {
   const [activeTab, setActiveTab] = useState(Tabs.AllPosts)
 
   const { page } = useParams()
+
   const dispatch = useDispatch()
   const { currentPage, posts, skip, totalPost, isFetching } = useSelector(
     (state) => state.post
@@ -129,14 +130,19 @@ export const HomePage = () => {
           <FormCreatePost onSubmitPost={createNewPost} />
         </ModalProvider>
       </div>
-      <>{activeTab === Tabs.EmptyPage && <h2>{Labels.textNamePage}</h2>}</>
+      <>
+        {activeTab === Tabs.EmptyPage && (
+          <div className="name-thirdbtn-homepage">
+            <h2>{Labels.textNamePage}</h2>
+          </div>
+        )}
+      </>
 
       <>
         {isFetching ? (
-          <img
-            src={rainbow}
-            style={{ alignItems: "center", justifyContent: "center" }}
-          />
+          <div className="main-page-home">
+            <img src={rainbow} />
+          </div>
         ) : (
           <>
             {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (

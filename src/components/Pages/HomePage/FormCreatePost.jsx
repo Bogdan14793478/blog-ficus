@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-fragments */
-import React, { Fragment, useContext } from "react"
+import React, { useState, useContext } from "react"
 import { useDispatch } from "react-redux"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
@@ -8,7 +8,6 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
-import { saveImagePost } from "../../../api/posts"
 
 const initialValues = {
   title: "",
@@ -27,18 +26,19 @@ const validationSchema = Yup.object().shape({
 })
 
 export const FormCreatePost = ({ onSubmitPost, postId }) => {
+  const [avatar, setAvatar] = useState({})
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
   const onSubmit = (values, props) => {
-    dispatch(onSubmitPost(values, postId))
+    dispatch(onSubmitPost(values, avatar, postId))
     props.resetForm()
     handleClickCloseModal()
   }
 
   const handleCapture = (e) => {
     if (e.target.files.length) {
-      dispatch(saveImagePost(e.target.files[0], postId))
+      setAvatar(e.target.files[0])
     }
   }
 
@@ -78,14 +78,12 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
               sx={{ width: "300px", marginLeft: "20px" }}
               onChange={handleChange}
             />
-            <Fragment>
-              <input
-                accept="image/*"
-                id="icon-button-photo"
-                onChange={handleCapture}
-                type="file"
-              />
-            </Fragment>
+            <input
+              accept="image/*"
+              id="icon-button-photo"
+              onChange={handleCapture}
+              type="file"
+            />
             <Errors errors={errors} />
             <Fab type="submit" color="primary" aria-label="edit">
               <AddCircleIcon

@@ -5,6 +5,7 @@ import {
   GET_ALL_USERS,
   SET_CURRENT_PAGE_USERS,
   GET_INFORM_USER,
+  DELETE_USER,
 } from "../actions/const"
 import { Labels } from "../../constantsName/constants"
 
@@ -16,6 +17,10 @@ const user = {
   skip: 10,
   totalPost: 0,
   currentPage: 1,
+  dateCreated: "",
+  skills: "",
+  profession: "",
+  details: "",
 }
 export const stateUserReduser = (state = user, action) => {
   switch (action.type) {
@@ -28,6 +33,7 @@ export const stateUserReduser = (state = user, action) => {
         ...state,
         informUser: action.payload.email,
         id: action.payload._id,
+        dateCreated: action.payload.dateCreated,
       }
     case GET_ALL_USERS:
       return {
@@ -41,10 +47,13 @@ export const stateUserReduser = (state = user, action) => {
         ...state,
         currentPage: action.payload,
       }
-    case GET_INFORM_USER:
+    case DELETE_USER:
       return {
         ...state,
-        users: action.payload,
+        isAuth: false,
+        id: "",
+        users: [],
+        informUser: "",
       }
     default:
       return state

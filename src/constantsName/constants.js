@@ -34,6 +34,8 @@ export const Labels = {
   buttonUserInform: "more information",
   // users page
   nameHeaderUserPage: "Users Page",
+  // setting page
+  nameHeaderSettingPage: "User Inform",
   // NavbarPage
   settingInfo: "Setting",
   logout: "Log Out",
@@ -42,6 +44,7 @@ export const Labels = {
   inputUserEmail: "User email is",
   inputUserDateCreateAccount: "Date create acaunt is",
   btnUserPageShowAllUsers: "Show all users",
+  btnUserDeleteUser: "Delete user",
 }
 
 export const ErrorMsg = {

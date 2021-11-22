@@ -16,6 +16,7 @@ import { Dialogs } from "./components/Pages/Dialogs/Dialogs"
 import { News } from "./components/Pages/News/News"
 import { HomePage } from "./components/Pages/HomePage/HomePage"
 import history from "./components/history"
+import { Setting } from "./components/Pages/Satting/Setting"
 
 toast.configure()
 
@@ -37,9 +38,10 @@ export function App() {
               <div className="app-wrapper">
                 <NavbarMaterial />
                 <div className="app-wrapper-content">
-                  <PrivateRoute exact path="/users/user/:user" component={Users} />
+                  <PrivateRoute exact path="/users/user/:page" component={Users} />
                   <PrivateRoute exact path="/ficus" component={Dialogs} />
                   <PrivateRoute exact path="/news" component={News} />
+                  <PrivateRoute exact path="/setting" component={Setting} />
                   <PrivateRoute
                     exact
                     path="/posts/page/:page"
