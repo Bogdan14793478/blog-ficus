@@ -37,6 +37,11 @@ export const Labels = {
   // NavbarPage
   settingInfo: "Setting",
   logout: "Log Out",
+  // Users page
+  inputUserID: "User Id is",
+  inputUserEmail: "User email is",
+  inputUserDateCreateAccount: "Date create acaunt is",
+  btnUserPageShowAllUsers: "Show all users",
 }
 
 export const ErrorMsg = {

@@ -25,7 +25,6 @@ const initial = {
 }
 
 export const userPosts = (state = initial, action) => {
-  console.log(action.payload, "action.payload")
   switch (action.type) {
     case TOGLE_IS_FETCHING:
       return { ...state, isFetching: action.payload }

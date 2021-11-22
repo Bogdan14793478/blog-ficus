@@ -17,7 +17,6 @@ export function getAllUsers(skip) {
 export function getUsersInform(id) {
   return async (dispatch) => {
     axiosInstance.get(`users/${id}`).then((res) => {
-      // console.log(res)
       dispatch(actionGetInfotmUser(res.data))
     })
   }

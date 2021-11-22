@@ -11,6 +11,7 @@ import { getUserInfo } from "../../../api/auth"
 
 export const Users = () => {
   const { page } = useParams()
+  console.log(page, "page")
   const dispatch = useDispatch()
   const { currentPage, users, skip, totalPost, id } = useSelector(
     (state) => state.user
@@ -23,7 +24,6 @@ export const Users = () => {
     dispatch(getAllUsers(0))
   }
   const passParamToGetUsers = () => {
-    console.log(page, "page")
     dispatch(getAllUsers(ofset))
   }
 
@@ -53,13 +53,15 @@ export const Users = () => {
                 sx={{ marginBottom: "20px", marginLeft: "50px" }}
               >
                 <p>
-                  User Id is {users._id}
+                  {Labels.inputUserID} {users._id}
                   <br />
-                  User email is {users.email} <br />
-                  Date create acaunt is {users.dateCreated} <br />
+                  {Labels.inputUserEmail} {users.email} <br />
+                  {Labels.inputUserDateCreateAccount} {users.dateCreated} <br />
                 </p>
               </Grid>
-              <Button onClick={showAllUsers}>Show all users</Button>
+              <Button onClick={showAllUsers}>
+                {Labels.btnUserPageShowAllUsers}
+              </Button>
             </>
           )
         }

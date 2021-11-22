@@ -38,7 +38,6 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
 
   const handleCapture = (e) => {
     if (e.target.files.length) {
-      console.log(e.target.files[0], "e.target.files[0]")
       dispatch(saveImagePost(e.target.files[0], postId))
     }
   }

@@ -22,7 +22,7 @@ export const stateUserReduser = (state = user, action) => {
     case USER_IS_AUTH:
       return { ...state, isAuth: action.payload }
     case USER_DELETE_ALL_INFORM:
-      return { ...state, informUser: "", id: "" }
+      return { ...state, informUser: "", id: "", users: "" }
     case INFORM_USER:
       return {
         ...state,
