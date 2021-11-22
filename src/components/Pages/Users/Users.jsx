@@ -22,7 +22,7 @@ export const Users = () => {
   const showAllUsers = () => {
     dispatch(getAllUsers(0))
   }
-  const passParamToGetPosts = () => {
+  const passParamToGetUsers = () => {
     console.log(page, "page")
     dispatch(getAllUsers(ofset))
   }
@@ -30,7 +30,7 @@ export const Users = () => {
   useEffect(() => {
     dispatch(getUserInfo())
     dispatch(getAllUsers(0))
-    // passParamToGetPosts()  need find page
+    // passParamToGetUsers()  need find page
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentPage, id])
   return (
