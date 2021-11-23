@@ -74,9 +74,5 @@ export function createNewPost(data, photoFile) {
 }
 
 export function deletePost(postId) {
-  return async (dispatch) => {
-    axiosInstance.delete(`posts/${postId}`, { postId }).then((res) => {
-      dispatch(actionDeletePosts(res.config.postId))
-    })
-  }
+  axiosInstance.delete(`posts/${postId}`)
 }

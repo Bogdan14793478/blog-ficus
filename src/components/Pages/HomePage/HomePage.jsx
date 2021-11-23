@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -19,7 +20,6 @@ import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
 import { Labels, Tabs } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
-import rainbow from "../../../img/1.gif"
 
 const useStyles = makeStyles({
   root: {
@@ -140,8 +140,11 @@ export const HomePage = () => {
 
       <>
         {isFetching ? (
-          <div className="main-page-home">
-            <img src={rainbow} />
+          <div className="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
         ) : (
           <>

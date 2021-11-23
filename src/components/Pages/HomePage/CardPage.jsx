@@ -13,13 +13,19 @@ import { deletePost, putLikePost, updatePost } from "../../../api/posts"
 import { FormCreatePost } from "./FormCreatePost"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
-import { actionpostPlusOrMinusLike } from "../../../redux/actions/types"
+import {
+  actionpostPlusOrMinusLike,
+  actionDeletePosts,
+} from "../../../redux/actions/types"
 
 export const MediaCard = ({ item, showAllPost, userId }) => {
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
+
   const deleteSelectedPost = () => {
-    dispatch(deletePost(item._id))
+    const itemId = item._id
+    deletePost(itemId)
+    dispatch(actionDeletePosts(itemId))
   }
 
   const putLikeSelectedPost = () => {

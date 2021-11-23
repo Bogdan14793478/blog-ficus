@@ -55,11 +55,10 @@ dd {
 }
 .general-page-name {
   padding: 15px 19px 25px 50px;
-
 }
 
-.name-thirdbtn-homepage{
-    margin-bottom: 280px;
+.name-thirdbtn-homepage {
+  margin-bottom: 280px;
 }
 
 .card-tittle-text {
@@ -97,18 +96,56 @@ nav ul {
 }
 
 .table-setting {
-	width: 80%;
-	margin-bottom: 20px;
-	border: 1px solid #dddddd;
-	border-collapse: collapse; 
+  width: 80%;
+  margin-bottom: 20px;
+  border: 1px solid #dddddd;
+  border-collapse: collapse;
 }
 .table-setting th {
-	font-weight: bold;
-	padding: 5px;
-	background: #efefef;
-	border: 1px solid #dddddd;
+  font-weight: bold;
+  padding: 5px;
+  background: #efefef;
+  border: 1px solid #dddddd;
 }
 .table-setting td {
-	border: 1px solid #dddddd;
-	padding: 5px;
+  border: 1px solid #dddddd;
+  padding: 5px;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  padding-left: 582px;
+  margin-bottom: 280px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid rgb(191, 69, 59);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: rgb(191, 69, 59) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
