@@ -8,30 +8,31 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
+import { updateInformUser } from "../../../api/usersAxios"
 
 const initialValues = {
-  title: "",
-  fullText: "",
-  description: "",
+  name: "",
+  skills: "",
+  profession: "",
+  details: "",
 }
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string()
-    .min(5, ErrorMsg.roolMinTitle)
+  name: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),
+  skills: Yup.string()
+    .min(4, ErrorMsg.checkShortPassword)
     .required(ErrorMsg.resultRequired),
-  fullText: Yup.string()
-    .min(20, ErrorMsg.checkShortPassword)
-    .required(ErrorMsg.resultRequired),
-  description: Yup.string().required(ErrorMsg.resultRequired),
+  profession: Yup.string().required(ErrorMsg.resultRequired),
+  details: Yup.string().required(ErrorMsg.resultRequired),
 })
 
-export const FormCreatePost = ({ onSubmitPost, postId }) => {
+export const FormUpdateParamUser = ({ userId }) => {
   const [avatar, setAvatar] = useState({})
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
   const onSubmit = (values, props) => {
-    dispatch(onSubmitPost(values, avatar, postId))
+    dispatch(updateInformUser(values, avatar, userId))
     props.resetForm()
     handleClickCloseModal()
   }
@@ -53,27 +54,36 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
           <Form>
             <TextField
               id="standard-basic"
-              label="Enter post title"
-              value={values.title}
-              name="title"
+              label="Enter name user"
+              value={values.name}
+              name="name"
               variant="standard"
               sx={{ width: "300px", marginLeft: "20px" }}
               onChange={handleChange}
             />
             <TextField
               id="standard-basic"
-              label="Enter post fullText"
-              value={values.fullText}
-              name="fullText"
+              label="Enter user skills"
+              value={values.skills}
+              name="skills"
               variant="standard"
               sx={{ width: "300px", marginLeft: "20px" }}
               onChange={handleChange}
             />
             <TextField
               id="standard-basic"
-              label="Enter post description"
+              label="Enter user profession"
               value={values.description}
-              name="description"
+              name="profession"
+              variant="standard"
+              sx={{ width: "300px", marginLeft: "20px", paddingBottom: "10px" }}
+              onChange={handleChange}
+            />
+            <TextField
+              id="standard-basic"
+              label="Enter user details"
+              value={values.description}
+              name="details"
               variant="standard"
               sx={{ width: "300px", marginLeft: "20px", paddingBottom: "10px" }}
               onChange={handleChange}

@@ -149,3 +149,9 @@ nav ul {
     transform: rotate(360deg);
   }
 }
+
+.error-component{
+  color:rgb(191, 69, 59);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

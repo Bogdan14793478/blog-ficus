@@ -1,16 +1,18 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
-import { Button, Grid } from "@mui/material"
+import { Button, CardMedia, Grid } from "@mui/material"
 import { Labels } from "../../../constantsName/constants"
 import { getUserInfo } from "../../../api/auth"
 import { Table } from "./Table"
 import { deleteUser } from "../../../api/usersAxios"
+import { FormUpdateParamUser } from "./FormUpdateParamUser"
+import { ModalProvider } from "../../../context"
 
 export const Setting = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const { name, informUser, dateCreated, id, skills, profession, details } =
+  const { name, informUser, dateCreated, id, skills, profession, details, avatar } =
     useSelector((state) => state.user)
 
   function redirectToRegister() {
@@ -21,8 +23,6 @@ export const Setting = () => {
     dispatch(deleteUser(id))
     redirectToRegister()
   }
-  console.log(informUser, dateCreated, id, "users")
-
   useEffect(() => {
     dispatch(getUserInfo())
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,7 +45,19 @@ export const Setting = () => {
           details={details}
         />
       </Grid>
-      <Button onClick={deleteUser}>{Labels.namebtnMoreInfo}</Button>
+      {avatar && (
+        <CardMedia
+          component="img"
+          height="140"
+          image={`${process.env.REACT_APP_URL_SERVER_ADRESS}${avatar}`}
+        />
+      )}
+      <ModalProvider
+        buttonName={Labels.buttonUpdUser}
+        buttonNameOnForm={Labels.buttonModalNameSetting}
+      >
+        <FormUpdateParamUser userId={id} />
+      </ModalProvider>
       <Button onClick={onClickdeleteUser}>{Labels.btnUserDeleteUser}</Button>
     </>
   )

@@ -4,8 +4,9 @@ import {
   INFORM_USER,
   GET_ALL_USERS,
   SET_CURRENT_PAGE_USERS,
-  GET_INFORM_USER,
   DELETE_USER,
+  USER_UPDATE_INFORM,
+  SAVE_AVATAR_USER,
 } from "../actions/const"
 import { Labels } from "../../constantsName/constants"
 
@@ -22,8 +23,10 @@ const user = {
   skills: "",
   profession: "",
   details: "",
+  avatar: "",
 }
 export const stateUserReduser = (state = user, action) => {
+  console.log(action.payload, "action.payload")
   switch (action.type) {
     case USER_IS_AUTH:
       return { ...state, isAuth: action.payload }
@@ -35,6 +38,11 @@ export const stateUserReduser = (state = user, action) => {
         informUser: action.payload.email,
         id: action.payload._id,
         dateCreated: action.payload.dateCreated,
+        name: action.payload.name,
+        skills: action.payload.skills,
+        profession: action.payload.profession,
+        details: action.payload.details,
+        avatar: action.payload.avatar,
       }
     case GET_ALL_USERS:
       return {
@@ -56,6 +64,20 @@ export const stateUserReduser = (state = user, action) => {
         users: [],
         informUser: "",
       }
+    case USER_UPDATE_INFORM:
+      return {
+        ...state,
+        name: action.payload.data.name,
+        skills: action.payload.data.skills,
+        profession: action.payload.data.profession,
+        details: action.payload.data.details,
+      }
+    case SAVE_AVATAR_USER:
+      return {
+        ...state,
+        avatar: action.payload.res.data.avatar,
+      }
+
     default:
       return state
   }

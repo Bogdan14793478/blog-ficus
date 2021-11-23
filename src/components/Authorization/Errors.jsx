@@ -4,7 +4,7 @@ import { Labels } from "../../constantsName/constants"
 export function Errors({ errors }) {
   return Object.entries(errors).map(([key, error]) => {
     return (
-      <ul key={key}>
+      <ul key={key} className="error-component">
         <li>
           {Labels.errorPage} {key}: {error}
         </li>

@@ -2,7 +2,6 @@ import { axiosInstance } from "./axios"
 import {
   actionGetAllPosts,
   actionCreateNewPosts,
-  actionDeletePosts,
   actionputPostFromDispatch,
   actionSaveImgPost,
   actionTogleIsFetching,
@@ -16,7 +15,7 @@ export function updatePost(data, photoFile, numberPost) {
   const formData = new FormData()
   formData.append("image", photoFile)
   return async (dispatch) => {
-    axiosInstance.patch(`posts/${numberPost}`, data).then((res) => {
+    await axiosInstance.patch(`posts/${numberPost}`, data).then((res) => {
       dispatch(actionputPostFromDispatch({ data, numberPost }))
     })
     axiosInstance

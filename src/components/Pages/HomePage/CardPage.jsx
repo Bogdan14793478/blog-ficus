@@ -9,6 +9,7 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
+import { debounce } from "debounce"
 import { deletePost, putLikePost, updatePost } from "../../../api/posts"
 import { FormCreatePost } from "./FormCreatePost"
 import { Labels } from "../../../constantsName/constants"
@@ -79,9 +80,15 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={putLikeSelectedPost}>
+          <Button
+            size="small"
+            onClick={debounce((e) => {
+              putLikeSelectedPost()
+            }, 1000)}
+          >
             {Labels.buttonLike} {countLikes}
           </Button>
+
           {showAllPost && (
             <ModalProvider
               buttonName={Labels.updatePost}

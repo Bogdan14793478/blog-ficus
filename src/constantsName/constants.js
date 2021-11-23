@@ -37,6 +37,8 @@ export const Labels = {
   // setting page
   nameHeaderSettingPage: "User Inform",
   namebtnMoreInfo: "add information about yourself",
+  buttonUpdUser: "Update user param",
+  buttonModalNameSetting: "Specify user information",
   // NavbarPage
   settingInfo: "Setting",
   logout: "Log Out",

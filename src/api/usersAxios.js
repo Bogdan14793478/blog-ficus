@@ -1,4 +1,9 @@
-import { actiongetAllUsers, actionDeleteUser } from "../redux/actions/types"
+import {
+  actiongetAllUsers,
+  actionDeleteUser,
+  actionUserUpdateInform,
+  actionSaveUserAvatar,
+} from "../redux/actions/types"
 import { axiosInstance } from "./axios"
 
 export function getAllUsers(skip) {
@@ -19,5 +24,31 @@ export function deleteUser(userId) {
     axiosInstance.delete(`users/${userId}`).then((res) => {
       dispatch(actionDeleteUser(res.config.data))
     })
+  }
+}
+
+export function deletePost(postId) {
+  axiosInstance.delete(`posts/${postId}`)
+}
+
+export function updateInformUser(data, photoFile, userId) {
+  const formData = new FormData()
+  formData.append("avatar", photoFile)
+  return async (dispatch) => {
+    await axiosInstance.patch(`users/${userId}`, data).then((res) => {
+      console.log(res, "resData")
+      dispatch(actionUserUpdateInform({ data }))
+    })
+    axiosInstance
+      .put(`users/upload/${userId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res, "resImg")
+        dispatch(actionSaveUserAvatar({ res }))
+      })
+      .catch((err) => alert(err))
   }
 }

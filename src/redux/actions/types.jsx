@@ -1,3 +1,4 @@
+import { Pause } from "@mui/icons-material"
 import {
   GET_ALL_POST,
   CREATE_NEW_POST,
@@ -13,8 +14,9 @@ import {
   INFORM_USER,
   GET_ALL_USERS,
   SET_CURRENT_PAGE_USERS,
-  GET_INFORM_USER,
+  USER_UPDATE_INFORM,
   DELETE_USER,
+  SAVE_AVATAR_USER,
 } from "./const"
 
 // POST
@@ -80,5 +82,15 @@ export const actionUsersGetCurrentPage = (page) => ({
 
 export const actionDeleteUser = (payload) => ({
   type: DELETE_USER,
+  payload,
+})
+
+export const actionUserUpdateInform = (payload) => ({
+  type: USER_UPDATE_INFORM,
+  payload,
+})
+
+export const actionSaveUserAvatar = (payload) => ({
+  type: SAVE_AVATAR_USER,
   payload,
 })
