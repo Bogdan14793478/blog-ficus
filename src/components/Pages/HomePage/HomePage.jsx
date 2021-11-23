@@ -48,7 +48,7 @@ export const HomePage = () => {
   const { id } = useSelector((state) => state.user)
   const history = useHistory()
   const ofset = page * skip - 10
-  const namePage = Labels.urlPostsPage
+  const namePage = Labels.nameUrlPostsPage
   const classes = useStyles()
 
   const redirectToPagePosts = () => {

@@ -9,7 +9,7 @@ export const Labels = {
   showAllPosts: "Show all posts",
   filteredMyPosts: "Show my posts",
   btnTextPage: "Another Page",
-  urlPostsPage: "/posts/page/",
+  nameUrlPostsPage: "/posts/page/",
   ulrUsersPage: "/users/user/",
   // formCreatePage && Login && Register
 
