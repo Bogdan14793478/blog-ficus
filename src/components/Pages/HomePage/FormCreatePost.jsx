@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-fragments */
 import React, { useState, useContext } from "react"
 import { useDispatch } from "react-redux"
 import { Form, Formik } from "formik"
@@ -8,6 +7,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
+// import { handleClickCloseModal } from "../../../context/ModalContext/ModalContextProvider"
 
 const initialValues = {
   title: "",
@@ -84,6 +84,7 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
               onChange={handleCapture}
               type="file"
             />
+            <img src={avatar} alt="green" />
             <Errors errors={errors} />
             <Fab type="submit" color="primary" aria-label="edit">
               <AddCircleIcon

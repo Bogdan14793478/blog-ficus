@@ -94,6 +94,7 @@ export const FormUpdateParamUser = ({ userId }) => {
               onChange={handleCapture}
               type="file"
             />
+            <img src={avatar} alt="green" />
             <Errors errors={errors} />
             <Fab type="submit" color="primary" aria-label="edit">
               <AddCircleIcon

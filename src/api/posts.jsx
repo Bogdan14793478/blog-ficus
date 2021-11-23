@@ -15,7 +15,7 @@ export function updatePost(data, photoFile, numberPost) {
   const formData = new FormData()
   formData.append("image", photoFile)
   return async (dispatch) => {
-    await axiosInstance.patch(`posts/${numberPost}`, data).then((res) => {
+    axiosInstance.patch(`posts/${numberPost}`, data).then((res) => {
       dispatch(actionputPostFromDispatch({ data, numberPost }))
     })
     axiosInstance
@@ -51,7 +51,6 @@ export function getAllPosts(skip, numberId, searchPosts) {
 }
 
 export function createNewPost(data, photoFile) {
-  // eslint-disable-next-line no-var
   let numberPost = ""
   const formData = new FormData()
   formData.append("image", photoFile)

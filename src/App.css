@@ -57,9 +57,9 @@ dd {
   padding: 15px 19px 25px 50px;
 }
 
-.name-thirdbtn-homepage {
-  margin-bottom: 280px;
-}
+/* .name-thirdbtn-homepage {
+  margin-bottom: 100vh;
+} */
 
 .card-tittle-text {
   max-width: 290px;
@@ -154,4 +154,16 @@ nav ul {
   color:rgb(191, 69, 59);
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.avatar-user-setting{
+  width: 150px;
+  height: auto;
+  padding: 0 auto;
+
+}
+
+.btn-setting-group{
+  display: flex;
+  justify-content: space-around;
 }

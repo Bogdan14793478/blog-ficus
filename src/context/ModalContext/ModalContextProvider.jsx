@@ -1,4 +1,3 @@
-/* eslint-disable import/no-default-export */
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from "react"
 import { useState } from "react"
@@ -63,6 +62,11 @@ export const ModalProvider = ({ children, buttonName, buttonNameOnForm }) => {
     setOpen(false)
   }
 
+  const valueModalProvider = {
+    handleClickOpenModal,
+    handleClickCloseModal,
+  }
+
   return (
     <div>
       <Button
@@ -83,7 +87,7 @@ export const ModalProvider = ({ children, buttonName, buttonNameOnForm }) => {
         >
           {buttonNameOnForm}
         </BootstrapDialogTitle>
-        <ModalContext.Provider value={handleClickCloseModal}>
+        <ModalContext.Provider value={valueModalProvider}>
           <DialogContent dividers>{children}</DialogContent>
         </ModalContext.Provider>
       </BootstrapDialog>

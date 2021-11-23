@@ -1,6 +1,3 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-param-reassign */
 import {
   GET_ALL_POST,
   CREATE_NEW_POST,

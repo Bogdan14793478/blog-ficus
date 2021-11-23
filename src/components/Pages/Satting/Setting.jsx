@@ -25,7 +25,6 @@ export const Setting = () => {
   }
   useEffect(() => {
     dispatch(getUserInfo())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id])
   return (
     <>
@@ -46,19 +45,23 @@ export const Setting = () => {
         />
       </Grid>
       {avatar && (
-        <CardMedia
-          component="img"
-          height="240"
-          image={`${process.env.REACT_APP_URL_SERVER_ADRESS}${avatar}`}
-        />
+        <CardMedia sx={{ display: "flex", justifyContent: "space-evenly" }}>
+          <img
+            src={`${process.env.REACT_APP_URL_SERVER_ADRESS}${avatar}`}
+            alt="green"
+            className="avatar-user-setting"
+          />
+        </CardMedia>
       )}
-      <ModalProvider
-        buttonName={Labels.buttonUpdUser}
-        buttonNameOnForm={Labels.buttonModalNameSetting}
-      >
-        <FormUpdateParamUser userId={id} />
-      </ModalProvider>
-      <Button onClick={onClickdeleteUser}>{Labels.btnUserDeleteUser}</Button>
+      <div className="btn-setting-group">
+        <ModalProvider
+          buttonName={Labels.buttonUpdUser}
+          buttonNameOnForm={Labels.buttonModalNameSetting}
+        >
+          <FormUpdateParamUser userId={id} />
+        </ModalProvider>
+        <Button onClick={onClickdeleteUser}>{Labels.btnUserDeleteUser}</Button>
+      </div>
     </>
   )
 }
