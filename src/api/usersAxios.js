@@ -36,7 +36,6 @@ export function updateInformUser(data, photoFile, userId) {
   formData.append("avatar", photoFile)
   return async (dispatch) => {
     await axiosInstance.patch(`users/${userId}`, data).then((res) => {
-      console.log(res, "resData")
       dispatch(actionUserUpdateInform({ data }))
     })
     axiosInstance
@@ -46,7 +45,6 @@ export function updateInformUser(data, photoFile, userId) {
         },
       })
       .then((res) => {
-        console.log(res, "resImg")
         dispatch(actionSaveUserAvatar({ res }))
       })
   }

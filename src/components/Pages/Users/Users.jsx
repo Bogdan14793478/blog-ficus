@@ -11,7 +11,6 @@ import { getUserInfo } from "../../../api/auth"
 
 export const Users = () => {
   const { page } = useParams()
-  console.log(page, "page")
   const dispatch = useDispatch()
   const { currentPage, users, skip, totalPost, id } = useSelector(
     (state) => state.user

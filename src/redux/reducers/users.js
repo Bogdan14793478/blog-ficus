@@ -26,7 +26,6 @@ const user = {
   avatar: "",
 }
 export const stateUserReduser = (state = user, action) => {
-  console.log(action.payload, "action.payload")
   switch (action.type) {
     case USER_IS_AUTH:
       return { ...state, isAuth: action.payload }

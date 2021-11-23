@@ -98,7 +98,6 @@ export const userPosts = (state = initial, action) => {
         (findImgPost) => findImgPost._id === imgPost
       )
       const findImgPost = statePostImg[findImgIndx]
-      console.log(findImgPost)
       findImgPost.image = imgData
       return {
         ...state,
