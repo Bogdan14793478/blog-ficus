@@ -49,6 +49,5 @@ export function updateInformUser(data, photoFile, userId) {
         console.log(res, "resImg")
         dispatch(actionSaveUserAvatar({ res }))
       })
-      .catch((err) => alert(err))
   }
 }
