@@ -18,6 +18,7 @@ const user = {
   totalPost: 0,
   currentPage: 1,
   dateCreated: "",
+  name: "",
   skills: "",
   profession: "",
   details: "",

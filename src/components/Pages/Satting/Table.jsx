@@ -3,6 +3,7 @@ import { Labels } from "../../../constantsName/constants"
 
 export const Table = ({
   id,
+  name,
   informUser,
   dateCreated,
   skills,
@@ -15,6 +16,7 @@ export const Table = ({
         <thead>
           <tr>
             <th>User id</th>
+            <th>Name</th>
             <th>User email</th>
             <th>Date create account</th>
             <th>Skills</th>
@@ -25,6 +27,7 @@ export const Table = ({
         <tbody>
           <tr>
             <td>{id}</td>
+            <td>{name ? <td>${name}</td> : "no inform"}</td>
             <td>{informUser}</td>
             <td>{dateCreated}</td>
             <td>{skills ? <td>${skills}</td> : "no inform"}</td>

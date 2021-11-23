@@ -36,6 +36,7 @@ export const Labels = {
   nameHeaderUserPage: "Users Page",
   // setting page
   nameHeaderSettingPage: "User Inform",
+  namebtnMoreInfo: "add information about yourself",
   // NavbarPage
   settingInfo: "Setting",
   logout: "Log Out",

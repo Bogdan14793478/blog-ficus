@@ -1,4 +1,4 @@
-import { actiongetAllUsers } from "../redux/actions/types"
+import { actiongetAllUsers, actionDeleteUser } from "../redux/actions/types"
 import { axiosInstance } from "./axios"
 
 export function getAllUsers(skip) {
@@ -10,6 +10,14 @@ export function getAllUsers(skip) {
   return async (dispatch) => {
     axiosInstance.get(url).then((res) => {
       dispatch(actiongetAllUsers(res.data))
+    })
+  }
+}
+
+export function deleteUser(userId) {
+  return async (dispatch) => {
+    axiosInstance.delete(`users/${userId}`).then((res) => {
+      dispatch(actionDeleteUser(res.config.data))
     })
   }
 }
