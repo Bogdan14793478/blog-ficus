@@ -48,7 +48,7 @@ export const Setting = () => {
       {avatar && (
         <CardMedia
           component="img"
-          height="140"
+          height="240"
           image={`${process.env.REACT_APP_URL_SERVER_ADRESS}${avatar}`}
         />
       )}

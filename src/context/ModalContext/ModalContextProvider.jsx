@@ -83,7 +83,7 @@ export const ModalProvider = ({ children, buttonName, buttonNameOnForm }) => {
         >
           {buttonNameOnForm}
         </BootstrapDialogTitle>
-        <ModalContext.Provider value={(handleClickOpenModal, handleClickCloseModal)}>
+        <ModalContext.Provider value={handleClickCloseModal}>
           <DialogContent dividers>{children}</DialogContent>
         </ModalContext.Provider>
       </BootstrapDialog>
