@@ -161,7 +161,9 @@ export const HomePage = () => {
             ) : (
               ""
             )}
-
+            <Grid sx={{ marginLeft: "20px", fontSize: "20px" }}>
+              {posts.length !== 0 ? "" : "No posts whot you want find"}
+            </Grid>
             <AllPagin
               totalPost={totalPost}
               page={page}

@@ -26,11 +26,14 @@ export const userPosts = (state = initial, action) => {
     case TOGLE_IS_FETCHING:
       return { ...state, isFetching: action.payload }
     case GET_ALL_POST:
+      const totalPostsFromBack = Math.ceil(action.payload.pagination.total / 10)
+      console.log(action.payload.data, "action")
+
       return {
         ...state,
         posts: [...action.payload.data],
         skip: state.skip,
-        totalPost: Math.ceil(action.payload.pagination.total / 10),
+        totalPost: totalPostsFromBack,
       }
     case GET_ALL_POST_FAILURE:
       return {
