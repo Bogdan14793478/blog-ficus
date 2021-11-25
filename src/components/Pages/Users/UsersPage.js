@@ -14,6 +14,7 @@ export default function MediaCard({ item }) {
     <Card
       sx={{
         width: 345,
+        maxHeight: "16.8vh",
         padding: "10px",
         marginLeft: "55px",
         paddingTop: "10px",

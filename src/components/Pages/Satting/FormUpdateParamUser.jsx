@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-fragments */
-import React, { useState, useContext } from "react"
+import React, { useContext } from "react"
 import { useDispatch } from "react-redux"
-import { Form, Formik } from "formik"
+import { Form, Formik, FieldArray } from "formik"
 import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
@@ -15,6 +15,7 @@ const initialValues = {
   skills: "",
   profession: "",
   details: "",
+  file: undefined,
 }
 
 const validationSchema = Yup.object().shape({
@@ -27,19 +28,21 @@ const validationSchema = Yup.object().shape({
 })
 
 export const FormUpdateParamUser = ({ userId }) => {
-  const [avatar, setAvatar] = useState({})
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
   const onSubmit = (values, props) => {
-    dispatch(updateInformUser(values, avatar, userId))
+    const { file, ...rest } = values
+    dispatch(updateInformUser(rest, file, userId))
     props.resetForm()
     handleClickCloseModal()
   }
 
-  const handleCapture = (e) => {
-    if (e.target.files.length) {
-      setAvatar(e.target.files[0])
+  const loadFile = function (event) {
+    const output = document.getElementById("image-before-load-on-server")
+    output.src = URL.createObjectURL(event?.target?.files[0])
+    output.onload = function () {
+      URL.revokeObjectURL(output.src)
     }
   }
 
@@ -50,7 +53,7 @@ export const FormUpdateParamUser = ({ userId }) => {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {({ errors, values, handleChange }) => (
+        {({ errors, values, setFieldValue, handleChange }) => (
           <Form>
             <TextField
               id="standard-basic"
@@ -88,13 +91,21 @@ export const FormUpdateParamUser = ({ userId }) => {
               sx={{ width: "300px", marginLeft: "20px", paddingBottom: "10px" }}
               onChange={handleChange}
             />
-            <input
-              accept="image/*"
-              id="icon-button-photo"
-              onChange={handleCapture}
-              type="file"
-            />
-            <img src={avatar} alt="green" />
+            <FieldArray name="file">
+              <p>
+                <input
+                  accept="image/*"
+                  id="icon-button-photo"
+                  onChange={(event) => {
+                    setFieldValue("file", event.currentTarget.files[0])
+                    loadFile(event)
+                  }}
+                  type="file"
+                  name="file"
+                />
+              </p>
+            </FieldArray>
+            <img id="image-before-load-on-server" alt="green" />
             <Errors errors={errors} />
             <Fab type="submit" color="primary" aria-label="edit">
               <AddCircleIcon

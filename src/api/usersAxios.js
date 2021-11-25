@@ -38,14 +38,16 @@ export function updateInformUser(data, photoFile, userId) {
     await axiosInstance.patch(`users/${userId}`, data).then((res) => {
       dispatch(actionUserUpdateInform({ data }))
     })
-    axiosInstance
-      .put(`users/upload/${userId}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        dispatch(actionSaveUserAvatar({ res }))
-      })
+    if (photoFile) {
+      axiosInstance
+        .put(`users/upload/${userId}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          dispatch(actionSaveUserAvatar({ res }))
+        })
+    }
   }
 }

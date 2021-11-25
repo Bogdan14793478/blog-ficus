@@ -18,15 +18,17 @@ export function updatePost(data, photoFile, numberPost) {
     axiosInstance.patch(`posts/${numberPost}`, data).then((res) => {
       dispatch(actionputPostFromDispatch({ data, numberPost }))
     })
-    axiosInstance
-      .put(`posts/upload/${numberPost}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        dispatch(actionSaveImgPost({ res, numberPost }))
-      })
+    if (photoFile) {
+      axiosInstance
+        .put(`posts/upload/${numberPost}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          dispatch(actionSaveImgPost({ res, numberPost }))
+        })
+    }
   }
 }
 
@@ -59,15 +61,17 @@ export function createNewPost(data, photoFile) {
       numberPost = res.data._id
       dispatch(actionCreateNewPosts(res))
     })
-    axiosInstance
-      .put(`posts/upload/${numberPost}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        dispatch(actionSaveImgPost({ res, numberPost }))
-      })
+    if (photoFile) {
+      axiosInstance
+        .put(`posts/upload/${numberPost}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          dispatch(actionSaveImgPost({ res, numberPost }))
+        })
+    }
   }
 }
 

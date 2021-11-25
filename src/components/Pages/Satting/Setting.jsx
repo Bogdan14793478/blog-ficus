@@ -28,39 +28,45 @@ export const Setting = () => {
   }, [dispatch, id])
   return (
     <>
-      <h4 className="general-page-name">{Labels.nameHeaderSettingPage}</h4>
-      <Grid
-        container
-        spacing={2}
-        sx={{ marginBottom: "20px", marginLeft: "0 auto", justifyContent: "center" }}
-      >
-        <Table
-          id={id}
-          name={name}
-          informUser={informUser}
-          dateCreated={dateCreated}
-          skills={skills}
-          profession={profession}
-          details={details}
-        />
-      </Grid>
-      {avatar && (
-        <CardMedia sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <img
-            src={`${process.env.REACT_APP_URL_SERVER_ADRESS}${avatar}`}
-            alt="green"
-            className="avatar-user-setting"
-          />
-        </CardMedia>
-      )}
-      <div className="btn-setting-group">
-        <ModalProvider
-          buttonName={Labels.buttonUpdUser}
-          buttonNameOnForm={Labels.buttonModalNameSetting}
+      <div className="setting-page-wrapper">
+        <h4 className="general-page-name">{Labels.nameHeaderSettingPage}</h4>
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            marginBottom: "20px",
+            marginLeft: "0 auto",
+            justifyContent: "center",
+          }}
         >
-          <FormUpdateParamUser userId={id} />
-        </ModalProvider>
-        <Button onClick={onClickdeleteUser}>{Labels.btnUserDeleteUser}</Button>
+          <Table
+            id={id}
+            name={name}
+            informUser={informUser}
+            dateCreated={dateCreated}
+            skills={skills}
+            profession={profession}
+            details={details}
+          />
+        </Grid>
+        {avatar && (
+          <CardMedia sx={{ display: "flex", justifyContent: "space-evenly" }}>
+            <img
+              src={`${process.env.REACT_APP_URL_SERVER_ADRESS}${avatar}`}
+              alt="green"
+              className="avatar-user-setting"
+            />
+          </CardMedia>
+        )}
+        <div className="btn-setting-group">
+          <ModalProvider
+            buttonName={Labels.buttonUpdUser}
+            buttonNameOnForm={Labels.buttonModalNameSetting}
+          >
+            <FormUpdateParamUser userId={id} />
+          </ModalProvider>
+          <Button onClick={onClickdeleteUser}>{Labels.btnUserDeleteUser}</Button>
+        </div>
       </div>
     </>
   )

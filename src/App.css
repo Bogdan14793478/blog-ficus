@@ -27,11 +27,13 @@ dd {
 .app-wrapper {
   width: 1230px;
   margin: 0 auto;
-  /* grid-gap: 10px*/
+  grid-gap: 10px;
 }
 .app-wrapper-content {
   grid-area: c;
   background-color: #f5eded;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 .content img {
   max-width: 100%;
@@ -57,9 +59,9 @@ dd {
   padding: 15px 19px 25px 50px;
 }
 
-/* .name-thirdbtn-homepage {
-  margin-bottom: 100vh;
-} */
+.name-thirdbtn-homepage {
+  margin-bottom: 60vh;
+}
 
 .card-tittle-text {
   max-width: 290px;
@@ -118,7 +120,6 @@ nav ul {
   width: 80px;
   height: 80px;
   padding-left: 582px;
-  margin-bottom: 280px;
 }
 .lds-ring div {
   box-sizing: border-box;
@@ -150,20 +151,86 @@ nav ul {
   }
 }
 
-.error-component{
-  color:rgb(191, 69, 59);
+.error-component {
+  color: rgb(191, 69, 59);
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-.avatar-user-setting{
-  width: 150px;
+.avatar-user-setting {
+  width: 250px;
   height: auto;
-  padding: 0 auto;
-
+  padding-left: 40px;
+}
+.group-title-deleteicon-card{
+  display: flex;
+  justify-content: space-between;
+}
+.group-img-like-updete-post{
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.btn-setting-group{
+.image-post-homepage {
+  padding-left: 40px;
+  /* justify-content: space-evenly; */
+  width: 100px;
+  height: auto;
+  /* border-radius: 80%; */
+  /* background-size: auto 50px; */
+}
+
+.btn-setting-group {
   display: flex;
   justify-content: space-around;
+}
+
+.setting-page-wrapper {
+  grid-area: c;
+  background-color: #f5eded;
+  height: 92.7vh;
+}
+
+#image-before-load-on-server{
+height: auto;
+width: 100px;
+}
+@media (max-width: 1440px) {
+  .app-wrapper {
+    width: 1220px;
+  }
+
+  .navbar-btn {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: baseline;
+  }
+  .general-page-name {
+    padding: 8px 33px 10px 79px;
+  }
+  .button-home-page {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+  .right-group-btn {
+    margin-left: 750px;
+  }
+  .left-group-btn {
+    display: flex;
+    align-content: flex-end;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+}
+
+@media (max-width: 750px) {
+  .app-wrapper {
+    width: 750px;
+  }
 }

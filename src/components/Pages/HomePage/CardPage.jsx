@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-duplicate-props */
-import React from "react"
+import React, { useCallback } from "react"
 import { useDispatch } from "react-redux"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
@@ -24,15 +24,19 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
   const dispatch = useDispatch()
 
   const deleteSelectedPost = () => {
-    const itemId = item._id
-    deletePost(itemId)
-    dispatch(actionDeletePosts(itemId))
+    deletePost(item._id)
+    dispatch(actionDeletePosts(item._id))
   }
 
-  const putLikeSelectedPost = () => {
-    const itemId = item._id
-    putLikePost(itemId)
-    dispatch(actionpostPlusOrMinusLike({ itemId, userId }))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceLog = useCallback(
+    debounce((itemS) => putLikePost(item._id), 1000),
+    []
+  )
+
+  const debounceonClick = (e) => {
+    dispatch(actionpostPlusOrMinusLike({ itemId: item._id, userId }))
+    debounceLog(e.target.value)
   }
 
   return (
@@ -40,64 +44,69 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
       <Card
         sx={{
           maxWidth: 345,
-          marginLeft: "10px",
+          // maxHeight: "13.8vh",
+          marginLeft: "24px",
           marginTop: "10px",
           padding: "10px",
           wordWrap: "break-word",
         }}
       >
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="div"
-          className="card-tittle-text"
-        >
-          {item.title}
-          {showAllPost && (
-            <DeleteIcon onClick={deleteSelectedPost} sx={{ marginLeft: "294px" }} />
-          )}
-        </Typography>
-        {item.image && (
-          <CardMedia
-            component="img"
-            height="140"
-            image={`${process.env.REACT_APP_URL_SERVER_ADRESS}${item.image}`}
-          />
-        )}
-        <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            className="card-tittle-text"
-          >
-            {item.fullText}
-          </Typography>
-        </CardContent>
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {item.description}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button
-            size="small"
-            onClick={debounce((e) => {
-              putLikeSelectedPost()
-            }, 1000)}
-          >
-            {Labels.buttonLike} {countLikes}
-          </Button>
-
-          {showAllPost && (
-            <ModalProvider
-              buttonName={Labels.updatePost}
-              buttonNameOnForm={Labels.updatePostinForm}
+        <div className="group-title-deleteicon-card">
+          <div>
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="div"
+              className="card-tittle-text"
             >
-              <FormCreatePost onSubmitPost={updatePost} postId={item._id} />
-            </ModalProvider>
+              {item.title}
+            </Typography>
+          </div>
+          <div>{showAllPost && <DeleteIcon onClick={deleteSelectedPost} />}</div>
+
+          {/* </Typography> */}
+        </div>
+
+        <div className="group-img-like-updete-post">
+          {item.image && (
+            <CardMedia
+              sx={{
+                display: "flex",
+              }}
+            >
+              <img
+                src={`${process.env.REACT_APP_URL_SERVER_ADRESS}${item.image}`}
+                alt="green"
+                className="image-post-homepage"
+              />
+            </CardMedia>
           )}
-        </CardActions>
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              {item.description}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button
+              size="small"
+              // onClick={debounce((e) => {
+              //   putLikeSelectedPost()
+              // }, 1000)}
+              onClick={debounceonClick}
+            >
+              {Labels.buttonLike} {countLikes}
+            </Button>
+
+            {showAllPost && (
+              <ModalProvider
+                buttonName={Labels.updatePost}
+                buttonNameOnForm={Labels.updatePostinForm}
+              >
+                <FormCreatePost onSubmitPost={updatePost} postId={item._id} />
+              </ModalProvider>
+            )}
+          </CardActions>
+        </div>
       </Card>
     </Grid>
   )
