@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
-import { Button, Grid } from "@mui/material"
+import { Grid } from "@mui/material"
 import { actionUsersGetCurrentPage } from "../../../redux/actions/types"
 import { AllPagin } from "../../Pagination"
 import MediaCard from "./UsersPage"

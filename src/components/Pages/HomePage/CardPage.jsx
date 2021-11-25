@@ -44,7 +44,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
       <Card
         sx={{
           maxWidth: 345,
-          // maxHeight: "13.8vh",
+          maxHeight: "13.8vh",
           marginLeft: "24px",
           marginTop: "10px",
           padding: "10px",
@@ -63,8 +63,6 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
             </Typography>
           </div>
           <div>{showAllPost && <DeleteIcon onClick={deleteSelectedPost} />}</div>
-
-          {/* </Typography> */}
         </div>
 
         <div className="group-img-like-updete-post">
@@ -87,13 +85,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button
-              size="small"
-              // onClick={debounce((e) => {
-              //   putLikeSelectedPost()
-              // }, 1000)}
-              onClick={debounceonClick}
-            >
+            <Button size="small" onClick={debounceonClick}>
               {Labels.buttonLike} {countLikes}
             </Button>
 

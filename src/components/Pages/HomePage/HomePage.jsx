@@ -1,5 +1,5 @@
 /* eslint-disable react/self-closing-comp */
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useHistory } from "react-router-dom"
@@ -19,6 +19,7 @@ import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
 import { Labels, Tabs } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
+import { ModalContext } from "../../../context"
 
 const useStyles = makeStyles({
   root: {
@@ -32,11 +33,11 @@ const useStyles = makeStyles({
     padding: "0 30px",
   },
 })
-
 export const HomePage = () => {
   const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
   const [activeTab, setActiveTab] = useState(Tabs.AllPosts)
+  const { handleClickOpenModal } = useContext(ModalContext)
 
   const { page } = useParams()
 
@@ -75,6 +76,7 @@ export const HomePage = () => {
     showPostUser(parameterAffectstheDisplay, userId)
     setActiveTab(numberShowBtn)
     setSearchPosts("")
+    handleClickOpenModal()
   }
   const openTextPage = (numberShowBtn) => {
     setActiveTab(numberShowBtn)
@@ -139,39 +141,45 @@ export const HomePage = () => {
 
       <>
         {isFetching ? (
-          <div className="lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+          <div className="my-modal-homepage">
+            <div className="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         ) : (
-          <>
-            {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
-              <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
-                {posts?.map((item) => (
-                  <MediaCard
-                    key={item._id}
-                    item={item}
-                    showAllPost={showAllPost}
-                    userId={id}
-                  />
-                ))}
-              </Grid>
-            ) : (
-              ""
-            )}
-            <Grid sx={{ marginLeft: "20px", fontSize: "20px" }}>
-              {posts.length !== 0 ? "" : "No posts whot you want find"}
-            </Grid>
-            <AllPagin
-              totalPost={totalPost}
-              page={page}
-              actionGetCurrentPage={actionGetCurrentPage}
-              namePage={namePage}
-            />
-          </>
+          ""
         )}
+      </>
+      <>
+        {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
+          <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
+            {posts?.map((item) => (
+              <MediaCard
+                key={item._id}
+                item={item}
+                showAllPost={showAllPost}
+                userId={id}
+              />
+            ))}
+          </Grid>
+        ) : (
+          <Grid sx={{ marginLeft: "20px", fontSize: "20px" }}>
+            {posts.length !== 0 ? "" : "No posts whot you want find"}
+          </Grid>
+        )}
+
+        <Grid sx={{ marginLeft: "20px", fontSize: "20px" }}>
+          {posts.length !== 0 ? "" : "No posts whot you want find"}
+        </Grid>
+        <AllPagin
+          totalPost={totalPost}
+          page={page}
+          actionGetCurrentPage={actionGetCurrentPage}
+          namePage={namePage}
+        />
       </>
     </div>
   )
