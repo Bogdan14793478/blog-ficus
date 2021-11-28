@@ -53,24 +53,29 @@ export function getAllPosts(skip, numberId, searchPosts) {
 }
 
 export function createNewPost(data, photoFile) {
-  let numberPost = ""
-  const formData = new FormData()
-  formData.append("image", photoFile)
   return async (dispatch) => {
-    await axiosInstance.post("posts", data).then((res) => {
-      numberPost = res.data._id
-      dispatch(actionCreateNewPosts(res))
-    })
-    if (photoFile) {
-      axiosInstance
-        .put(`posts/upload/${numberPost}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          dispatch(actionSaveImgPost({ res, numberPost }))
-        })
+    const formData = new FormData()
+    formData.append("image", photoFile)
+    try {
+      const firstInquiry = await axiosInstance.post("posts", data)
+      if (firstInquiry) {
+        dispatch(actionCreateNewPosts(firstInquiry))
+      }
+      if (photoFile) {
+        const numbePost = firstInquiry.data._id
+        const responseSecond = await axiosInstance.put(
+          `posts/upload/${numbePost}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        dispatch(actionSaveImgPost({ responseSecond, numbePost }))
+      }
+    } catch (err) {
+      console.log(err)
     }
   }
 }

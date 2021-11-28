@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react/jsx-curly-brace-presence */
 import React, { useContext } from "react"
 import { useDispatch } from "react-redux"
@@ -35,14 +37,6 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
     dispatch(onSubmitPost(rest, file, postId))
     props.resetForm()
     handleClickCloseModal()
-  }
-
-  const loadFile = function (event) {
-    const output = document.getElementById("image-before-load-on-server")
-    output.src = URL.createObjectURL(event?.target?.files[0])
-    output.onload = function () {
-      URL.revokeObjectURL(output.src)
-    }
   }
 
   return (
@@ -88,14 +82,16 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
                   id="icon-button-photo"
                   onChange={(event) => {
                     setFieldValue("file", event.currentTarget.files[0])
-                    loadFile(event)
                   }}
                   type={`file`}
                   name={`file`}
                 />
               </p>
             </FieldArray>
-            <img id="image-before-load-on-server" alt="green" />
+            <img
+              src={values?.file ? URL.createObjectURL(values.file) : undefined}
+              id="image-before-load-on-server"
+            />
 
             <Errors errors={errors} />
             <Fab type="submit" color="primary" aria-label="edit">

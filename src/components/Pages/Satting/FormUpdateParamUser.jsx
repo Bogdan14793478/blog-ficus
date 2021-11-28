@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-fragments */
 import React, { useContext } from "react"
 import { useDispatch } from "react-redux"
@@ -36,14 +37,6 @@ export const FormUpdateParamUser = ({ userId }) => {
     dispatch(updateInformUser(rest, file, userId))
     props.resetForm()
     handleClickCloseModal()
-  }
-
-  const loadFile = function (event) {
-    const output = document.getElementById("image-before-load-on-server")
-    output.src = URL.createObjectURL(event?.target?.files[0])
-    output.onload = function () {
-      URL.revokeObjectURL(output.src)
-    }
   }
 
   return (
@@ -98,14 +91,16 @@ export const FormUpdateParamUser = ({ userId }) => {
                   id="icon-button-photo"
                   onChange={(event) => {
                     setFieldValue("file", event.currentTarget.files[0])
-                    loadFile(event)
                   }}
                   type="file"
                   name="file"
                 />
               </p>
             </FieldArray>
-            <img id="image-before-load-on-server" alt="green" />
+            <img
+              id="image-before-load-on-server"
+              src={values?.file ? URL.createObjectURL(values.file) : undefined}
+            />
             <Errors errors={errors} />
             <Fab type="submit" color="primary" aria-label="edit">
               <AddCircleIcon

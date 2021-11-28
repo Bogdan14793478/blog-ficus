@@ -17,6 +17,7 @@ import {
   USER_UPDATE_INFORM,
   DELETE_USER,
   SAVE_AVATAR_USER,
+  SHOW_INFO_CHOOSE_USER,
 } from "./const"
 
 // POST
@@ -92,5 +93,10 @@ export const actionUserUpdateInform = (payload) => ({
 
 export const actionSaveUserAvatar = (payload) => ({
   type: SAVE_AVATAR_USER,
+  payload,
+})
+
+export const actionShowChooseUser = (payload) => ({
+  type: SHOW_INFO_CHOOSE_USER,
   payload,
 })

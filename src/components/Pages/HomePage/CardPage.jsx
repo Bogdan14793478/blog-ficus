@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-no-duplicate-props */
 import React, { useCallback } from "react"
 import { useDispatch } from "react-redux"
@@ -29,25 +30,23 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debounceLog = useCallback(
+  const debounceLikePost = useCallback(
     debounce((itemS) => putLikePost(item._id), 1000),
     []
   )
 
-  const debounceonClick = (e) => {
+  const countPostLikes = (e) => {
     dispatch(actionpostPlusOrMinusLike({ itemId: item._id, userId }))
-    debounceLog(e.target.value)
+    debounceLikePost(e.target.value)
   }
 
   return (
     <Grid item xs={12} md={4}>
       <Card
         sx={{
-          maxWidth: 345,
-          maxHeight: "13.8vh",
-          marginLeft: "24px",
-          marginTop: "10px",
-          padding: "10px",
+          width: 375,
+          height: "15.7vh",
+          marginLeft: "1vw",
           wordWrap: "break-word",
         }}
       >
@@ -55,7 +54,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           <div>
             <Typography
               gutterBottom
-              variant="h6"
+              variant="h7"
               component="div"
               className="card-tittle-text"
             >
@@ -74,7 +73,6 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
             >
               <img
                 src={`${process.env.REACT_APP_URL_SERVER_ADRESS}${item.image}`}
-                alt="green"
                 className="image-post-homepage"
               />
             </CardMedia>
@@ -85,7 +83,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small" onClick={debounceonClick}>
+            <Button size="small" onClick={countPostLikes}>
               {Labels.buttonLike} {countLikes}
             </Button>
 

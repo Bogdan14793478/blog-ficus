@@ -27,8 +27,6 @@ export const userPosts = (state = initial, action) => {
       return { ...state, isFetching: action.payload }
     case GET_ALL_POST:
       const totalPostsFromBack = Math.ceil(action.payload.pagination.total / 10)
-      console.log(action.payload.data, "action")
-
       return {
         ...state,
         posts: [...action.payload.data],

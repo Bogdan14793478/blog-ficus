@@ -3,6 +3,7 @@ import {
   actionDeleteUser,
   actionUserUpdateInform,
   actionSaveUserAvatar,
+  actionShowChooseUser,
 } from "../redux/actions/types"
 import { axiosInstance } from "./axios"
 
@@ -35,7 +36,7 @@ export function updateInformUser(data, photoFile, userId) {
   const formData = new FormData()
   formData.append("avatar", photoFile)
   return async (dispatch) => {
-    await axiosInstance.patch(`users/${userId}`, data).then((res) => {
+    axiosInstance.patch(`users/${userId}`, data).then((res) => {
       dispatch(actionUserUpdateInform({ data }))
     })
     if (photoFile) {
@@ -51,3 +52,11 @@ export function updateInformUser(data, photoFile, userId) {
     }
   }
 }
+
+// export function showInfoChooseUser(userId) {
+//   return async (dispatch) => {
+//     axiosInstance.get(`users/${userId}`).then((res) => {
+//       dispatch(actionShowChooseUser({ res }))
+//     })
+//   }
+// }

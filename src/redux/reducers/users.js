@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import {
   USER_IS_AUTH,
   USER_DELETE_ALL_INFORM,
@@ -7,6 +8,7 @@ import {
   DELETE_USER,
   USER_UPDATE_INFORM,
   SAVE_AVATAR_USER,
+  SHOW_INFO_CHOOSE_USER,
 } from "../actions/const"
 import { Labels } from "../../constantsName/constants"
 
@@ -24,6 +26,7 @@ const user = {
   profession: "",
   details: "",
   avatar: "",
+  findUser: {},
 }
 export const stateUserReduser = (state = user, action) => {
   switch (action.type) {
@@ -76,7 +79,15 @@ export const stateUserReduser = (state = user, action) => {
         ...state,
         avatar: action.payload.res.data.avatar,
       }
-
+    case SHOW_INFO_CHOOSE_USER:
+      const newState = [...state.users]
+      const userId = action.payload
+      const findInd = newState.findIndex((findUser) => findUser._id === userId)
+      const findUser = newState[findInd]
+      return {
+        ...state,
+        findUser,
+      }
     default:
       return state
   }

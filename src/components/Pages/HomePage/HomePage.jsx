@@ -154,26 +154,25 @@ export const HomePage = () => {
         )}
       </>
       <>
-        {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
-          <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
-            {posts?.map((item) => (
-              <MediaCard
-                key={item._id}
-                item={item}
-                showAllPost={showAllPost}
-                userId={id}
-              />
-            ))}
-          </Grid>
-        ) : (
-          <Grid sx={{ marginLeft: "20px", fontSize: "20px" }}>
-            {posts.length !== 0 ? "" : "No posts whot you want find"}
-          </Grid>
-        )}
+        {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts
+          ? !!posts.length && (
+              <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
+                {posts?.map((item) => (
+                  <MediaCard
+                    key={item._id}
+                    item={item}
+                    showAllPost={showAllPost}
+                    userId={id}
+                  />
+                ))}
+              </Grid>
+            )
+          : ""}
 
-        <Grid sx={{ marginLeft: "20px", fontSize: "20px" }}>
-          {posts.length !== 0 ? "" : "No posts whot you want find"}
-        </Grid>
+        {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts
+          ? !posts.length && "No posts whot you want find"
+          : ""}
+
         <AllPagin
           totalPost={totalPost}
           page={page}
