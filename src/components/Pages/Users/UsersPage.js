@@ -11,23 +11,23 @@ import { actionShowChooseUser } from "../../../redux/actions/types"
 import { Labels, UrlAdress } from "../../../constantsName/constants"
 
 // showInfoChooseUser
-export const MediaCard = ({ item, itemId, setIsFetching }) => {
+export const MediaCard = ({ item, itemId, setUserModalOpen }) => {
   const dispatch = useDispatch()
   const showChooseUserInfo = () => {
     dispatch(actionShowChooseUser(itemId))
   }
   const takeInfoUser = () => {
     showChooseUserInfo()
-    setIsFetching(true)
+    setUserModalOpen(true)
   }
 
   return (
     <Card
       sx={{
-        width: 375,
+        width: 380,
         maxHeight: "17.8vh",
         padding: "10px",
-        marginLeft: "23px",
+        marginLeft: "30px",
         paddingTop: "3px",
         marginBottom: "20px",
       }}

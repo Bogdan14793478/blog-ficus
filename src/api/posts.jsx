@@ -57,14 +57,14 @@ export function createNewPost(data, photoFile) {
     const formData = new FormData()
     formData.append("image", photoFile)
     try {
-      const firstInquiry = await axiosInstance.post("posts", data)
-      if (firstInquiry) {
-        dispatch(actionCreateNewPosts(firstInquiry))
+      const postResponse = await axiosInstance.post("posts", data)
+      if (postResponse) {
+        dispatch(actionCreateNewPosts(postResponse))
       }
       if (photoFile) {
-        const numbePost = firstInquiry.data._id
-        const responseSecond = await axiosInstance.put(
-          `posts/upload/${numbePost}`,
+        const numberPost = postResponse.data._id
+        const fileUploadResponse = await axiosInstance.put(
+          `posts/upload/${numberPost}`,
           formData,
           {
             headers: {
@@ -72,7 +72,8 @@ export function createNewPost(data, photoFile) {
             },
           }
         )
-        dispatch(actionSaveImgPost({ responseSecond, numbePost }))
+        console.log(fileUploadResponse, "fileUploadResponse")
+        dispatch(actionSaveImgPost({ fileUploadResponse, numberPost }))
       }
     } catch (err) {
       console.log(err)

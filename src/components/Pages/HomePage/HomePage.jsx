@@ -140,7 +140,7 @@ export const HomePage = () => {
       </>
 
       <>
-        {isFetching ? (
+        {isFetching && (
           <div className="my-modal-homepage">
             <div className="lds-ring">
               <div></div>
@@ -149,28 +149,25 @@ export const HomePage = () => {
               <div></div>
             </div>
           </div>
-        ) : (
-          ""
         )}
       </>
       <>
-        {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts
-          ? !!posts.length && (
-              <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
-                {posts?.map((item) => (
-                  <MediaCard
-                    key={item._id}
-                    item={item}
-                    showAllPost={showAllPost}
-                    userId={id}
-                  />
-                ))}
-              </Grid>
-            )
-          : ""}
+        {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
+          <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
+            {posts.map((item) => (
+              <MediaCard
+                key={item._id}
+                item={item}
+                showAllPost={showAllPost}
+                userId={id}
+              />
+            ))}
+          </Grid>
+        ) : null}
 
-        {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts
-          ? !posts.length && "No posts whot you want find"
+        {(activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts) &&
+        posts.length < 1
+          ? "No posts whot you want find"
           : ""}
 
         <AllPagin

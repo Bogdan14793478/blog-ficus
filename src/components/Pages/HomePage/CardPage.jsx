@@ -45,7 +45,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
       <Card
         sx={{
           width: 375,
-          height: "15.7vh",
+          height: "14.8vh",
           marginLeft: "1vw",
           wordWrap: "break-word",
         }}

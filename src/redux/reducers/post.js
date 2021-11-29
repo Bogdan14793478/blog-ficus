@@ -89,8 +89,9 @@ export const userPosts = (state = initial, action) => {
 
       return { ...state, posts: statePosts }
     case SAVE_IMG_POST:
+      console.log(action.payload, "action.payload")
       const statePostImg = [...state.posts]
-      const imgData = action.payload.res.data.image
+      const imgData = action.payload.fileUploadResponse.data.image
       const imgPost = action.payload.numberPost
       const findImgIndx = statePostImg.findIndex(
         (findImgPost) => findImgPost._id === imgPost

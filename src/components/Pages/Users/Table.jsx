@@ -2,9 +2,9 @@
 import React from "react"
 import { Labels } from "../../../constantsName/constants"
 
-export const Table = ({ findUser, setIsFetching }) => {
+export const Table = ({ findUser, setUserModalOpen }) => {
   const onClick = () => {
-    setIsFetching(false)
+    setUserModalOpen(false)
   }
   return (
     <>

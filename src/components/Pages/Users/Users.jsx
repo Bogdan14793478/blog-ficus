@@ -11,7 +11,7 @@ import { getUserInfo } from "../../../api/auth"
 import { Table } from "./Table"
 
 export const Users = () => {
-  const [isFetching, setIsFetching] = useState(false)
+  // const [userModal, setUserModalOpen] = useState(false)
   const { page } = useParams()
   const dispatch = useDispatch()
   const { currentPage, users, skip, totalPost, id, findUser } = useSelector(
@@ -40,19 +40,18 @@ export const Users = () => {
               item={item}
               userId={id}
               itemId={item._id}
-              setIsFetching={setIsFetching}
+              // setUserModalOpen={setUserModalOpen}
             />
           ))}
         </Grid>
-        {isFetching ? (
+        
+        {/* {userModal && (
           <div className="my-modal-homepage2">
             <div className="lds-ring2">
-              <Table setIsFetching={setIsFetching} findUser={findUser} />
+              <Table setUserModalOpen={setUserModalOpen} findUser={findUser} />
             </div>
           </div>
-        ) : (
-          ""
-        )}
+        )} */}
 
         <AllPagin
           totalPost={totalPost}

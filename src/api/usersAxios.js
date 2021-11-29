@@ -3,7 +3,6 @@ import {
   actionDeleteUser,
   actionUserUpdateInform,
   actionSaveUserAvatar,
-  actionShowChooseUser,
 } from "../redux/actions/types"
 import { axiosInstance } from "./axios"
 
@@ -28,10 +27,6 @@ export function deleteUser(userId) {
   }
 }
 
-export function deletePost(postId) {
-  axiosInstance.delete(`posts/${postId}`)
-}
-
 export function updateInformUser(data, photoFile, userId) {
   const formData = new FormData()
   formData.append("avatar", photoFile)
@@ -52,11 +47,3 @@ export function updateInformUser(data, photoFile, userId) {
     }
   }
 }
-
-// export function showInfoChooseUser(userId) {
-//   return async (dispatch) => {
-//     axiosInstance.get(`users/${userId}`).then((res) => {
-//       dispatch(actionShowChooseUser({ res }))
-//     })
-//   }
-// }
