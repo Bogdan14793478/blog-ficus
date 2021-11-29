@@ -127,30 +127,13 @@ nav ul {
   justify-content: center;
 }
 
-.my-modal-homepage2{
-  width: 100vw;
-  height: 100vh;
-  background-color: rgb(0,0,0, 0.9);
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .lds-ring {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
 }
-.lds-ring2{
-  display: inline-block;
-  position: relative;
-  min-width: 570px;
-  background-color: #fff;
-}
+
 .lds-ring div {
   box-sizing: border-box;
   display: block;

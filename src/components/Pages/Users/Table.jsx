@@ -2,10 +2,7 @@
 import React from "react"
 import { Labels } from "../../../constantsName/constants"
 
-export const Table = ({ findUser, setUserModalOpen }) => {
-  const onClick = () => {
-    setUserModalOpen(false)
-  }
+export const Table = ({ findUser }) => {
   return (
     <>
       <table className="table-setting">
@@ -23,16 +20,15 @@ export const Table = ({ findUser, setUserModalOpen }) => {
         <tbody>
           <tr>
             <td>{findUser._id}</td>
-            <td>{findUser.name ? <>{findUser.name}</> : "no inform"}</td>
+            <td>{findUser.name || "no inform"}</td>
             <td>{findUser.email}</td>
             <td>{findUser.dateCreated}</td>
-            <td>{findUser.skills ? <>{findUser.skills}</> : "no inform"}</td>
-            <td>{findUser.profession ? <>{findUser.profession}</> : "no inform"}</td>
-            <td>{findUser.details ? <>{findUser.details}</> : "no inform"}</td>
+            <td>{findUser.skills || "no inform"}</td>
+            <td>{findUser.profession || "no inform"}</td>
+            <td>{findUser.details || "no inform"}</td>
           </tr>
         </tbody>
       </table>
-      <button onClick={onClick}>Back to all user</button>
     </>
   )
 }

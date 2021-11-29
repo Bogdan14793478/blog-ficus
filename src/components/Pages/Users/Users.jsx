@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { Grid } from "@mui/material"
@@ -8,10 +8,8 @@ import { MediaCard } from "./UsersPage"
 import { getAllUsers } from "../../../api/usersAxios"
 import { Labels } from "../../../constantsName/constants"
 import { getUserInfo } from "../../../api/auth"
-import { Table } from "./Table"
 
 export const Users = () => {
-  // const [userModal, setUserModalOpen] = useState(false)
   const { page } = useParams()
   const dispatch = useDispatch()
   const { currentPage, users, skip, totalPost, id, findUser } = useSelector(
@@ -40,19 +38,10 @@ export const Users = () => {
               item={item}
               userId={id}
               itemId={item._id}
-              // setUserModalOpen={setUserModalOpen}
+              findUser={findUser}
             />
           ))}
         </Grid>
-        
-        {/* {userModal && (
-          <div className="my-modal-homepage2">
-            <div className="lds-ring2">
-              <Table setUserModalOpen={setUserModalOpen} findUser={findUser} />
-            </div>
-          </div>
-        )} */}
-
         <AllPagin
           totalPost={totalPost}
           page={page}

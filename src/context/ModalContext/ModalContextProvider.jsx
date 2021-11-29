@@ -50,11 +50,17 @@ const BootstrapDialogTitle = (props) => {
   )
 }
 
-export const ModalProvider = ({ children, buttonName, buttonNameOnForm }) => {
+export const ModalProvider = ({
+  children,
+  buttonName,
+  buttonNameOnForm,
+  takeInfoUser,
+}) => {
   const [open, setOpen] = useState(false)
   const classes = useStyles()
 
   const handleClickOpenModal = () => {
+    takeInfoUser()
     setOpen(true)
   }
 

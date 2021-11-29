@@ -27,12 +27,12 @@ export const Table = ({
         <tbody>
           <tr>
             <td>{id}</td>
-            <td>{name ? <>{name}</> : "no inform"}</td>
+            <td>{name || "no inform"}</td>
             <td>{informUser}</td>
             <td>{dateCreated}</td>
-            <td>{skills ? <>{skills}</> : "no inform"}</td>
-            <td>{profession ? <>{profession}</> : "no inform"}</td>
-            <td>{details ? <>{details}</> : "no inform"}</td>
+            <td>{skills || "no inform"}</td>
+            <td>{profession || "no inform"}</td>
+            <td>{details || "no inform"}</td>
           </tr>
         </tbody>
       </table>

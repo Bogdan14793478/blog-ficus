@@ -20,6 +20,7 @@ import { CustomizedInputBase } from "./SearchPosts"
 import { Labels, Tabs } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { ModalContext } from "../../../context"
+import { Loader } from "./Loader"
 
 const useStyles = makeStyles({
   root: {
@@ -139,18 +140,7 @@ export const HomePage = () => {
         )}
       </>
 
-      <>
-        {isFetching && (
-          <div className="my-modal-homepage">
-            <div className="lds-ring">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        )}
-      </>
+      <>{isFetching && <Loader />}</>
       <>
         {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
           <Grid container spacing={2} sx={{ marginBottom: "10px" }}>

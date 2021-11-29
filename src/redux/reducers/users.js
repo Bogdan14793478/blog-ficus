@@ -80,10 +80,8 @@ export const stateUserReduser = (state = user, action) => {
         avatar: action.payload.res.data.avatar,
       }
     case SHOW_INFO_CHOOSE_USER:
-      const newState = [...state.users]
       const userId = action.payload
-      const findInd = newState.findIndex((findUser) => findUser._id === userId)
-      const findUser = newState[findInd]
+      const findUser = state.users.find((item) => item._id === userId)
       return {
         ...state,
         findUser,

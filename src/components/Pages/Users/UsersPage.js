@@ -1,24 +1,23 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/no-default-export */
-import * as React from "react"
+import React from "react"
 import Card from "@mui/material/Card"
 import CardMedia from "@mui/material/CardMedia"
-import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import { useDispatch } from "react-redux"
 import { actionShowChooseUser } from "../../../redux/actions/types"
 import { Labels, UrlAdress } from "../../../constantsName/constants"
+import { ModalProvider } from "../../../context/ModalContext"
+import { Table } from "./Table"
 
-// showInfoChooseUser
-export const MediaCard = ({ item, itemId, setUserModalOpen }) => {
+export const MediaCard = ({ item, itemId, findUser }) => {
   const dispatch = useDispatch()
   const showChooseUserInfo = () => {
     dispatch(actionShowChooseUser(itemId))
   }
   const takeInfoUser = () => {
     showChooseUserInfo()
-    setUserModalOpen(true)
   }
 
   return (
@@ -35,10 +34,15 @@ export const MediaCard = ({ item, itemId, setUserModalOpen }) => {
       <Typography gutterBottom variant="h7" component="div">
         {item.name}
       </Typography>
-      <Button size="small" onClick={takeInfoUser}>
-        {Labels.buttonUserInform}
-      </Button>
-      <Typography gutterBottom variant="h5" component="div">
+      <ModalProvider
+        buttonName={Labels.buttonUserInform}
+        buttonNameOnForm="Info choose user"
+        takeInfoUser={takeInfoUser}
+      >
+        <Table findUser={findUser} />
+      </ModalProvider>
+
+      <Typography gutterBottom variant="h7" component="div">
         {item.email}, {item.profession},
       </Typography>
       {item.avatar && (
