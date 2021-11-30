@@ -88,4 +88,5 @@ export const Tableheader = {
   skill: "Skills",
   proffesion: "Profession",
   details: "Details",
+  descriptions: "Description",
 }

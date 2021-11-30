@@ -11,14 +11,19 @@ import Typography from "@mui/material/Typography"
 import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { debounce } from "debounce"
-import { deletePost, putLikePost, updatePost } from "../../../api/posts"
+import {
+  deletePost,
+  putLikePost,
+  updatePost,
+  showChoosePostInfo,
+} from "../../../api/posts"
 import { FormCreatePost } from "./FormCreatePost"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import {
   actionpostPlusOrMinusLike,
   actionDeletePosts,
-  actionShowChoosePost,
+  actionFindInfoWithOurPost,
 } from "../../../redux/actions/types"
 import { Table } from "./Table"
 
@@ -43,16 +48,15 @@ export const MediaCard = ({ item, showAllPost, userId, findPost }) => {
   }
 
   const showInfoPost = () => {
-    dispatch(actionShowChoosePost(item._id))
+    dispatch(showChoosePostInfo(item._id))
+    dispatch(actionFindInfoWithOurPost(item._id))
   }
 
   return (
     <Grid item xs={12} md={4}>
       <Card
         sx={{
-          width: 375,
-          marginLeft: "1vw",
-          wordWrap: "break-word",
+          margin: " 0 5px",
         }}
       >
         <div className="group-title-deleteicon-card">

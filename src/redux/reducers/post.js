@@ -9,7 +9,9 @@ import {
   POST_PUT,
   SAVE_IMG_POST,
   TOGLE_IS_FETCHING,
+  TOGLE_IS_LOAD_FETCHING_POST,
   SHOW_INFO_FIND_USER,
+  SHOW_INFO_FIND_USER_WITH_OUR_POSTS,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
 const initial = {
@@ -25,6 +27,8 @@ const initial = {
 
 export const userPosts = (state = initial, action) => {
   switch (action.type) {
+    case TOGLE_IS_LOAD_FETCHING_POST:
+      return { ...state, isLoadFetchingPost: action.payload }
     case TOGLE_IS_FETCHING:
       return { ...state, isFetching: action.payload }
     case GET_ALL_POST:
@@ -42,13 +46,11 @@ export const userPosts = (state = initial, action) => {
       }
     case CREATE_NEW_POST:
       return { ...state, posts: [...state.posts, action.payload.data] }
-
     case DELETE_POST:
       return {
         ...state,
         posts: state.posts.filter((post) => post._id !== action.payload),
       }
-
     case SET_CURRENT_PAGE:
       return {
         ...state,
@@ -62,21 +64,17 @@ export const userPosts = (state = initial, action) => {
     case POST_PLUS_OR_MINUS_LIKE:
       const posts = [...state.posts]
       const findInx = posts.findIndex((post) => post._id === action.payload.itemId)
-
       const post = posts[findInx]
-
       const foundedLike = post.likes.find((like) => like === action.payload.userId)
       if (foundedLike) {
         post.likes = post.likes.filter((like) => like !== foundedLike)
       } else {
         post.likes.push(action.payload.userId)
       }
-
       return {
         ...state,
         posts,
       }
-
     case POST_PUT:
       const statePosts = [...state.posts]
       const { data } = action.payload
@@ -91,7 +89,6 @@ export const userPosts = (state = initial, action) => {
 
       return { ...state, posts: statePosts }
     case SAVE_IMG_POST:
-      console.log(action.payload, "action.payload")
       const statePostImg = [...state.posts]
       const imgData = action.payload.fileUploadResponse.data.image
       const imgPost = action.payload.numberPost
@@ -105,10 +102,14 @@ export const userPosts = (state = initial, action) => {
         posts: statePostImg,
       }
     case SHOW_INFO_FIND_USER:
-      console.log(action.payload, "action payload")
+      const showFindPost = action.payload.postResponse.data
+      return {
+        ...state,
+        findPost: showFindPost,
+      }
+    case SHOW_INFO_FIND_USER_WITH_OUR_POSTS:
       const postIdInfo = action.payload
       const findPostInfo = state.posts.find((item) => item._id === postIdInfo)
-      console.log(findPostInfo, "findPostInfo")
       return {
         ...state,
         findPost: findPostInfo,

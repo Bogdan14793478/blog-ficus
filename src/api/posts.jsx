@@ -5,6 +5,7 @@ import {
   actionputPostFromDispatch,
   actionSaveImgPost,
   actionTogleIsFetching,
+  actionShowChoosePost,
 } from "../redux/actions/types"
 
 export function putLikePost(numberPost) {
@@ -83,4 +84,18 @@ export function createNewPost(data, photoFile) {
 
 export function deletePost(postId) {
   axiosInstance.delete(`posts/${postId}`)
+}
+
+export function showChoosePostInfo(postId) {
+  return async (dispatch) => {
+    try {
+      const postResponse = await axiosInstance.get(`posts/${postId}`)
+
+      if (postResponse) {
+        dispatch(actionShowChoosePost({ postResponse }))
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }

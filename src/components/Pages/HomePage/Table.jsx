@@ -11,6 +11,7 @@ export const Table = ({ findPost }) => {
             <th>{Tableheader.title}</th>
             <th>{Tableheader.dataCreatePost}</th>
             <th>{Tableheader.fullPostText}</th>
+            <th>{Tableheader.descriptions}</th>
           </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@ export const Table = ({ findPost }) => {
             <td>{findPost.title || "no inform"}</td>
             <td>{findPost.dateCreated}</td>
             <td>{findPost.fullText || "no inform"}</td>
+            <td>{findPost.description || "no inform"}</td>
           </tr>
         </tbody>
       </table>
