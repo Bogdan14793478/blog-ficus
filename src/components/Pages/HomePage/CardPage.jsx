@@ -72,8 +72,7 @@ export const MediaCard = ({ item, showAllPost, userId, findPost }) => {
           </div>
           <div>{showAllPost && <DeleteIcon onClick={deleteSelectedPost} />}</div>
         </div>
-
-        <div className="group-img-like-updete-post">
+        <div>
           {item.image && (
             <CardMedia
               sx={{
@@ -86,11 +85,13 @@ export const MediaCard = ({ item, showAllPost, userId, findPost }) => {
               />
             </CardMedia>
           )}
-          <CardContent>
-            <Typography variant="body2" color="text.secondary">
-              {item.description}
-            </Typography>
-          </CardContent>
+        </div>
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {item.description}
+          </Typography>
+        </CardContent>
+        <div className="group-like-updete-post">
           <CardActions>
             <Button size="small" onClick={countPostLikes}>
               {Labels.buttonLike} {countLikes}

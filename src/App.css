@@ -179,8 +179,14 @@ nav ul {
 .group-title-deleteicon-card {
   display: flex;
   justify-content: space-between;
+  margin: 5px 15px;
 }
-.group-img-like-updete-post {
+.group-item-show-info-users-page {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 15px;
+}
+.group-like-updete-post {
   display: flex;
   flex-wrap: wrap;
 }
@@ -190,7 +196,12 @@ nav ul {
   width: 100px;
   height: auto;
 }
-
+.group-email-profession {
+  margin: 0 15px;
+}
+.avatar-user-user-page {
+  padding-bottom: 10px;
+}
 .btn-setting-group {
   display: flex;
   justify-content: space-around;
@@ -303,4 +314,3 @@ nav ul {
     padding: 4px 55px 17px 79px;
   }
 }
-

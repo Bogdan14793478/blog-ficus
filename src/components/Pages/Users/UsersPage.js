@@ -28,32 +28,37 @@ export const MediaCard = ({ item, itemId, findUser }) => {
           margin: " 0 5px",
         }}
       >
-        <Typography gutterBottom variant="h7" component="div">
-          {item.name}
-        </Typography>
-        <ModalProvider
-          buttonName={Labels.buttonUserInform}
-          buttonNameOnForm="Info choose user"
-          takeInfo={takeInfoUser}
-        >
-          <Table findUser={findUser} />
-        </ModalProvider>
-
-        <Typography gutterBottom variant="h7" component="div">
-          {item.email}, {item.profession},
-        </Typography>
-        {item.avatar && (
-          <CardMedia
-            sx={{
-              display: "flex",
-            }}
+        <div className="group-title-deleteicon-card">
+          <Typography gutterBottom variant="h7" component="div">
+            {item.name}
+          </Typography>
+          <ModalProvider
+            buttonName={Labels.buttonUserInform}
+            buttonNameOnForm="Info choose user"
+            takeInfo={takeInfoUser}
           >
-            <img
-              src={`${UrlAdress.urlPageServer}${item.avatar}`}
-              className="image-post-homepage"
-            />
-          </CardMedia>
-        )}
+            <Table findUser={findUser} />
+          </ModalProvider>
+        </div>
+        <div className="group-email-profession">
+          <Typography gutterBottom variant="h7" component="div">
+            {item.email}, {item.profession},
+          </Typography>
+        </div>
+        <div className="avatar-user-user-page">
+          {item.avatar && (
+            <CardMedia
+              sx={{
+                display: "flex",
+              }}
+            >
+              <img
+                src={`${UrlAdress.urlPageServer}${item.avatar}`}
+                className="image-post-homepage"
+              />
+            </CardMedia>
+          )}
+        </div>
       </Card>
     </Grid>
   )
