@@ -73,7 +73,6 @@ export function createNewPost(data, photoFile) {
             },
           }
         )
-        console.log(fileUploadResponse, "fileUploadResponse")
         dispatch(actionSaveImgPost({ fileUploadResponse, numberPost }))
       }
     } catch (err) {
