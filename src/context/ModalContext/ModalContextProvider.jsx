@@ -23,6 +23,14 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 const useStyles = makeStyles({
   root: {
     backgroundColor: "transparent",
+    backgroundImage:
+      "linear-gradient(to right top, #fcfdf6, #fcfdf6, #fcfdf6, #fcfdf6, #fcfdf6))",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    color: "white",
+    height: 28,
+    padding: "0 30px",
   },
 })
 
@@ -54,13 +62,15 @@ export const ModalProvider = ({
   children,
   buttonName,
   buttonNameOnForm,
-  takeInfoUser,
+  takeInfo,
 }) => {
   const [open, setOpen] = useState(false)
   const classes = useStyles()
 
   const handleClickOpenModal = () => {
-    takeInfoUser()
+    if (takeInfo) {
+      takeInfo()
+    }
     setOpen(true)
   }
 

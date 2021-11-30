@@ -76,3 +76,16 @@ export const Tabs = {
 export const UrlAdress = {
   urlPageServer: "http://51.158.179.21",
 }
+
+export const Tableheader = {
+  posrId: "Post id",
+  title: "Title",
+  dataCreate: "Date create",
+  fullPostText: "full text",
+  userId: "User id",
+  name: "Name",
+  userEmail: "User email",
+  skill: "Skills",
+  proffesion: "Profession",
+  details: "Details",
+}

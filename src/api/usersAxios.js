@@ -3,6 +3,7 @@ import {
   actionDeleteUser,
   actionUserUpdateInform,
   actionSaveUserAvatar,
+  actionTogleIsFetchingUser,
 } from "../redux/actions/types"
 import { axiosInstance } from "./axios"
 
@@ -13,7 +14,9 @@ export function getAllUsers(skip) {
 
   const url = `users?${params.toString()}`
   return async (dispatch) => {
+    dispatch(actionTogleIsFetchingUser(true))
     axiosInstance.get(url).then((res) => {
+      dispatch(actionTogleIsFetchingUser(false))
       dispatch(actiongetAllUsers(res.data))
     })
   }

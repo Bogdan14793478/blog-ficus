@@ -43,7 +43,7 @@ export const HomePage = () => {
   const { page } = useParams()
 
   const dispatch = useDispatch()
-  const { currentPage, posts, skip, totalPost, isFetching } = useSelector(
+  const { currentPage, posts, skip, totalPost, isFetching, findPost } = useSelector(
     (state) => state.post
   )
   const { id } = useSelector((state) => state.user)
@@ -150,22 +150,23 @@ export const HomePage = () => {
                 item={item}
                 showAllPost={showAllPost}
                 userId={id}
+                findPost={findPost}
               />
             ))}
           </Grid>
         ) : null}
 
-        {(activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts) &&
-        posts.length < 1
+        {(activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts) && !posts.length
           ? "No posts whot you want find"
-          : ""}
-
-        <AllPagin
-          totalPost={totalPost}
-          page={page}
-          actionGetCurrentPage={actionGetCurrentPage}
-          namePage={namePage}
-        />
+          : null}
+        <div className="pagination-all">
+          <AllPagin
+            totalPost={totalPost}
+            page={page}
+            actionGetCurrentPage={actionGetCurrentPage}
+            namePage={namePage}
+          />
+        </div>
       </>
     </div>
   )

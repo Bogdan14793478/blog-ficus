@@ -24,7 +24,6 @@ export const MediaCard = ({ item, itemId, findUser }) => {
     <Card
       sx={{
         width: 380,
-        maxHeight: "17.8vh",
         padding: "10px",
         marginLeft: "30px",
         paddingTop: "3px",
@@ -37,7 +36,7 @@ export const MediaCard = ({ item, itemId, findUser }) => {
       <ModalProvider
         buttonName={Labels.buttonUserInform}
         buttonNameOnForm="Info choose user"
-        takeInfoUser={takeInfoUser}
+        takeInfo={takeInfoUser}
       >
         <Table findUser={findUser} />
       </ModalProvider>

@@ -1,5 +1,5 @@
 import React from "react"
-import { Labels } from "../../../constantsName/constants"
+import { Tableheader } from "../../../constantsName/constants"
 
 export const Table = ({
   id,
@@ -15,13 +15,13 @@ export const Table = ({
       <table className="table-setting">
         <thead>
           <tr>
-            <th>User id</th>
-            <th>Name</th>
-            <th>User email</th>
-            <th>Date create account</th>
-            <th>Skills</th>
-            <th>Profession</th>
-            <th>Details</th>
+            <th>{Tableheader.userId}</th>
+            <th>{Tableheader.name}</th>
+            <th>{Tableheader.userEmail}</th>
+            <th>{Tableheader.dataCreate}</th>
+            <th>{Tableheader.skill}</th>
+            <th>{Tableheader.proffesion}</th>
+            <th>{Tableheader.details}</th>
           </tr>
         </thead>
         <tbody>

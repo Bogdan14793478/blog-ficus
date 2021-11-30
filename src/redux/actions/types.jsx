@@ -9,6 +9,7 @@ import {
   POST_PUT,
   SAVE_IMG_POST,
   TOGLE_IS_FETCHING,
+  SHOW_INFO_FIND_USER,
   USER_IS_AUTH,
   USER_DELETE_ALL_INFORM,
   INFORM_USER,
@@ -18,6 +19,7 @@ import {
   DELETE_USER,
   SAVE_AVATAR_USER,
   SHOW_INFO_CHOOSE_USER,
+  TOGLE_IS_FETCHING_USER,
 } from "./const"
 
 // POST
@@ -54,6 +56,11 @@ export const actionSaveImgPost = (payload) => ({
 
 export const actionTogleIsFetching = (payload) => ({
   type: TOGLE_IS_FETCHING,
+  payload,
+})
+
+export const actionShowChoosePost = (payload) => ({
+  type: SHOW_INFO_FIND_USER,
   payload,
 })
 
@@ -98,5 +105,10 @@ export const actionSaveUserAvatar = (payload) => ({
 
 export const actionShowChooseUser = (payload) => ({
   type: SHOW_INFO_CHOOSE_USER,
+  payload,
+})
+
+export const actionTogleIsFetchingUser = (payload) => ({
+  type: TOGLE_IS_FETCHING_USER,
   payload,
 })

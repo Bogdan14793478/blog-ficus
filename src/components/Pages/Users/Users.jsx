@@ -8,13 +8,13 @@ import { MediaCard } from "./UsersPage"
 import { getAllUsers } from "../../../api/usersAxios"
 import { Labels } from "../../../constantsName/constants"
 import { getUserInfo } from "../../../api/auth"
+import { Loader } from "../HomePage/Loader"
 
 export const Users = () => {
   const { page } = useParams()
   const dispatch = useDispatch()
-  const { currentPage, users, skip, totalPost, id, findUser } = useSelector(
-    (state) => state.user
-  )
+  const { currentPage, users, skip, totalPost, id, findUser, isFetching } =
+    useSelector((state) => state.user)
   const namePage = Labels.ulrUsersPage
   const ofset = page * skip - 10
 
@@ -42,12 +42,15 @@ export const Users = () => {
             />
           ))}
         </Grid>
-        <AllPagin
-          totalPost={totalPost}
-          page={page}
-          actionGetCurrentPage={actionUsersGetCurrentPage}
-          namePage={namePage}
-        />
+        <>{isFetching && <Loader />}</>
+        <div className="pagination-all">
+          <AllPagin
+            totalPost={totalPost}
+            page={page}
+            actionGetCurrentPage={actionUsersGetCurrentPage}
+            namePage={namePage}
+          />
+        </div>
       </>
     </div>
   )

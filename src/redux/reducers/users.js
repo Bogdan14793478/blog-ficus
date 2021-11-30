@@ -9,6 +9,7 @@ import {
   USER_UPDATE_INFORM,
   SAVE_AVATAR_USER,
   SHOW_INFO_CHOOSE_USER,
+  TOGLE_IS_FETCHING_USER,
 } from "../actions/const"
 import { Labels } from "../../constantsName/constants"
 
@@ -26,10 +27,13 @@ const user = {
   profession: "",
   details: "",
   avatar: "",
+  isFetching: false,
   findUser: {},
 }
 export const stateUserReduser = (state = user, action) => {
   switch (action.type) {
+    case TOGLE_IS_FETCHING_USER:
+      return { ...state, isFetching: action.payload }
     case USER_IS_AUTH:
       return { ...state, isAuth: action.payload }
     case USER_DELETE_ALL_INFORM:

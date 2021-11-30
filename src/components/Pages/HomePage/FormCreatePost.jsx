@@ -26,22 +26,6 @@ const validationSchema = Yup.object().shape({
     .min(20, ErrorMsg.checkShortPassword)
     .required(ErrorMsg.resultRequired),
   description: Yup.string().required(ErrorMsg.resultRequired),
-  // file: Yup.array().of(
-  //   Yup.object()
-  //     .shape({
-  //       file: Yup.mixed()
-  //         .test("fileSize", "Размер файла больше 10 мб", (value) => {
-  //           if (!value) return false
-  //           return value.size < 10000
-  //         })
-  //         .required(),
-  //       type: Yup.string()
-  //         .oneOf([`multipart/form-data`], "Добавте файл верного формата")
-  //         .required(),
-  //       name: Yup.string().required(),
-  //     })
-  //     .typeError("Добавте файл")
-  // ),
 })
 
 export const FormCreatePost = ({ onSubmitPost, postId }) => {

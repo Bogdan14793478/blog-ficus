@@ -9,6 +9,7 @@ import {
   POST_PUT,
   SAVE_IMG_POST,
   TOGLE_IS_FETCHING,
+  SHOW_INFO_FIND_USER,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
 const initial = {
@@ -19,6 +20,7 @@ const initial = {
   totalPost: 0,
   image: "",
   isFetching: false,
+  findPost: {},
 }
 
 export const userPosts = (state = initial, action) => {
@@ -101,6 +103,15 @@ export const userPosts = (state = initial, action) => {
       return {
         ...state,
         posts: statePostImg,
+      }
+    case SHOW_INFO_FIND_USER:
+      console.log(action.payload, "action payload")
+      const postIdInfo = action.payload
+      const findPostInfo = state.posts.find((item) => item._id === postIdInfo)
+      console.log(findPostInfo, "findPostInfo")
+      return {
+        ...state,
+        findPost: findPostInfo,
       }
     default:
       return state

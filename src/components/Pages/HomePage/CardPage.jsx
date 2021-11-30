@@ -18,9 +18,11 @@ import { ModalProvider } from "../../../context/ModalContext"
 import {
   actionpostPlusOrMinusLike,
   actionDeletePosts,
+  actionShowChoosePost,
 } from "../../../redux/actions/types"
+import { Table } from "./Table"
 
-export const MediaCard = ({ item, showAllPost, userId }) => {
+export const MediaCard = ({ item, showAllPost, userId, findPost }) => {
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
 
@@ -40,12 +42,15 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
     debounceLikePost(e.target.value)
   }
 
+  const showInfoPost = () => {
+    dispatch(actionShowChoosePost(item._id))
+  }
+
   return (
     <Grid item xs={12} md={4}>
       <Card
         sx={{
           width: 375,
-          height: "14.8vh",
           marginLeft: "1vw",
           wordWrap: "break-word",
         }}
@@ -95,6 +100,13 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
                 <FormCreatePost onSubmitPost={updatePost} postId={item._id} />
               </ModalProvider>
             )}
+            <ModalProvider
+              buttonName="Show info"
+              buttonNameOnForm="Post info"
+              takeInfo={showInfoPost}
+            >
+              <Table findPost={findPost} />
+            </ModalProvider>
           </CardActions>
         </div>
       </Card>

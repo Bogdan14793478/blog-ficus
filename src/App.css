@@ -32,8 +32,9 @@ dd {
 .app-wrapper-content {
   grid-area: c;
   background-color: #f5eded;
-  min-height: 100vh;
+  height: 94vh;
   min-height: -webkit-fill-available;
+  position: relative;
 }
 .content img {
   max-width: 100%;
@@ -114,10 +115,10 @@ nav ul {
   padding: 5px;
 }
 
-.my-modal-homepage{
+.my-loader {
   width: 100vw;
   height: 100vh;
-  background-color: rgb(0,0,0, 0.4);
+  background-color: rgb(0, 0, 0, 0.4);
   position: fixed;
   top: 0;
   left: 0;
@@ -175,23 +176,19 @@ nav ul {
   height: auto;
   padding-left: 40px;
 }
-.group-title-deleteicon-card{
+.group-title-deleteicon-card {
   display: flex;
   justify-content: space-between;
 }
-.group-img-like-updete-post{
+.group-img-like-updete-post {
   display: flex;
   flex-wrap: wrap;
 }
 
-
 .image-post-homepage {
   padding-left: 40px;
-  /* justify-content: space-evenly; */
   width: 100px;
   height: auto;
-  /* border-radius: 80%; */
-  /* background-size: auto 50px; */
 }
 
 .btn-setting-group {
@@ -205,14 +202,17 @@ nav ul {
   height: 92.7vh;
 }
 
-#image-before-load-on-server{
-height: auto;
-width: 100px;
+#image-before-load-on-server {
+  height: auto;
+  width: 100px;
 }
 
-.paginationComponent{
-  display: fixed ;
+.pagination-all {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
+
 @media (max-width: 1440px) {
   .app-wrapper {
     width: 1220px;
