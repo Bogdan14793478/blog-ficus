@@ -93,7 +93,7 @@ export const HomePage = () => {
 
   return (
     <div>
-      <h4 className="general-page-name">{Labels.namePagePost}</h4>
+      <h7 className="general-page-name">{Labels.namePagePost}</h7>
       <div className="button-home-page">
         <ButtonGroup>
           <Button

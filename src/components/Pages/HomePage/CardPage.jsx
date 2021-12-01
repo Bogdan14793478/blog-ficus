@@ -55,10 +55,12 @@ export const MediaCard = ({ item, showAllPost, userId, findPost, comments }) => 
   }
 
   return (
-    <Grid item xs={12} md={4}>
+    <Grid item xs={16} md={3}>
       <Card
         sx={{
           margin: " 0 5px",
+          height: "201px",
+          position: "relative",
         }}
       >
         <div className="group-title-deleteicon-card">
@@ -79,6 +81,7 @@ export const MediaCard = ({ item, showAllPost, userId, findPost, comments }) => 
             <CardMedia
               sx={{
                 display: "flex",
+                maxHeight: "60px",
               }}
             >
               <img

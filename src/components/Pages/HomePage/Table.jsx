@@ -24,7 +24,7 @@ export const Table = ({ findPost, comments }) => {
           </tr>
         </tbody>
       </table>
-      <h6>Coments for post:</h6>
+      {/* <h6>Coments for post:</h6>
       <table className="table-setting">
         <thead>
           <tr>
@@ -43,7 +43,7 @@ export const Table = ({ findPost, comments }) => {
               </tr>
             </tbody>
           ))}{" "}
-      </table>
+      </table> */}
     </>
   )
 }
