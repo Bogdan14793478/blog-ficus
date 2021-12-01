@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import React, { useCallback } from "react"
 import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
 import CardContent from "@mui/material/CardContent"
@@ -24,13 +25,13 @@ import { ModalProvider } from "../../../context/ModalContext"
 import {
   actionpostPlusOrMinusLike,
   actionDeletePosts,
-  actionFindInfoWithOurPost,
 } from "../../../redux/actions/types"
 import { Table } from "./Table"
 
 export const MediaCard = ({ item, showAllPost, userId, findPost, comments }) => {
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const deleteSelectedPost = () => {
     deletePost(item._id)
@@ -48,9 +49,13 @@ export const MediaCard = ({ item, showAllPost, userId, findPost, comments }) => 
     debounceLikePost(e.target.value)
   }
 
+  function redirectToComments() {
+    history.push(`/comments/coment/${item._id}`)
+  }
+
   const showInfoPost = () => {
+    redirectToComments()
     dispatch(showChoosePostInfo(item._id))
-    dispatch(actionFindInfoWithOurPost(item._id))
     dispatch(loadAllCommentsForPost(item._id))
   }
 
@@ -110,13 +115,7 @@ export const MediaCard = ({ item, showAllPost, userId, findPost, comments }) => 
                 <FormCreatePost onSubmitPost={updatePost} postId={item._id} />
               </ModalProvider>
             )}
-            <ModalProvider
-              buttonName="Show info"
-              buttonNameOnForm="Post info"
-              takeInfo={showInfoPost}
-            >
-              <Table findPost={findPost} comments={comments} />
-            </ModalProvider>
+            <ModalProvider buttonName="Show info" takeInfo={showInfoPost} />
           </CardActions>
         </div>
       </Card>

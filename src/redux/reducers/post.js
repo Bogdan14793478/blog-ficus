@@ -11,8 +11,8 @@ import {
   TOGLE_IS_FETCHING,
   TOGLE_IS_LOAD_FETCHING_POST,
   SHOW_INFO_FIND_USER,
-  SHOW_INFO_FIND_USER_WITH_OUR_POSTS,
   SHOW_ALL_COMMENTS_FOR_POST,
+  COMMENTS_PLUS_OR_MINUS_LIKE,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
 const initial = {
@@ -105,20 +105,31 @@ export const userPosts = (state = initial, action) => {
         posts: statePostImg,
       }
     case SHOW_INFO_FIND_USER:
+      console.log(action.payload, "action payload")
       const showFindPost = action.payload.postResponse.data
       return {
         ...state,
         findPost: showFindPost,
       }
-    case SHOW_INFO_FIND_USER_WITH_OUR_POSTS:
-      const postIdInfo = action.payload
-      const findPostInfo = state.posts.find((item) => item._id === postIdInfo)
-      return {
-        ...state,
-        findPost: findPostInfo,
-      }
     case SHOW_ALL_COMMENTS_FOR_POST:
       return { ...state, comments: action.payload.res.data }
+    case COMMENTS_PLUS_OR_MINUS_LIKE:
+      const comments = [...state.comments]
+      const findIndItem = comments.findIndex(
+        (comment) => comment._id === action.payload.postId
+      )
+      const findComment = comments[findIndItem]
+      const foundedLikeComment = findComment.likes.find(
+        (like) => like === action.payload.itemId
+      )
+      if (foundedLikeComment) {
+        findComment.likes = findComment.likes.filter(
+          (like) => like !== action.payload.itemId
+        )
+      } else {
+        findComment.likes.push(action.payload.itemId)
+      }
+      return { ...state, comments }
     default:
       return state
   }

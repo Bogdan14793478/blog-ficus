@@ -1,4 +1,3 @@
-import { Pause } from "@mui/icons-material"
 import {
   GET_ALL_POST,
   CREATE_NEW_POST,
@@ -10,8 +9,8 @@ import {
   SAVE_IMG_POST,
   TOGLE_IS_FETCHING,
   SHOW_INFO_FIND_USER,
-  SHOW_INFO_FIND_USER_WITH_OUR_POSTS,
   SHOW_ALL_COMMENTS_FOR_POST,
+  COMMENTS_PLUS_OR_MINUS_LIKE,
   USER_IS_AUTH,
   USER_DELETE_ALL_INFORM,
   INFORM_USER,
@@ -66,13 +65,13 @@ export const actionShowChoosePost = (payload) => ({
   payload,
 })
 
-export const actionFindInfoWithOurPost = (payload) => ({
-  type: SHOW_INFO_FIND_USER_WITH_OUR_POSTS,
+export const actionShowAllCommenstForPost = (payload) => ({
+  type: SHOW_ALL_COMMENTS_FOR_POST,
   payload,
 })
 
-export const actionShowAllCommenstForPost = (payload) => ({
-  type: SHOW_ALL_COMMENTS_FOR_POST,
+export const actionCommentPlusOrMinusLike = (payload) => ({
+  type: COMMENTS_PLUS_OR_MINUS_LIKE,
   payload,
 })
 // USER

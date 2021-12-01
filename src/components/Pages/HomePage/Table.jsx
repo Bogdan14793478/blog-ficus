@@ -1,10 +1,10 @@
 import React from "react"
 import { Tableheader } from "../../../constantsName/constants"
 
-export const Table = ({ findPost, comments }) => {
+export const Table = ({ findPost }) => {
   return (
     <>
-      <table className="table-setting">
+      <table className="table-comments">
         <thead>
           <tr>
             <th>{Tableheader.posrId}</th>
@@ -24,26 +24,6 @@ export const Table = ({ findPost, comments }) => {
           </tr>
         </tbody>
       </table>
-      {/* <h6>Coments for post:</h6>
-      <table className="table-setting">
-        <thead>
-          <tr>
-            <th>User id</th>
-            <th>likes</th>
-            <th>text</th>
-          </tr>
-        </thead>
-        {comments &&
-          comments.map((commit) => (
-            <tbody key={commit._id}>
-              <tr>
-                <td>{commit._id}</td>
-                <td>{commit.likes.length}</td>
-                <td>{commit.text}</td>
-              </tr>
-            </tbody>
-          ))}{" "}
-      </table> */}
     </>
   )
 }

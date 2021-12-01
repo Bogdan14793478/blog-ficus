@@ -17,6 +17,7 @@ import { News } from "./components/Pages/News/News"
 import { HomePage } from "./components/Pages/HomePage/HomePage"
 import history from "./components/history"
 import { Setting } from "./components/Pages/Satting/Setting"
+import { Comments } from "./components/Pages/Comments/Comments"
 
 toast.configure()
 
@@ -46,6 +47,11 @@ export function App() {
                     exact
                     path="/posts/page/:page"
                     component={HomePage}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/comments/coment/:page"
+                    component={Comments}
                   />
                 </div>
               </div>

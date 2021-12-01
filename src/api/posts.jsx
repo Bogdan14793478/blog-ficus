@@ -107,3 +107,7 @@ export function loadAllCommentsForPost(postId) {
     })
   }
 }
+
+export function putLikeCommit(userID) {
+  axiosInstance.put(`comments/like/${userID}`)
+}
