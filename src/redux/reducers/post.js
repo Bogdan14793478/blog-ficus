@@ -12,6 +12,7 @@ import {
   TOGLE_IS_LOAD_FETCHING_POST,
   SHOW_INFO_FIND_USER,
   SHOW_INFO_FIND_USER_WITH_OUR_POSTS,
+  SHOW_ALL_COMMENTS_FOR_POST,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
 const initial = {
@@ -23,6 +24,7 @@ const initial = {
   image: "",
   isFetching: false,
   findPost: {},
+  comments: [],
 }
 
 export const userPosts = (state = initial, action) => {
@@ -60,6 +62,7 @@ export const userPosts = (state = initial, action) => {
       return {
         ...state,
         posts: [],
+        comments: [],
       }
     case POST_PLUS_OR_MINUS_LIKE:
       const posts = [...state.posts]
@@ -114,6 +117,8 @@ export const userPosts = (state = initial, action) => {
         ...state,
         findPost: findPostInfo,
       }
+    case SHOW_ALL_COMMENTS_FOR_POST:
+      return { ...state, comments: action.payload.res.data }
     default:
       return state
   }

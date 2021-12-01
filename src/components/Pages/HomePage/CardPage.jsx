@@ -16,6 +16,7 @@ import {
   putLikePost,
   updatePost,
   showChoosePostInfo,
+  loadAllCommentsForPost,
 } from "../../../api/posts"
 import { FormCreatePost } from "./FormCreatePost"
 import { Labels } from "../../../constantsName/constants"
@@ -27,7 +28,7 @@ import {
 } from "../../../redux/actions/types"
 import { Table } from "./Table"
 
-export const MediaCard = ({ item, showAllPost, userId, findPost }) => {
+export const MediaCard = ({ item, showAllPost, userId, findPost, comments }) => {
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
 
@@ -50,6 +51,7 @@ export const MediaCard = ({ item, showAllPost, userId, findPost }) => {
   const showInfoPost = () => {
     dispatch(showChoosePostInfo(item._id))
     dispatch(actionFindInfoWithOurPost(item._id))
+    dispatch(loadAllCommentsForPost(item._id))
   }
 
   return (
@@ -110,7 +112,7 @@ export const MediaCard = ({ item, showAllPost, userId, findPost }) => {
               buttonNameOnForm="Post info"
               takeInfo={showInfoPost}
             >
-              <Table findPost={findPost} />
+              <Table findPost={findPost} comments={comments} />
             </ModalProvider>
           </CardActions>
         </div>

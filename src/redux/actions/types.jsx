@@ -11,6 +11,7 @@ import {
   TOGLE_IS_FETCHING,
   SHOW_INFO_FIND_USER,
   SHOW_INFO_FIND_USER_WITH_OUR_POSTS,
+  SHOW_ALL_COMMENTS_FOR_POST,
   USER_IS_AUTH,
   USER_DELETE_ALL_INFORM,
   INFORM_USER,
@@ -67,6 +68,11 @@ export const actionShowChoosePost = (payload) => ({
 
 export const actionFindInfoWithOurPost = (payload) => ({
   type: SHOW_INFO_FIND_USER_WITH_OUR_POSTS,
+  payload,
+})
+
+export const actionShowAllCommenstForPost = (payload) => ({
+  type: SHOW_ALL_COMMENTS_FOR_POST,
   payload,
 })
 // USER

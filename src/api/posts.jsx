@@ -6,6 +6,7 @@ import {
   actionSaveImgPost,
   actionTogleIsFetching,
   actionShowChoosePost,
+  actionShowAllCommenstForPost,
 } from "../redux/actions/types"
 
 export function putLikePost(numberPost) {
@@ -96,5 +97,13 @@ export function showChoosePostInfo(postId) {
     } catch (err) {
       console.log(err)
     }
+  }
+}
+
+export function loadAllCommentsForPost(postId) {
+  return async (dispatch) => {
+    axiosInstance.get(`comments/post/${postId}`).then((res) => {
+      dispatch(actionShowAllCommenstForPost({ res }))
+    })
   }
 }

@@ -32,7 +32,7 @@ dd {
 .app-wrapper-content {
   grid-area: c;
   background-color: #f5eded;
-  height: 94vh;
+  height: 96vh;
   min-height: -webkit-fill-available;
   position: relative;
 }

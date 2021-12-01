@@ -43,9 +43,9 @@ export const HomePage = () => {
   const { page } = useParams()
 
   const dispatch = useDispatch()
-  const { currentPage, posts, skip, totalPost, isFetching, findPost } = useSelector(
-    (state) => state.post
-  )
+  const { currentPage, posts, skip, totalPost, isFetching, findPost, comments } =
+    useSelector((state) => state.post)
+
   const { id } = useSelector((state) => state.user)
   const history = useHistory()
   const ofset = page * skip - 10
@@ -151,6 +151,7 @@ export const HomePage = () => {
                 showAllPost={showAllPost}
                 userId={id}
                 findPost={findPost}
+                comments={comments}
               />
             ))}
           </Grid>
