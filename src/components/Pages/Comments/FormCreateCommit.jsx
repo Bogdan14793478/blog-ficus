@@ -1,7 +1,5 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable no-restricted-globals */
-/* eslint-disable react/jsx-curly-brace-presence */
-import React, { useContext } from "react"
+/* eslint-disable no-restricted-syntax */
+import React, { useState, useContext } from "react"
 import { useDispatch } from "react-redux"
 import { Form, Formik, FieldArray } from "formik"
 import * as Yup from "yup"
@@ -10,34 +8,71 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
-
-const initialValues = {
-  title: "",
-  fullText: "",
-  description: "",
-  file: undefined,
-}
+import { createNewCommit } from "../../../api/posts"
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string()
-    .min(5, ErrorMsg.roolMinTitle)
-    .required(ErrorMsg.resultRequired),
-  fullText: Yup.string()
-    .min(20, ErrorMsg.checkShortPassword)
-    .required(ErrorMsg.resultRequired),
-  description: Yup.string().required(ErrorMsg.resultRequired),
+  text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),
 })
 
-export const FormCreatePost = ({ onSubmitPost, postId }) => {
-  const { handleClickCloseModal } = useContext(ModalContext)
-  const dispatch = useDispatch()
+export const FormCreateCommit = ({ followedCommentID, comments, userId, page }) => {
+  const [comit, setComit] = useState([...comments])
+  const [uniqueId, setUniqueId] = useState(1)
+
+  const initialValues = {
+    text: "",
+    children: [],
+    parentId: null,
+    userId,
+    id: uniqueId,
+  }
+
+  const findById = (data, id) => {
+    console.log(data, "data")
+    for (const element of data) {
+      if (element._id === id) {
+        return element
+      }
+      if (element.children) {
+        const desiredElement = findById(element.children, id)
+        if (desiredElement) {
+          return desiredElement
+        }
+      }
+    }
+    return false
+  }
 
   const onSubmit = (values, props) => {
-    const { file, ...rest } = values
-    dispatch(onSubmitPost(rest, file, postId))
+    const clonetedCommit = [...comit]
+    console.log(clonetedCommit, "cloned comit neef f all comm")
+    if (
+      typeof followedCommentID === "object" ||
+      typeof followedCommentID === "undefined"
+    ) {
+      clonetedCommit.push(values)
+      console.log(clonetedCommit, "clonetedCommit")
+    }
+    // } else {
+    //   const desiredCommit = findById(clonetedCommit, followedCommentID)
+    //   // eslint-disable-next-line no-param-reassign
+    //   values.parentId = followedCommentID
+    //   desiredCommit.children.push(values)
+    // }
+    const { text } = values
+    const postID = page
+    const data = { text, followedCommentID }
+    createNewCommit(data, postID)
+
+    setComit(clonetedCommit)
+    setUniqueId(uniqueId + 1)
     props.resetForm()
-    handleClickCloseModal()
   }
+
+  // const onSubmit = (values, numderId, props) => {
+  //   const data = { ...values, followedCommentID }
+  //   createNewCommit(data, numderId)
+  //   props.resetForm()
+  // }
 
   return (
     <div>
@@ -46,53 +81,17 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {({ errors, values, setFieldValue, handleChange }) => (
+        {({ errors, values, handleChange }) => (
           <Form>
             <TextField
               id="standard-basic"
-              label="Enter post title"
-              value={values.title}
-              name="title"
+              label="Enter text comment"
+              value={values.text}
+              name="text"
               variant="standard"
               sx={{ width: "300px", marginLeft: "20px" }}
               onChange={handleChange}
             />
-            <TextField
-              id="standard-basic"
-              label="Enter post fullText"
-              value={values.fullText}
-              name="fullText"
-              variant="standard"
-              sx={{ width: "300px", marginLeft: "20px" }}
-              onChange={handleChange}
-            />
-            <TextField
-              id="standard-basic"
-              label="Enter post description"
-              value={values.description}
-              name="description"
-              variant="standard"
-              sx={{ width: "300px", marginLeft: "20px", paddingBottom: "10px" }}
-              onChange={handleChange}
-            />
-            <FieldArray name={`file`}>
-              <p>
-                <input
-                  accept="image/*"
-                  id="icon-button-photo"
-                  onChange={(event) => {
-                    setFieldValue("file", event.currentTarget.files[0])
-                  }}
-                  type={`file`}
-                  name={`file`}
-                />
-              </p>
-            </FieldArray>
-            <img
-              src={values?.file ? URL.createObjectURL(values.file) : undefined}
-              id="image-before-load-on-server"
-            />
-
             <Errors errors={errors} />
             <Fab type="submit" color="primary" aria-label="edit">
               <AddCircleIcon

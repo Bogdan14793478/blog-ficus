@@ -26,6 +26,7 @@ axiosInstance.interceptors.response.use(
     notifyError(err)
     if (err === Labels.checkingTokenUnauth) {
       removeFromStorage(Labels.token)
+      removeFromStorage("userId")
     }
     return Promise.reject(error)
   }

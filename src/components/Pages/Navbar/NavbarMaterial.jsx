@@ -83,6 +83,7 @@ export const NavbarMaterial = () => {
     dispatch(userDeleteAllInform())
     dispatch(actionPostDeleteAllInform(null))
     removeFromStorage("passport")
+    removeFromStorage("userId")
     redirectToLogin()
   }
 

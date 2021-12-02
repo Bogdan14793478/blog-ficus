@@ -5,15 +5,20 @@ import { useParams } from "react-router"
 import { Table } from "../HomePage/Table"
 import { MediaCardComments } from "./CommentsPage"
 import { showChoosePostInfo, loadAllCommentsForPost } from "../../../api/posts"
+import { FormCreateCommit } from "./FormCreateCommit"
+import { showInfoUser } from "../../../api/usersAxios"
 
 export const Comments = () => {
   const { page } = useParams()
   const dispatch = useDispatch()
-  const { findPost, comments } = useSelector((state) => state.post)
+  const userID = localStorage.getItem("userId")
 
+  const { comments, findPost } = useSelector((state) => state.post)
+  const { _id } = useSelector((state) => state.user)
   useEffect(() => {
     dispatch(showChoosePostInfo(page))
     dispatch(loadAllCommentsForPost(page))
+    dispatch(showInfoUser(userID))
     console.log("Useefect")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -29,6 +34,7 @@ export const Comments = () => {
             ))}
           </Grid>
         )}
+        <FormCreateCommit comments={comments} userId={_id} page={page} />
       </div>
     </div>
   )

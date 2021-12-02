@@ -15,6 +15,7 @@ export function getUserInfo() {
 const fetchUser = () => {
   axiosInstance.get("auth/user/").then((result) => {
     if (result.data) {
+      setToStorage(result.data._id, "userId")
       notifySuccess(InformPanel.successfulAuth)
     }
   })

@@ -111,3 +111,8 @@ export function loadAllCommentsForPost(postId) {
 export function putLikeCommit(userID) {
   axiosInstance.put(`comments/like/${userID}`)
 }
+
+export function createNewCommit(data, postID) {
+  console.log(data, "dataReq")
+  axiosInstance.post(`comments/post/${postID}`, data)
+}

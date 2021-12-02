@@ -4,6 +4,7 @@ import {
   actionUserUpdateInform,
   actionSaveUserAvatar,
   actionTogleIsFetchingUser,
+  takeInformUser,
 } from "../redux/actions/types"
 import { axiosInstance } from "./axios"
 
@@ -48,5 +49,13 @@ export function updateInformUser(data, photoFile, userId) {
           dispatch(actionSaveUserAvatar({ res }))
         })
     }
+  }
+}
+
+export function showInfoUser(userID) {
+  return async (dispatch) => {
+    axiosInstance
+      .get(`users/${userID}`)
+      .then((res) => dispatch(takeInformUser(res.data)))
   }
 }
