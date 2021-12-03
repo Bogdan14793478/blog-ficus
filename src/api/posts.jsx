@@ -116,3 +116,7 @@ export function createNewCommit(data, postID) {
   console.log(data, "dataReq")
   axiosInstance.post(`comments/post/${postID}`, data)
 }
+
+export function deleteCommit(commentId) {
+  axiosInstance.delete(`comments/${commentId}`)
+}

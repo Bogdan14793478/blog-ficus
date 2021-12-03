@@ -14,66 +14,7 @@ const validationSchema = Yup.object().shape({
   text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),
 })
 
-export const FormCreateCommit = ({ followedCommentID, comments, userId, page }) => {
-  const [comit, setComit] = useState([...comments])
-  const [uniqueId, setUniqueId] = useState(1)
-
-  const initialValues = {
-    text: "",
-    children: [],
-    parentId: null,
-    userId,
-    id: uniqueId,
-  }
-
-  const findById = (data, id) => {
-    console.log(data, "data")
-    for (const element of data) {
-      if (element._id === id) {
-        return element
-      }
-      if (element.children) {
-        const desiredElement = findById(element.children, id)
-        if (desiredElement) {
-          return desiredElement
-        }
-      }
-    }
-    return false
-  }
-
-  const onSubmit = (values, props) => {
-    const clonetedCommit = [...comit]
-    console.log(clonetedCommit, "cloned comit neef f all comm")
-    if (
-      typeof followedCommentID === "object" ||
-      typeof followedCommentID === "undefined"
-    ) {
-      clonetedCommit.push(values)
-      console.log(clonetedCommit, "clonetedCommit")
-    }
-    // } else {
-    //   const desiredCommit = findById(clonetedCommit, followedCommentID)
-    //   // eslint-disable-next-line no-param-reassign
-    //   values.parentId = followedCommentID
-    //   desiredCommit.children.push(values)
-    // }
-    const { text } = values
-    const postID = page
-    const data = { text, followedCommentID }
-    createNewCommit(data, postID)
-
-    setComit(clonetedCommit)
-    setUniqueId(uniqueId + 1)
-    props.resetForm()
-  }
-
-  // const onSubmit = (values, numderId, props) => {
-  //   const data = { ...values, followedCommentID }
-  //   createNewCommit(data, numderId)
-  //   props.resetForm()
-  // }
-
+export const FormCreateCommit = ({ initialValues, onSubmit }) => {
   return (
     <div>
       <Formik

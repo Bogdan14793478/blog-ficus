@@ -105,7 +105,6 @@ export const userPosts = (state = initial, action) => {
         posts: statePostImg,
       }
     case SHOW_INFO_FIND_USER:
-      console.log(action.payload, "action payload")
       const showFindPost = action.payload.postResponse.data
       return {
         ...state,

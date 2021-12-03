@@ -1,8 +1,8 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-no-duplicate-props */
-import React, { useCallback } from "react"
+import React, { useState, useCallback } from "react"
 import { useDispatch } from "react-redux"
-import { useParams } from "react-router"
 import Card from "@mui/material/Card"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
@@ -19,12 +19,22 @@ import {
 } from "../../../redux/actions/types"
 import { FormCreateCommit } from "./FormCreateCommit"
 
-export const MediaCardComments = ({ item }) => {
-  const { page } = useParams()
+export const MediaCardComments = ({
+  item,
+  userId,
+  deleteComment,
+  initialValues,
+  onSubmit,
+  setNumberPostID,
+  setFfollowedCommentID,
+}) => {
+  const [show, setShow] = useState(false)
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
 
-  const deleteSelectedPost = () => {}
+  const deleteSelectedPost = () => {
+    deleteComment(item._id, item.followedCommentID)
+  }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceLikePost = useCallback(
@@ -38,51 +48,63 @@ export const MediaCardComments = ({ item }) => {
     )
     debounceLikePost(e.target.value)
   }
-  // console.log(typeof item.followedCommentID, "item.followedCommentID")
-  return (
-    <Grid item xs={10} md={10}>
-      <Card
-        sx={{
-          margin: " 0 5px",
-          height: "201px",
-          position: "relative",
-        }}
-      >
-        <div className="group-title-deleteicon-card">
-          <div>
-            <Typography
-              gutterBottom
-              variant="h7"
-              component="div"
-              className="card-tittle-text"
-            >
-              User id: {item._id}
-            </Typography>
-          </div>
-          <div>
-            <DeleteIcon onClick={deleteSelectedPost} />
-          </div>
-        </div>
-        <div className="info-post-coments">
-          <p> commented: {item.commentedBy}</p>
-          <p>followed: {item.followedCommentID}</p>
-          <p>postId: {item.postID}</p>
-          <p>text: {item.text}</p>
-        </div>
 
-        <div className="group-like-updete-post">
-          <Button size="small" onClick={countCommentLikes}>
-            {Labels.buttonLike} {countLikes}
-          </Button>
-          <ModalProvider
-            buttonName="Update comment"
-            buttonNameOnForm="Correct your comment"
-          />
-          <Button size="small" onClick={countCommentLikes}>
-            <ReplyIcon />
-          </Button>
-        </div>
-      </Card>
-    </Grid>
+  const commitOnCommit = () => {
+    setShow(!show)
+    setNumberPostID(item._id)
+    setFfollowedCommentID(item.followedCommentID)
+  }
+  return (
+    <>
+      <Grid item xs={10} md={10}>
+        <Card
+          sx={{
+            margin: " 0 5px",
+            height: "201px",
+            position: "relative",
+          }}
+        >
+          <div className="group-title-deleteicon-card">
+            <div>
+              <Typography
+                gutterBottom
+                variant="h7"
+                component="div"
+                className="card-tittle-text"
+              >
+                id coment: {item._id}
+              </Typography>
+            </div>
+            <div>
+              {userId === item.commentedBy && (
+                <DeleteIcon onClick={deleteSelectedPost} />
+              )}
+            </div>
+          </div>
+          <div className="info-post-coments">
+            <p> commented: {item.commentedBy}</p>
+            <p>followed: {item.followedCommentID}</p>
+            <p>postId: {item.postID}</p>
+            <p>text: {item.text}</p>
+          </div>
+
+          <div className="group-like-updete-post">
+            <Button size="small" onClick={countCommentLikes}>
+              {Labels.buttonLike} {countLikes}
+            </Button>
+            <ModalProvider
+              buttonName="Update comment"
+              buttonNameOnForm="Correct your comment"
+            />
+            <Button size="small" onClick={commitOnCommit}>
+              <ReplyIcon />
+            </Button>
+          </div>
+        </Card>
+      </Grid>
+      {show && (
+        <FormCreateCommit initialValues={initialValues} onSubmit={onSubmit} />
+      )}
+    </>
   )
 }
