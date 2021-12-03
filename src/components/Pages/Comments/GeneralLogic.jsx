@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-restricted-syntax */
 import React, { useState, useContext, useEffect, useCallback } from "react"
 import { useDispatch } from "react-redux"
@@ -94,9 +95,29 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
   useEffect(() => {
     if (massage) {
       const children = []
-      // eslint-disable-next-line no-plusplus
+      const doubleArr = []
       for (let i = 0; i < massage.length; i++) {
         massage[i].children = []
+        // eslint-disable-next-line no-extra-boolean-cast
+        if (typeof massage[i].followedCommentID === "string") {
+          massage.map((comit) => {
+            // debugger
+            if (comit._id === massage[i].followedCommentID) {
+              massage[i].children.push(comit)
+              doubleArr.push(comit)
+            }
+            return true
+          })
+        }
+        // eslint-disable-next-line no-plusplus
+      }
+      for (let i = 0; i < massage.length; i++) {
+        for (let k = 0; k < doubleArr.length; k++) {
+          if (massage[i]._id === doubleArr[k]._id) {
+            massage.splice(massage[i], 1)
+            setMessage(massage)
+          }
+        }
       }
     }
     return true
