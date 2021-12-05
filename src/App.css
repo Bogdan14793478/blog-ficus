@@ -48,6 +48,10 @@ dd {
   max-width: 100%;
 }
 
+.children-comment{
+  margin-left: 50px;
+}
+
 .pages {
   margin: 20px 0;
 }

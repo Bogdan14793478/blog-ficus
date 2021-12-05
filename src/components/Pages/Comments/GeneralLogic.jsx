@@ -19,10 +19,10 @@ const validationSchema = Yup.object().shape({
 
 export const GeneralLogic = ({ comments, userId, postID }) => {
   // eslint-disable-next-line prefer-const
-  let [massage, setMessage] = useState([])
+  const [massage, setMessage] = useState([])
   const [uniqueId, setUniqueId] = useState(1)
   const [numberPostID, setNumberPostID] = useState()
-  const [followedCommentID, setFfollowedCommentID] = useState()
+  const [followedCommentIDL, setFfollowedCommentID] = useState()
   const initialValues = {
     text: "",
     children: [],
@@ -46,20 +46,24 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
     return false
   }
   const onSubmit = (values, props) => {
-    if (followedCommentID === undefined) {
+    if (followedCommentIDL === undefined) {
       // eslint-disable-next-line no-param-reassign
       values.followed = numberPostID
       massage.push(values)
-    } else if (followedCommentID === null || typeof followedCommentID === "string") {
+    } else if (
+      followedCommentIDL === null ||
+      typeof followedCommentIDL === "string"
+    ) {
       const desiredCommit = findById(massage, numberPostID)
       // eslint-disable-next-line no-param-reassign
       values.followed = numberPostID
-      console.log(desiredCommit, "desiredCommit")
+      // console.log(desiredCommit, "desiredCommit")
       desiredCommit.children.push(values)
     }
     const { text } = values
-    const info = followedCommentID || numberPostID
-    const data = { text, info }
+    const followedCommentID = numberPostID || userId
+    // console.log(numberPostID, "numberPostIDnumberPostID")
+    const data = { text, followedCommentID }
     createNewCommit(data, postID)
     setNumberPostID("")
     // eslint-disable-next-line no-param-reassign
@@ -69,11 +73,11 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
   }
 
   const deleteComment = (comentID, parentPostID) => {
-    console.log(comentID, "postIDS")
-    console.log(parentPostID, "parentPostID")
+    // console.log(comentID, "postIDS")
+    // console.log(parentPostID, "followed")
     if (parentPostID) {
       const parentComment = findById(massage, comentID)
-      console.log(parentComment, "parentComment")
+      // console.log(parentComment, "parentComment")
       parentComment.children = parentComment.children.filter(
         (child) => child._id !== comentID
       )
@@ -86,61 +90,58 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
   console.log(massage, "massage")
 
   useEffect(() => {
-    if (comments.length) {
-      setMessage(comments)
+    const messages = []
+    for (const item of comments) {
+      item.children = []
+      if (!item.followedCommentID) {
+        // console.log(item.children, "massage[i]")
+        const filterdMessages = comments.filter(
+          (filteredItem) => item._id === filteredItem.followedCommentID
+        )
+        item.children = filterdMessages
+        messages.push(item)
+      }
     }
+    setMessage(messages)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comments])
-
-  useEffect(() => {
-    if (massage) {
-      const children = []
-      const doubleArr = []
-      for (let i = 0; i < massage.length; i++) {
-        massage[i].children = []
-        // eslint-disable-next-line no-extra-boolean-cast
-        if (typeof massage[i].followedCommentID === "string") {
-          massage.map((comit) => {
-            // debugger
-            if (comit._id === massage[i].followedCommentID) {
-              massage[i].children.push(comit)
-              doubleArr.push(comit)
-            }
-            return true
-          })
-        }
-        // eslint-disable-next-line no-plusplus
-      }
-      for (let i = 0; i < massage.length; i++) {
-        for (let k = 0; k < doubleArr.length; k++) {
-          if (massage[i]._id === doubleArr[k]._id) {
-            massage.splice(massage[i], 1)
-            setMessage(massage)
-          }
-        }
-      }
-    }
-    return true
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [massage])
 
   return (
     <div>
       {massage && (
         <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
           {massage.map((item) => (
-            <MediaCardComments
-              key={item._id}
-              item={item}
-              comments={comments}
-              userId={userId}
-              postID={postID}
-              initialValues={initialValues}
-              onSubmit={onSubmit}
-              setFfollowedCommentID={setFfollowedCommentID}
-              setNumberPostID={setNumberPostID}
-              deleteComment={deleteComment}
-            />
+            <>
+              <MediaCardComments
+                key={item._id}
+                item={item}
+                comments={comments}
+                userId={userId}
+                postID={postID}
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                setFfollowedCommentID={setFfollowedCommentID}
+                setNumberPostID={setNumberPostID}
+                deleteComment={deleteComment}
+              />
+
+              {/* <div className="children-comment">
+                {massage.children?.map((child) => (
+                  <MediaCardComments
+                    key={child._id}
+                    item={child}
+                    comments={comments}
+                    userId={userId}
+                    postID={postID}
+                    initialValues={initialValues}
+                    onSubmit={onSubmit}
+                    setFfollowedCommentID={setFfollowedCommentID}
+                    setNumberPostID={setNumberPostID}
+                    deleteComment={deleteComment}
+                  />
+                ))}
+              </div> */}
+            </>
           ))}
         </Grid>
       )}
