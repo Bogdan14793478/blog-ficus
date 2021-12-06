@@ -1,14 +1,11 @@
 /* eslint-disable no-restricted-syntax */
-import React, { useState, useContext } from "react"
-import { useDispatch } from "react-redux"
-import { Form, Formik, FieldArray } from "formik"
+import React from "react"
+import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
-import { ModalContext } from "../../../context"
-import { createNewCommit } from "../../../api/posts"
 
 const validationSchema = Yup.object().shape({
   text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),

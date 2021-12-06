@@ -10,21 +10,20 @@ import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ReplyIcon from "@mui/icons-material/Reply"
 import { debounce } from "debounce"
-import { deletePost, putLikeCommit, updatePost } from "../../../api/posts"
+import { putLikeCommit } from "../../../api/posts"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
-import {
-  actionCommentPlusOrMinusLike,
-  actionDeletePosts,
-} from "../../../redux/actions/types"
+import { actionCommentPlusOrMinusLike } from "../../../redux/actions/types"
 import { FormCreateCommit } from "./FormCreateCommit"
 
 export const MediaCardComments = ({
   item,
   userId,
+  postID,
   deleteComment,
   initialValues,
   onSubmit,
+  followedCommentIDL,
   setNumberPostID,
   setFfollowedCommentID,
 }) => {
@@ -76,15 +75,16 @@ export const MediaCardComments = ({
               </Typography>
             </div>
             <div>
-              {userId === item.commentedBy && (
+              {(userId === item.commentedBy ||
+                userId === localStorage.getItem("userId")) && (
                 <DeleteIcon onClick={deleteSelectedPost} />
               )}
             </div>
           </div>
           <div className="info-post-coments">
-            <p> commented: {item.commentedBy}</p>
-            <p>followed: {item.followedCommentID}</p>
-            <p>postId: {item.postID}</p>
+            <p> commented: {item.commentedBy || userId}</p>
+            <p>followed: {item.followedCommentID || followedCommentIDL} </p>
+            <p>postId: {item.postID || postID}</p>
             <p>text: {item.text}</p>
           </div>
 
