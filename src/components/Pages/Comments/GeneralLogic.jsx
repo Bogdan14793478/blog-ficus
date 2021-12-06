@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from "react"
 import { createNewCommit, deleteCommit } from "../../../api/posts"
-import { FormCreateCommit } from "./FormCreateCommit"
+import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
 
 export const GeneralLogic = ({ comments, userId, postID }) => {
@@ -93,7 +93,7 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
 
   return (
     <div>
-      <div style={{ paddingLeft: "50px" }}>
+      <div style={{ paddingLeft: "40px" }}>
         <GeneralList
           message={message}
           userId={userId}
@@ -106,8 +106,8 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
           deleteComment={deleteComment}
         />
       </div>
-      <div style={{ paddingLeft: "50px" }}>
-        <FormCreateCommit initialValues={initialValues} onSubmit={onSubmit} />
+      <div style={{ paddingLeft: "60px" }}>
+        <FormCreateComment initialValues={initialValues} onSubmit={onSubmit} />
       </div>
     </div>
   )

@@ -8,8 +8,9 @@ import { Table } from "./Table"
 import { deleteUser } from "../../../api/usersAxios"
 import { FormUpdateParamUser } from "./FormUpdateParamUser"
 import { ModalProvider } from "../../../context"
+import "./SettingPage.css"
 
-export const Setting = () => {
+export const SettingPage = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { name, informUser, dateCreated, id, skills, profession, details, avatar } =

@@ -10,13 +10,13 @@ import { theme } from "./utils/themeNavbar"
 import { NavbarMaterial } from "./components/Pages/Navbar/NavbarMaterial"
 import { Login } from "./components/Authorization/Login"
 import { Register } from "./components/Authorization/Register"
-import { Users } from "./components/Pages/Users/Users"
+import { UsersPage } from "./components/Pages/Users/UsersPage"
 import { Dialogs } from "./components/Pages/Dialogs/Dialogs"
 import { News } from "./components/Pages/News/News"
 import { HomePage } from "./components/Pages/HomePage/HomePage"
 import history from "./components/history"
-import { Setting } from "./components/Pages/Satting/Setting"
-import { Comments } from "./components/Pages/Comments/Comments"
+import { SettingPage } from "./components/Pages/Satting/SettingPage"
+import { CommentsPage } from "./components/Pages/Comments/CommentsPage"
 
 toast.configure()
 
@@ -38,10 +38,14 @@ export function App() {
               <div className="app-wrapper">
                 <NavbarMaterial />
                 <div className="app-wrapper-content">
-                  <PrivateRoute exact path="/users/user/:page" component={Users} />
+                  <PrivateRoute
+                    exact
+                    path="/users/user/:page"
+                    component={UsersPage}
+                  />
                   <PrivateRoute exact path="/ficus" component={Dialogs} />
                   <PrivateRoute exact path="/news" component={News} />
-                  <PrivateRoute exact path="/setting" component={Setting} />
+                  <PrivateRoute exact path="/setting" component={SettingPage} />
                   <PrivateRoute
                     exact
                     path="/posts/page/:page"
@@ -49,8 +53,8 @@ export function App() {
                   />
                   <PrivateRoute
                     exact
-                    path="/comments/coment/:page"
-                    component={Comments}
+                    path="/comments/coment/:postID"
+                    component={CommentsPage}
                   />
                 </div>
               </div>

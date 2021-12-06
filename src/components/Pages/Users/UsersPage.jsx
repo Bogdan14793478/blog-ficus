@@ -4,13 +4,13 @@ import { useParams } from "react-router"
 import { Grid } from "@mui/material"
 import { actionUsersGetCurrentPage } from "../../../redux/actions/types"
 import { AllPagin } from "../../Pagination"
-import { MediaCard } from "./UsersPage"
+import { MediaCard } from "./MediaCard"
 import { getAllUsers } from "../../../api/usersAxios"
 import { Labels } from "../../../constantsName/constants"
 import { getUserInfo } from "../../../api/auth"
 import { Loader } from "../HomePage/Loader"
 
-export const Users = () => {
+export const UsersPage = () => {
   const { page } = useParams()
   const dispatch = useDispatch()
   const { currentPage, users, skip, totalPost, id, findUser, isFetching } =

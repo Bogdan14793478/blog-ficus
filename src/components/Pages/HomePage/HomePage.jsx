@@ -21,6 +21,7 @@ import { Labels, Tabs } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { ModalContext } from "../../../context"
 import { Loader } from "./Loader"
+import "./HomePage.css"
 
 const useStyles = makeStyles({
   root: {

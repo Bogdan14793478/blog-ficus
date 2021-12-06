@@ -1,0 +1,46 @@
+.app-wrapper-setting {
+    grid-area: c;
+    background-color: #f5eded;
+    height: auto;
+    min-height: -webkit-fill-available;
+    position: relative;
+  }
+
+  .table-setting {
+    width: 75%;
+    margin-bottom: 20px;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+  }
+
+  .table-setting th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+  }
+  .table-setting td {
+    border: 1px solid #dddddd;
+    padding: 5px;
+  }
+
+  .avatar-user-setting {
+    width: 250px;
+    height: auto;
+    padding-left: 40px;
+  }
+
+  .btn-setting-group {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .setting-page-wrapper {
+    grid-area: c;
+    background-color: #f5eded;
+    height: 92.7vh;
+  }
+
+  .general-page-name {
+    padding: 4px 55px 17px 79px;
+  }

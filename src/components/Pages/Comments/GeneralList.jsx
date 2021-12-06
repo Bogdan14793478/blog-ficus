@@ -1,6 +1,6 @@
 import React from "react"
 import { Grid } from "@mui/material"
-import { MediaCardComments } from "./CommentsPage"
+import { CardComments } from "./CardComments"
 
 export const GeneralList = ({
   message,
@@ -21,10 +21,10 @@ export const GeneralList = ({
             container
             spacing={2}
             sx={{ marginBottom: "10px", marginLeft: "20px", width: "1200px" }}
-            style={{ marginTop: "20px", marginLeft: "30px" }}
+            style={{ marginTop: "10px", marginLeft: "30px" }}
             key={item._id}
           >
-            <MediaCardComments
+            <CardComments
               postID={postID}
               item={item}
               userId={userId}

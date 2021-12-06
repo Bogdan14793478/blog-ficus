@@ -10,7 +10,7 @@ const validationSchema = Yup.object().shape({
   text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),
 })
 
-export const FormCreateCommit = ({ initialValues, onSubmit }) => {
+export const FormCreateComment = ({ initialValues, onSubmit }) => {
   return (
     <div>
       <Formik
