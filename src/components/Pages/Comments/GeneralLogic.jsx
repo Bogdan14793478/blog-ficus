@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 /* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from "react"
 import { createNewCommit, deleteCommit } from "../../../api/posts"
@@ -6,11 +5,11 @@ import { FormCreateCommit } from "./FormCreateCommit"
 import { GeneralList } from "./GeneralList"
 
 export const GeneralLogic = ({ comments, userId, postID }) => {
-  // eslint-disable-next-line prefer-const
   const [message, setMessage] = useState([])
   const [uniqueId, setUniqueId] = useState(1)
   const [numberPostID, setNumberPostID] = useState()
   const [followedCommentIDL, setFfollowedCommentID] = useState()
+  const [show, setShow] = useState(false)
 
   const initialValues = {
     text: "",
@@ -34,10 +33,6 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
     }
     return false
   }
-
-  // function refreshPage() {
-  //   window.location.reload()
-  // }
 
   const onSubmit = (values, props) => {
     const clonededMessage = [...message]
@@ -64,7 +59,7 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
     setUniqueId(uniqueId + Date.now() + Math.random())
     setMessage(clonededMessage)
     props.resetForm()
-    // refreshPage()
+    setShow(!show)
   }
 
   const deleteComment = (comentID, parentPostID) => {
@@ -102,6 +97,8 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
     <div>
       <div style={{ paddingLeft: "50px" }}>
         <GeneralList
+          show={show}
+          setShow={setShow}
           message={message}
           userId={userId}
           postID={postID}

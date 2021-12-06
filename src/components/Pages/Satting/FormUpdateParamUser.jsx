@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable react/jsx-fragments */
 import React, { useContext } from "react"
 import { useDispatch } from "react-redux"
 import { Form, Formik, FieldArray } from "formik"

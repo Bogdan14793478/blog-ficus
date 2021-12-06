@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { AccountCircle, Message } from "@mui/icons-material"
 import {
   AppBar,

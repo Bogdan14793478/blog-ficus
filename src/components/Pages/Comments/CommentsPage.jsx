@@ -1,6 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable react/jsx-no-duplicate-props */
 import React, { useState, useCallback } from "react"
 import { useDispatch } from "react-redux"
 import Card from "@mui/material/Card"
@@ -17,6 +14,8 @@ import { actionCommentPlusOrMinusLike } from "../../../redux/actions/types"
 import { FormCreateCommit } from "./FormCreateCommit"
 
 export const MediaCardComments = ({
+  show,
+  setShow,
   item,
   userId,
   postID,
@@ -27,7 +26,6 @@ export const MediaCardComments = ({
   setNumberPostID,
   setFfollowedCommentID,
 }) => {
-  const [show, setShow] = useState(false)
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
 

@@ -9,7 +9,6 @@ export const AllPagin = ({ totalPost, page, actionGetCurrentPage, namePage }) =>
 
   return (
     <Pagination
-      // sx={{ marginTop: "70.3vh" }}
       id="paginationComponent"
       count={totalPost}
       page={+page}

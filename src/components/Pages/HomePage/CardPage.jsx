@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable react/jsx-no-duplicate-props */
 import React, { useCallback } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
@@ -26,9 +25,8 @@ import {
   actionpostPlusOrMinusLike,
   actionDeletePosts,
 } from "../../../redux/actions/types"
-import { Table } from "./Table"
 
-export const MediaCard = ({ item, showAllPost, userId, findPost, comments }) => {
+export const MediaCard = ({ item, showAllPost, userId }) => {
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
   const history = useHistory()

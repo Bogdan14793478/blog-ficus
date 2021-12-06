@@ -3,6 +3,8 @@ import { Grid } from "@mui/material"
 import { MediaCardComments } from "./CommentsPage"
 
 export const GeneralList = ({
+  show,
+  setShow,
   message,
   userId,
   postID,
@@ -25,6 +27,8 @@ export const GeneralList = ({
             key={item._id}
           >
             <MediaCardComments
+              show={show}
+              setShow={setShow}
               postID={postID}
               item={item}
               userId={userId}

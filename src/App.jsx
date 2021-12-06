@@ -1,11 +1,10 @@
-/* eslint-disable import/order */
 import React from "react"
 import "./App.css"
 import { ThemeProvider } from "@mui/material"
 import { Router, Redirect, Route, Switch } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { PrivateRoute } from "./components/Authorization/PrivateRouter"
 import { toast } from "react-toastify"
+import { PrivateRoute } from "./components/Authorization/PrivateRouter"
 import "react-toastify/dist/ReactToastify.css"
 import { theme } from "./utils/themeNavbar"
 import { NavbarMaterial } from "./components/Pages/Navbar/NavbarMaterial"

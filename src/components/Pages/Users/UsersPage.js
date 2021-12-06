@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable import/no-default-export */
 import React from "react"
 import Card from "@mui/material/Card"
 import CardMedia from "@mui/material/CardMedia"

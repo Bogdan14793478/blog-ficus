@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import React from "react"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
