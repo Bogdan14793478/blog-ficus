@@ -12,7 +12,6 @@ export const Comments = () => {
   const userID = localStorage.getItem("userId")
 
   const { comments, findPost } = useSelector((state) => state.post)
-  const { id } = useSelector((state) => state.user)
   useEffect(() => {
     dispatch(showChoosePostInfo(page))
     dispatch(loadAllCommentsForPost(page))
