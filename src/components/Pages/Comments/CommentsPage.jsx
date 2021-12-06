@@ -14,8 +14,6 @@ import { actionCommentPlusOrMinusLike } from "../../../redux/actions/types"
 import { FormCreateCommit } from "./FormCreateCommit"
 
 export const MediaCardComments = ({
-  show,
-  setShow,
   item,
   userId,
   postID,
@@ -26,6 +24,7 @@ export const MediaCardComments = ({
   setNumberPostID,
   setFfollowedCommentID,
 }) => {
+  const [show, setShow] = useState(false)
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
 
@@ -73,8 +72,7 @@ export const MediaCardComments = ({
               </Typography>
             </div>
             <div>
-              {(userId === item.commentedBy ||
-                userId === localStorage.getItem("userId")) && (
+              {userId === item.commentedBy && (
                 <DeleteIcon onClick={deleteSelectedPost} />
               )}
             </div>

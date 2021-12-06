@@ -9,7 +9,6 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
   const [uniqueId, setUniqueId] = useState(1)
   const [numberPostID, setNumberPostID] = useState()
   const [followedCommentIDL, setFfollowedCommentID] = useState()
-  const [show, setShow] = useState(false)
 
   const initialValues = {
     text: "",
@@ -59,7 +58,6 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
     setUniqueId(uniqueId + Date.now() + Math.random())
     setMessage(clonededMessage)
     props.resetForm()
-    setShow(!show)
   }
 
   const deleteComment = (comentID, parentPostID) => {
@@ -97,8 +95,6 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
     <div>
       <div style={{ paddingLeft: "50px" }}>
         <GeneralList
-          show={show}
-          setShow={setShow}
           message={message}
           userId={userId}
           postID={postID}
