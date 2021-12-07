@@ -11,7 +11,6 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
   const [message, setMessage] = useState([])
 
   const onSubmit = (values, props) => {
-    console.log(values, "valuesvalues")
     const clonededMessage = [...message]
     if (values.followedCommentID === undefined) {
       clonededMessage.push(values)

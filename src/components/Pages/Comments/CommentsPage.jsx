@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux"
 import { useParams } from "react-router"
 import { Table } from "../HomePage/Table"
 import { showChoosePostInfo, loadAllCommentsForPost } from "../../../api/posts"
-import { showInfoUser } from "../../../api/usersAxios"
 import { GeneralLogic } from "./GeneralLogic"
 import "./CommentsPage.css"
 
