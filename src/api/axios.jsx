@@ -1,6 +1,8 @@
 import axios from "axios"
 import { notifyError, removeFromStorage } from "../utils/helpers"
 import { Labels } from "../constantsName/constants"
+import { userIsAuth } from "../redux/actions/types"
+import { store } from "../store"
 
 const baseURL = `${process.env.REACT_APP_URL_SERVER_ADRESS}/api/v1/`
 
@@ -26,7 +28,7 @@ axiosInstance.interceptors.response.use(
     notifyError(err)
     if (err === Labels.checkingTokenUnauth) {
       removeFromStorage(Labels.token)
-      removeFromStorage("userId")
+      store.dispatch(userIsAuth(false))
     }
     return Promise.reject(error)
   }

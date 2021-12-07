@@ -16,9 +16,9 @@ export function getAllUsers(skip) {
   const url = `users?${params.toString()}`
   return async (dispatch) => {
     dispatch(actionTogleIsFetchingUser(true))
-    axiosInstance.get(url).then((res) => {
+    axiosInstance.get(url).then(({ data }) => {
       dispatch(actionTogleIsFetchingUser(false))
-      dispatch(actiongetAllUsers(res.data))
+      dispatch(actiongetAllUsers(data))
     })
   }
 }
@@ -56,6 +56,6 @@ export function showInfoUser(userID) {
   return async (dispatch) => {
     axiosInstance
       .get(`users/${userID}`)
-      .then((res) => dispatch(takeInformUser(res.data)))
+      .then(({ data }) => dispatch(takeInformUser(data)))
   }
 }

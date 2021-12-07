@@ -53,7 +53,7 @@ export function App() {
                   />
                   <PrivateRoute
                     exact
-                    path="/comments/coment/:postID"
+                    path="/comments/:postID"
                     component={CommentsPage}
                   />
                 </div>

@@ -58,26 +58,22 @@ export function createNewPost(data, photoFile) {
   return async (dispatch) => {
     const formData = new FormData()
     formData.append("image", photoFile)
-    try {
-      const postResponse = await axiosInstance.post("posts", data)
-      if (postResponse) {
-        dispatch(actionCreateNewPosts(postResponse))
-      }
-      if (photoFile) {
-        const numberPost = postResponse.data._id
-        const fileUploadResponse = await axiosInstance.put(
-          `posts/upload/${numberPost}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        dispatch(actionSaveImgPost({ fileUploadResponse, numberPost }))
-      }
-    } catch (err) {
-      console.log(err)
+    const postResponse = await axiosInstance.post("posts", data)
+    if (postResponse) {
+      dispatch(actionCreateNewPosts(postResponse))
+    }
+    if (photoFile) {
+      const numberPost = postResponse.data._id
+      const fileUploadResponse = await axiosInstance.put(
+        `posts/upload/${numberPost}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      dispatch(actionSaveImgPost({ fileUploadResponse, numberPost }))
     }
   }
 }
@@ -88,14 +84,9 @@ export function deletePost(postId) {
 
 export function showChoosePostInfo(postId) {
   return async (dispatch) => {
-    try {
-      const postResponse = await axiosInstance.get(`posts/${postId}`)
-
-      if (postResponse) {
-        dispatch(actionShowChoosePost({ postResponse }))
-      }
-    } catch (err) {
-      console.log(err)
+    const postResponse = await axiosInstance.get(`posts/${postId}`)
+    if (postResponse) {
+      dispatch(actionShowChoosePost({ postResponse }))
     }
   }
 }
@@ -103,7 +94,7 @@ export function showChoosePostInfo(postId) {
 export function loadAllCommentsForPost(postId) {
   return async (dispatch) => {
     axiosInstance.get(`comments/post/${postId}`).then((res) => {
-      dispatch(actionShowAllCommenstForPost({ res }))
+      dispatch(actionShowAllCommenstForPost(res))
     })
   }
 }

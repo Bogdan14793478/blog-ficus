@@ -20,8 +20,8 @@ import { CustomizedInputBase } from "./SearchPosts"
 import { Labels, Tabs } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { ModalContext } from "../../../context"
-import { Loader } from "./Loader"
 import "./HomePage.css"
+import { Loader } from "../Loader/Loader"
 
 const useStyles = makeStyles({
   root: {
@@ -44,10 +44,12 @@ export const HomePage = () => {
   const { page } = useParams()
 
   const dispatch = useDispatch()
-  const { currentPage, posts, skip, totalPost, isFetching, findPost, comments } =
-    useSelector((state) => state.post)
+  const { currentPage, posts, skip, totalPost, isFetching } = useSelector(
+    (state) => state.post
+  )
+  const { findPost } = useSelector((state) => state.auth)
 
-  const { id } = useSelector((state) => state.user)
+  const { id } = useSelector((state) => state.auth)
   const history = useHistory()
   const ofset = page * skip - 10
   const namePage = Labels.nameUrlPostsPage
@@ -62,6 +64,7 @@ export const HomePage = () => {
     redirectToPagePosts()
     setShowAllPost(parameterAffectstheDisplay)
   }
+
   const passParamToGetPosts = () => {
     return showAllPost
       ? dispatch(getAllPosts(ofset, id, searchPosts))
@@ -80,6 +83,7 @@ export const HomePage = () => {
     setSearchPosts("")
     handleClickOpenModal()
   }
+
   const openTextPage = (numberShowBtn) => {
     setActiveTab(numberShowBtn)
     setSearchPosts("")
@@ -94,7 +98,7 @@ export const HomePage = () => {
 
   return (
     <div>
-      <h7 className="general-page-name">{Labels.namePagePost}</h7>
+      <h6 className="general-page-name">{Labels.namePagePost}</h6>
       <div className="button-home-page">
         <ButtonGroup>
           <Button
@@ -133,43 +137,37 @@ export const HomePage = () => {
           <FormCreatePost onSubmitPost={createNewPost} />
         </ModalProvider>
       </div>
-      <>
-        {activeTab === Tabs.EmptyPage && (
-          <div className="name-thirdbtn-homepage">
-            <h2>{Labels.textNamePage}</h2>
-          </div>
-        )}
-      </>
-
-      <>{isFetching && <Loader />}</>
-      <>
-        {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
-          <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
-            {posts.map((item) => (
-              <MediaCard
-                key={item._id}
-                item={item}
-                showAllPost={showAllPost}
-                userId={id}
-                findPost={findPost}
-                comments={comments}
-              />
-            ))}
-          </Grid>
-        ) : null}
-
-        {(activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts) && !posts.length
-          ? "No posts whot you want find"
-          : null}
-        <div className="pagination-all">
-          <AllPagin
-            totalPost={totalPost}
-            page={page}
-            actionGetCurrentPage={actionGetCurrentPage}
-            namePage={namePage}
-          />
+      {activeTab === Tabs.EmptyPage && (
+        <div className="name-thirdbtn-homepage">
+          <h2>{Labels.textNamePage}</h2>
         </div>
-      </>
+      )}
+      {isFetching && <Loader />}
+      {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
+        <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
+          {posts.map((item) => (
+            <MediaCard
+              key={item._id}
+              item={item}
+              showAllPost={showAllPost}
+              userId={id}
+              findPost={findPost}
+            />
+          ))}
+        </Grid>
+      ) : null}
+
+      {(activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts) && !posts.length
+        ? "No posts whot you want find"
+        : null}
+      <div className="pagination-all">
+        <AllPagin
+          totalPost={totalPost}
+          page={page}
+          actionGetCurrentPage={actionGetCurrentPage}
+          namePage={namePage}
+        />
+      </div>
     </div>
   )
 }

@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable react/jsx-filename-extension */
 import React from "react"
 import Card from "@mui/material/Card"
 import CardMedia from "@mui/material/CardMedia"
@@ -54,6 +52,7 @@ export const MediaCard = ({ item, itemId, findUser }) => {
               <img
                 src={`${UrlAdress.urlPageServer}${item.avatar}`}
                 className="image-post-homepage"
+                alt=""
               />
             </CardMedia>
           )}

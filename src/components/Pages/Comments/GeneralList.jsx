@@ -2,17 +2,7 @@ import React from "react"
 import { Grid } from "@mui/material"
 import { CardComments } from "./CardComments"
 
-export const GeneralList = ({
-  message,
-  userId,
-  postID,
-  initialValues,
-  onSubmit,
-  followedCommentIDL,
-  setFfollowedCommentID,
-  setNumberPostID,
-  deleteComment,
-}) => {
+export const GeneralList = ({ message, onSubmit, deleteComment }) => {
   return (
     <div>
       {message.map((item) => {
@@ -25,26 +15,15 @@ export const GeneralList = ({
             key={item._id}
           >
             <CardComments
-              postID={postID}
               item={item}
-              userId={userId}
-              initialValues={initialValues}
               onSubmit={onSubmit}
-              followedCommentIDL={followedCommentIDL}
-              setFfollowedCommentID={setFfollowedCommentID}
-              setNumberPostID={setNumberPostID}
               deleteComment={deleteComment}
             />
             {item.children.length > 0 && (
               <GeneralList
-                postID={postID}
                 message={item.children}
                 item={item}
-                userId={userId}
-                initialValues={initialValues}
                 onSubmit={onSubmit}
-                setFfollowedCommentID={setFfollowedCommentID}
-                setNumberPostID={setNumberPostID}
                 deleteComment={deleteComment}
               />
             )}

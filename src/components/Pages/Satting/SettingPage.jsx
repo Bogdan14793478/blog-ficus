@@ -13,20 +13,36 @@ import "./SettingPage.css"
 export const SettingPage = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const { name, informUser, dateCreated, id, skills, profession, details, avatar } =
-    useSelector((state) => state.user)
 
+  const tokenUser = localStorage.getItem("passport")
+  function parseJwt(token) {
+    // from jwt-key take info about user
+    const base64Url = token.split(".")[1]
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/")
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          // eslint-disable-next-line prefer-template
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
+        })
+        .join("")
+    )
+    return JSON.parse(jsonPayload)
+  }
+  const { name, email, dateCreated, _id, skills, profession, details, avatar } =
+    parseJwt(tokenUser).user
   function redirectToRegister() {
     history.push("/register")
   }
 
   const onClickdeleteUser = () => {
-    dispatch(deleteUser(id))
+    dispatch(deleteUser(_id))
     redirectToRegister()
   }
   useEffect(() => {
     dispatch(getUserInfo())
-  }, [dispatch, id])
+  }, [dispatch, _id])
   return (
     <>
       <div className="setting-page-wrapper">
@@ -41,9 +57,9 @@ export const SettingPage = () => {
           }}
         >
           <Table
-            id={id}
+            id={_id}
             name={name}
-            informUser={informUser}
+            email={email}
             dateCreated={dateCreated}
             skills={skills}
             profession={profession}
@@ -64,7 +80,7 @@ export const SettingPage = () => {
             buttonName={Labels.buttonUpdUser}
             buttonNameOnForm={Labels.buttonModalNameSetting}
           >
-            <FormUpdateParamUser userId={id} />
+            <FormUpdateParamUser userId={_id} />
           </ModalProvider>
           <Button onClick={onClickdeleteUser}>{Labels.btnUserDeleteUser}</Button>
         </div>

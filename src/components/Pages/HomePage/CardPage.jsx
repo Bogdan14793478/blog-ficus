@@ -48,7 +48,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
   }
 
   function redirectToComments() {
-    history.push(`/comments/coment/${item._id}`)
+    history.push(`/comments/${item._id}`)
   }
 
   const showInfoPost = () => {
@@ -64,6 +64,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           margin: " 0 5px",
           height: "201px",
           position: "relative",
+          opacity: "1",
         }}
       >
         <div className="group-title-deleteicon-card">
@@ -95,7 +96,11 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           )}
         </div>
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            className="description-home-post"
+          >
             {item.description}
           </Typography>
         </CardContent>

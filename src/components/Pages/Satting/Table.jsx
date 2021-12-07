@@ -4,7 +4,7 @@ import { Tableheader } from "../../../constantsName/constants"
 export const Table = ({
   id,
   name,
-  informUser,
+  email,
   dateCreated,
   skills,
   profession,
@@ -28,7 +28,7 @@ export const Table = ({
           <tr>
             <td>{id}</td>
             <td>{name || "no inform"}</td>
-            <td>{informUser}</td>
+            <td>{email}</td>
             <td>{dateCreated}</td>
             <td>{skills || "no inform"}</td>
             <td>{profession || "no inform"}</td>

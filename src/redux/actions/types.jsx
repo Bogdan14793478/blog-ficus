@@ -60,10 +60,10 @@ export const actionTogleIsFetching = (payload) => ({
   payload,
 })
 
-export const actionShowChoosePost = (payload) => ({
-  type: SHOW_INFO_FIND_USER,
-  payload,
-})
+// export const actionShowChoosePost = (payload) => ({
+//   type: SHOW_INFO_FIND_USER,
+//   payload,
+// })
 
 export const actionShowAllCommenstForPost = (payload) => ({
   type: SHOW_ALL_COMMENTS_FOR_POST,
@@ -83,10 +83,10 @@ export const userDeleteAllInform = (payload) => ({
   payload,
 })
 
-export const takeInformUser = (payload) => ({
-  type: INFORM_USER,
-  payload,
-})
+// export const takeInformUser = (payload) => ({
+//   type: INFORM_USER,
+//   payload,
+// })
 
 export const actiongetAllUsers = (payload) => ({
   type: GET_ALL_USERS,
@@ -120,5 +120,17 @@ export const actionShowChooseUser = (payload) => ({
 
 export const actionTogleIsFetchingUser = (payload) => ({
   type: TOGLE_IS_FETCHING_USER,
+  payload,
+})
+
+// AUTH
+
+export const actionShowChoosePost = (payload) => ({
+  type: SHOW_INFO_FIND_USER,
+  payload,
+})
+
+export const takeInformUser = (payload) => ({
+  type: INFORM_USER,
   payload,
 })

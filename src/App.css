@@ -82,7 +82,7 @@ nav ul {
 .image-post-homepage {
   margin-left: 15px;
   width: 100px;
-  height: auto;
+  height: 60px;
 }
 .group-email-profession {
   margin: 0 15px;
@@ -113,7 +113,7 @@ nav ul {
     align-items: baseline;
   }
   .general-page-name {
-    padding: 4px 55px 17px 79px;
+    padding: 4px 55px 4px 79px;
   }
   .button-home-page {
     display: flex;
@@ -156,7 +156,7 @@ nav ul {
     margin-left: 500px;
   }
   .general-page-name {
-    padding: 4px 55px 17px 79px;
+    padding: 4px 55px 4px 79px;
   }
 }
 
@@ -186,6 +186,6 @@ nav ul {
     margin-left: 240px;
   }
   .general-page-name {
-    padding: 4px 55px 17px 79px;
+    padding: 4px 55px 4px 79px;
   }
 }

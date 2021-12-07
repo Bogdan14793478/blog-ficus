@@ -13,17 +13,7 @@ import { ModalProvider } from "../../../context/ModalContext"
 import { actionCommentPlusOrMinusLike } from "../../../redux/actions/types"
 import { FormCreateComment } from "./FormCreateComent"
 
-export const CardComments = ({
-  item,
-  userId,
-  postID,
-  deleteComment,
-  initialValues,
-  onSubmit,
-  followedCommentIDL,
-  setNumberPostID,
-  setFfollowedCommentID,
-}) => {
+export const CardComments = ({ item, userId, postID, deleteComment, onSubmit }) => {
   const [show, setShow] = useState(false)
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
@@ -47,8 +37,6 @@ export const CardComments = ({
 
   const commitOnCommit = () => {
     setShow(!show)
-    setNumberPostID(item._id)
-    setFfollowedCommentID(item.followedCommentID)
   }
   return (
     <>
@@ -79,7 +67,7 @@ export const CardComments = ({
           </div>
           <div className="info-post-coments">
             <p> commented: {item.commentedBy || userId}</p>
-            <p>followed: {item.followedCommentID || followedCommentIDL} </p>
+            <p>followed: {item.followedCommentID || null} </p>
             <p>postId: {item.postID || postID}</p>
             <p>text: {item.text}</p>
           </div>
@@ -99,7 +87,12 @@ export const CardComments = ({
         </Card>
       </Grid>
       {show && (
-        <FormCreateComment initialValues={initialValues} onSubmit={onSubmit} />
+        <FormCreateComment
+          onSubmit={onSubmit}
+          commentId={item._id}
+          followedCommentID={item.followedCommentID}
+          userId={item.commentedBy}
+        />
       )}
     </>
   )

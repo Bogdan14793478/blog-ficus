@@ -10,11 +10,23 @@ const validationSchema = Yup.object().shape({
   text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),
 })
 
-export const FormCreateComment = ({ initialValues, onSubmit }) => {
+export const FormCreateComment = ({
+  onSubmit,
+  commentId,
+  followedCommentID,
+  userId,
+}) => {
   return (
     <div>
       <Formik
-        initialValues={initialValues}
+        initialValues={{
+          text: "",
+          children: [],
+          followed: `${followedCommentID}` || null,
+          commented: userId,
+          _id: "",
+          numberPostID: `${commentId}`,
+        }}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >

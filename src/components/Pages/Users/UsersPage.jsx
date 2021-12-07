@@ -8,13 +8,15 @@ import { MediaCard } from "./MediaCard"
 import { getAllUsers } from "../../../api/usersAxios"
 import { Labels } from "../../../constantsName/constants"
 import { getUserInfo } from "../../../api/auth"
-import { Loader } from "../HomePage/Loader"
+import { Loader } from "../Loader/Loader"
 
 export const UsersPage = () => {
   const { page } = useParams()
   const dispatch = useDispatch()
-  const { currentPage, users, skip, totalPost, id, findUser, isFetching } =
-    useSelector((state) => state.user)
+  const { currentPage, users, skip, totalPost, findUser, isFetching } = useSelector(
+    (state) => state.user
+  )
+  const { id } = useSelector((state) => state.auth)
   const namePage = Labels.ulrUsersPage
   const ofset = page * skip - 10
 
@@ -30,28 +32,26 @@ export const UsersPage = () => {
   return (
     <div>
       <h4 className="general-page-name">{Labels.nameHeaderUserPage}</h4>
-      <>
-        <Grid container spacing={2}>
-          {users?.map((item) => (
-            <MediaCard
-              key={item._id}
-              item={item}
-              userId={id}
-              itemId={item._id}
-              findUser={findUser}
-            />
-          ))}
-        </Grid>
-        <>{isFetching && <Loader />}</>
-        <div className="pagination-all">
-          <AllPagin
-            totalPost={totalPost}
-            page={page}
-            actionGetCurrentPage={actionUsersGetCurrentPage}
-            namePage={namePage}
+      <Grid container spacing={2}>
+        {users?.map((item) => (
+          <MediaCard
+            key={item._id}
+            item={item}
+            userId={id}
+            itemId={item._id}
+            findUser={findUser}
           />
-        </div>
-      </>
+        ))}
+      </Grid>
+      {isFetching && <Loader />}
+      <div className="pagination-all">
+        <AllPagin
+          totalPost={totalPost}
+          page={page}
+          actionGetCurrentPage={actionUsersGetCurrentPage}
+          namePage={namePage}
+        />
+      </div>
     </div>
   )
 }

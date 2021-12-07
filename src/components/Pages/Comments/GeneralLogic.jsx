@@ -1,61 +1,28 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from "react"
+import { nanoid } from "nanoid"
 import { createNewCommit, deleteCommit } from "../../../api/posts"
 import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
+import { findById } from "../../../utils/helpers"
 
 export const GeneralLogic = ({ comments, userId, postID }) => {
   const [message, setMessage] = useState([])
-  const [uniqueId, setUniqueId] = useState(1)
-  const [numberPostID, setNumberPostID] = useState()
-  const [followedCommentIDL, setFfollowedCommentID] = useState()
-
-  const initialValues = {
-    text: "",
-    children: [],
-    followed: null,
-    commented: userId,
-    _id: "",
-  }
-
-  const findById = (data, id) => {
-    for (const element of data) {
-      if (element._id === id) {
-        return element
-      }
-      if (element.children) {
-        const desiredElement = findById(element.children, id)
-        if (desiredElement) {
-          return desiredElement
-        }
-      }
-    }
-    return false
-  }
 
   const onSubmit = (values, props) => {
+    console.log(values, "valuesvalues")
     const clonededMessage = [...message]
-    if (followedCommentIDL === undefined) {
-      // eslint-disable-next-line no-param-reassign
-      values.followed = String(numberPostID)
+    if (values.followedCommentID === undefined) {
       clonededMessage.push(values)
-    } else if (
-      followedCommentIDL === null ||
-      typeof followedCommentIDL === "string"
-    ) {
-      const desiredCommit = findById(clonededMessage, numberPostID)
-      // eslint-disable-next-line no-param-reassign
-      values.followed = String(numberPostID)
+    } else if (typeof values.followedCommentID === "string") {
+      const desiredCommit = findById(clonededMessage, values.numberPostID)
       desiredCommit.children.push(values)
     }
-    const { text } = values
-    const followedCommentID = String(numberPostID)
+    const { text, followedCommentID } = values
     const data = { text, followedCommentID }
     createNewCommit(data, postID)
-    setNumberPostID("")
-    // eslint-disable-next-line no-param-reassign
-    values._id = uniqueId + Date.now() + Math.random()
-    setUniqueId(uniqueId + Date.now() + Math.random())
+    values._id = nanoid()
     setMessage(clonededMessage)
     props.resetForm()
   }
@@ -96,18 +63,12 @@ export const GeneralLogic = ({ comments, userId, postID }) => {
       <div style={{ paddingLeft: "40px" }}>
         <GeneralList
           message={message}
-          userId={userId}
-          postID={postID}
-          initialValues={initialValues}
           onSubmit={onSubmit}
-          followedCommentIDL={followedCommentIDL}
-          setFfollowedCommentID={setFfollowedCommentID}
-          setNumberPostID={setNumberPostID}
           deleteComment={deleteComment}
         />
       </div>
       <div style={{ paddingLeft: "60px" }}>
-        <FormCreateComment initialValues={initialValues} onSubmit={onSubmit} />
+        <FormCreateComment onSubmit={onSubmit} />
       </div>
     </div>
   )

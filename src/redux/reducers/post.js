@@ -10,7 +10,7 @@ import {
   SAVE_IMG_POST,
   TOGLE_IS_FETCHING,
   TOGLE_IS_LOAD_FETCHING_POST,
-  SHOW_INFO_FIND_USER,
+  // SHOW_INFO_FIND_USER,
   SHOW_ALL_COMMENTS_FOR_POST,
   COMMENTS_PLUS_OR_MINUS_LIKE,
 } from "../actions/const"
@@ -23,7 +23,7 @@ const initial = {
   totalPost: 0,
   image: "",
   isFetching: false,
-  findPost: {},
+  // findPost: {},
   comments: [],
 }
 
@@ -104,14 +104,14 @@ export const userPosts = (state = initial, action) => {
         ...state,
         posts: statePostImg,
       }
-    case SHOW_INFO_FIND_USER:
-      const showFindPost = action.payload.postResponse.data
-      return {
-        ...state,
-        findPost: showFindPost,
-      }
+    // case SHOW_INFO_FIND_USER:
+    //   const showFindPost = action.payload.postResponse.data
+    //   return {
+    //     ...state,
+    //     findPost: showFindPost,
+    //   }
     case SHOW_ALL_COMMENTS_FOR_POST:
-      return { ...state, comments: action.payload.res.data }
+      return { ...state, comments: action.payload.data }
     case COMMENTS_PLUS_OR_MINUS_LIKE:
       const comments = [...state.comments]
       const findIndItem = comments.findIndex(

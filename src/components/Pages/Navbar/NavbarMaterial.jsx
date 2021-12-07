@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { AccountCircle, Message } from "@mui/icons-material"
 import {
   AppBar,
@@ -59,6 +59,8 @@ export const NavbarMaterial = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
+  const { name } = useSelector((state) => state.auth)
+
   function redirectToLogin() {
     history.push("/login")
   }
@@ -83,7 +85,6 @@ export const NavbarMaterial = () => {
     dispatch(userDeleteAllInform())
     dispatch(actionPostDeleteAllInform(null))
     removeFromStorage("passport")
-    removeFromStorage("userId")
     redirectToLogin()
   }
 
@@ -142,7 +143,7 @@ export const NavbarMaterial = () => {
                 }}
                 component="span"
               >
-                {Labels.iconNameNavbar}
+                {name || Labels.iconNameNavbar}
               </Typography>
             </IconButton>
             <Menu
