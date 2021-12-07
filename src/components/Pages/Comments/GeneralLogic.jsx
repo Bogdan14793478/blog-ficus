@@ -7,7 +7,7 @@ import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
 import { findById } from "../../../utils/helpers"
 
-export const GeneralLogic = ({ comments, userId, postID }) => {
+export const GeneralLogic = ({ comments, postID }) => {
   const [message, setMessage] = useState([])
 
   const onSubmit = (values, props) => {
