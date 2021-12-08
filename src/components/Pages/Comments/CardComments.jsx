@@ -30,6 +30,7 @@ export const CardComments = ({ item, postID, deleteComment, onSubmit }) => {
   )
 
   const tokenUser = localStorage.getItem("passport")
+
   const userId = parseJwt(tokenUser).user._id
 
   const countCommentLikes = (e) => {
@@ -94,8 +95,8 @@ export const CardComments = ({ item, postID, deleteComment, onSubmit }) => {
         <FormCreateComment
           onSubmit={onSubmit}
           commentId={item._id}
-          followedCommentID={item.followedCommentID}
-          userId={item.commentedBy}
+          followedCommentID={item._id}
+          userId={userId}
         />
       )}
     </>

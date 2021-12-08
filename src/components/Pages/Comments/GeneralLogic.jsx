@@ -40,8 +40,6 @@ export const GeneralLogic = ({ comments, postID }) => {
     deleteCommit(comentID)
   }
 
-  console.log(message, "message")
-
   useEffect(() => {
     const messages = []
     for (const item of comments) {

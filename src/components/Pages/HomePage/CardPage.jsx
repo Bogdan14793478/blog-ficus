@@ -58,7 +58,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
   }
 
   return (
-    <Grid item xs={16} md={3}>
+    <Grid item s={16} md={3}>
       <Card
         sx={{
           margin: " 0 5px",

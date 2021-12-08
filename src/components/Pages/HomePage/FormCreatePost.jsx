@@ -1,6 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable no-restricted-globals */
-/* eslint-disable react/jsx-curly-brace-presence */
 import React, { useContext } from "react"
 import { useDispatch } from "react-redux"
 import { Form, Formik, FieldArray } from "formik"
@@ -26,6 +24,26 @@ const validationSchema = Yup.object().shape({
     .min(20, ErrorMsg.checkShortPassword)
     .required(ErrorMsg.resultRequired),
   description: Yup.string().required(ErrorMsg.resultRequired),
+  file: Yup.array()
+    .of(
+      Yup.object()
+        .shape({
+          file: Yup.mixed()
+            .test("fileSize", "Размер не больше 10 мб", (value) => {
+              if (!value) {
+                return false
+              }
+              return value.size < 100000
+            })
+            .required(),
+          type: Yup.string()
+            .oneOf(["image/jpeg"], "Добавьте файл с правльным форматом")
+            .required(),
+          name: Yup.string().required(),
+        })
+        .typeError("Добавьте файл")
+    )
+    .nullable(),
 })
 
 export const FormCreatePost = ({ onSubmitPost, postId }) => {
@@ -75,7 +93,7 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
               sx={{ width: "300px", marginLeft: "20px", paddingBottom: "10px" }}
               onChange={handleChange}
             />
-            <FieldArray name={`file`}>
+            <FieldArray name="file">
               <p>
                 <input
                   accept="image/*"
@@ -83,8 +101,8 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
                   onChange={(event) => {
                     setFieldValue("file", event.currentTarget.files[0])
                   }}
-                  type={`file`}
-                  name={`file`}
+                  type="file"
+                  name="file"
                 />
               </p>
             </FieldArray>

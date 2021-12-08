@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { Button, CardMedia, Grid } from "@mui/material"
 import { Labels } from "../../../constantsName/constants"

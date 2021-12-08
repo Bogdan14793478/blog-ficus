@@ -1,4 +1,3 @@
-/* eslint-disable react/self-closing-comp */
 import React, { useState, useEffect, useContext } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"

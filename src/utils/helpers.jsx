@@ -33,8 +33,8 @@ export const findById = (data, id) => {
   return false
 }
 
+// from jwt-key take info about user
 export function parseJwt(token) {
-  // from jwt-key take info about user
   const base64Url = token.split(".")[1]
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/")
   const jsonPayload = decodeURIComponent(

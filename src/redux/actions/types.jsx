@@ -60,11 +60,6 @@ export const actionTogleIsFetching = (payload) => ({
   payload,
 })
 
-// export const actionShowChoosePost = (payload) => ({
-//   type: SHOW_INFO_FIND_USER,
-//   payload,
-// })
-
 export const actionShowAllCommenstForPost = (payload) => ({
   type: SHOW_ALL_COMMENTS_FOR_POST,
   payload,
@@ -82,11 +77,6 @@ export const userDeleteAllInform = (payload) => ({
   type: USER_DELETE_ALL_INFORM,
   payload,
 })
-
-// export const takeInformUser = (payload) => ({
-//   type: INFORM_USER,
-//   payload,
-// })
 
 export const actiongetAllUsers = (payload) => ({
   type: GET_ALL_USERS,
