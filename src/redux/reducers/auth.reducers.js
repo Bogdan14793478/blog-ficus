@@ -1,8 +1,7 @@
 /* eslint-disable no-case-declarations */
-import { SHOW_INFO_FIND_USER, INFORM_USER } from "../actions/const"
+import { INFORM_USER } from "../actions/const"
 
 const initial = {
-  findPost: {},
   dateCreated: "",
   name: "",
   skills: "",
@@ -15,12 +14,6 @@ const initial = {
 
 export const authReducer = (state = initial, action) => {
   switch (action.type) {
-    case SHOW_INFO_FIND_USER:
-      const showFindPost = action.payload.postResponse.data
-      return {
-        ...state,
-        findPost: showFindPost,
-      }
     case INFORM_USER:
       return {
         ...state,

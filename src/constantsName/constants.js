@@ -90,3 +90,5 @@ export const Tableheader = {
   details: "Details",
   descriptions: "Description",
 }
+
+export const maxSizeFile = { fileSize: 100000 }

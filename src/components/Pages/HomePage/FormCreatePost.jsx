@@ -6,7 +6,7 @@ import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
-import { ErrorMsg } from "../../../constantsName/constants"
+import { ErrorMsg, maxSizeFile } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
 
 const initialValues = {
@@ -29,19 +29,22 @@ const validationSchema = Yup.object().shape({
       Yup.object()
         .shape({
           file: Yup.mixed()
-            .test("fileSize", "Размер не больше 10 мб", (value) => {
+            .test("fileSize", "Size no more than 10 mb", (value) => {
               if (!value) {
                 return false
               }
-              return value.size < 100000
+              return value.size < maxSizeFile.fileSize
             })
             .required(),
           type: Yup.string()
-            .oneOf(["image/jpeg"], "Добавьте файл с правльным форматом")
+            .oneOf(
+              ["image/jpeg", "image/gif", "application/pdf"],
+              "Add file with correct format"
+            )
             .required(),
           name: Yup.string().required(),
         })
-        .typeError("Добавьте файл")
+        .typeError("Add file")
     )
     .nullable(),
 })

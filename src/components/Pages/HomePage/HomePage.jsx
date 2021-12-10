@@ -46,7 +46,7 @@ export const HomePage = () => {
   const { currentPage, posts, skip, totalPost, isFetching } = useSelector(
     (state) => state.post
   )
-  const { findPost } = useSelector((state) => state.auth)
+  const { findPost } = useSelector((state) => state.post)
 
   const { id } = useSelector((state) => state.auth)
   const history = useHistory()

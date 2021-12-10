@@ -10,8 +10,7 @@ export const CommentsPage = () => {
   const { postID } = useParams()
   const dispatch = useDispatch()
 
-  const { comments } = useSelector((state) => state.post)
-  const { findPost } = useSelector((state) => state.auth)
+  const { comments, findPost } = useSelector((state) => state.post)
 
   useEffect(() => {
     dispatch(showChoosePostInfo(postID))

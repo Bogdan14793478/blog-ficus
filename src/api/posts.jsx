@@ -85,9 +85,7 @@ export function deletePost(postId) {
 export function showChoosePostInfo(postId) {
   return async (dispatch) => {
     const postResponse = await axiosInstance.get(`posts/${postId}`)
-    if (postResponse) {
-      dispatch(actionShowChoosePost({ postResponse }))
-    }
+    dispatch(actionShowChoosePost({ postResponse }))
   }
 }
 

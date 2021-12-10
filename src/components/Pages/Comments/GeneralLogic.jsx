@@ -5,16 +5,19 @@ import { nanoid } from "nanoid"
 import { createNewCommit, deleteCommit } from "../../../api/posts"
 import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
-import { findById } from "../../../utils/helpers"
+import { findById, parseJwt } from "../../../utils/helpers"
 
 export const GeneralLogic = ({ comments, postID }) => {
   const [message, setMessage] = useState([])
 
+  const tokenUser = localStorage.getItem("passport")
+  const userId = parseJwt(tokenUser).user._id
+
   const onSubmit = (values, props) => {
     const clonededMessage = [...message]
-    if (values.followedCommentID === undefined) {
+    if (!values.followedCommentID) {
       clonededMessage.push(values)
-    } else if (typeof values.followedCommentID === "string") {
+    } else {
       const desiredCommit = findById(clonededMessage, values.numberPostID)
       desiredCommit.children.push(values)
     }
@@ -62,10 +65,11 @@ export const GeneralLogic = ({ comments, postID }) => {
           message={message}
           onSubmit={onSubmit}
           deleteComment={deleteComment}
+          userId={userId}
         />
       </div>
       <div style={{ paddingLeft: "60px" }}>
-        <FormCreateComment onSubmit={onSubmit} />
+        <FormCreateComment onSubmit={onSubmit} userId={userId} />
       </div>
     </div>
   )

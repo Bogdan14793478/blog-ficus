@@ -22,7 +22,7 @@ export const FormCreateComment = ({
         initialValues={{
           text: "",
           children: [],
-          followedCommentID: `${followedCommentID}` || null,
+          followedCommentID: followedCommentID || null,
           commentedBy: userId,
           _id: "",
           numberPostID: `${commentId}`,

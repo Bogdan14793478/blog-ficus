@@ -41,8 +41,7 @@ export function parseJwt(token) {
     atob(base64)
       .split("")
       .map(function (c) {
-        // eslint-disable-next-line prefer-template
-        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
+        return `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`
       })
       .join("")
   )

@@ -12,9 +12,8 @@ import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { actionCommentPlusOrMinusLike } from "../../../redux/actions/types"
 import { FormCreateComment } from "./FormCreateComent"
-import { parseJwt } from "../../../utils/helpers"
 
-export const CardComments = ({ item, postID, deleteComment, onSubmit }) => {
+export const CardComments = ({ item, postID, deleteComment, onSubmit, userId }) => {
   const [show, setShow] = useState(false)
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
@@ -28,10 +27,6 @@ export const CardComments = ({ item, postID, deleteComment, onSubmit }) => {
     debounce((itemS) => putLikeCommit(item._id), 1000),
     []
   )
-
-  const tokenUser = localStorage.getItem("passport")
-
-  const userId = parseJwt(tokenUser).user._id
 
   const countCommentLikes = (e) => {
     dispatch(

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { Button, CardMedia, Grid } from "@mui/material"
 import { Labels } from "../../../constantsName/constants"
@@ -11,38 +11,22 @@ import { ModalProvider } from "../../../context"
 import "./SettingPage.css"
 
 export const SettingPage = () => {
+  const { name, email, dateCreated, id, skills, profession, details, avatar } =
+    useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const tokenUser = localStorage.getItem("passport")
-  function parseJwt(token) {
-    // from jwt-key take info about user
-    const base64Url = token.split(".")[1]
-    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/")
-    const jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split("")
-        .map(function (c) {
-          // eslint-disable-next-line prefer-template
-          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
-        })
-        .join("")
-    )
-    return JSON.parse(jsonPayload)
-  }
-  const { name, email, dateCreated, _id, skills, profession, details, avatar } =
-    parseJwt(tokenUser).user
   function redirectToRegister() {
     history.push("/register")
   }
 
   const onClickdeleteUser = () => {
-    dispatch(deleteUser(_id))
+    dispatch(deleteUser(id))
     redirectToRegister()
   }
   useEffect(() => {
     dispatch(getUserInfo())
-  }, [dispatch, _id])
+  }, [dispatch, id])
   return (
     <>
       <div className="setting-page-wrapper">
@@ -57,7 +41,7 @@ export const SettingPage = () => {
           }}
         >
           <Table
-            id={_id}
+            id={id}
             name={name}
             email={email}
             dateCreated={dateCreated}
@@ -80,7 +64,7 @@ export const SettingPage = () => {
             buttonName={Labels.buttonUpdUser}
             buttonNameOnForm={Labels.buttonModalNameSetting}
           >
-            <FormUpdateParamUser userId={_id} />
+            <FormUpdateParamUser userId={id} />
           </ModalProvider>
           <Button onClick={onClickdeleteUser}>{Labels.btnUserDeleteUser}</Button>
         </div>
