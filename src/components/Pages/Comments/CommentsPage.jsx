@@ -1,5 +1,4 @@
-import React, { useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import React, { useState, useEffect } from "react"
 import { useParams } from "react-router"
 import { Table } from "../HomePage/Table"
 import { showChoosePostInfo, loadAllCommentsForPost } from "../../../api/posts"
@@ -7,16 +6,22 @@ import { GeneralLogic } from "./GeneralLogic"
 import "./CommentsPage.css"
 
 export const CommentsPage = () => {
+  const [comments, setComments] = useState([])
+  const [findPost, setFindPost] = useState({})
   const { postID } = useParams()
-  const dispatch = useDispatch()
 
-  const { comments, findPost } = useSelector((state) => state.post)
+  console.log(comments, "comments")
 
   useEffect(() => {
-    dispatch(showChoosePostInfo(postID))
-    dispatch(loadAllCommentsForPost(postID))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    async function takeDate() {
+      const commentLoad = await loadAllCommentsForPost(postID)
+      const choosePost = await showChoosePostInfo(postID)
+      setFindPost(choosePost.data)
+      setComments(commentLoad.data)
+    }
+    takeDate()
+  }, [postID])
+
   return (
     <div>
       <h6 className="app-wrapper-setting">Comments page</h6>

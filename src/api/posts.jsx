@@ -5,8 +5,6 @@ import {
   actionputPostFromDispatch,
   actionSaveImgPost,
   actionTogleIsFetching,
-  actionShowChoosePost,
-  actionShowAllCommenstForPost,
 } from "../redux/actions/types"
 
 export function putLikePost(numberPost) {
@@ -82,19 +80,14 @@ export function deletePost(postId) {
   axiosInstance.delete(`posts/${postId}`)
 }
 
-export function showChoosePostInfo(postId) {
-  return async (dispatch) => {
-    const postResponse = await axiosInstance.get(`posts/${postId}`)
-    dispatch(actionShowChoosePost({ postResponse }))
-  }
+export async function showChoosePostInfo(postId) {
+  const postResponse = await axiosInstance.get(`posts/${postId}`)
+  return postResponse
 }
 
-export function loadAllCommentsForPost(postId) {
-  return async (dispatch) => {
-    axiosInstance.get(`comments/post/${postId}`).then((res) => {
-      dispatch(actionShowAllCommenstForPost(res))
-    })
-  }
+export async function loadAllCommentsForPost(postId) {
+  const allComment = await axiosInstance.get(`comments/post/${postId}`)
+  return allComment
 }
 
 export function putLikeCommit(userID) {

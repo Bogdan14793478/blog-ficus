@@ -53,8 +53,12 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
 
   const showInfoPost = () => {
     redirectToComments()
-    dispatch(showChoosePostInfo(item._id))
-    dispatch(loadAllCommentsForPost(item._id))
+    // const commentLoad = await loadAllCommentsForPost(item._id)
+    // const choosePost = await showChoosePostInfo(item._id)
+    // console.log(commentLoad, "commentLoad")
+    // console.log(choosePost, "choosePost")
+    // dispatch(showChoosePostInfo(item._id))
+    // dispatch(loadAllCommentsForPost(item._id))
   }
 
   return (

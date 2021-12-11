@@ -10,9 +10,7 @@ import {
   SAVE_IMG_POST,
   TOGLE_IS_FETCHING,
   TOGLE_IS_LOAD_FETCHING_POST,
-  SHOW_ALL_COMMENTS_FOR_POST,
   COMMENTS_PLUS_OR_MINUS_LIKE,
-  SHOW_INFO_FIND_POST,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
 const initial = {
@@ -23,8 +21,6 @@ const initial = {
   totalPost: 0,
   image: "",
   isFetching: false,
-  comments: [],
-  findPost: {},
 }
 
 export const userPosts = (state = initial, action) => {
@@ -104,8 +100,6 @@ export const userPosts = (state = initial, action) => {
         ...state,
         posts: statePostImg,
       }
-    case SHOW_ALL_COMMENTS_FOR_POST:
-      return { ...state, comments: action.payload.data }
     case COMMENTS_PLUS_OR_MINUS_LIKE:
       const comments = [...state.comments]
       const findIndItem = comments.findIndex(
@@ -123,12 +117,6 @@ export const userPosts = (state = initial, action) => {
         findComment.likes.push(action.payload.itemId)
       }
       return { ...state, comments }
-    case SHOW_INFO_FIND_POST:
-      const showFindPost = action.payload.postResponse.data
-      return {
-        ...state,
-        findPost: showFindPost,
-      }
     default:
       return state
   }

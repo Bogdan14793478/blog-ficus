@@ -8,8 +8,6 @@ import {
   POST_PUT,
   SAVE_IMG_POST,
   TOGLE_IS_FETCHING,
-  SHOW_INFO_FIND_POST,
-  SHOW_ALL_COMMENTS_FOR_POST,
   COMMENTS_PLUS_OR_MINUS_LIKE,
   USER_IS_AUTH,
   USER_DELETE_ALL_INFORM,
@@ -60,20 +58,11 @@ export const actionTogleIsFetching = (payload) => ({
   payload,
 })
 
-export const actionShowAllCommenstForPost = (payload) => ({
-  type: SHOW_ALL_COMMENTS_FOR_POST,
-  payload,
-})
-
 export const actionCommentPlusOrMinusLike = (payload) => ({
   type: COMMENTS_PLUS_OR_MINUS_LIKE,
   payload,
 })
 
-export const actionShowChoosePost = (payload) => ({
-  type: SHOW_INFO_FIND_POST,
-  payload,
-})
 // USER
 
 export const userIsAuth = (payload) => ({ type: USER_IS_AUTH, payload })
