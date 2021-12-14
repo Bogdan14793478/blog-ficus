@@ -9,7 +9,11 @@ import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
 import { Labels, ErrorMsg } from "../../constantsName/constants"
 
-const initialValues = {
+type InitialValuesTypes = {
+  email: string
+  password: string
+}
+const initialValues: InitialValuesTypes = {
   email: "",
   password: "",
 }
@@ -32,13 +36,13 @@ export const Register = () => {
     history.push("/")
   }
 
-  async function startRegistr(data) {
+  async function startRegistr(data: object) {
     const status = await registerOrLogin(data)
     if (status) {
       redirectToLogin()
     }
   }
-  const onSubmit = (values, props) => {
+  const onSubmit = (values: object, props: any) => {
     const type = { ...values, type: "register" }
     startRegistr(type, props)
     props.resetForm()
