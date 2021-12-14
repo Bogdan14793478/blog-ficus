@@ -11,7 +11,26 @@ import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { FormCreateComment } from "./FormCreateComent"
 
-export const CardComments = ({
+type ObjectComments = {
+  _id: string
+  children: null | ObjectComments[]
+  commentedBy: string
+  dateCreated: string
+  followedCommentID: null | string
+  likes: null | Array<string>
+  postID: string
+  text: string
+  __v: number
+}
+type PropsType = {
+  item: ObjectComments
+  postID: string
+  deleteComment: () => {}
+  onSubmit: () => {}
+  userId: string
+  plusOrMinusLike: () => {}
+}
+export const CardComments: React.FC<PropsType> = ({
   item,
   postID,
   deleteComment,

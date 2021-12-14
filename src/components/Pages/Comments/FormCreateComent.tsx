@@ -10,7 +10,34 @@ const validationSchema = Yup.object().shape({
   text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),
 })
 
-export const FormCreateComment = ({
+// type ObjectComments = {
+//   _id: string
+//   children: null | ObjectComments[]
+//   commentedBy: string
+//   dateCreated: string
+//   followedCommentID: null | string
+//   likes: null | [string]
+//   postID: string
+//   text: string
+//   __v: number
+// }
+// type InitialValuesTypes = {
+//   text: string
+//   children: ObjectComments[]
+//   followedCommentID: null | string
+//   commentedBy: string
+//   _id: string
+//   numberPostID: string
+// }  у меня в формике создан обьект, нужно ли его раскрывать и как? а
+// то мне красным все подчеркивает
+
+type PropsType = {
+  onSubmit: () => {}
+  commentId: string
+  followedCommentID: null | string
+  userId: string
+}
+export const FormCreateComment: React.FC<PropsType> = ({
   onSubmit,
   commentId,
   followedCommentID,

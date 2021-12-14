@@ -12,26 +12,26 @@ import {
   // TOGLE_IS_LOAD_FETCHING_POST,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
-type ArrError = [String]
-type ArrLikes = [String]
+type ArrError = [string]
+type ArrLikes = [string]
 type ArrPosts = {
   _id: String
-  likes: Array<ArrLikes>
-  title: String
-  description: String
-  dateCreated: String
+  likes: ArrLikes[]
+  title: string
+  description: string
+  dateCreated: string
   postedBy: string | null
-  image: String
-  __v: Number
+  image: string
+  __v: number
 }
 export type InitialType = {
-  posts: Array<ArrPosts>
-  error: Array<ArrError>
-  currentPage: Number
-  skip: Number
-  totalPost: Number
-  image: String
-  isFetching: Boolean
+  posts: ArrPosts[]
+  error: ArrError[]
+  currentPage: number
+  skip: number
+  totalPost: number
+  image: string
+  isFetching: boolean
 }
 
 const initial: InitialType = {

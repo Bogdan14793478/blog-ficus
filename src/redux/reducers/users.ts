@@ -24,12 +24,12 @@ type ObjectUser = {
 }
 
 export type UserType = {
-  isAuth: Boolean
+  isAuth: boolean
   users: ObjectUser[]
-  skip: Number
-  totalPost: Number
-  currentPage: Number
-  isFetching: Boolean
+  skip: number
+  totalPost: number
+  currentPage: number
+  isFetching: boolean
   findUser: ObjectUser | null
 }
 const user: UserType = {

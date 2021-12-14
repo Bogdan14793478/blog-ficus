@@ -7,13 +7,29 @@ import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
 import { findById, parseJwt } from "../../../utils/helpers"
 
-export const GeneralLogic = ({ comments, postID }) => {
+type ObjectComments = {
+  _id: string
+  children: null | ObjectComments[] // ???
+  commentedBy: string
+  dateCreated: string
+  followedCommentID: null | string
+  likes: null | [string] // ????
+  postID: string
+  text: string
+  __v: number
+}
+
+type PropsType = {
+  comments: ObjectComments[]
+  postID: string
+}
+export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
   const [message, setMessage] = useState([])
 
   const tokenUser = localStorage.getItem("passport")
   const userId = parseJwt(tokenUser).user._id
 
-  const onSubmit = (values, props) => {
+  const onSubmit = (values: object, props: any) => {
     const clonededMessage = [...message]
     if (!values.followedCommentID) {
       clonededMessage.push(values)
@@ -29,7 +45,7 @@ export const GeneralLogic = ({ comments, postID }) => {
     props.resetForm()
   }
 
-  const deleteComment = (comentID, parentPostID) => {
+  const deleteComment = (comentID: string, parentPostID: string) => {
     let clonededMessage = [...message]
     if (parentPostID) {
       const parentComment = findById(clonededMessage, parentPostID)
@@ -43,7 +59,7 @@ export const GeneralLogic = ({ comments, postID }) => {
     deleteCommit(comentID)
   }
 
-  const plusOrMinusLike = (itemId, postId, parentPostID) => {
+  const plusOrMinusLike = (itemId: string, postId: string, parentPostID: string) => {
     const clonededMessage = [...message]
     if (parentPostID) {
       const parentComment = findById(clonededMessage, parentPostID)

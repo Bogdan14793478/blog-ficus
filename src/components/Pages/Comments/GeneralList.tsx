@@ -2,7 +2,27 @@ import React from "react"
 import { Grid } from "@mui/material"
 import { CardComments } from "./CardComments"
 
-export const GeneralList = ({
+type ObjectComments = {
+  _id: string
+  children: null | ObjectComments[] // ???
+  commentedBy: string
+  dateCreated: string
+  followedCommentID: null | string
+  likes: null | Array<string> // ????
+  postID: string
+  text: string
+  __v: number
+}
+
+type PropsType = {
+  message: ObjectComments[]
+  onSubmit: () => {}
+  deleteComment: () => {}
+  userId: string
+  plusOrMinusLike: () => {}
+}
+
+export const GeneralList: React.FC<PropsType> = ({
   message,
   onSubmit,
   deleteComment,

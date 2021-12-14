@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router"
-import { Table } from "../HomePage/Table"
+import { Table } from "./Table"
 import { showChoosePostInfo, loadAllCommentsForPost } from "../../../api/posts"
 import { GeneralLogic } from "./GeneralLogic"
 import "./CommentsPage.css"
