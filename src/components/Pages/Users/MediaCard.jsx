@@ -4,7 +4,7 @@ import CardMedia from "@mui/material/CardMedia"
 import Typography from "@mui/material/Typography"
 import { Grid } from "@mui/material"
 import { useDispatch } from "react-redux"
-import { actionShowChooseUser } from "../../../redux/actions/types"
+import { actionShowChooseUser } from "../../../redux/actions/types.ts"
 import { Labels, UrlAdress } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { Table } from "./Table"
@@ -39,7 +39,7 @@ export const MediaCard = ({ item, itemId, findUser }) => {
         </div>
         <div className="group-email-profession">
           <Typography gutterBottom variant="h7" component="div">
-            {item.email}, {item.profession},
+            {item.email},{item.profession},
           </Typography>
         </div>
         <div className="avatar-user-user-page">

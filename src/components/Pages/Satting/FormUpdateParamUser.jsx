@@ -88,7 +88,7 @@ export const FormUpdateParamUser = ({ userId }) => {
                 <input
                   accept="image/*"
                   id="icon-button-photo"
-                  onChange={(event) => {
+                  onChange={event => {
                     setFieldValue("file", event.currentTarget.files[0])
                   }}
                   type="file"

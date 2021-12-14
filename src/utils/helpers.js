@@ -5,14 +5,14 @@ export const setToStorage = (data, key) => {
   localStorage.setItem(key, data)
 }
 
-export const removeFromStorage = (key) => {
+export const removeFromStorage = key => {
   localStorage.removeItem(key)
 }
 
-export const notifySuccess = (message) => {
+export const notifySuccess = message => {
   toast.success(message, { position: toast.POSITION.TOP_CENTER })
 }
-export const notifyError = (message) => {
+export const notifyError = message => {
   toast.error(message, { position: toast.POSITION.TOP_CENTER })
 }
 
@@ -40,7 +40,7 @@ export function parseJwt(token) {
   const jsonPayload = decodeURIComponent(
     atob(base64)
       .split("")
-      .map(function (c) {
+      .map(c => {
         return `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`
       })
       .join("")

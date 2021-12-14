@@ -15,7 +15,7 @@ export const CustomizedInputBase = ({
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search in posts"
         value={searchPosts}
-        onChange={(event) => {
+        onChange={event => {
           setSearchPosts(event.target.value)
         }}
       />

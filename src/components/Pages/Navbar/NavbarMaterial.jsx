@@ -18,7 +18,7 @@ import {
   userIsAuth,
   userDeleteAllInform,
   actionPostDeleteAllInform,
-} from "../../../redux/actions/types"
+} from "../../../redux/actions/types.ts"
 import { removeFromStorage } from "../../../utils/helpers"
 import { Labels } from "../../../constantsName/constants"
 
@@ -59,7 +59,7 @@ export const NavbarMaterial = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const { name } = useSelector((state) => state.auth)
+  const { name } = useSelector(state => state.auth)
 
   function redirectToLogin() {
     history.push("/login")
@@ -68,7 +68,7 @@ export const NavbarMaterial = () => {
     history.push("/setting")
   }
 
-  const handleMenu = (event) => {
+  const handleMenu = event => {
     setAnchorEl(event.currentTarget)
   }
 

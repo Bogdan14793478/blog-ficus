@@ -5,7 +5,7 @@ import {
   actionSaveUserAvatar,
   actionTogleIsFetchingUser,
   takeInformUser,
-} from "../redux/actions/types"
+} from "../redux/actions/types.ts"
 import { axiosInstance } from "./axios"
 
 export function getAllUsers(skip) {
@@ -14,7 +14,7 @@ export function getAllUsers(skip) {
   })
 
   const url = `users?${params.toString()}`
-  return async (dispatch) => {
+  return async dispatch => {
     dispatch(actionTogleIsFetchingUser(true))
     axiosInstance.get(url).then(({ data }) => {
       dispatch(actionTogleIsFetchingUser(false))
@@ -24,8 +24,8 @@ export function getAllUsers(skip) {
 }
 
 export function deleteUser(userId) {
-  return async (dispatch) => {
-    axiosInstance.delete(`users/${userId}`).then((res) => {
+  return async dispatch => {
+    axiosInstance.delete(`users/${userId}`).then(res => {
       dispatch(actionDeleteUser(res.config.data))
     })
   }
@@ -34,8 +34,8 @@ export function deleteUser(userId) {
 export function updateInformUser(data, photoFile, userId) {
   const formData = new FormData()
   formData.append("avatar", photoFile)
-  return async (dispatch) => {
-    axiosInstance.patch(`users/${userId}`, data).then((res) => {
+  return async dispatch => {
+    axiosInstance.patch(`users/${userId}`, data).then(() => {
       dispatch(actionUserUpdateInform({ data }))
     })
     if (photoFile) {
@@ -45,7 +45,7 @@ export function updateInformUser(data, photoFile, userId) {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then((res) => {
+        .then(res => {
           dispatch(actionSaveUserAvatar({ res }))
         })
     }
@@ -53,7 +53,7 @@ export function updateInformUser(data, photoFile, userId) {
 }
 
 export function showInfoUser(userID) {
-  return async (dispatch) => {
+  return async dispatch => {
     axiosInstance
       .get(`users/${userID}`)
       .then(({ data }) => dispatch(takeInformUser(data)))

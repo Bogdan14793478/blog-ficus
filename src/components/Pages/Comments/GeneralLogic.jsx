@@ -34,13 +34,46 @@ export const GeneralLogic = ({ comments, postID }) => {
     if (parentPostID) {
       const parentComment = findById(clonededMessage, parentPostID)
       parentComment.children = parentComment.children.filter(
-        (child) => child._id !== comentID
+        child => child._id !== comentID
       )
     } else {
-      clonededMessage = clonededMessage.filter((mes) => mes._id !== comentID)
+      clonededMessage = clonededMessage.filter(mes => mes._id !== comentID)
     }
     setMessage(clonededMessage)
     deleteCommit(comentID)
+  }
+
+  const plusOrMinusLike = (itemId, postId, parentPostID) => {
+    const clonededMessage = [...message]
+    if (parentPostID) {
+      const parentComment = findById(clonededMessage, parentPostID)
+      parentComment.children = parentComment.children.filter(
+        child => child._id === postId
+      )
+      const foundedLikeComment = parentComment.children[0].likes?.find(
+        like => like === itemId
+      )
+      if (foundedLikeComment) {
+        parentComment.children[0].likes = parentComment.children[0].likes?.filter(
+          like => like !== itemId
+        )
+      } else {
+        parentComment.children[0].likes.push(itemId)
+      }
+      setMessage(clonededMessage)
+    } else {
+      const findIndItem = clonededMessage.findIndex(
+        comment => comment._id === postId
+      )
+      const findComment = clonededMessage[findIndItem]
+      const foundedLikeComment = findComment.likes.find(like => like === itemId)
+      if (foundedLikeComment) {
+        findComment.likes = findComment.likes.filter(like => like !== itemId)
+      } else {
+        findComment.likes.push(itemId)
+      }
+      setMessage(clonededMessage)
+    }
   }
 
   useEffect(() => {
@@ -49,7 +82,7 @@ export const GeneralLogic = ({ comments, postID }) => {
       item.children = []
       if (!item.followedCommentID) {
         const filterdMessages = comments.filter(
-          (filteredItem) => item._id === filteredItem.followedCommentID
+          filteredItem => item._id === filteredItem.followedCommentID
         )
         item.children = filterdMessages
         messages.push(item)
@@ -66,6 +99,7 @@ export const GeneralLogic = ({ comments, postID }) => {
           onSubmit={onSubmit}
           deleteComment={deleteComment}
           userId={userId}
+          plusOrMinusLike={plusOrMinusLike}
         />
       </div>
       <div style={{ paddingLeft: "60px" }}>

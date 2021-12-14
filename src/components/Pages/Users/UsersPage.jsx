@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { Grid } from "@mui/material"
-import { actionUsersGetCurrentPage } from "../../../redux/actions/types"
+import { actionUsersGetCurrentPage } from "../../../redux/actions/types.ts"
 import { AllPagin } from "../../Pagination"
 import { MediaCard } from "./MediaCard"
 import { getAllUsers } from "../../../api/usersAxios"
@@ -14,9 +14,9 @@ export const UsersPage = () => {
   const { page } = useParams()
   const dispatch = useDispatch()
   const { currentPage, users, skip, totalPost, findUser, isFetching } = useSelector(
-    (state) => state.user
+    state => state.user
   )
-  const { id } = useSelector((state) => state.auth)
+  const { id } = useSelector(state => state.auth)
   const namePage = Labels.ulrUsersPage
   const ofset = page * skip - 10
 
@@ -33,7 +33,7 @@ export const UsersPage = () => {
     <div>
       <h4 className="general-page-name">{Labels.nameHeaderUserPage}</h4>
       <Grid container spacing={2}>
-        {users?.map((item) => (
+        {users?.map(item => (
           <MediaCard
             key={item._id}
             item={item}

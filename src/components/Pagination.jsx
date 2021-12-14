@@ -13,7 +13,7 @@ export const AllPagin = ({ totalPost, page, actionGetCurrentPage, namePage }) =>
       count={totalPost}
       page={+page}
       onChange={(e, numpage) => dispatch(actionGetCurrentPage(numpage))}
-      renderItem={(item) => (
+      renderItem={item => (
         <PaginationItem component={Link} to={`${namePage}${item.page}`} {...item} />
       )}
     />

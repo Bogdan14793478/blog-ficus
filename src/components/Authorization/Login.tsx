@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React from "react"
 import { useHistory } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import "./Login.css"
@@ -10,8 +10,14 @@ import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
 import { userIsAuth } from "../../redux/actions/types"
 import { Labels, ErrorMsg } from "../../constantsName/constants"
+// import { useAppSelector } from "../../hooks"
 
-const initialValues = {
+type InitialValuesTypes = {
+  validateOnMount: boolean
+  email: string
+  password: string
+}
+const initialValues: InitialValuesTypes = {
   validateOnMount: true,
   email: "",
   password: "",
@@ -30,7 +36,7 @@ const validationSchema = Yup.object().shape({
 
 export const Login = () => {
   const dispatch = useDispatch()
-  const isAuth = useSelector((state) => state.user.isAuth)
+  // const isAuth = useAppSelector(state => state.user.isAuth)
 
   const history = useHistory()
 
@@ -43,16 +49,16 @@ export const Login = () => {
     history.push("/register")
   }
 
-  async function onClickLogin(data) {
+  async function onClickLogin(data: object) {
     const status = await registerOrLogin(data)
     if (status) {
       redirectToHome()
     }
   }
 
-  const onSubmit = (values, props) => {
+  const onSubmit = (values: object, props: any) => {
     const type = { ...values, type: "login" }
-    onClickLogin(type, props)
+    onClickLogin(type)
     props.resetForm()
   }
 

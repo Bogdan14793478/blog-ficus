@@ -11,20 +11,14 @@ import Typography from "@mui/material/Typography"
 import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { debounce } from "debounce"
-import {
-  deletePost,
-  putLikePost,
-  updatePost,
-  showChoosePostInfo,
-  loadAllCommentsForPost,
-} from "../../../api/posts"
+import { deletePost, putLikePost, updatePost } from "../../../api/posts"
 import { FormCreatePost } from "./FormCreatePost"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import {
   actionpostPlusOrMinusLike,
   actionDeletePosts,
-} from "../../../redux/actions/types"
+} from "../../../redux/actions/types.ts"
 
 export const MediaCard = ({ item, showAllPost, userId }) => {
   const countLikes = item?.likes?.length
@@ -38,11 +32,11 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceLikePost = useCallback(
-    debounce((itemS) => putLikePost(item._id), 1000),
+    debounce(() => putLikePost(item._id), 1000),
     []
   )
 
-  const countPostLikes = (e) => {
+  const countPostLikes = e => {
     dispatch(actionpostPlusOrMinusLike({ itemId: item._id, userId }))
     debounceLikePost(e.target.value)
   }

@@ -11,8 +11,9 @@ import { ModalProvider } from "../../../context"
 import "./SettingPage.css"
 
 export const SettingPage = () => {
+  // eslint-disable-next-line operator-linebreak
   const { name, email, dateCreated, id, skills, profession, details, avatar } =
-    useSelector((state) => state.auth)
+    useSelector(state => state.auth)
   const dispatch = useDispatch()
   const history = useHistory()
 

@@ -5,7 +5,7 @@ import {
   actionputPostFromDispatch,
   actionSaveImgPost,
   actionTogleIsFetching,
-} from "../redux/actions/types"
+} from "../redux/actions/types.ts"
 
 export function putLikePost(numberPost) {
   axiosInstance.put(`posts/like/${numberPost}`)
@@ -14,8 +14,8 @@ export function putLikePost(numberPost) {
 export function updatePost(data, photoFile, numberPost) {
   const formData = new FormData()
   formData.append("image", photoFile)
-  return async (dispatch) => {
-    axiosInstance.patch(`posts/${numberPost}`, data).then((res) => {
+  return async dispatch => {
+    axiosInstance.patch(`posts/${numberPost}`, data).then(() => {
       dispatch(actionputPostFromDispatch({ data, numberPost }))
     })
     if (photoFile) {
@@ -25,7 +25,7 @@ export function updatePost(data, photoFile, numberPost) {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then((res) => {
+        .then(res => {
           dispatch(actionSaveImgPost({ res, numberPost }))
         })
     }
@@ -43,9 +43,9 @@ export function getAllPosts(skip, numberId, searchPosts) {
     params.set("postedBy", numberId)
   }
   const url = `posts?${params.toString()}`
-  return async (dispatch) => {
+  return async dispatch => {
     dispatch(actionTogleIsFetching(true))
-    axiosInstance.get(url).then((res) => {
+    axiosInstance.get(url).then(res => {
       dispatch(actionTogleIsFetching(false))
       dispatch(actionGetAllPosts(res.data))
     })
@@ -53,7 +53,7 @@ export function getAllPosts(skip, numberId, searchPosts) {
 }
 
 export function createNewPost(data, photoFile) {
-  return async (dispatch) => {
+  return async dispatch => {
     const formData = new FormData()
     formData.append("image", photoFile)
     const postResponse = await axiosInstance.post("posts", data)

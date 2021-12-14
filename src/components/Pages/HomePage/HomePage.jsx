@@ -12,7 +12,7 @@ import { getUserInfo } from "../../../api/auth"
 import {
   actionGetCurrentPage,
   actionPostDeleteAllInform,
-} from "../../../redux/actions/types"
+} from "../../../redux/actions/types.ts"
 import { FormCreatePost } from "./FormCreatePost"
 import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
@@ -44,11 +44,11 @@ export const HomePage = () => {
 
   const dispatch = useDispatch()
   const { currentPage, posts, skip, totalPost, isFetching } = useSelector(
-    (state) => state.post
+    state => state.post
   )
-  const { findPost } = useSelector((state) => state.post)
+  const { findPost } = useSelector(state => state.post)
 
-  const { id } = useSelector((state) => state.auth)
+  const { id } = useSelector(state => state.auth)
   const history = useHistory()
   const ofset = page * skip - 10
   const namePage = Labels.nameUrlPostsPage
@@ -70,7 +70,7 @@ export const HomePage = () => {
       : dispatch(getAllPosts(ofset, null, searchPosts))
   }
 
-  const searchInPosts = (e) => {
+  const searchInPosts = e => {
     e.preventDefault()
     passParamToGetPosts()
     setSearchPosts(searchPosts)
@@ -83,7 +83,7 @@ export const HomePage = () => {
     handleClickOpenModal()
   }
 
-  const openTextPage = (numberShowBtn) => {
+  const openTextPage = numberShowBtn => {
     setActiveTab(numberShowBtn)
     setSearchPosts("")
     dispatch(actionPostDeleteAllInform())
@@ -144,7 +144,7 @@ export const HomePage = () => {
       {isFetching && <Loader />}
       {activeTab === Tabs.MyPosts || activeTab === Tabs.AllPosts ? (
         <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
-          {posts.map((item) => (
+          {posts.map(item => (
             <MediaCard
               key={item._id}
               item={item}

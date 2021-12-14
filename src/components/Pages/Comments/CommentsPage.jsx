@@ -10,8 +10,6 @@ export const CommentsPage = () => {
   const [findPost, setFindPost] = useState({})
   const { postID } = useParams()
 
-  console.log(comments, "comments")
-
   useEffect(() => {
     async function takeDate() {
       const commentLoad = await loadAllCommentsForPost(postID)

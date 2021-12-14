@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
       Yup.object()
         .shape({
           file: Yup.mixed()
-            .test("fileSize", "Size no more than 10 mb", (value) => {
+            .test("fileSize", "Size no more than 10 mb", value => {
               if (!value) {
                 return false
               }
@@ -101,7 +101,7 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
                 <input
                   accept="image/*"
                   id="icon-button-photo"
-                  onChange={(event) => {
+                  onChange={event => {
                     setFieldValue("file", event.currentTarget.files[0])
                   }}
                   type="file"

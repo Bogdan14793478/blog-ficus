@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react"
-import { useDispatch } from "react-redux"
 import Card from "@mui/material/Card"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
@@ -10,13 +9,18 @@ import { debounce } from "debounce"
 import { putLikeCommit } from "../../../api/posts"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
-import { actionCommentPlusOrMinusLike } from "../../../redux/actions/types"
 import { FormCreateComment } from "./FormCreateComent"
 
-export const CardComments = ({ item, postID, deleteComment, onSubmit, userId }) => {
+export const CardComments = ({
+  item,
+  postID,
+  deleteComment,
+  onSubmit,
+  userId,
+  plusOrMinusLike,
+}) => {
   const [show, setShow] = useState(false)
   const countLikes = item?.likes?.length
-  const dispatch = useDispatch()
 
   const deleteSelectedPost = () => {
     deleteComment(item._id, item.followedCommentID)
@@ -24,14 +28,12 @@ export const CardComments = ({ item, postID, deleteComment, onSubmit, userId }) 
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceLikePost = useCallback(
-    debounce((itemS) => putLikeCommit(item._id), 1000),
+    debounce(() => putLikeCommit(item._id), 1000),
     []
   )
 
-  const countCommentLikes = (e) => {
-    dispatch(
-      actionCommentPlusOrMinusLike({ itemId: item.commentedBy, postId: item._id })
-    )
+  const countCommentLikes = e => {
+    plusOrMinusLike(item.commentedBy, item._id, item.followedCommentID)
     debounceLikePost(e.target.value)
   }
 

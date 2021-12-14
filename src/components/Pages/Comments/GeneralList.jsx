@@ -2,10 +2,16 @@ import React from "react"
 import { Grid } from "@mui/material"
 import { CardComments } from "./CardComments"
 
-export const GeneralList = ({ message, onSubmit, deleteComment, userId }) => {
+export const GeneralList = ({
+  message,
+  onSubmit,
+  deleteComment,
+  userId,
+  plusOrMinusLike,
+}) => {
   return (
     <div>
-      {message.map((item) => {
+      {message.map(item => {
         return (
           <Grid
             container
@@ -19,6 +25,7 @@ export const GeneralList = ({ message, onSubmit, deleteComment, userId }) => {
               item={item}
               onSubmit={onSubmit}
               deleteComment={deleteComment}
+              plusOrMinusLike={plusOrMinusLike}
             />
             {item.children.length > 0 && (
               <GeneralList
@@ -27,6 +34,7 @@ export const GeneralList = ({ message, onSubmit, deleteComment, userId }) => {
                 item={item}
                 onSubmit={onSubmit}
                 deleteComment={deleteComment}
+                plusOrMinusLike={plusOrMinusLike}
               />
             )}
           </Grid>

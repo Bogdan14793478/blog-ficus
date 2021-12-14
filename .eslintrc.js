@@ -3,14 +3,8 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    "airbnb",
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "prettier",
-    "plugin:react-hooks/recommended",
-  ],
+  extends: ["plugin:react/recommended", "prettier", "airbnb"],
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -18,7 +12,18 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "prettier", "react-hooks", "eslint-plugin-import"],
+  settings: {
+    react: {
+      version: "detect",
+    },
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        moduleDirectory: ["node_modules", "src/"],
+      },
+    },
+  },
+  plugins: ["react", "@typescript-eslint", "prettier", "react-hooks"],
   rules: {
     "prettier/prettier": "error",
     "react/prop-types": 0,
@@ -35,5 +40,22 @@ module.exports = {
     "import/no-default-export": "error",
     "import/prefer-default-export": "off",
     "no-underscore-dangle": "off",
+    semi: "off",
+    quotes: [2, "double", { avoidEscape: true }],
+    "comma-dangle": "off",
+    "arrow-parens": "off",
+    "object-curly-newline": "off",
+    camelcase: "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "react/jsx-one-expression-per-line": "off",
+    "no-confusing-arrow": "off",
+    "implicit-arrow-linebreak": "off",
+    "react/jsx-curly-newline": "off",
+    "import/extensions": "off",
+    "react/jsx-filename-extension": [
+      2,
+      { extensions: [".js", ".jsx", ".ts", ".tsx"] },
+    ],
   },
 }

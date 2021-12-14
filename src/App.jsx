@@ -21,7 +21,7 @@ import { CommentsPage } from "./components/Pages/Comments/CommentsPage"
 toast.configure()
 
 export function App() {
-  const isAuth = useSelector((state) => state.user.isAuth)
+  const isAuth = useSelector(state => state.user.isAuth)
 
   return (
     <Router history={history}>

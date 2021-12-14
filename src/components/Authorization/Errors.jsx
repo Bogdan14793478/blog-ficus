@@ -2,7 +2,7 @@ import React from "react"
 import { Labels } from "../../constantsName/constants"
 import "./Login.css"
 
-export function Errors({ errors }) {
+export const Errors = ({ errors }): React.Element => {
   return Object.entries(errors).map(([key, error]) => {
     return (
       <ul key={key} className="error-component">

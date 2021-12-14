@@ -9,11 +9,32 @@ import {
   POST_PUT,
   SAVE_IMG_POST,
   TOGLE_IS_FETCHING,
-  TOGLE_IS_LOAD_FETCHING_POST,
-  COMMENTS_PLUS_OR_MINUS_LIKE,
+  // TOGLE_IS_LOAD_FETCHING_POST,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
-const initial = {
+type ArrError = [String]
+type ArrLikes = [String]
+type ArrPosts = {
+  _id: String
+  likes: Array<ArrLikes>
+  title: String
+  description: String
+  dateCreated: String
+  postedBy: string | null
+  image: String
+  __v: Number
+}
+export type InitialType = {
+  posts: Array<ArrPosts>
+  error: Array<ArrError>
+  currentPage: Number
+  skip: Number
+  totalPost: Number
+  image: String
+  isFetching: Boolean
+}
+
+const initial: InitialType = {
   posts: [],
   error: [],
   currentPage: 1,
@@ -23,10 +44,10 @@ const initial = {
   isFetching: false,
 }
 
-export const userPosts = (state = initial, action) => {
+export const userPosts = (state = initial, action: any): InitialType => {
   switch (action.type) {
-    case TOGLE_IS_LOAD_FETCHING_POST:
-      return { ...state, isLoadFetchingPost: action.payload }
+    // case TOGLE_IS_LOAD_FETCHING_POST:
+    //   return { ...state, isLoadFetchingPost: action.payload }
     case TOGLE_IS_FETCHING:
       return { ...state, isFetching: action.payload }
     case GET_ALL_POST:
@@ -47,7 +68,7 @@ export const userPosts = (state = initial, action) => {
     case DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== action.payload),
+        posts: state.posts.filter(post => post._id !== action.payload),
       }
     case SET_CURRENT_PAGE:
       return {
@@ -58,15 +79,14 @@ export const userPosts = (state = initial, action) => {
       return {
         ...state,
         posts: [],
-        comments: [],
       }
     case POST_PLUS_OR_MINUS_LIKE:
       const posts = [...state.posts]
-      const findInx = posts.findIndex((post) => post._id === action.payload.itemId)
+      const findInx = posts.findIndex(post => post._id === action.payload.itemId)
       const post = posts[findInx]
-      const foundedLike = post.likes.find((like) => like === action.payload.userId)
+      const foundedLike = post.likes.find(like => like === action.payload.userId)
       if (foundedLike) {
-        post.likes = post.likes.filter((like) => like !== foundedLike)
+        post.likes = post.likes.filter(like => like !== foundedLike)
       } else {
         post.likes.push(action.payload.userId)
       }
@@ -79,7 +99,7 @@ export const userPosts = (state = initial, action) => {
       const { data } = action.payload
       const postId = action.payload.numberPost
 
-      const findIndx = statePosts.findIndex((putPost) => putPost._id === postId)
+      const findIndx = statePosts.findIndex(putPost => putPost._id === postId)
       const findPost = statePosts[findIndx]
 
       findPost.title = data.title
@@ -92,7 +112,7 @@ export const userPosts = (state = initial, action) => {
       const imgData = action.payload.res.data.image
       const imgPost = action.payload.numberPost
       const findImgIndx = statePostImg.findIndex(
-        (findImgPost) => findImgPost._id === imgPost
+        findImgPost => findImgPost._id === imgPost
       )
       const findImgPost = statePostImg[findImgIndx]
       findImgPost.image = imgData
@@ -100,23 +120,7 @@ export const userPosts = (state = initial, action) => {
         ...state,
         posts: statePostImg,
       }
-    case COMMENTS_PLUS_OR_MINUS_LIKE:
-      const comments = [...state.comments]
-      const findIndItem = comments.findIndex(
-        (comment) => comment._id === action.payload.postId
-      )
-      const findComment = comments[findIndItem]
-      const foundedLikeComment = findComment.likes.find(
-        (like) => like === action.payload.itemId
-      )
-      if (foundedLikeComment) {
-        findComment.likes = findComment.likes.filter(
-          (like) => like !== action.payload.itemId
-        )
-      } else {
-        findComment.likes.push(action.payload.itemId)
-      }
-      return { ...state, comments }
+
     default:
       return state
   }

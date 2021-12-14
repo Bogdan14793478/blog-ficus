@@ -1,6 +1,8 @@
 {
+  "singleQuote": false,
   "printWidth": 85,
-  "arrowParens": "always",
   "semi": false,
-  "tabWidth": 2
+  "arrowParens": "avoid",
+  "endOfLine": "auto",
+  "indent": 4
 }
