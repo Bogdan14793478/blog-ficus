@@ -35,7 +35,6 @@ module.exports = {
     "react-hooks/exhaustive-deps": "error",
     "no-console": "warn",
     "no-debugger": "warn",
-    "no-unused-vars": "warn",
     "no-inline-comments": "warn",
     "import/no-default-export": "error",
     "import/prefer-default-export": "off",
@@ -57,5 +56,7 @@ module.exports = {
       2,
       { extensions: [".js", ".jsx", ".ts", ".tsx"] },
     ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
   },
 }

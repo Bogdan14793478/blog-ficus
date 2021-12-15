@@ -4,6 +4,7 @@ import {
   actionCreateNewPosts,
   actionputPostFromDispatch,
   actionSaveImgPost,
+  actionSaveImgPostPUT,
   actionTogleIsFetching,
 } from "../redux/actions/types.ts"
 
@@ -26,7 +27,7 @@ export function updatePost(data, photoFile, numberPost) {
           },
         })
         .then(res => {
-          dispatch(actionSaveImgPost({ res, numberPost }))
+          dispatch(actionSaveImgPostPUT({ res, numberPost }))
         })
     }
   }

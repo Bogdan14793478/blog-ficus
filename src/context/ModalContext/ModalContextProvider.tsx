@@ -34,7 +34,11 @@ const useStyles = makeStyles({
   },
 })
 
-const BootstrapDialogTitle = props => {
+const BootstrapDialogTitle = (props: {
+  [x: string]: any
+  children: any
+  onClose: any
+}) => {
   const { children, onClose, ...other } = props
 
   return (
@@ -58,7 +62,16 @@ const BootstrapDialogTitle = props => {
   )
 }
 
-export const ModalProvider = ({
+type ModalProviderType = {
+  // eslint-disable-next-line react/require-default-props
+  children?: any
+  buttonName: string
+  buttonNameOnForm: string
+  // eslint-disable-next-line react/require-default-props
+  takeInfo?: any
+}
+
+export const ModalProvider: React.FC<ModalProviderType> = ({
   children,
   buttonName,
   buttonNameOnForm,

@@ -11,25 +11,34 @@ import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { FormCreateComment } from "./FormCreateComent"
 
-type ObjectComments = {
-  _id: string
-  children: null | ObjectComments[]
-  commentedBy: string
-  dateCreated: string
-  followedCommentID: null | string
-  likes: null | Array<string>
-  postID: string
+type StrValues = {
+  commentedBy: string | undefined
+  followedCommentID: string | null
+  numberPostID: string
   text: string
-  __v: number
+  _id: string
 }
+interface ObjectComment extends StrValues {
+  children?: ObjectComment[]
+  dateCreated?: string
+  likes?: null | string[]
+  postID?: string
+  __v?: number
+}
+
 type PropsType = {
-  item: ObjectComments
+  item: ObjectComment
   postID: string
-  deleteComment: () => {}
-  onSubmit: () => {}
+  deleteComment: (postId: string, followedCommentId: string | null) => void
+  onSubmit: (values: StrValues, props: any) => void
   userId: string
-  plusOrMinusLike: () => {}
+  plusOrMinusLike: (
+    commentedBy: string | undefined,
+    itemId: string,
+    followedCommentId: string | null
+  ) => void
 }
+
 export const CardComments: React.FC<PropsType> = ({
   item,
   postID,
@@ -51,9 +60,11 @@ export const CardComments: React.FC<PropsType> = ({
     []
   )
 
-  const countCommentLikes = e => {
+  // const countCommentLikes = (e: React.FormEvent<HTMLButtonElement>): void => {
+  const countCommentLikes = (): void => {
     plusOrMinusLike(item.commentedBy, item._id, item.followedCommentID)
-    debounceLikePost(e.target.value)
+    // debounceLikePost(e.target.value)
+    debounceLikePost()
   }
 
   const commitOnCommit = () => {
@@ -73,7 +84,7 @@ export const CardComments: React.FC<PropsType> = ({
             <div>
               <Typography
                 gutterBottom
-                variant="h7"
+                // variant="h7"
                 component="div"
                 className="card-tittle-text"
               >

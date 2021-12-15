@@ -1,7 +1,6 @@
 /* eslint-disable react/button-has-type */
 import React from "react"
 import { useHistory } from "react-router-dom"
-import { useDispatch } from "react-redux"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import "./Login.css"
@@ -10,15 +9,26 @@ import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
 import { userIsAuth } from "../../redux/actions/types"
 import { Labels, ErrorMsg } from "../../constantsName/constants"
-// import { useAppSelector } from "../../hooks"
+import { ValuesType, DataType } from "./type"
+import { useAppDispatch } from "../../hooks"
 
-type InitialValuesTypes = {
-  validateOnMount: boolean
-  email: string
-  password: string
-}
-const initialValues: InitialValuesTypes = {
-  validateOnMount: true,
+// type Props = {
+//   resetForm: () => {}
+//   setErrors: () => {}
+//   setFieldError: () => {}
+//   setFieldTouched: () => {}
+//   setFieldValue: () => {}
+//   setFormikState: () => {}
+//   setStatus: () => {}
+//   setSubmitting: () => {}
+//   setTouched: () => {}
+//   setValues: () => {}
+//   submitForm: () => {}
+//   validateField: () => {}
+//   validateForm: () => {}
+// }
+
+const initialValues: ValuesType = {
   email: "",
   password: "",
 }
@@ -35,7 +45,7 @@ const validationSchema = Yup.object().shape({
 })
 
 export const Login = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   // const isAuth = useAppSelector(state => state.user.isAuth)
 
   const history = useHistory()
@@ -49,14 +59,14 @@ export const Login = () => {
     history.push("/register")
   }
 
-  async function onClickLogin(data: object) {
-    const status = await registerOrLogin(data)
+  async function onClickLogin(data: DataType): Promise<void> {
+    const status: boolean = await registerOrLogin(data)
     if (status) {
       redirectToHome()
     }
   }
 
-  const onSubmit = (values: object, props: any) => {
+  const onSubmit = (values: ValuesType, props: any): void => {
     const type = { ...values, type: "login" }
     onClickLogin(type)
     props.resetForm()
@@ -86,10 +96,10 @@ export const Login = () => {
                         id="email"
                         autoComplete="email"
                         name="email"
-                        variant="outlined"
+                        // variant="outlined"
                         required
                         value={values.email}
-                        label="email"
+                        // label="email"
                         onChange={handleChange}
                       />
                     </label>
@@ -102,10 +112,10 @@ export const Login = () => {
                         id="password"
                         onChange={handleChange}
                         value={values.password}
-                        variant="outlined"
+                        // variant="outlined"
                         required
                         name="password"
-                        label="password"
+                        // label="password"
                         autoComplete="password"
                       />
                     </label>

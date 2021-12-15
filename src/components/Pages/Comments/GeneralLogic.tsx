@@ -7,30 +7,34 @@ import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
 import { findById, parseJwt } from "../../../utils/helpers"
 
-type ObjectComments = {
-  _id: string
-  children: null | ObjectComments[] // ???
-  commentedBy: string
-  dateCreated: string
-  followedCommentID: null | string
-  likes: null | [string] // ????
-  postID: string
+type StrValues = {
+  commentedBy: string | undefined
+  followedCommentID: string | null
+  numberPostID: string
   text: string
-  __v: number
+  _id: string
+}
+
+interface ObjectComment extends StrValues {
+  children?: ObjectComment[]
+  dateCreated?: string
+  likes?: null | string[]
+  postID?: string
+  __v?: number
 }
 
 type PropsType = {
-  comments: ObjectComments[]
+  comments: ObjectComment[]
   postID: string
 }
 export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
-  const [message, setMessage] = useState([])
+  const [message, setMessage] = useState<Array<ObjectComment>>([])
 
-  const tokenUser = localStorage.getItem("passport")
-  const userId = parseJwt(tokenUser).user._id
+  const tokenUser: string | null = localStorage.getItem("passport")
+  const userId: string = parseJwt(tokenUser).user._id
 
-  const onSubmit = (values: object, props: any) => {
-    const clonededMessage = [...message]
+  const onSubmit = (values: StrValues, props: any) => {
+    const clonededMessage: ObjectComment[] = [...message]
     if (!values.followedCommentID) {
       clonededMessage.push(values)
     } else {
@@ -45,48 +49,57 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
     props.resetForm()
   }
 
-  const deleteComment = (comentID: string, parentPostID: string) => {
+  const deleteComment = (postId: string, followedCommentId: string | null) => {
     let clonededMessage = [...message]
-    if (parentPostID) {
-      const parentComment = findById(clonededMessage, parentPostID)
-      parentComment.children = parentComment.children.filter(
-        child => child._id !== comentID
+    if (followedCommentId) {
+      const parentComment: ObjectComment = findById(
+        clonededMessage,
+        followedCommentId
+      )
+      parentComment.children = parentComment.children?.filter(
+        child => child._id !== postId
       )
     } else {
-      clonededMessage = clonededMessage.filter(mes => mes._id !== comentID)
+      clonededMessage = clonededMessage.filter(mes => mes._id !== postId)
     }
     setMessage(clonededMessage)
-    deleteCommit(comentID)
+    deleteCommit(postId)
   }
 
-  const plusOrMinusLike = (itemId: string, postId: string, parentPostID: string) => {
+  const plusOrMinusLike = (
+    commentedBy: string | undefined,
+    itemId: string,
+    followedCommentId: string | null
+  ) => {
     const clonededMessage = [...message]
-    if (parentPostID) {
-      const parentComment = findById(clonededMessage, parentPostID)
+    if (followedCommentId) {
+      const parentComment = findById(clonededMessage, followedCommentId)
       parentComment.children = parentComment.children.filter(
-        child => child._id === postId
+        (child: ObjectComment) => child._id === itemId
       )
       const foundedLikeComment = parentComment.children[0].likes?.find(
-        like => like === itemId
+        (like: string[] | undefined) => like === commentedBy
       )
       if (foundedLikeComment) {
         parentComment.children[0].likes = parentComment.children[0].likes?.filter(
-          like => like !== itemId
+          (like: string[] | undefined) => like !== commentedBy
         )
       } else {
-        parentComment.children[0].likes.push(itemId)
+        parentComment.children[0].likes.push(commentedBy)
       }
       setMessage(clonededMessage)
     } else {
       const findIndItem = clonededMessage.findIndex(
-        comment => comment._id === postId
+        (comment: ObjectComment) => comment._id === itemId
       )
       const findComment = clonededMessage[findIndItem]
-      const foundedLikeComment = findComment.likes.find(like => like === itemId)
+      const foundedLikeComment = findComment.likes?.find(
+        like => like === commentedBy
+      )
       if (foundedLikeComment) {
-        findComment.likes = findComment.likes.filter(like => like !== itemId)
-      } else {
-        findComment.likes.push(itemId)
+        findComment.likes = findComment.likes?.filter(like => like !== commentedBy)
+      } else if (commentedBy) {
+        findComment.likes?.push(commentedBy)
       }
       setMessage(clonededMessage)
     }
@@ -119,7 +132,12 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
         />
       </div>
       <div style={{ paddingLeft: "60px" }}>
-        <FormCreateComment onSubmit={onSubmit} userId={userId} />
+        <FormCreateComment
+          onSubmit={onSubmit}
+          userId={userId}
+          commentId=""
+          followedCommentID={null}
+        />
       </div>
     </div>
   )

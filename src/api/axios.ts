@@ -1,7 +1,7 @@
 import axios from "axios"
 import { notifyError, removeFromStorage } from "../utils/helpers"
 import { Labels } from "../constantsName/constants"
-import { userIsAuth } from "../redux/actions/types.ts"
+import { userIsAuth } from "../redux/actions/types"
 import { store } from "../store"
 
 const baseURL = `${process.env.REACT_APP_URL_SERVER_ADRESS}/api/v1/`
@@ -11,8 +11,8 @@ export const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use(request => {
-  const newToken = localStorage.getItem(Labels.token)
-  if (newToken != null) {
+  const newToken: string | null = localStorage.getItem(Labels.token)
+  if (newToken != null && request.headers) {
     request.headers.Authorization = `Bearer ${newToken}`
     return request
   }
@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use(
     return resp
   },
   error => {
-    const err = error.response.data.error
+    const err: string = error.response.data.error
     notifyError(err)
     if (err === Labels.checkingTokenUnauth) {
       removeFromStorage(Labels.token)

@@ -1,219 +1,228 @@
-import {
-  GET_ALL_POST,
-  CREATE_NEW_POST,
-  DELETE_POST,
-  SET_CURRENT_PAGE,
-  POST_DELETE_ALL_INFORM,
-  POST_PLUS_OR_MINUS_LIKE,
-  POST_PUT,
-  SAVE_IMG_POST,
-  TOGLE_IS_FETCHING,
-  COMMENTS_PLUS_OR_MINUS_LIKE,
-  USER_IS_AUTH,
-  USER_DELETE_ALL_INFORM,
-  INFORM_USER,
-  GET_ALL_USERS,
-  SET_CURRENT_PAGE_USERS,
-  USER_UPDATE_INFORM,
-  DELETE_USER,
-  SAVE_AVATAR_USER,
-  SHOW_INFO_CHOOSE_USER,
-  TOGLE_IS_FETCHING_USER,
-} from "./const"
+// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-shadow
+enum ActionTypes {
+  GET_ALL_POST = "GET_ALL_POST",
+  CREATE_NEW_POST = "CREATE_NEW_POST",
+  DELETE_POST = "DELETE_POST",
+  SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
+  POST_DELETE_ALL_INFORM = "POST_DELETE_ALL_INFORM",
+  POST_PLUS_OR_MINUS_LIKE = "POST_PLUS_OR_MINUS_LIKE",
+  POST_PUT = "POST_PUT",
+  SAVE_IMG_POST = "SAVE_IMG_POST",
+  SAVE_IMG_POST_PUT = "SAVE_IMG_POST_PUT",
+  TOGLE_IS_FETCHING = "TOGLE_IS_FETCHING",
+  USER_IS_AUTH = "USER_IS_AUTH",
+  USER_DELETE_ALL_INFORM = "USER_DELETE_ALL_INFORM",
+  INFORM_USER = "INFORM_USER",
+  GET_ALL_USERS = "GET_ALL_USERS",
+  SET_CURRENT_PAGE_USERS = "SET_CURRENT_PAGE_USERS",
+  USER_UPDATE_INFORM = "USER_UPDATE_INFORM",
+  DELETE_USER = "DELETE_USER",
+  SAVE_AVATAR_USER = "SAVE_AVATAR_USER",
+  SHOW_INFO_CHOOSE_USER = "SHOW_INFO_CHOOSE_USER",
+  TOGLE_IS_FETCHING_USER = "TOGLE_IS_FETCHING_USER",
+}
+interface CreateNewPost {
+  title: string
+  fullText: string
+  description: string
+}
+interface DeletePost {
+  message: string
+}
+
+interface DataGetAllPosts {
+  _id: string
+  title: string
+  fullText: string
+  description: string
+  dateCreated: string
+  image: string
+  likes: string[]
+  postedBy: string
+}
+interface PaginGetAll {
+  limit: string
+  skip: string
+  total: string
+}
+interface GET_ALL_POST {
+  pagination: PaginGetAll
+  data: DataGetAllPosts[]
+}
+
+interface POST_PLUS_OR_MINUS_LIKE {
+  itemId: string
+  userId: string
+}
+
+interface DataPostPut {
+  title: string
+  fullText: string
+  description: string
+}
+interface POST_PUT {
+  data: DataPostPut
+  numberPost: string
+}
+interface Photo {
+  dateCreated: string
+  description: string
+  fullText: string
+  image: string
+  likes: string[]
+  postedBy: string
+  title: string
+  __v: 0
+  _id: string
+}
+interface SAVE_IMG_POST {
+  numberPost: string
+  fileUploadResponse: Photo
+}
+
+interface SAVE_IMG_POST_PUT {
+  numberPost: string
+  res: Photo
+}
+
+interface Users {
+  avatar: string
+  dateCreated: string
+  details: string
+  email: string
+  extra_details?: string
+  name: string
+  profession: string
+  skills: string
+  __v: number
+  _id: string
+}
+interface GET_ALL_USERS {
+  data: Users[]
+  pagination: PaginGetAll
+}
+
+interface SAVE_AVATAR_USER {
+  data: Users
+}
+
+type Action<T> = { type: ActionTypes; payload: T }
 
 // POST
-type ActionCreateNewPostsActionType = {
-  type: typeof CREATE_NEW_POST
-  payload: any
-}
-// мне нужно каждый payload расписать что в него входит и какой тип??
+
 export const actionCreateNewPosts = (
-  payload: any
-): ActionCreateNewPostsActionType => ({
-  type: CREATE_NEW_POST,
+  payload: CreateNewPost
+): Action<CreateNewPost> => ({
+  type: ActionTypes.CREATE_NEW_POST,
   payload,
 })
 
-type ActionDeletePostsActionType = {
-  type: typeof DELETE_POST
-  payload: any
-}
-export const actionDeletePosts = (payload: any): ActionDeletePostsActionType => ({
-  type: DELETE_POST,
+export const actionDeletePosts = (payload: DeletePost): Action<DeletePost> => ({
+  type: ActionTypes.DELETE_POST,
   payload,
 })
 
-type ActionGetAllPostsActionType = {
-  type: typeof GET_ALL_POST
-  payload: any
-}
-export const actionGetAllPosts = (payload: any): ActionGetAllPostsActionType => ({
-  type: GET_ALL_POST,
+export const actionGetAllPosts = (payload: GET_ALL_POST): Action<GET_ALL_POST> => ({
+  type: ActionTypes.GET_ALL_POST,
   payload,
 })
 
-type ActionGetCurrentPageActionType = { type: typeof SET_CURRENT_PAGE; payload: any }
-export const actionGetCurrentPage = (page: any): ActionGetCurrentPageActionType => ({
-  type: SET_CURRENT_PAGE,
+export const actionGetCurrentPage = (page: number): Action<number> => ({
+  type: ActionTypes.SET_CURRENT_PAGE,
   payload: page,
 })
 
-type actionPostDeleteAllInformActionType = {
-  type: typeof POST_DELETE_ALL_INFORM
-  payload: any
-}
-export const actionPostDeleteAllInform = (
-  payload: any
-): actionPostDeleteAllInformActionType => ({
-  type: POST_DELETE_ALL_INFORM,
+export const actionPostDeleteAllInform = (payload: []): Action<[]> => ({
+  type: ActionTypes.POST_DELETE_ALL_INFORM,
   payload,
 })
 
-type ActionpostPlusOrMinusLikeActionType = {
-  type: typeof POST_PLUS_OR_MINUS_LIKE
-  payload: any
-}
 export const actionpostPlusOrMinusLike = (
-  payload: any
-): ActionpostPlusOrMinusLikeActionType => ({
-  type: POST_PLUS_OR_MINUS_LIKE,
+  payload: POST_PLUS_OR_MINUS_LIKE
+): Action<POST_PLUS_OR_MINUS_LIKE> => ({
+  type: ActionTypes.POST_PLUS_OR_MINUS_LIKE,
   payload,
 })
 
-type ActionputPostFromDispatchActionTypes = {
-  type: typeof POST_PUT
-  payload: any
-}
-export const actionputPostFromDispatch = (
-  payload: any
-): ActionputPostFromDispatchActionTypes => ({
-  type: POST_PUT,
+export const actionputPostFromDispatch = (payload: POST_PUT): Action<POST_PUT> => ({
+  type: ActionTypes.POST_PUT,
   payload,
 })
 
-type ActionSaveImgPostActionTypes = {
-  type: typeof SAVE_IMG_POST
-  payload: any
-}
-export const actionSaveImgPost = (payload: any): ActionSaveImgPostActionTypes => ({
-  type: SAVE_IMG_POST,
+export const actionSaveImgPost = (
+  payload: SAVE_IMG_POST
+): Action<SAVE_IMG_POST> => ({
+  type: ActionTypes.SAVE_IMG_POST,
   payload,
 })
 
-type ActionTogleIsFetchingActionTypes = {
-  type: typeof TOGLE_IS_FETCHING
-  payload: any
-}
-export const actionTogleIsFetching = (
-  payload: any
-): ActionTogleIsFetchingActionTypes => ({
-  type: TOGLE_IS_FETCHING,
+export const actionSaveImgPostPUT = (
+  payload: SAVE_IMG_POST_PUT
+): Action<SAVE_IMG_POST_PUT> => ({
+  type: ActionTypes.SAVE_IMG_POST_PUT,
   payload,
 })
 
-type ActionCommentPlusOrMinusLikeActionTypes = {
-  type: typeof COMMENTS_PLUS_OR_MINUS_LIKE
-  payload: any
-}
-export const actionCommentPlusOrMinusLike = (
-  payload: any
-): ActionCommentPlusOrMinusLikeActionTypes => ({
-  type: COMMENTS_PLUS_OR_MINUS_LIKE,
+export const actionTogleIsFetching = (payload: boolean): Action<boolean> => ({
+  type: ActionTypes.TOGLE_IS_FETCHING,
   payload,
 })
 
 // USER
-type UserIsAuthActionType = {
-  type: typeof USER_IS_AUTH
-  payload: any
-}
-export const userIsAuth = (payload: any): UserIsAuthActionType => ({
-  type: USER_IS_AUTH,
+
+export const userIsAuth = (payload: boolean): Action<boolean> => ({
+  type: ActionTypes.USER_IS_AUTH,
   payload,
 })
 
-type UserDeleteAllInformActionType = {
-  type: typeof USER_DELETE_ALL_INFORM
-  payload: any
-}
-export const userDeleteAllInform = (
-  payload: any
-): UserDeleteAllInformActionType => ({
-  type: USER_DELETE_ALL_INFORM,
+export const userDeleteAllInform = (payload: []): Action<[]> => ({
+  type: ActionTypes.USER_DELETE_ALL_INFORM,
   payload,
 })
 
-type ActiongetAllUsersActionType = { type: typeof GET_ALL_USERS; payload: any }
-export const actiongetAllUsers = (payload: any): ActiongetAllUsersActionType => ({
-  type: GET_ALL_USERS,
+export const actiongetAllUsers = (
+  payload: GET_ALL_USERS
+): Action<GET_ALL_USERS> => ({
+  type: ActionTypes.GET_ALL_USERS,
   payload,
 })
 
-type ActionUsersGetCurrentPageActionType = {
-  type: typeof SET_CURRENT_PAGE_USERS
-  payload: any
-}
-export const actionUsersGetCurrentPage = (
-  page: any
-): ActionUsersGetCurrentPageActionType => ({
-  type: SET_CURRENT_PAGE_USERS,
+export const actionUsersGetCurrentPage = (page: number): Action<number> => ({
+  type: ActionTypes.SET_CURRENT_PAGE_USERS,
   payload: page,
 })
 
-type ActionDeleteUserActionType = { type: typeof DELETE_USER; payload: any }
-export const actionDeleteUser = (payload: any): ActionDeleteUserActionType => ({
-  type: DELETE_USER,
+export const actionDeleteUser = (payload: string): Action<string> => ({
+  type: ActionTypes.DELETE_USER,
   payload,
 })
 
-type ActionUserUpdateInformActionType = {
-  type: typeof USER_UPDATE_INFORM
-  payload: any
-}
-export const actionUserUpdateInform = (
-  payload: any
-): ActionUserUpdateInformActionType => ({
-  type: USER_UPDATE_INFORM,
+export const actionUserUpdateInform = (payload: any): Action<any> => ({
+  type: ActionTypes.USER_UPDATE_INFORM,
   payload,
 })
 
-type ActionShowChooseUserActionType = {
-  type: typeof SHOW_INFO_CHOOSE_USER
-  payload: any
-}
-export const actionShowChooseUser = (
-  payload: any
-): ActionShowChooseUserActionType => ({
-  type: SHOW_INFO_CHOOSE_USER,
+export const actionShowChooseUser = (payload: string): Action<string> => ({
+  type: ActionTypes.SHOW_INFO_CHOOSE_USER,
   payload,
 })
 
-type ActionTogleIsFetchingUserActionTypes = {
-  type: typeof TOGLE_IS_FETCHING_USER
-  payload: any
-}
-export const actionTogleIsFetchingUser = (
-  payload: any
-): ActionTogleIsFetchingUserActionTypes => ({
-  type: TOGLE_IS_FETCHING_USER,
+export const actionTogleIsFetchingUser = (payload: boolean): Action<boolean> => ({
+  type: ActionTypes.TOGLE_IS_FETCHING_USER,
   payload,
 })
 
 // AUTH
 
-type TakeInformUserActionTypes = { type: typeof INFORM_USER; payload: any }
-export const takeInformUser = (payload: any): TakeInformUserActionTypes => ({
-  type: INFORM_USER,
+export const takeInformUser = (payload: Users): Action<Users> => ({
+  type: ActionTypes.INFORM_USER,
   payload,
 })
 
-type ActionSaveUserAvatarActionTypes = {
-  type: typeof SAVE_AVATAR_USER
-  payload: any
-}
 export const actionSaveUserAvatar = (
-  payload: any
-): ActionSaveUserAvatarActionTypes => ({
-  type: SAVE_AVATAR_USER,
+  payload: SAVE_AVATAR_USER
+): Action<SAVE_AVATAR_USER> => ({
+  type: ActionTypes.SAVE_AVATAR_USER,
   payload,
 })

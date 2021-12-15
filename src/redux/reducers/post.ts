@@ -8,6 +8,7 @@ import {
   POST_PLUS_OR_MINUS_LIKE,
   POST_PUT,
   SAVE_IMG_POST,
+  SAVE_IMG_POST_PUT,
   TOGLE_IS_FETCHING,
   // TOGLE_IS_LOAD_FETCHING_POST,
 } from "../actions/const"
@@ -46,8 +47,6 @@ const initial: InitialType = {
 
 export const userPosts = (state = initial, action: any): InitialType => {
   switch (action.type) {
-    // case TOGLE_IS_LOAD_FETCHING_POST:
-    //   return { ...state, isLoadFetchingPost: action.payload }
     case TOGLE_IS_FETCHING:
       return { ...state, isFetching: action.payload }
     case GET_ALL_POST:
@@ -65,6 +64,19 @@ export const userPosts = (state = initial, action: any): InitialType => {
       }
     case CREATE_NEW_POST:
       return { ...state, posts: [...state.posts, action.payload.data] }
+    case SAVE_IMG_POST:
+      const statePostImg = [...state.posts]
+      const imgData = action.payload.fileUploadResponse.data.image
+      const imgPost = action.payload.numberPost
+      const findImgIndx = statePostImg.findIndex(
+        findImgPost => findImgPost._id === imgPost
+      )
+      const findImgPost = statePostImg[findImgIndx]
+      findImgPost.image = imgData
+      return {
+        ...state,
+        posts: statePostImg,
+      }
     case DELETE_POST:
       return {
         ...state,
@@ -107,18 +119,18 @@ export const userPosts = (state = initial, action: any): InitialType => {
       findPost.postedBy = data.fullText
 
       return { ...state, posts: statePosts }
-    case SAVE_IMG_POST:
-      const statePostImg = [...state.posts]
-      const imgData = action.payload.res.data.image
-      const imgPost = action.payload.numberPost
-      const findImgIndx = statePostImg.findIndex(
-        findImgPost => findImgPost._id === imgPost
+    case SAVE_IMG_POST_PUT:
+      const statePostImgPut = [...state.posts]
+      const imgDataPut = action.payload.res.data.image
+      const imgPostPut = action.payload.numberPost
+      const findImgIndxPut = statePostImgPut.findIndex(
+        findImgPostPut => findImgPostPut._id === imgPostPut
       )
-      const findImgPost = statePostImg[findImgIndx]
-      findImgPost.image = imgData
+      const findImgPostPut = statePostImgPut[findImgIndxPut]
+      findImgPostPut.image = imgDataPut
       return {
         ...state,
-        posts: statePostImg,
+        posts: statePostImgPut,
       }
 
     default:

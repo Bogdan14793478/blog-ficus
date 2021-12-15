@@ -8,12 +8,9 @@ import { registerOrLogin } from "../../utils/authorization"
 import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
 import { Labels, ErrorMsg } from "../../constantsName/constants"
+import { ValuesType, DataType } from "./type"
 
-type InitialValuesTypes = {
-  email: string
-  password: string
-}
-const initialValues: InitialValuesTypes = {
+const initialValues: ValuesType = {
   email: "",
   password: "",
 }
@@ -36,15 +33,15 @@ export const Register = () => {
     history.push("/")
   }
 
-  async function startRegistr(data: object) {
+  async function startRegistr(data: DataType) {
     const status = await registerOrLogin(data)
     if (status) {
       redirectToLogin()
     }
   }
-  const onSubmit = (values: object, props: any) => {
+  const onSubmit = (values: ValuesType, props: any) => {
     const type = { ...values, type: "register" }
-    startRegistr(type, props)
+    startRegistr(type)
     props.resetForm()
   }
 
@@ -72,9 +69,9 @@ export const Register = () => {
                         id="email"
                         autoComplete="email"
                         name="email"
-                        variant="outlined"
+                        // variant="outlined"
                         required
-                        label="email"
+                        // label="email"
                         value={values.email}
                         onChange={handleChange}
                       />
@@ -88,10 +85,10 @@ export const Register = () => {
                         id="password"
                         onChange={handleChange}
                         value={values.password}
-                        variant="outlined"
+                        // variant="outlined"
                         required
                         name="password"
-                        label="password"
+                        // label="password"
                         autoComplete="password"
                       />
                     </label>

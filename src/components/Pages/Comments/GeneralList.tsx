@@ -2,24 +2,31 @@ import React from "react"
 import { Grid } from "@mui/material"
 import { CardComments } from "./CardComments"
 
-type ObjectComments = {
-  _id: string
-  children: null | ObjectComments[] // ???
-  commentedBy: string
-  dateCreated: string
-  followedCommentID: null | string
-  likes: null | Array<string> // ????
-  postID: string
+type StrValues = {
+  commentedBy: string | undefined
+  followedCommentID: string | null
+  numberPostID: string
   text: string
-  __v: number
+  _id: string
+}
+interface ObjectComment extends StrValues {
+  children?: ObjectComment[]
+  dateCreated?: string
+  likes?: null | string[]
+  postID?: string
+  __v?: number
 }
 
 type PropsType = {
-  message: ObjectComments[]
-  onSubmit: () => {}
-  deleteComment: () => {}
+  message: ObjectComment[]
+  onSubmit: (values: StrValues, props: any) => void
+  deleteComment: (postId: string, followedCommentId: string | null) => void
   userId: string
-  plusOrMinusLike: () => {}
+  plusOrMinusLike: (
+    commentedBy: string | undefined,
+    itemId: string,
+    followedCommentId: string | null
+  ) => void
 }
 
 export const GeneralList: React.FC<PropsType> = ({
@@ -46,12 +53,13 @@ export const GeneralList: React.FC<PropsType> = ({
               onSubmit={onSubmit}
               deleteComment={deleteComment}
               plusOrMinusLike={plusOrMinusLike}
+              postID=""
             />
-            {item.children.length > 0 && (
+            {item.children !== undefined && item.children.length > 0 && (
               <GeneralList
                 userId={userId}
                 message={item.children}
-                item={item}
+                // item={item}
                 onSubmit={onSubmit}
                 deleteComment={deleteComment}
                 plusOrMinusLike={plusOrMinusLike}

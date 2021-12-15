@@ -1,40 +1,27 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
-import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
+import { Errors } from "../../Authorization/Errors"
 
 const validationSchema = Yup.object().shape({
   text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),
 })
 
-// type ObjectComments = {
-//   _id: string
-//   children: null | ObjectComments[]
-//   commentedBy: string
-//   dateCreated: string
-//   followedCommentID: null | string
-//   likes: null | [string]
-//   postID: string
-//   text: string
-//   __v: number
-// }
-// type InitialValuesTypes = {
-//   text: string
-//   children: ObjectComments[]
-//   followedCommentID: null | string
-//   commentedBy: string
-//   _id: string
-//   numberPostID: string
-// }  у меня в формике создан обьект, нужно ли его раскрывать и как? а
-// то мне красным все подчеркивает
-
+type StrValues = {
+  commentedBy: string | undefined
+  followedCommentID: string | null
+  numberPostID: string
+  text: string
+  _id: string
+}
 type PropsType = {
-  onSubmit: () => {}
+  onSubmit: (values: StrValues, props: any) => void
   commentId: string
-  followedCommentID: null | string
+  followedCommentID: string | null
   userId: string
 }
 export const FormCreateComment: React.FC<PropsType> = ({
@@ -68,7 +55,7 @@ export const FormCreateComment: React.FC<PropsType> = ({
               sx={{ width: "300px", marginLeft: "20px" }}
               onChange={handleChange}
             />
-            <Errors errors={errors} />
+            {/* <Errors errors={errors} /> */}
             <Fab type="submit" color="primary" aria-label="edit">
               <AddCircleIcon
                 sx={{

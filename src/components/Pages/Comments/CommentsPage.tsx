@@ -5,10 +5,14 @@ import { showChoosePostInfo, loadAllCommentsForPost } from "../../../api/posts"
 import { GeneralLogic } from "./GeneralLogic"
 import "./CommentsPage.css"
 
+type PostID = {
+  postID: string
+}
+
 export const CommentsPage = () => {
   const [comments, setComments] = useState([])
   const [findPost, setFindPost] = useState({})
-  const { postID } = useParams()
+  const { postID }: PostID = useParams()
 
   useEffect(() => {
     async function takeDate() {
