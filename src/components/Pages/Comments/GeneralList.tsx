@@ -59,7 +59,6 @@ export const GeneralList: React.FC<PropsType> = ({
               <GeneralList
                 userId={userId}
                 message={item.children}
-                // item={item}
                 onSubmit={onSubmit}
                 deleteComment={deleteComment}
                 plusOrMinusLike={plusOrMinusLike}

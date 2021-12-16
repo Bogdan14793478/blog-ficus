@@ -76,6 +76,7 @@ interface Photo {
   __v: 0
   _id: string
 }
+
 interface SAVE_IMG_POST {
   numberPost: string
   fileUploadResponse: Photo
@@ -104,7 +105,7 @@ interface GET_ALL_USERS {
 }
 
 interface SAVE_AVATAR_USER {
-  data: Users
+  res: Users
 }
 
 type Action<T> = { type: ActionTypes; payload: T }

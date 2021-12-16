@@ -42,11 +42,17 @@ type SignUpArgs = { email: string; password: string }
 type SignUpResponse = AxiosResponse<{ token: string }>
 
 export const signUp = (data: ValuesType) => {
+  // const { email, password } = data  узнать как правильно???
+  // const newData = { email, password }
   return axiosInstance
-    .post<SignUpArgs, SignUpResponse>("auth/", {
-      email: data.email,
-      password: data.password,
-    })
+    .post<SignUpArgs, SignUpResponse>(
+      "auth/",
+      //  (newData: SignUpArgs)
+      {
+        email: data.email,
+        password: data.password,
+      }
+    )
     .then(result => {
       setToStorage(result.data.token, Labels.token)
     })

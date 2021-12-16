@@ -17,3 +17,26 @@ export type ObjectUserAuth = {
   skills: string
   _id: string
 }
+
+export type ObjectPost = {
+  image?: string
+  dateCreated: string
+  description: string
+  likes: string[]
+  __v?: number
+  postedBy: string
+  title: string
+  _id: string
+}
+
+export type ObjectComment = {
+  children: ObjectComment[]
+  commentedBy: string
+  dateCreated: string
+  followedCommentID: null | string
+  likes: string[]
+  postID: string
+  text: string
+  __v: number
+  _id: string
+}
