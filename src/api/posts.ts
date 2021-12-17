@@ -145,8 +145,27 @@ export async function showChoosePostInfo(postId: string) {
   return postResponse
 }
 
+interface ParamComment {
+  children: ParamComment[]
+  commentedBy: string
+  dateCreated: string
+  followedCommentID: null
+  likes: string[]
+  postID: string
+  text: string
+  __v: number
+  _id: string
+}
+interface AllComment {
+  config: any
+  data: ParamComment[]
+  headers: any
+  request: any
+  status: number
+  statusText: string
+}
 export async function loadAllCommentsForPost(postId: string) {
-  const allComment = await axiosInstance.get(`comments/post/${postId}`)
+  const allComment: AllComment = await axiosInstance.get(`comments/post/${postId}`)
   return allComment
 }
 

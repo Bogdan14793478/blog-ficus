@@ -5,7 +5,7 @@ import { CardComments } from "./CardComments"
 type StrValues = {
   commentedBy: string | undefined
   followedCommentID: string | null
-  numberPostID: string
+  numberPostID?: string
   text: string
   _id: string
 }

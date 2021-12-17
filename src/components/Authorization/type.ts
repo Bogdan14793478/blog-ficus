@@ -30,7 +30,7 @@ export type ObjectPost = {
 }
 
 export type ObjectComment = {
-  children: ObjectComment[]
+  children: ObjectComment[] | null
   commentedBy: string
   dateCreated: string
   followedCommentID: null | string
@@ -39,4 +39,5 @@ export type ObjectComment = {
   text: string
   __v: number
   _id: string
+  numberPostID?: string
 }

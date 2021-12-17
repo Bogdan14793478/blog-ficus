@@ -8,9 +8,21 @@ import "./CommentsPage.css"
 type PostID = {
   postID: string
 }
+interface ParamComment {
+  children: any[]
+  commentedBy: string
+  dateCreated: string
+  followedCommentID: null
+  likes: string[]
+  postID: string
+  text: string
+  __v: number
+  _id: string
+  numberPostID?: string
+}
 
 export const CommentsPage = () => {
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState<ParamComment[] | null>(null)
   const [findPost, setFindPost] = useState({})
   const { postID }: PostID = useParams()
 

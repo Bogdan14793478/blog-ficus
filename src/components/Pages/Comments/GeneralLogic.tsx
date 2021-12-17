@@ -10,7 +10,7 @@ import { findById, parseJwt } from "../../../utils/helpers"
 type StrValues = {
   commentedBy: string | undefined
   followedCommentID: string | null
-  numberPostID: string
+  numberPostID?: string
   text: string
   _id: string
 }
@@ -24,7 +24,7 @@ interface ObjectComment extends StrValues {
 }
 
 type PropsType = {
-  comments: ObjectComment[]
+  comments: ObjectComment[] | null
   postID: string
 }
 export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
@@ -107,14 +107,16 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
 
   useEffect(() => {
     const messages = []
-    for (const item of comments) {
-      item.children = []
-      if (!item.followedCommentID) {
-        const filterdMessages = comments.filter(
-          filteredItem => item._id === filteredItem.followedCommentID
-        )
-        item.children = filterdMessages
-        messages.push(item)
+    if (comments?.length) {
+      for (const item of comments) {
+        item.children = []
+        if (!item.followedCommentID) {
+          const filterdMessages = comments.filter(
+            filteredItem => item._id === filteredItem.followedCommentID
+          )
+          item.children = filterdMessages
+          messages.push(item)
+        }
       }
     }
     setMessage(messages)
