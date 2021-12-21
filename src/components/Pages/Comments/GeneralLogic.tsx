@@ -6,7 +6,7 @@ import { createNewCommit, deleteCommit } from "../../../api/posts"
 import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
 import { findById, parseJwt, getToStorage } from "../../../utils/helpers"
-import { StrValues, ObjectComment } from "../../Authorization/type"
+import { ParamValues, ObjectComment } from "../../Authorization/type"
 
 type PropsType = {
   comments: ObjectComment[]
@@ -18,7 +18,7 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
   const tokenUser = getToStorage("passport")
   const userId: string = parseJwt(tokenUser).user._id
 
-  async function onSubmit(values: StrValues, props: any) {
+  async function onSubmit(values: ParamValues, props: any) {
     const clonededMessage: ObjectComment[] = [...message]
     if (!values.followedCommentID) {
       clonededMessage.push(values)

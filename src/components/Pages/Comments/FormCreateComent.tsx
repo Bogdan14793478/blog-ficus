@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react"
-import { Form, Formik, FormikHelpers, FormikProps } from "formik"
+import { Form, Formik, FormikHelpers } from "formik"
 import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { Errors } from "../../Authorization/Errors"
-import { StrValues } from "../../Authorization/type"
 
 const validationSchema = Yup.object().shape({
   text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),

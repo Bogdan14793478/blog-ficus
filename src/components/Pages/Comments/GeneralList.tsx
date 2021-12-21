@@ -1,11 +1,11 @@
 import React from "react"
 import { Grid } from "@mui/material"
 import { CardComments } from "./CardComments"
-import { StrValues, ObjectComment } from "../../Authorization/type"
+import { ParamValues, ObjectComment } from "../../Authorization/type"
 
 type PropsType = {
   message: ObjectComment[]
-  onSubmit: (values: StrValues, props: any) => void
+  onSubmit: (values: ParamValues, props: any) => void
   deleteComment: (postId: string, followedCommentId: string | null) => void
   userId: string
   plusOrMinusLike: (

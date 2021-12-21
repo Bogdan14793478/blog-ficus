@@ -98,14 +98,14 @@ export interface OnePost {
   __v: number
 }
 
-export type StrValues = {
+export type ParamValues = {
   followedCommentID: string | null
   numberPostID?: string
   text: string
   _id: string
   commentedBy?: string
 }
-export interface ObjectComment extends StrValues {
+export interface ObjectComment extends ParamValues {
   children?: ObjectComment[]
   dateCreated?: string
   likes?: null | string[]

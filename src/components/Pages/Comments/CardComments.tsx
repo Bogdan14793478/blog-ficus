@@ -10,13 +10,13 @@ import { putLikeCommit } from "../../../api/posts"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { FormCreateComment } from "./FormCreateComent"
-import { StrValues, ObjectComment } from "../../Authorization/type"
+import { ParamValues, ObjectComment } from "../../Authorization/type"
 
 type PropsType = {
   item: ObjectComment
   postID: string
   deleteComment: (postId: string, followedCommentId: string | null) => void
-  onSubmit: (values: StrValues, props: any) => void
+  onSubmit: (values: ParamValues, props: any) => void
   userId: string
   plusOrMinusLike: (
     itemId: string,
