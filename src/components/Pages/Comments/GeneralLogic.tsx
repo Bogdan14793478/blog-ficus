@@ -5,35 +5,20 @@ import { nanoid } from "nanoid"
 import { createNewCommit, deleteCommit } from "../../../api/posts"
 import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
-import { findById, parseJwt } from "../../../utils/helpers"
-
-type StrValues = {
-  commentedBy: string | undefined
-  followedCommentID: string | null
-  numberPostID?: string
-  text: string
-  _id: string
-}
-
-interface ObjectComment extends StrValues {
-  children?: ObjectComment[]
-  dateCreated?: string
-  likes?: null | string[]
-  postID?: string
-  __v?: number
-}
+import { findById, parseJwt, getToStorage } from "../../../utils/helpers"
+import { StrValues, ObjectComment } from "../../Authorization/type"
 
 type PropsType = {
-  comments: ObjectComment[] | null
+  comments: ObjectComment[]
   postID: string
 }
 export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
   const [message, setMessage] = useState<Array<ObjectComment>>([])
 
-  const tokenUser: string | null = localStorage.getItem("passport")
+  const tokenUser = getToStorage("passport")
   const userId: string = parseJwt(tokenUser).user._id
 
-  const onSubmit = (values: StrValues, props: any) => {
+  async function onSubmit(values: StrValues, props: any) {
     const clonededMessage: ObjectComment[] = [...message]
     if (!values.followedCommentID) {
       clonededMessage.push(values)
@@ -41,15 +26,16 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
       const desiredCommit = findById(clonededMessage, values.numberPostID)
       desiredCommit.children.push(values)
     }
-    const { text, followedCommentID } = values
-    const data = { text, followedCommentID }
-    createNewCommit(data, postID)
-    values._id = nanoid()
+    const dataReg = await createNewCommit(
+      { text: values.text, followedCommentID: values.followedCommentID },
+      postID
+    )
+    values._id = dataReg?._id ?? nanoid()
     setMessage(clonededMessage)
     props.resetForm()
   }
 
-  const deleteComment = (postId: string, followedCommentId: string | null) => {
+  const deleteComment = (postId: string, followedCommentId: string | null): void => {
     let clonededMessage = [...message]
     if (followedCommentId) {
       const parentComment: ObjectComment = findById(
@@ -67,10 +53,10 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
   }
 
   const plusOrMinusLike = (
-    commentedBy: string | undefined,
     itemId: string,
-    followedCommentId: string | null
-  ) => {
+    followedCommentId: string | null,
+    commentedBy?: string
+  ): void => {
     const clonededMessage = [...message]
     if (followedCommentId) {
       const parentComment = findById(clonededMessage, followedCommentId)
@@ -106,20 +92,19 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
   }
 
   useEffect(() => {
-    const messages = []
-    if (comments?.length) {
-      for (const item of comments) {
-        item.children = []
-        if (!item.followedCommentID) {
-          const filterdMessages = comments.filter(
-            filteredItem => item._id === filteredItem.followedCommentID
+    const tree = (arr: ObjectComment[]) => {
+      const toTree = arr
+        .reduce((a: ObjectComment[], c: ObjectComment) => {
+          c.children = arr.filter(
+            (i: ObjectComment) => i.followedCommentID === c._id
           )
-          item.children = filterdMessages
-          messages.push(item)
-        }
-      }
+          a.push(c)
+          return a
+        }, [])
+        .filter((i: ObjectComment) => i.followedCommentID == null)
+      setMessage(toTree)
     }
-    setMessage(messages)
+    tree(comments)
   }, [comments])
 
   return (
@@ -127,7 +112,7 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
       <div style={{ paddingLeft: "40px" }}>
         <GeneralList
           message={message}
-          onSubmit={onSubmit}
+          onSubmit={(values, props) => onSubmit(values, props)}
           deleteComment={deleteComment}
           userId={userId}
           plusOrMinusLike={plusOrMinusLike}
@@ -135,7 +120,7 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
       </div>
       <div style={{ paddingLeft: "60px" }}>
         <FormCreateComment
-          onSubmit={onSubmit}
+          onSubmit={(values, props) => onSubmit(values, props)}
           userId={userId}
           commentId=""
           followedCommentID={null}

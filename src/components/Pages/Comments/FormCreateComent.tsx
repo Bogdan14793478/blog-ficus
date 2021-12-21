@@ -1,46 +1,49 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react"
-import { Form, Formik } from "formik"
+import { Form, Formik, FormikHelpers, FormikProps } from "formik"
 import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { Errors } from "../../Authorization/Errors"
+import { StrValues } from "../../Authorization/type"
 
 const validationSchema = Yup.object().shape({
   text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),
 })
-
-type StrValues = {
-  commentedBy: string | undefined
-  followedCommentID: string | null
-  numberPostID: string
+interface FormValues {
   text: string
+  children: string[]
+  followedCommentID: string | null
+  commentedBy: string
   _id: string
+  numberPostID: string
 }
 type PropsType = {
-  onSubmit: (values: StrValues, props: any) => void
+  onSubmit: (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => void
   commentId: string
   followedCommentID: string | null
   userId: string
 }
+
 export const FormCreateComment: React.FC<PropsType> = ({
   onSubmit,
   commentId,
   followedCommentID,
   userId,
 }) => {
+  const initialValues: FormValues = {
+    text: "",
+    children: [],
+    followedCommentID: followedCommentID || null,
+    commentedBy: userId,
+    _id: "",
+    numberPostID: `${commentId}`,
+  }
   return (
     <div>
       <Formik
-        initialValues={{
-          text: "",
-          children: [],
-          followedCommentID: followedCommentID || null,
-          commentedBy: userId,
-          _id: "",
-          numberPostID: `${commentId}`,
-        }}
+        initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
@@ -55,7 +58,7 @@ export const FormCreateComment: React.FC<PropsType> = ({
               sx={{ width: "300px", marginLeft: "20px" }}
               onChange={handleChange}
             />
-            {/* <Errors errors={errors} /> */}
+            <Errors errors={errors} />
             <Fab type="submit" color="primary" aria-label="edit">
               <AddCircleIcon
                 sx={{

@@ -1,5 +1,10 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-restricted-syntax */
 import { toast } from "react-toastify"
+
+export const getToStorage = key => {
+  return localStorage.getItem(key)
+}
 
 export const setToStorage = (data, key) => {
   localStorage.setItem(key, data)

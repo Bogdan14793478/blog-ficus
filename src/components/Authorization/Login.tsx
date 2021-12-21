@@ -12,22 +12,6 @@ import { Labels, ErrorMsg } from "../../constantsName/constants"
 import { ValuesType, DataType } from "./type"
 import { useAppDispatch } from "../../hooks"
 
-// type Props = {
-//   resetForm: () => {}
-//   setErrors: () => {}
-//   setFieldError: () => {}
-//   setFieldTouched: () => {}
-//   setFieldValue: () => {}
-//   setFormikState: () => {}
-//   setStatus: () => {}
-//   setSubmitting: () => {}
-//   setTouched: () => {}
-//   setValues: () => {}
-//   submitForm: () => {}
-//   validateField: () => {}
-//   validateForm: () => {}
-// }
-
 const initialValues: ValuesType = {
   email: "",
   password: "",
@@ -46,7 +30,6 @@ const validationSchema = Yup.object().shape({
 
 export const Login = () => {
   const dispatch = useAppDispatch()
-  // const isAuth = useAppSelector(state => state.user.isAuth)
 
   const history = useHistory()
 
@@ -60,7 +43,7 @@ export const Login = () => {
   }
 
   async function onClickLogin(data: DataType): Promise<void> {
-    const status: boolean = await registerOrLogin(data)
+    const status = await registerOrLogin(data)
     if (status) {
       redirectToHome()
     }

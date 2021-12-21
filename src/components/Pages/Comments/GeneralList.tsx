@@ -1,21 +1,7 @@
 import React from "react"
 import { Grid } from "@mui/material"
 import { CardComments } from "./CardComments"
-
-type StrValues = {
-  commentedBy: string | undefined
-  followedCommentID: string | null
-  numberPostID?: string
-  text: string
-  _id: string
-}
-interface ObjectComment extends StrValues {
-  children?: ObjectComment[]
-  dateCreated?: string
-  likes?: null | string[]
-  postID?: string
-  __v?: number
-}
+import { StrValues, ObjectComment } from "../../Authorization/type"
 
 type PropsType = {
   message: ObjectComment[]
@@ -23,9 +9,9 @@ type PropsType = {
   deleteComment: (postId: string, followedCommentId: string | null) => void
   userId: string
   plusOrMinusLike: (
-    commentedBy: string | undefined,
     itemId: string,
-    followedCommentId: string | null
+    followedCommentId: string | null,
+    commentedBy?: string
   ) => void
 }
 
@@ -55,7 +41,7 @@ export const GeneralList: React.FC<PropsType> = ({
               plusOrMinusLike={plusOrMinusLike}
               postID=""
             />
-            {item.children !== undefined && item.children.length > 0 && (
+            {item.children && (
               <GeneralList
                 userId={userId}
                 message={item.children}

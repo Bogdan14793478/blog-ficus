@@ -10,21 +10,7 @@ import { putLikeCommit } from "../../../api/posts"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { FormCreateComment } from "./FormCreateComent"
-
-type StrValues = {
-  commentedBy: string | undefined
-  followedCommentID: string | null
-  numberPostID?: string
-  text: string
-  _id: string
-}
-interface ObjectComment extends StrValues {
-  children?: ObjectComment[]
-  dateCreated?: string
-  likes?: null | string[]
-  postID?: string
-  __v?: number
-}
+import { StrValues, ObjectComment } from "../../Authorization/type"
 
 type PropsType = {
   item: ObjectComment
@@ -33,9 +19,9 @@ type PropsType = {
   onSubmit: (values: StrValues, props: any) => void
   userId: string
   plusOrMinusLike: (
-    commentedBy: string | undefined,
     itemId: string,
-    followedCommentId: string | null
+    followedCommentId: string | null,
+    commentedBy?: string
   ) => void
 }
 
@@ -47,10 +33,10 @@ export const CardComments: React.FC<PropsType> = ({
   userId,
   plusOrMinusLike,
 }) => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState<boolean>(false)
   const countLikes = item?.likes?.length
 
-  const deleteSelectedPost = () => {
+  const deleteSelectedPost = (): void => {
     deleteComment(item._id, item.followedCommentID)
   }
 
@@ -60,14 +46,12 @@ export const CardComments: React.FC<PropsType> = ({
     []
   )
 
-  // const countCommentLikes = (e: React.FormEvent<HTMLButtonElement>): void => {
   const countCommentLikes = (): void => {
-    plusOrMinusLike(item.commentedBy, item._id, item.followedCommentID)
-    // debounceLikePost(e.target.value)
+    plusOrMinusLike(item._id, item.followedCommentID, item.commentedBy)
     debounceLikePost()
   }
 
-  const commitOnCommit = () => {
+  const commitOnCommit = (): void => {
     setShow(!show)
   }
   return (

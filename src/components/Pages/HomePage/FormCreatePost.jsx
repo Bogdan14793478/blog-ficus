@@ -69,6 +69,7 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
       >
         {({ errors, values, setFieldValue, handleChange }) => (
           <Form>
+            {console.log(values.file)}
             <TextField
               id="standard-basic"
               label="Enter post title"

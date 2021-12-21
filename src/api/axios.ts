@@ -11,7 +11,7 @@ export const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use(request => {
-  const newToken: string | null = localStorage.getItem(Labels.token)
+  const newToken = localStorage.getItem(Labels.token)
   if (newToken != null && request.headers) {
     request.headers.Authorization = `Bearer ${newToken}`
     return request

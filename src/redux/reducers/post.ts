@@ -13,8 +13,8 @@ import {
   // TOGLE_IS_LOAD_FETCHING_POST,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
-type ArrError = [string]
-type ArrLikes = [string]
+type ArrError = string[]
+type ArrLikes = string[]
 type ArrPosts = {
   _id: String
   likes: ArrLikes[]
@@ -53,7 +53,7 @@ export const userPosts = (state = initial, action: any): InitialType => {
       const totalPostsFromBack = Math.ceil(action.payload.pagination.total / 10)
       return {
         ...state,
-        posts: [...action.payload.data],
+        posts: [...action.payload.payload],
         skip: state.skip,
         totalPost: totalPostsFromBack,
       }
@@ -121,7 +121,7 @@ export const userPosts = (state = initial, action: any): InitialType => {
       return { ...state, posts: statePosts }
     case SAVE_IMG_POST_PUT:
       const statePostImgPut = [...state.posts]
-      const imgDataPut = action.payload.res.data.image
+      const imgDataPut = action.payload.res.image
       const imgPostPut = action.payload.numberPost
       const findImgIndxPut = statePostImgPut.findIndex(
         findImgPostPut => findImgPostPut._id === imgPostPut

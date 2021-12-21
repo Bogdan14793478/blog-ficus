@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 // eslint-disable-next-line no-shadow
-enum ActionTypes {
+export enum ActionTypes {
   GET_ALL_POST = "GET_ALL_POST",
   CREATE_NEW_POST = "CREATE_NEW_POST",
   DELETE_POST = "DELETE_POST",
@@ -22,33 +22,52 @@ enum ActionTypes {
   SHOW_INFO_CHOOSE_USER = "SHOW_INFO_CHOOSE_USER",
   TOGLE_IS_FETCHING_USER = "TOGLE_IS_FETCHING_USER",
 }
-interface CreateNewPost {
+
+interface AllGetAllPosts {
+  _id: string
+  title: string
+  description: string
+  dateCreated: string
+  likes: string[]
+  postedBy: string
+  image?: string
+  fullText?: string
+  __v?: number
+}
+export interface CreateNewPost {
+  _id: string
   title: string
   fullText: string
   description: string
+  fileUploadResponse: Photo
+  postResponse: AllGetAllPosts
 }
 interface DeletePost {
   message: string
 }
 
+// export interface TOGLE_IS_FETCHING {
+//   isFetching: boolean
+// }
+
 interface DataGetAllPosts {
   _id: string
   title: string
-  fullText: string
+  fullText?: string
   description: string
   dateCreated: string
-  image: string
+  image?: string
   likes: string[]
   postedBy: string
 }
 interface PaginGetAll {
-  limit: string
-  skip: string
-  total: string
+  limit: number
+  skip: number
+  total: number
 }
-interface GET_ALL_POST {
+export interface GET_ALL_POST {
   pagination: PaginGetAll
-  data: DataGetAllPosts[]
+  payload: DataGetAllPosts[]
 }
 
 interface POST_PLUS_OR_MINUS_LIKE {
@@ -61,11 +80,11 @@ interface DataPostPut {
   fullText: string
   description: string
 }
-interface POST_PUT {
+export interface POST_PUT {
   data: DataPostPut
   numberPost: string
 }
-interface Photo {
+export interface Photo {
   dateCreated: string
   description: string
   fullText: string
@@ -73,33 +92,32 @@ interface Photo {
   likes: string[]
   postedBy: string
   title: string
-  __v: 0
+  __v: number
   _id: string
 }
 
-interface SAVE_IMG_POST {
+export interface SAVE_IMG_POST {
   numberPost: string
   fileUploadResponse: Photo
 }
 
-interface SAVE_IMG_POST_PUT {
+export interface SAVE_IMG_POST_PUT {
   numberPost: string
   res: Photo
 }
 
-interface Users {
-  avatar: string
-  dateCreated: string
-  details: string
-  email: string
-  extra_details?: string
-  name: string
-  profession: string
-  skills: string
-  __v: number
-  _id: string
+export interface Users {
+  avatar?: string
+  dateCreated?: string
+  details?: string
+  email?: string
+  name?: string
+  profession?: string
+  skills?: string
+  __v?: number
+  _id?: string
 }
-interface GET_ALL_USERS {
+export interface GET_ALL_USERS {
   data: Users[]
   pagination: PaginGetAll
 }
@@ -108,7 +126,7 @@ interface SAVE_AVATAR_USER {
   res: Users
 }
 
-type Action<T> = { type: ActionTypes; payload: T }
+export type Action<T> = { type: ActionTypes; payload: T }
 
 // POST
 

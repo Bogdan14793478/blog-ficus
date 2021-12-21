@@ -3,7 +3,7 @@ import { Labels } from "../../constantsName/constants"
 import "./Login.css"
 
 interface Props {
-  errors: Record<string, string>
+  errors: Record<string, string | string[] | never[]>
 }
 
 export const Errors: React.FC<Props> = ({ errors }) => {
