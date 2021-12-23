@@ -26,7 +26,6 @@ module.exports = {
   plugins: ["react", "@typescript-eslint", "prettier", "react-hooks"],
   rules: {
     "prettier/prettier": "error",
-    "react/prop-types": 0,
     "linebreak-style": ["error", "unix"],
     "arrow-body-style": "off",
     "prefer-arrow-callback": "off",
@@ -58,5 +57,7 @@ module.exports = {
     ],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
+    "react/require-default-props": "off",
+    "react/prop-types": "off",
   },
 }

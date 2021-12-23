@@ -49,14 +49,28 @@ const validationSchema = Yup.object().shape({
     .nullable(),
 })
 
-export const FormCreatePost = ({ onSubmitPost, postId }) => {
+interface DataPost {
+  description: string
+  fullText: string
+  title: string
+  file?: File
+}
+interface Props {
+  onSubmitPost: (rest: DataPost, file?: File, postId?: string) => void
+  postId?: string
+}
+interface PropsFormik {
+  resetForm: () => void
+}
+export const FormCreatePost: React.FC<Props> = ({ onSubmitPost, postId }) => {
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
-  const onSubmit = (values, props) => {
+  // const onSubmit = (values: DataPost, { resetForm }: FormikHelpers<any>): void => {
+  const onSubmit = (values: DataPost, { resetForm }: PropsFormik): void => {
     const { file, ...rest } = values
     dispatch(onSubmitPost(rest, file, postId))
-    props.resetForm()
+    resetForm()
     handleClickCloseModal()
   }
 
@@ -96,19 +110,24 @@ export const FormCreatePost = ({ onSubmitPost, postId }) => {
               sx={{ width: "300px", marginLeft: "20px", paddingBottom: "10px" }}
               onChange={handleChange}
             />
-            <FieldArray name="file">
-              <p>
-                <input
-                  accept="image/*"
-                  id="icon-button-photo"
-                  onChange={event => {
-                    setFieldValue("file", event.currentTarget.files[0])
-                  }}
-                  type="file"
-                  name="file"
-                />
-              </p>
-            </FieldArray>
+            <FieldArray
+              name="file"
+              render={() => (
+                <p>
+                  <input
+                    accept="image/*"
+                    id="icon-button-photo"
+                    onChange={event => {
+                      if (event.currentTarget.files !== null) {
+                        setFieldValue("file", event.currentTarget.files[0])
+                      }
+                    }}
+                    type="file"
+                    name="file"
+                  />
+                </p>
+              )}
+            />
             <img
               src={values?.file ? URL.createObjectURL(values.file) : undefined}
               id="image-before-load-on-server"

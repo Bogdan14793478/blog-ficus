@@ -19,7 +19,7 @@ export const MediaCard = ({ item, itemId, findUser }) => {
   }
 
   return (
-    <Grid item xs={12} md={4}>
+    <Grid item sx={12} md={4}>
       <Card
         sx={{
           margin: " 0 5px",

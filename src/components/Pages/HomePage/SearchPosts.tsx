@@ -4,7 +4,12 @@ import InputBase from "@mui/material/InputBase"
 import IconButton from "@mui/material/IconButton"
 import SearchIcon from "@mui/icons-material/Search"
 
-export const CustomizedInputBase = ({
+type PropsType = {
+  startSearchInPosts: (e: React.MouseEvent<HTMLElement>) => void
+  setSearchPosts: (value: string) => void
+  searchPosts: string
+}
+export const CustomizedInputBase: React.FC<PropsType> = ({
   startSearchInPosts,
   setSearchPosts,
   searchPosts,

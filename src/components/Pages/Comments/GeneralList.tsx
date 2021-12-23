@@ -13,9 +13,11 @@ type PropsType = {
     followedCommentId: string | null,
     commentedBy?: string
   ) => void
+  postID: string
 }
 
 export const GeneralList: React.FC<PropsType> = ({
+  postID,
   message,
   onSubmit,
   deleteComment,
@@ -39,7 +41,7 @@ export const GeneralList: React.FC<PropsType> = ({
               onSubmit={onSubmit}
               deleteComment={deleteComment}
               plusOrMinusLike={plusOrMinusLike}
-              postID=""
+              postID={postID}
             />
             {item.children && (
               <GeneralList
@@ -48,6 +50,7 @@ export const GeneralList: React.FC<PropsType> = ({
                 onSubmit={onSubmit}
                 deleteComment={deleteComment}
                 plusOrMinusLike={plusOrMinusLike}
+                postID={postID}
               />
             )}
           </Grid>

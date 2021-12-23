@@ -13,21 +13,19 @@ import {
   // TOGLE_IS_LOAD_FETCHING_POST,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
-type ArrError = string[]
-type ArrLikes = string[]
-type ArrPosts = {
-  _id: String
-  likes: ArrLikes[]
+export type ArrPosts = {
+  _id: string
+  likes: string[]
   title: string
   description: string
   dateCreated: string
-  postedBy: string | null
+  postedBy: string
   image: string
   __v: number
 }
 export type InitialType = {
   posts: ArrPosts[]
-  error: ArrError[]
+  error: string[]
   currentPage: number
   skip: number
   totalPost: number
@@ -63,7 +61,7 @@ export const userPosts = (state = initial, action: any): InitialType => {
         error: action.payload.error,
       }
     case CREATE_NEW_POST:
-      return { ...state, posts: [...state.posts, action.payload.data] }
+      return { ...state, posts: [...state.posts, action.payload] }
     case SAVE_IMG_POST:
       const statePostImg = [...state.posts]
       const imgData = action.payload.fileUploadResponse.data.image

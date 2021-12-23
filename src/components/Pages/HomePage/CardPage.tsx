@@ -8,7 +8,7 @@ import CardContent from "@mui/material/CardContent"
 import CardMedia from "@mui/material/CardMedia"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
-import { Grid } from "@mui/material"
+import { Grid, GridSize } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { debounce } from "debounce"
 import { deletePost, putLikePost, updatePost } from "../../../api/posts"
@@ -18,14 +18,19 @@ import { ModalProvider } from "../../../context/ModalContext"
 import {
   actionpostPlusOrMinusLike,
   actionDeletePosts,
-} from "../../../redux/actions/types.ts"
+} from "../../../redux/actions/types"
+import { ArrPosts } from "../../../redux/reducers/post"
 
-export const MediaCard = ({ item, showAllPost, userId }) => {
+type PropsType = {
+  item: ArrPosts
+  showAllPost: boolean
+  userId: string
+}
+export const MediaCard: React.FC<PropsType> = ({ item, showAllPost, userId }) => {
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
   const history = useHistory()
-
-  const deleteSelectedPost = () => {
+  const deleteSelectedPost = (): void => {
     deletePost(item._id)
     dispatch(actionDeletePosts(item._id))
   }
@@ -36,21 +41,21 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
     []
   )
 
-  const countPostLikes = e => {
+  const countPostLikes = (): void => {
     dispatch(actionpostPlusOrMinusLike({ itemId: item._id, userId }))
-    debounceLikePost(e.target.value)
+    debounceLikePost()
   }
 
-  function redirectToComments() {
+  function redirectToComments(): void {
     history.push(`/comments/${item._id}`)
   }
 
-  const showInfoPost = () => {
+  const showInfoPost = (): void => {
     redirectToComments()
   }
 
   return (
-    <Grid item s={16} md={3}>
+    <Grid item xs={Number(16) as GridSize} md={Number(3) as GridSize}>
       <Card
         sx={{
           margin: " 0 5px",
@@ -63,7 +68,7 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
           <div>
             <Typography
               gutterBottom
-              variant="h7"
+              variant="h6"
               component="div"
               className="card-tittle-text"
             >
@@ -110,7 +115,11 @@ export const MediaCard = ({ item, showAllPost, userId }) => {
                 <FormCreatePost onSubmitPost={updatePost} postId={item._id} />
               </ModalProvider>
             )}
-            <ModalProvider buttonName="Show info" takeInfo={showInfoPost} />
+            <ModalProvider
+              buttonName="Show info"
+              buttonNameOnForm="info"
+              takeInfo={showInfoPost}
+            />
           </CardActions>
         </div>
       </Card>

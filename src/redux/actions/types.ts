@@ -41,9 +41,10 @@ export interface CreateNewPost {
   description: string
   fileUploadResponse: Photo
   postResponse: AllGetAllPosts
-}
-interface DeletePost {
-  message: string
+  file?: File
+  postId?: string
+  data: DataPostPut
+  numberPost: string
 }
 
 // export interface TOGLE_IS_FETCHING {
@@ -62,7 +63,7 @@ interface DataGetAllPosts {
 }
 interface PaginGetAll {
   limit: number
-  skip: number
+  skip: string
   total: number
 }
 export interface GET_ALL_POST {
@@ -79,10 +80,14 @@ interface DataPostPut {
   title: string
   fullText: string
   description: string
+  file?: File
 }
+
 export interface POST_PUT {
-  data: DataPostPut
-  numberPost: string
+  rest: DataPostPut
+  file?: File
+  numberPost?: string
+  postId?: string
 }
 export interface Photo {
   dateCreated: string
@@ -102,7 +107,7 @@ export interface SAVE_IMG_POST {
 }
 
 export interface SAVE_IMG_POST_PUT {
-  numberPost: string
+  numberPost?: string
   res: Photo
 }
 
@@ -137,7 +142,7 @@ export const actionCreateNewPosts = (
   payload,
 })
 
-export const actionDeletePosts = (payload: DeletePost): Action<DeletePost> => ({
+export const actionDeletePosts = (payload: string): Action<string> => ({
   type: ActionTypes.DELETE_POST,
   payload,
 })

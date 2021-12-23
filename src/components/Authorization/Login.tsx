@@ -4,13 +4,13 @@ import { useHistory } from "react-router-dom"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import "./Login.css"
+import { useDispatch } from "react-redux"
 import { registerOrLogin } from "../../utils/authorization"
 import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
 import { userIsAuth } from "../../redux/actions/types"
 import { Labels, ErrorMsg } from "../../constantsName/constants"
 import { ValuesType, DataType } from "./type"
-import { useAppDispatch } from "../../hooks"
 
 const initialValues: ValuesType = {
   email: "",
@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
 })
 
 export const Login = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch()
 
   const history = useHistory()
 

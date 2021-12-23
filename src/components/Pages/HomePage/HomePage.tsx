@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useContext } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { useHistory } from "react-router-dom"
 import { Grid } from "@mui/material"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Button from "@mui/material/Button"
 import { makeStyles } from "@mui/styles"
+import { useDispatch } from "react-redux"
+import { useAppSelector } from "../../../hooks/index"
 import { MediaCard } from "./CardPage"
 import { getAllPosts, createNewPost } from "../../../api/posts"
 import { getUserInfo } from "../../../api/auth"
 import {
   actionGetCurrentPage,
   actionPostDeleteAllInform,
-} from "../../../redux/actions/types.ts"
+} from "../../../redux/actions/types"
 import { FormCreatePost } from "./FormCreatePost"
 import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"
@@ -35,22 +36,21 @@ const useStyles = makeStyles({
   },
 })
 export const HomePage = () => {
-  const [searchPosts, setSearchPosts] = useState("")
-  const [showAllPost, setShowAllPost] = useState(false)
-  const [activeTab, setActiveTab] = useState(Tabs.AllPosts)
+  const [searchPosts, setSearchPosts] = useState<string>("")
+  const [showAllPost, setShowAllPost] = useState<boolean>(false)
+  const [activeTab, setActiveTab] = useState<number>(Tabs.AllPosts)
   const { handleClickOpenModal } = useContext(ModalContext)
 
-  const { page } = useParams()
+  const { page } = useParams<{ page: string }>()
 
   const dispatch = useDispatch()
-  const { currentPage, posts, skip, totalPost, isFetching } = useSelector(
+  const { currentPage, posts, skip, totalPost, isFetching } = useAppSelector(
     state => state.post
   )
-  const { findPost } = useSelector(state => state.post)
-
-  const { id } = useSelector(state => state.auth)
+  const { id } = useAppSelector(state => state.auth)
   const history = useHistory()
-  const ofset = page * skip - 10
+  const ofset = +page * skip - 10
+  const newOfset = String(ofset)
   const namePage = Labels.nameUrlPostsPage
   const classes = useStyles()
 
@@ -58,35 +58,42 @@ export const HomePage = () => {
     history.push("/posts/page/1")
   }
 
-  const showPostUser = (parameterAffectstheDisplay, userId) => {
-    dispatch(getAllPosts(0, userId))
+  const showPostUser = (
+    parameterAffectstheDisplay: boolean,
+    userId?: string
+  ): void => {
+    dispatch(getAllPosts("0", userId))
     redirectToPagePosts()
     setShowAllPost(parameterAffectstheDisplay)
   }
 
   const passParamToGetPosts = () => {
     return showAllPost
-      ? dispatch(getAllPosts(ofset, id, searchPosts))
-      : dispatch(getAllPosts(ofset, null, searchPosts))
+      ? dispatch(getAllPosts(newOfset, id, searchPosts))
+      : dispatch(getAllPosts(newOfset, null, searchPosts))
   }
 
-  const searchInPosts = e => {
+  const searchInPosts = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     passParamToGetPosts()
     setSearchPosts(searchPosts)
   }
 
-  const filterPosts = (numberShowBtn, parameterAffectstheDisplay, userId) => {
+  const filterPosts = (
+    numberShowBtn: number,
+    parameterAffectstheDisplay: boolean,
+    userId?: string
+  ): void => {
     showPostUser(parameterAffectstheDisplay, userId)
     setActiveTab(numberShowBtn)
     setSearchPosts("")
     handleClickOpenModal()
   }
 
-  const openTextPage = numberShowBtn => {
+  const openTextPage = (numberShowBtn: number): void => {
     setActiveTab(numberShowBtn)
     setSearchPosts("")
-    dispatch(actionPostDeleteAllInform())
+    dispatch(actionPostDeleteAllInform([]))
   }
 
   useEffect(() => {
@@ -118,7 +125,7 @@ export const HomePage = () => {
           </Button>
           <Button
             variant={activeTab === Tabs.EmptyPage ? "contained" : "outlined"}
-            onClick={() => openTextPage(Tabs.EmptyPage, false)}
+            onClick={() => openTextPage(Tabs.EmptyPage)}
             className={classes.root}
           >
             {Labels.btnTextPage}
@@ -146,11 +153,10 @@ export const HomePage = () => {
         <Grid container spacing={2} sx={{ marginBottom: "10px" }}>
           {posts.map(item => (
             <MediaCard
-              key={item._id}
+              key={item?._id}
               item={item}
               showAllPost={showAllPost}
               userId={id}
-              findPost={findPost}
             />
           ))}
         </Grid>

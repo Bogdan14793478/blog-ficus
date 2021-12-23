@@ -116,6 +116,7 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
           deleteComment={deleteComment}
           userId={userId}
           plusOrMinusLike={plusOrMinusLike}
+          postID={postID}
         />
       </div>
       <div style={{ paddingLeft: "60px" }}>

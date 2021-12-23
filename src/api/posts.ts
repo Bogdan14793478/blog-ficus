@@ -44,19 +44,21 @@ export type UpdatePostRegisterArgs = {
 }
 type UpdatePostRegisterResponse = AxiosResponse<Photo>
 
-export function updatePost(data: DataPost, photoFile: File, numberPost: string) {
+export function updatePost(rest: DataPost, file?: File, numberPost?: string) {
   const formData = new FormData()
-  formData.append("image", photoFile)
+  if (file) {
+    formData.append("image", file)
+  }
   return async (dispatch: Dispatch<Action<POST_PUT | SAVE_IMG_POST_PUT>>) => {
     axiosInstance
       .patch<UpdatePostRegisterArgs, UpdatePostRegisterResponse>(
         `posts/${numberPost}`,
-        data
+        rest
       )
       .then(() => {
-        dispatch(actionputPostFromDispatch({ data, numberPost }))
+        dispatch(actionputPostFromDispatch({ rest, numberPost }))
       })
-    if (photoFile) {
+    if (file) {
       axiosInstance
         .put<FormData, UpdatePostRegisterResponse>(
           `posts/upload/${numberPost}`,
@@ -82,7 +84,7 @@ type GetAllPostsRegisterArgs = {
 }
 
 export interface PaginationGetAllPost {
-  skip: number
+  skip: string
   limit: number
   total: number
 }
@@ -92,8 +94,8 @@ type GetAllPostsRegisterResponse = AxiosResponse<{
 }>
 export function getAllPosts(
   skip: string,
-  numberId: null | string,
-  searchPosts: string
+  numberId?: null | string,
+  searchPosts?: string
 ) {
   const params = new URLSearchParams({
     skip,
@@ -118,16 +120,18 @@ export function getAllPosts(
 }
 
 type CreateNewPostRegisterResponse = AxiosResponse<CreateNewPost>
-export function createNewPost(data: DataPost, photoFile: File) {
+export function createNewPost(rest: DataPost, file?: File) {
   return async (dispatch: Dispatch<Action<CreateNewPost | SAVE_IMG_POST>>) => {
     const formData = new FormData()
-    formData.append("image", photoFile)
+    if (file) {
+      formData.append("image", file)
+    }
     const postResponse = await axiosInstance.post<
       UpdatePostRegisterArgs,
       CreateNewPostRegisterResponse
-    >("posts", data)
+    >("posts", rest)
     dispatch(actionCreateNewPosts(postResponse.data))
-    if (photoFile) {
+    if (file) {
       const numberPost = postResponse.data._id
       const fileUploadResponse: Photo = await axiosInstance.put(
         `posts/upload/${numberPost}`,
