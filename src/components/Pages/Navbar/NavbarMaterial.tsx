@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { AccountCircle, Message } from "@mui/icons-material"
 import {
   AppBar,
@@ -18,7 +18,8 @@ import {
   userIsAuth,
   userDeleteAllInform,
   actionPostDeleteAllInform,
-} from "../../../redux/actions/types.ts"
+} from "../../../redux/actions/types"
+import { useAppSelector } from "../../../hooks/index"
 import { removeFromStorage } from "../../../utils/helpers"
 import { Labels } from "../../../constantsName/constants"
 
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
     color: "#fff",
     margin: "0",
     position: "fixed",
-    zIndex: "999",
+    zIndex: 999,
     marginLeft: "44px",
     marginTop: "-22px",
     webkitTapHighlightColor: "transparent",
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
   },
   menu: {
     position: "relative",
-    zIndex: "1",
+    zIndex: 1,
     webkitTapHighlightColor: "transparent",
   },
   linkClassNavbar: {
@@ -54,12 +55,12 @@ const useStyles = makeStyles({
 })
 
 export const NavbarMaterial = () => {
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const { name } = useSelector(state => state.auth)
+  const { name } = useAppSelector(state => state.auth)
 
   function redirectToLogin() {
     history.push("/login")
@@ -68,7 +69,7 @@ export const NavbarMaterial = () => {
     history.push("/setting")
   }
 
-  const handleMenu = event => {
+  const handleMenu = (event: React.FormEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
@@ -82,8 +83,8 @@ export const NavbarMaterial = () => {
   }
   const onClickLogout = () => {
     dispatch(userIsAuth(false))
-    dispatch(userDeleteAllInform())
-    dispatch(actionPostDeleteAllInform(null))
+    dispatch(userDeleteAllInform([]))
+    dispatch(actionPostDeleteAllInform([]))
     removeFromStorage("passport")
     redirectToLogin()
   }
