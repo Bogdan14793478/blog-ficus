@@ -66,7 +66,6 @@ export const FormCreatePost: React.FC<Props> = ({ onSubmitPost, postId }) => {
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
-  // const onSubmit = (values: DataPost, { resetForm }: FormikHelpers<any>): void => {
   const onSubmit = (values: DataPost, { resetForm }: PropsFormik): void => {
     const { file, ...rest } = values
     dispatch(onSubmitPost(rest, file, postId))

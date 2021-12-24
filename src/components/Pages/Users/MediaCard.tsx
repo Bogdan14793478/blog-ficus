@@ -2,14 +2,21 @@ import React from "react"
 import Card from "@mui/material/Card"
 import CardMedia from "@mui/material/CardMedia"
 import Typography from "@mui/material/Typography"
-import { Grid } from "@mui/material"
+import { Grid, GridSize } from "@mui/material"
 import { useDispatch } from "react-redux"
-import { actionShowChooseUser } from "../../../redux/actions/types.ts"
+import { actionShowChooseUser } from "../../../redux/actions/types"
 import { Labels, UrlAdress } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { Table } from "./Table"
+import { AllGetAllUser } from "../../../api/usersAxios"
+import { FindUserObj } from "../../Authorization/type"
 
-export const MediaCard = ({ item, itemId, findUser }) => {
+type Props = {
+  item: AllGetAllUser
+  itemId: string
+  findUser: FindUserObj | null
+}
+export const MediaCard: React.FC<Props> = ({ item, itemId, findUser }) => {
   const dispatch = useDispatch()
   const showChooseUserInfo = () => {
     dispatch(actionShowChooseUser(itemId))
@@ -19,14 +26,14 @@ export const MediaCard = ({ item, itemId, findUser }) => {
   }
 
   return (
-    <Grid item sx={12} md={4}>
+    <Grid item xs={Number(12) as GridSize} md={Number(4) as GridSize}>
       <Card
         sx={{
           margin: " 0 5px",
         }}
       >
         <div className="group-title-deleteicon-card">
-          <Typography gutterBottom variant="h7" component="div">
+          <Typography gutterBottom variant="h6" component="div">
             {item.name}
           </Typography>
           <ModalProvider
@@ -38,7 +45,7 @@ export const MediaCard = ({ item, itemId, findUser }) => {
           </ModalProvider>
         </div>
         <div className="group-email-profession">
-          <Typography gutterBottom variant="h7" component="div">
+          <Typography gutterBottom variant="h6" component="div">
             {item.email},{item.profession},
           </Typography>
         </div>

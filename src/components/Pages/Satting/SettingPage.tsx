@@ -1,7 +1,8 @@
 import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { Button, CardMedia, Grid } from "@mui/material"
+import { useAppSelector } from "../../../hooks/index"
 import { Labels } from "../../../constantsName/constants"
 import { getUserInfo } from "../../../api/auth"
 import { Table } from "./Table"
@@ -12,16 +13,16 @@ import "./SettingPage.css"
 
 export const SettingPage = () => {
   // eslint-disable-next-line operator-linebreak
-  const { name, email, dateCreated, id, skills, profession, details, avatar } =
-    useSelector(state => state.auth)
+  const { name, dateCreated, id, skills, profession, details, avatar } =
+    useAppSelector(state => state.auth)
   const dispatch = useDispatch()
   const history = useHistory()
 
-  function redirectToRegister() {
+  function redirectToRegister(): void {
     history.push("/register")
   }
 
-  const onClickdeleteUser = () => {
+  const onClickdeleteUser = (): void => {
     dispatch(deleteUser(id))
     redirectToRegister()
   }
@@ -44,7 +45,7 @@ export const SettingPage = () => {
           <Table
             id={id}
             name={name}
-            email={email}
+            // email={email}
             dateCreated={dateCreated}
             skills={skills}
             profession={profession}

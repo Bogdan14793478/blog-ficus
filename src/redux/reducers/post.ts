@@ -10,7 +10,6 @@ import {
   SAVE_IMG_POST,
   SAVE_IMG_POST_PUT,
   TOGLE_IS_FETCHING,
-  // TOGLE_IS_LOAD_FETCHING_POST,
 } from "../actions/const"
 /* eslint-disable no-case-declarations */
 export type ArrPosts = {

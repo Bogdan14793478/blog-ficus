@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 // eslint-disable-next-line no-shadow
 export enum ActionTypes {
   GET_ALL_POST = "GET_ALL_POST",
@@ -46,10 +45,6 @@ export interface CreateNewPost {
   data: DataPostPut
   numberPost: string
 }
-
-// export interface TOGLE_IS_FETCHING {
-//   isFetching: boolean
-// }
 
 interface DataGetAllPosts {
   _id: string
@@ -112,7 +107,7 @@ export interface SAVE_IMG_POST_PUT {
 }
 
 export interface Users {
-  avatar?: string
+  avatar: string | null
   dateCreated?: string
   details?: string
   email?: string
@@ -127,7 +122,7 @@ export interface GET_ALL_USERS {
   pagination: PaginGetAll
 }
 
-interface SAVE_AVATAR_USER {
+export interface SAVE_AVATAR_USER {
   res: Users
 }
 

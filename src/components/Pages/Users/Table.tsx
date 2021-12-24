@@ -1,8 +1,10 @@
-/* eslint-disable react/button-has-type */
 import React from "react"
 import { Tableheader } from "../../../constantsName/constants"
 
-export const Table = ({ findUser }) => {
+type Props = {
+  findUser: any
+}
+export const Table: React.FC<Props> = ({ findUser }) => {
   return (
     <>
       <table className="table-setting">

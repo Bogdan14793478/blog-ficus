@@ -21,12 +21,12 @@ import {
 } from "../../../redux/actions/types"
 import { ArrPosts } from "../../../redux/reducers/post"
 
-type PropsType = {
+type Props = {
   item: ArrPosts
   showAllPost: boolean
   userId: string
 }
-export const MediaCard: React.FC<PropsType> = ({ item, showAllPost, userId }) => {
+export const MediaCard: React.FC<Props> = ({ item, showAllPost, userId }) => {
   const countLikes = item?.likes?.length
   const dispatch = useDispatch()
   const history = useHistory()

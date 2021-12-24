@@ -1,10 +1,17 @@
 import React from "react"
 import { Tableheader } from "../../../constantsName/constants"
 
-export const Table = ({
+type Props = {
+  id: string
+  name: string
+  dateCreated: string
+  skills: string
+  profession: string
+  details: string
+}
+export const Table: React.FC<Props> = ({
   id,
   name,
-  email,
   dateCreated,
   skills,
   profession,
@@ -17,7 +24,6 @@ export const Table = ({
           <tr>
             <th>{Tableheader.userId}</th>
             <th>{Tableheader.name}</th>
-            <th>{Tableheader.userEmail}</th>
             <th>{Tableheader.dataCreate}</th>
             <th>{Tableheader.skill}</th>
             <th>{Tableheader.proffesion}</th>
@@ -28,7 +34,6 @@ export const Table = ({
           <tr>
             <td>{id}</td>
             <td>{name || "no inform"}</td>
-            <td>{email}</td>
             <td>{dateCreated}</td>
             <td>{skills || "no inform"}</td>
             <td>{profession || "no inform"}</td>

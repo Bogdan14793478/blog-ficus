@@ -48,7 +48,7 @@ export const authReducer = (state = initial, action: any): InitialType => {
     case SAVE_AVATAR_USER:
       return {
         ...state,
-        avatar: action.payload.res.data.avatar,
+        avatar: action.payload.res.avatar,
       }
     default:
       return state

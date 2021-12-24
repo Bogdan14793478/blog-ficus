@@ -69,9 +69,7 @@ export const Register = () => {
                         id="email"
                         autoComplete="email"
                         name="email"
-                        // variant="outlined"
                         required
-                        // label="email"
                         value={values.email}
                         onChange={handleChange}
                       />
@@ -85,10 +83,8 @@ export const Register = () => {
                         id="password"
                         onChange={handleChange}
                         value={values.password}
-                        // variant="outlined"
                         required
                         name="password"
-                        // label="password"
                         autoComplete="password"
                       />
                     </label>

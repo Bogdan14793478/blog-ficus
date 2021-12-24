@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from "react"
 import { nanoid } from "nanoid"
 import { createNewCommit, deleteCommit } from "../../../api/posts"

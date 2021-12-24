@@ -8,7 +8,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
-import { updateInformUser } from "../../../api/usersAxios"
+import { updateInformUser, UpdatePostRegisterArgs } from "../../../api/usersAxios"
 
 const initialValues = {
   name: "",
@@ -27,14 +27,20 @@ const validationSchema = Yup.object().shape({
   details: Yup.string().required(ErrorMsg.resultRequired),
 })
 
-export const FormUpdateParamUser = ({ userId }) => {
+interface PropsFormik {
+  resetForm: () => void
+}
+interface Props {
+  userId: string
+}
+export const FormUpdateParamUser: React.FC<Props> = ({ userId }) => {
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
-  const onSubmit = (values, props) => {
+  const onSubmit = (values: UpdatePostRegisterArgs, { resetForm }: PropsFormik) => {
     const { file, ...rest } = values
     dispatch(updateInformUser(rest, file, userId))
-    props.resetForm()
+    resetForm()
     handleClickCloseModal()
   }
 
@@ -68,7 +74,7 @@ export const FormUpdateParamUser = ({ userId }) => {
             <TextField
               id="standard-basic"
               label="Enter user profession"
-              value={values.description}
+              value={values.profession}
               name="profession"
               variant="standard"
               sx={{ width: "300px", marginLeft: "20px", paddingBottom: "10px" }}
@@ -77,25 +83,30 @@ export const FormUpdateParamUser = ({ userId }) => {
             <TextField
               id="standard-basic"
               label="Enter user details"
-              value={values.description}
+              value={values.details}
               name="details"
               variant="standard"
               sx={{ width: "300px", marginLeft: "20px", paddingBottom: "10px" }}
               onChange={handleChange}
             />
-            <FieldArray name="file">
-              <p>
-                <input
-                  accept="image/*"
-                  id="icon-button-photo"
-                  onChange={event => {
-                    setFieldValue("file", event.currentTarget.files[0])
-                  }}
-                  type="file"
-                  name="file"
-                />
-              </p>
-            </FieldArray>
+            <FieldArray
+              name="file"
+              render={() => (
+                <p>
+                  <input
+                    accept="image/*"
+                    id="icon-button-photo"
+                    onChange={event => {
+                      if (event.currentTarget.files !== null) {
+                        setFieldValue("file", event.currentTarget.files[0])
+                      }
+                    }}
+                    type="file"
+                    name="file"
+                  />
+                </p>
+              )}
+            />
             <img
               id="image-before-load-on-server"
               src={values?.file ? URL.createObjectURL(values.file) : undefined}

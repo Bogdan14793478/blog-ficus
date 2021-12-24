@@ -29,19 +29,6 @@ export type ObjectPost = {
   _id: string
 }
 
-// export type ObjectComment = {
-//   children: ObjectComment[]
-//   commentedBy: string
-//   dateCreated: string
-//   followedCommentID: null | string
-//   likes: string[]
-//   postID: string
-//   text: string
-//   __v: number
-//   _id: string
-//   numberPostID?: string
-// }
-
 export interface DataGetAllPosts {
   _id: string
   title?: string
@@ -111,4 +98,15 @@ export interface ObjectComment extends ParamValues {
   likes?: null | string[]
   postID?: string
   __v?: number
+}
+
+export type FindUserObj = {
+  dateCreated: string
+  details: string
+  email: string
+  name: string
+  profession: string
+  skills: string
+  __v: number
+  _id: string
 }

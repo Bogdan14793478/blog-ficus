@@ -68,7 +68,7 @@ export const CardComments: React.FC<PropsType> = ({
             <div>
               <Typography
                 gutterBottom
-                // variant="h7"
+                variant="h6"
                 component="div"
                 className="card-tittle-text"
               >

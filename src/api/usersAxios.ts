@@ -10,15 +10,13 @@ import {
   Action,
   GET_ALL_USERS,
   Users,
+  SAVE_AVATAR_USER,
 } from "../redux/actions/types"
 import { axiosInstance } from "./axios"
-import {
-  PaginationGetAllPost,
-  // UpdatePostRegisterArgs
-} from "./posts"
+import { PaginationGetAllPost } from "./posts"
 
-interface AllGetAllUser {
-  avatar: string
+export interface AllGetAllUser {
+  avatar: string | null
   dateCreated: string
   details: string
   email: string
@@ -66,19 +64,22 @@ export function deleteUser(userId: string) {
   }
 }
 
-interface DataUpdateUser {
+export interface DataUpdateUser {
   details: string
   name: string
   profession: string
   skills: string
 }
-type UpdatePostRegisterArgs = {
-  data: DataUpdateUser
-  photoFile: File
-  userId: string
+export type UpdatePostRegisterArgs = {
+  file?: File
+  userId?: string
+  details: string
+  name: string
+  profession: string
+  skills: string
 }
 type UpdatePostRegisterResponse = AxiosResponse<{
-  avatar?: string
+  avatar: string | null
   dateCreated?: string
   details?: string
   email?: string
@@ -90,14 +91,17 @@ type UpdatePostRegisterResponse = AxiosResponse<{
 }>
 export function updateInformUser(
   data: UpdatePostRegisterArgs,
-  photoFile: File,
-  userId: string
+  photoFile?: File,
+  userId?: string
 ) {
   const formData = new FormData()
-  formData.append("avatar", photoFile)
-  return async (dispatch: Dispatch<Action<any>>) => {
-    // сделаю, когда главную стр буду в ТС переводить
+  if (photoFile) {
+    formData.append("avatar", photoFile)
+  }
 
+  return async (
+    dispatch: Dispatch<Action<UpdatePostRegisterArgs | SAVE_AVATAR_USER>>
+  ) => {
     axiosInstance
       .patch<UpdatePostRegisterArgs, UpdatePostRegisterResponse>(
         `users/${userId}`,
@@ -129,7 +133,7 @@ type ShowInfoUserRegisterArgs = {
   userID: string
 }
 type ShowInfoUserRegisterResponse = AxiosResponse<{
-  avatar?: string
+  avatar: string | null
   dateCreated?: string
   details?: string
   email?: string
