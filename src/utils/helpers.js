@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 import { toast } from "react-toastify"
 
-export const getToStorage = key => {
+export const getFromStorage = key => {
   return localStorage.getItem(key)
 }
 

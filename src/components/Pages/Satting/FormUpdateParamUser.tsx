@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useContext } from "react"
 import { useDispatch } from "react-redux"
-import { Form, Formik, FieldArray } from "formik"
+import { Form, Formik, FieldArray, FormikHelpers } from "formik"
 import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
-import { updateInformUser, UpdatePostRegisterArgs } from "../../../api/usersAxios"
+import { updateInformUser } from "../../../api/usersAxios"
+import { UpdatePostRegisterArgsInt } from "../../../redux/actions/interface"
 
 const initialValues = {
   name: "",
@@ -27,20 +28,21 @@ const validationSchema = Yup.object().shape({
   details: Yup.string().required(ErrorMsg.resultRequired),
 })
 
-interface PropsFormik {
-  resetForm: () => void
-}
 interface Props {
-  userId: string
+  userId?: string
 }
+
 export const FormUpdateParamUser: React.FC<Props> = ({ userId }) => {
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
-  const onSubmit = (values: UpdatePostRegisterArgs, { resetForm }: PropsFormik) => {
+  const onSubmit = (
+    values: UpdatePostRegisterArgsInt,
+    actions: FormikHelpers<UpdatePostRegisterArgsInt>
+  ) => {
     const { file, ...rest } = values
     dispatch(updateInformUser(rest, file, userId))
-    resetForm()
+    actions.resetForm()
     handleClickCloseModal()
   }
 

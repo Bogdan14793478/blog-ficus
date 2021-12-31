@@ -2,15 +2,15 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
-import { Form, Formik } from "formik"
+import { Form, Formik, FormikHelpers } from "formik"
 import * as Yup from "yup"
 import { registerOrLogin } from "../../utils/authorization"
 import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
 import { Labels, ErrorMsg } from "../../constantsName/constants"
-import { ValuesType, DataType } from "./type"
+import { AuthFormData, DataType } from "./type"
 
-const initialValues: ValuesType = {
+const initialValues: AuthFormData = {
   email: "",
   password: "",
 }
@@ -39,8 +39,8 @@ export const Register = () => {
       redirectToLogin()
     }
   }
-  const onSubmit = (values: ValuesType, props: any) => {
-    const type = { ...values, type: "register" }
+  const onSubmit = (values: AuthFormData, props: FormikHelpers<AuthFormData>) => {
+    const type: DataType = { ...values, type: "register" }
     startRegistr(type)
     props.resetForm()
   }

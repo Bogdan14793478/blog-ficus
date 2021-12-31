@@ -1,9 +1,16 @@
-export type ValuesType = {
+export type AuthFormData = {
   email: string
   password: string
 }
-export interface DataType extends ValuesType {
-  type: string
+
+// eslint-disable-next-line no-shadow
+export enum SubmitFormType {
+  Login = "login",
+  SignUp = "register",
+}
+type SubmitType = `${SubmitFormType}`
+export interface DataType extends AuthFormData {
+  type: SubmitType
 }
 
 export type ObjectUserAuth = {

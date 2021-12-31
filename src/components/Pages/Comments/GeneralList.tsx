@@ -1,11 +1,12 @@
 import React from "react"
 import { Grid } from "@mui/material"
+import { FormikHelpers } from "formik"
 import { CardComments } from "./CardComments"
-import { ParamValues, ObjectComment } from "../../Authorization/type"
+import { ObjectComment } from "../../Authorization/type"
 
 type PropsType = {
   message: ObjectComment[]
-  onSubmit: (values: ParamValues, props: any) => void
+  onSubmit: (values: ObjectComment, props: FormikHelpers<ObjectComment>) => void
   deleteComment: (postId: string, followedCommentId: string | null) => void
   userId: string
   plusOrMinusLike: (

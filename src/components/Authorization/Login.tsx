@@ -1,18 +1,18 @@
 /* eslint-disable react/button-has-type */
 import React from "react"
 import { useHistory } from "react-router-dom"
-import { Form, Formik } from "formik"
+import { Form, Formik, FormikHelpers } from "formik"
 import * as Yup from "yup"
 import "./Login.css"
 import { useDispatch } from "react-redux"
 import { registerOrLogin } from "../../utils/authorization"
 import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
-import { userIsAuth } from "../../redux/actions/types"
+import { userIsAuth } from "../../redux/actions/typeActionUser"
 import { Labels, ErrorMsg } from "../../constantsName/constants"
-import { ValuesType, DataType } from "./type"
+import { AuthFormData, DataType } from "./type"
 
-const initialValues: ValuesType = {
+const initialValues: AuthFormData = {
   email: "",
   password: "",
 }
@@ -49,8 +49,11 @@ export const Login = () => {
     }
   }
 
-  const onSubmit = (values: ValuesType, props: any): void => {
-    const type = { ...values, type: "login" }
+  const onSubmit = (
+    values: AuthFormData,
+    props: FormikHelpers<AuthFormData>
+  ): void => {
+    const type: DataType = { ...values, type: "login" }
     onClickLogin(type)
     props.resetForm()
   }
@@ -79,10 +82,8 @@ export const Login = () => {
                         id="email"
                         autoComplete="email"
                         name="email"
-                        // variant="outlined"
                         required
                         value={values.email}
-                        // label="email"
                         onChange={handleChange}
                       />
                     </label>
@@ -95,10 +96,8 @@ export const Login = () => {
                         id="password"
                         onChange={handleChange}
                         value={values.password}
-                        // variant="outlined"
                         required
                         name="password"
-                        // label="password"
                         autoComplete="password"
                       />
                     </label>

@@ -1,13 +1,5 @@
 /* eslint-disable no-case-declarations */
-import {
-  USER_IS_AUTH,
-  USER_DELETE_ALL_INFORM,
-  GET_ALL_USERS,
-  SET_CURRENT_PAGE_USERS,
-  DELETE_USER,
-  SHOW_INFO_CHOOSE_USER,
-  TOGLE_IS_FETCHING_USER,
-} from "../actions/const"
+import { ActionTypesUser } from "../actions/typeActionUser"
 import { Labels } from "../../constantsName/constants"
 
 type ObjectUser = {
@@ -43,31 +35,31 @@ const user: UserType = {
 }
 export const stateUserReduser = (state = user, action: any): UserType => {
   switch (action.type) {
-    case TOGLE_IS_FETCHING_USER:
+    case ActionTypesUser.TOGLE_IS_FETCHING_USER:
       return { ...state, isFetching: action.payload }
-    case USER_IS_AUTH:
+    case ActionTypesUser.USER_IS_AUTH:
       return { ...state, isAuth: action.payload }
-    case USER_DELETE_ALL_INFORM:
+    case ActionTypesUser.USER_DELETE_ALL_INFORM:
       return { ...state, users: [] }
-    case GET_ALL_USERS:
+    case ActionTypesUser.GET_ALL_USERS:
       return {
         ...state,
         users: [...action.payload.data],
         skip: state.skip,
         totalPost: Math.ceil(action.payload.pagination.total / 10),
       }
-    case SET_CURRENT_PAGE_USERS:
+    case ActionTypesUser.SET_CURRENT_PAGE_USERS:
       return {
         ...state,
         currentPage: action.payload,
       }
-    case DELETE_USER:
+    case ActionTypesUser.DELETE_USER:
       return {
         ...state,
         isAuth: false,
         users: [],
       }
-    case SHOW_INFO_CHOOSE_USER:
+    case ActionTypesUser.SHOW_INFO_CHOOSE_USER:
       const userId = action.payload
       const findUser = state.users.find(item => item._id === userId)
 

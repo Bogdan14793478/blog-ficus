@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useContext } from "react"
 import { useDispatch } from "react-redux"
-import { Form, Formik, FieldArray } from "formik"
+import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg, maxSizeFile } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
+import { LoadFile } from "./LoadFile"
 
 const initialValues = {
   title: "",
@@ -80,7 +81,7 @@ export const FormCreatePost: React.FC<Props> = ({ onSubmitPost, postId }) => {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {({ errors, values, setFieldValue, handleChange }) => (
+        {({ errors, values, handleChange }) => (
           <Form>
             <TextField
               id="standard-basic"
@@ -109,24 +110,7 @@ export const FormCreatePost: React.FC<Props> = ({ onSubmitPost, postId }) => {
               sx={{ width: "300px", marginLeft: "20px", paddingBottom: "10px" }}
               onChange={handleChange}
             />
-            <FieldArray
-              name="file"
-              render={() => (
-                <p>
-                  <input
-                    accept="image/*"
-                    id="icon-button-photo"
-                    onChange={event => {
-                      if (event.currentTarget.files !== null) {
-                        setFieldValue("file", event.currentTarget.files[0])
-                      }
-                    }}
-                    type="file"
-                    name="file"
-                  />
-                </p>
-              )}
-            />
+            <LoadFile />
             <img
               src={values?.file ? URL.createObjectURL(values.file) : undefined}
               id="image-before-load-on-server"

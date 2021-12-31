@@ -6,6 +6,7 @@ import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ReplyIcon from "@mui/icons-material/Reply"
 import { debounce } from "debounce"
+import { FormikHelpers } from "formik"
 import { putLikeCommit } from "../../../api/posts"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
@@ -16,7 +17,7 @@ type PropsType = {
   item: ObjectComment
   postID: string
   deleteComment: (postId: string, followedCommentId: string | null) => void
-  onSubmit: (values: ParamValues, props: any) => void
+  onSubmit: (values: ParamValues, props: FormikHelpers<ObjectComment>) => void
   userId: string
   plusOrMinusLike: (
     itemId: string,

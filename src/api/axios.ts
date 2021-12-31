@@ -1,7 +1,7 @@
 import axios from "axios"
 import { notifyError, removeFromStorage } from "../utils/helpers"
 import { Labels } from "../constantsName/constants"
-import { userIsAuth } from "../redux/actions/types"
+import { userIsAuth } from "../redux/actions/typeActionUser"
 import { store } from "../store"
 
 const baseURL = `${process.env.REACT_APP_URL_SERVER_ADRESS}/api/v1/`

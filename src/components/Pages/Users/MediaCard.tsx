@@ -2,19 +2,18 @@ import React from "react"
 import Card from "@mui/material/Card"
 import CardMedia from "@mui/material/CardMedia"
 import Typography from "@mui/material/Typography"
-import { Grid, GridSize } from "@mui/material"
+import { Grid } from "@mui/material"
 import { useDispatch } from "react-redux"
-import { actionShowChooseUser } from "../../../redux/actions/types"
+import { actionShowChooseUser } from "../../../redux/actions/typeActionUser"
 import { Labels, UrlAdress } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { Table } from "./Table"
-import { AllGetAllUser } from "../../../api/usersAxios"
-import { FindUserObj } from "../../Authorization/type"
+import { AllGetAllUser } from "../../../redux/actions/interface"
 
 type Props = {
   item: AllGetAllUser
   itemId: string
-  findUser: FindUserObj | null
+  findUser: AllGetAllUser | null
 }
 export const MediaCard: React.FC<Props> = ({ item, itemId, findUser }) => {
   const dispatch = useDispatch()
@@ -26,7 +25,7 @@ export const MediaCard: React.FC<Props> = ({ item, itemId, findUser }) => {
   }
 
   return (
-    <Grid item xs={Number(12) as GridSize} md={Number(4) as GridSize}>
+    <Grid item xs={12} md={4}>
       <Card
         sx={{
           margin: " 0 5px",

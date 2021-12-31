@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from "react"
-import { nanoid } from "nanoid"
+import { FormikHelpers } from "formik"
 import { createNewCommit, deleteCommit } from "../../../api/posts"
 import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
-import { findById, parseJwt, getToStorage } from "../../../utils/helpers"
-import { ParamValues, ObjectComment } from "../../Authorization/type"
+import { findById, parseJwt, getFromStorage } from "../../../utils/helpers"
+import { ObjectComment } from "../../Authorization/type"
 
 type PropsType = {
   comments: ObjectComment[]
@@ -14,10 +14,13 @@ type PropsType = {
 export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
   const [message, setMessage] = useState<Array<ObjectComment>>([])
 
-  const tokenUser = getToStorage("passport")
+  const tokenUser = getFromStorage("passport")
   const userId: string = parseJwt(tokenUser).user._id
 
-  async function onSubmit(values: ParamValues, props: any) {
+  async function onSubmit(
+    values: ObjectComment,
+    props: FormikHelpers<ObjectComment>
+  ) {
     const clonededMessage: ObjectComment[] = [...message]
     if (!values.followedCommentID) {
       clonededMessage.push(values)
@@ -29,7 +32,7 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
       { text: values.text, followedCommentID: values.followedCommentID },
       postID
     )
-    values._id = dataReg?._id ?? nanoid()
+    values._id = dataReg?._id
     setMessage(clonededMessage)
     props.resetForm()
   }
@@ -120,9 +123,8 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
       </div>
       <div style={{ paddingLeft: "60px" }}>
         <FormCreateComment
-          onSubmit={(values, props) => onSubmit(values, props)}
+          onSubmit={() => onSubmit}
           userId={userId}
-          commentId=""
           followedCommentID={null}
         />
       </div>

@@ -1,9 +1,11 @@
+import { FormikErrors } from "formik"
 import React from "react"
 import { Labels } from "../../constantsName/constants"
 import "./Login.css"
+import { ObjectComment } from "./type"
 
 interface Props {
-  errors: Record<string, string | string[] | never[]>
+  errors: Record<string, string | FormikErrors<ObjectComment>[]>
 }
 
 export const Errors: React.FC<Props> = ({ errors }) => {

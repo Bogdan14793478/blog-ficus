@@ -1,18 +1,7 @@
-import {
-  GET_ALL_POST,
-  CREATE_NEW_POST,
-  DELETE_POST,
-  GET_ALL_POST_FAILURE,
-  SET_CURRENT_PAGE,
-  POST_DELETE_ALL_INFORM,
-  POST_PLUS_OR_MINUS_LIKE,
-  POST_PUT,
-  SAVE_IMG_POST,
-  SAVE_IMG_POST_PUT,
-  TOGLE_IS_FETCHING,
-} from "../actions/const"
+import { ActionTypesPost } from "../actions/typeActionPost"
+
 /* eslint-disable no-case-declarations */
-export type ArrPosts = {
+export type Posts = {
   _id: string
   likes: string[]
   title: string
@@ -23,7 +12,7 @@ export type ArrPosts = {
   __v: number
 }
 export type InitialType = {
-  posts: ArrPosts[]
+  posts: Posts[]
   error: string[]
   currentPage: number
   skip: number
@@ -44,9 +33,9 @@ const initial: InitialType = {
 
 export const userPosts = (state = initial, action: any): InitialType => {
   switch (action.type) {
-    case TOGLE_IS_FETCHING:
+    case ActionTypesPost.TOGLE_IS_FETCHING:
       return { ...state, isFetching: action.payload }
-    case GET_ALL_POST:
+    case ActionTypesPost.GET_ALL_POST:
       const totalPostsFromBack = Math.ceil(action.payload.pagination.total / 10)
       return {
         ...state,
@@ -54,14 +43,9 @@ export const userPosts = (state = initial, action: any): InitialType => {
         skip: state.skip,
         totalPost: totalPostsFromBack,
       }
-    case GET_ALL_POST_FAILURE:
-      return {
-        ...state,
-        error: action.payload.error,
-      }
-    case CREATE_NEW_POST:
+    case ActionTypesPost.CREATE_NEW_POST:
       return { ...state, posts: [...state.posts, action.payload] }
-    case SAVE_IMG_POST:
+    case ActionTypesPost.SAVE_IMG_POST:
       const statePostImg = [...state.posts]
       const imgData = action.payload.fileUploadResponse.data.image
       const imgPost = action.payload.numberPost
@@ -74,22 +58,22 @@ export const userPosts = (state = initial, action: any): InitialType => {
         ...state,
         posts: statePostImg,
       }
-    case DELETE_POST:
+    case ActionTypesPost.DELETE_POST:
       return {
         ...state,
         posts: state.posts.filter(post => post._id !== action.payload),
       }
-    case SET_CURRENT_PAGE:
+    case ActionTypesPost.SET_CURRENT_PAGE:
       return {
         ...state,
         currentPage: action.payload,
       }
-    case POST_DELETE_ALL_INFORM:
+    case ActionTypesPost.POST_DELETE_ALL_INFORM:
       return {
         ...state,
         posts: [],
       }
-    case POST_PLUS_OR_MINUS_LIKE:
+    case ActionTypesPost.POST_PLUS_OR_MINUS_LIKE:
       const posts = [...state.posts]
       const findInx = posts.findIndex(post => post._id === action.payload.itemId)
       const post = posts[findInx]
@@ -103,7 +87,7 @@ export const userPosts = (state = initial, action: any): InitialType => {
         ...state,
         posts,
       }
-    case POST_PUT:
+    case ActionTypesPost.POST_PUT:
       const statePosts = [...state.posts]
       const { data } = action.payload
       const postId = action.payload.numberPost
@@ -116,7 +100,7 @@ export const userPosts = (state = initial, action: any): InitialType => {
       findPost.postedBy = data.fullText
 
       return { ...state, posts: statePosts }
-    case SAVE_IMG_POST_PUT:
+    case ActionTypesPost.SAVE_IMG_POST_PUT:
       const statePostImgPut = [...state.posts]
       const imgDataPut = action.payload.res.image
       const imgPostPut = action.payload.numberPost

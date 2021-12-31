@@ -14,11 +14,11 @@ import {
 } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 import ChangeHistoryIcon from "@mui/icons-material/ChangeHistory"
+import { actionPostDeleteAllInform } from "../../../redux/actions/typeActionPost"
 import {
   userIsAuth,
   userDeleteAllInform,
-  actionPostDeleteAllInform,
-} from "../../../redux/actions/types"
+} from "../../../redux/actions/typeActionUser"
 import { useAppSelector } from "../../../hooks/index"
 import { removeFromStorage } from "../../../utils/helpers"
 import { Labels } from "../../../constantsName/constants"

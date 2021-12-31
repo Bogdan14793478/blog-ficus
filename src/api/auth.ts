@@ -2,10 +2,15 @@ import { AxiosResponse } from "axios"
 import { Dispatch } from "react"
 import { setToStorage, notifySuccess } from "../utils/helpers"
 import { axiosInstance } from "./axios"
-import { Action, takeInformUser, Users } from "../redux/actions/types"
+import { User } from "../redux/actions/interface"
+import {
+  Action2,
+  ActionTypes,
+  takeInformUser,
+} from "../redux/actions/typeActionAuth"
 import { Labels, InformPanel } from "../constantsName/constants"
 
-type ValuesType = {
+type AuthFormData = {
   email: string
   password: string
   type: string
@@ -34,36 +39,28 @@ interface ResInfo {
   _id: string
 }
 
-type GetUserInfoRegisterArgs = {}
 type GetUserInfoRegisterResponse = AxiosResponse<ResInfo>
 
 export function getUserInfo() {
-  return async (dispatch: Dispatch<Action<Users>>) => {
-    axiosInstance
-      .get<GetUserInfoRegisterArgs, GetUserInfoRegisterResponse>("auth/user/")
-      .then(res => {
-        dispatch(takeInformUser(res.data))
-      })
+  return async (dispatch: Dispatch<Action2<ActionTypes.INFORM_USER, User>>) => {
+    axiosInstance.get<never, GetUserInfoRegisterResponse>("auth/user/").then(res => {
+      dispatch(takeInformUser(res.data))
+    })
   }
 }
 
 // login
-type FetchUserRegisterArgs = {}
 type FetchUserRegisterResponse = AxiosResponse<ResInfo>
 const fetchUser = () => {
-  axiosInstance
-    .get<FetchUserRegisterArgs, FetchUserRegisterResponse>("auth/user/")
-    .then(result => {
-      if (result.data) {
-        notifySuccess(InformPanel.successfulAuth)
-      }
-    })
+  axiosInstance.get<never, FetchUserRegisterResponse>("auth/user/").then(() => {
+    notifySuccess(InformPanel.successfulAuth)
+  })
 }
 
 type SignUpArgs = { email: string; password: string }
 type SignUpResponse = AxiosResponse<{ token: string }>
 
-export const signUp = (data: ValuesType) => {
+export const signUp = (data: AuthFormData) => {
   return axiosInstance
     .post<SignUpArgs, SignUpResponse>("auth/", {
       email: data.email,
@@ -101,7 +98,7 @@ type OnSubmitRegisterResponse = AxiosResponse<{
   dateCreated: string
 }>
 
-export const onSubmitRegister = ({ email, password }: ValuesType) => {
+export const onSubmitRegister = ({ email, password }: AuthFormData) => {
   return axiosInstance
     .post<OnSubmitRegisterArgs, OnSubmitRegisterResponse>("users/", {
       email,

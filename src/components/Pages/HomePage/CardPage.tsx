@@ -8,7 +8,7 @@ import CardContent from "@mui/material/CardContent"
 import CardMedia from "@mui/material/CardMedia"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
-import { Grid, GridSize } from "@mui/material"
+import { Grid } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { debounce } from "debounce"
 import { deletePost, putLikePost, updatePost } from "../../../api/posts"
@@ -16,15 +16,15 @@ import { FormCreatePost } from "./FormCreatePost"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import {
-  actionpostPlusOrMinusLike,
   actionDeletePosts,
-} from "../../../redux/actions/types"
-import { ArrPosts } from "../../../redux/reducers/post"
+  actionpostPlusOrMinusLike,
+} from "../../../redux/actions/typeActionPost"
+import { Posts } from "../../../redux/reducers/post"
 
 type Props = {
-  item: ArrPosts
+  item: Posts
   showAllPost: boolean
-  userId: string
+  userId?: string
 }
 export const MediaCard: React.FC<Props> = ({ item, showAllPost, userId }) => {
   const countLikes = item?.likes?.length
@@ -55,7 +55,7 @@ export const MediaCard: React.FC<Props> = ({ item, showAllPost, userId }) => {
   }
 
   return (
-    <Grid item xs={Number(16) as GridSize} md={Number(3) as GridSize}>
+    <Grid item xs={12} md={3}>
       <Card
         sx={{
           margin: " 0 5px",

@@ -23,7 +23,9 @@ export const SettingPage = () => {
   }
 
   const onClickdeleteUser = (): void => {
-    dispatch(deleteUser(id))
+    if (id) {
+      dispatch(deleteUser(id))
+    }
     redirectToRegister()
   }
   useEffect(() => {

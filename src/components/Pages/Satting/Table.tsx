@@ -2,12 +2,12 @@ import React from "react"
 import { Tableheader } from "../../../constantsName/constants"
 
 type Props = {
-  id: string
-  name: string
-  dateCreated: string
-  skills: string
-  profession: string
-  details: string
+  id?: string
+  name?: string
+  dateCreated?: string
+  skills?: string
+  profession?: string
+  details?: string
 }
 export const Table: React.FC<Props> = ({
   id,

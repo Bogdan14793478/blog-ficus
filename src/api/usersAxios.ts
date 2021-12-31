@@ -1,83 +1,63 @@
 import { AxiosResponse } from "axios"
 import { Dispatch } from "react"
 import {
-  actiongetAllUsers,
-  actionDeleteUser,
+  GET_ALL_USER,
+  SAVE_AVATAR_USERINT,
+  StandartData,
+  UpdatePostRegisterArgsInt,
+  User,
+  AllGetAllUser,
+  PaginGetAll,
+} from "../redux/actions/interface"
+import {
   actionUserUpdateInform,
   actionSaveUserAvatar,
-  actionTogleIsFetchingUser,
   takeInformUser,
+  Action2,
+  ActionTypes,
+} from "../redux/actions/typeActionAuth"
+import {
+  actiongetAllUsers,
+  ActionTypesUser,
+  actionTogleIsFetchingUser,
+  actionDeleteUser,
   Action,
-  GET_ALL_USERS,
-  Users,
-  SAVE_AVATAR_USER,
-} from "../redux/actions/types"
+} from "../redux/actions/typeActionUser"
 import { axiosInstance } from "./axios"
-import { PaginationGetAllPost } from "./posts"
 
-export interface AllGetAllUser {
-  avatar: string | null
-  dateCreated: string
-  details: string
-  email: string
-  extra_details: string
-  name: string
-  profession: string
-  skills: string
-  __v: number
-  _id: string
-}
-type DeleteCommitRegisterArgs = {
-  skip: string
-}
 type GetAllPostsRegisterResponse = AxiosResponse<{
   data: AllGetAllUser[]
-  pagination: PaginationGetAllPost
+  pagination: PaginGetAll
 }>
 export function getAllUsers(skip: string) {
   const params = new URLSearchParams({
     skip,
   })
   const url = `users?${params.toString()}`
-  return async (dispatch: Dispatch<Action<boolean | GET_ALL_USERS>>) => {
+  return async (
+    dispatch: Dispatch<
+      Action2<
+        ActionTypesUser.TOGLE_IS_FETCHING_USER | ActionTypesUser.GET_ALL_USERS,
+        boolean | GET_ALL_USER
+      >
+    >
+  ) => {
     dispatch(actionTogleIsFetchingUser(true))
-    axiosInstance
-      .get<DeleteCommitRegisterArgs, GetAllPostsRegisterResponse>(url)
-      .then(({ data }) => {
-        dispatch(actionTogleIsFetchingUser(false))
-        dispatch(actiongetAllUsers(data))
-      })
+    axiosInstance.get<never, GetAllPostsRegisterResponse>(url).then(({ data }) => {
+      dispatch(actionTogleIsFetchingUser(false))
+      dispatch(actiongetAllUsers(data))
+    })
   }
 }
 
-type DeleteUserRegisterArgs = {
-  skip: string
-}
-type DeleteUserRegisterResponse = AxiosResponse<{}>
 export function deleteUser(userId: string) {
   return async (dispatch: Dispatch<Action<string>>) => {
-    axiosInstance
-      .delete<DeleteUserRegisterArgs, DeleteUserRegisterResponse>(`users/${userId}`)
-      .then(() => {
-        dispatch(actionDeleteUser("by"))
-      })
+    axiosInstance.delete<never, never>(`users/${userId}`).then(() => {
+      dispatch(actionDeleteUser("by"))
+    })
   }
 }
 
-export interface DataUpdateUser {
-  details: string
-  name: string
-  profession: string
-  skills: string
-}
-export type UpdatePostRegisterArgs = {
-  file?: File
-  userId?: string
-  details: string
-  name: string
-  profession: string
-  skills: string
-}
 type UpdatePostRegisterResponse = AxiosResponse<{
   avatar: string | null
   dateCreated?: string
@@ -90,7 +70,7 @@ type UpdatePostRegisterResponse = AxiosResponse<{
   _id?: string
 }>
 export function updateInformUser(
-  data: UpdatePostRegisterArgs,
+  data: StandartData,
   photoFile?: File,
   userId?: string
 ) {
@@ -100,15 +80,20 @@ export function updateInformUser(
   }
 
   return async (
-    dispatch: Dispatch<Action<UpdatePostRegisterArgs | SAVE_AVATAR_USER>>
+    dispatch: Dispatch<
+      Action2<
+        ActionTypes.USER_UPDATE_INFORM | ActionTypes.SAVE_AVATAR_USER,
+        User | SAVE_AVATAR_USERINT
+      >
+    >
   ) => {
     axiosInstance
-      .patch<UpdatePostRegisterArgs, UpdatePostRegisterResponse>(
+      .patch<UpdatePostRegisterArgsInt, UpdatePostRegisterResponse>(
         `users/${userId}`,
         data
       )
-      .then(() => {
-        dispatch(actionUserUpdateInform({ data }))
+      .then(res => {
+        dispatch(actionUserUpdateInform(res.data))
       })
     if (photoFile) {
       axiosInstance
@@ -129,9 +114,6 @@ export function updateInformUser(
   }
 }
 
-type ShowInfoUserRegisterArgs = {
-  userID: string
-}
 type ShowInfoUserRegisterResponse = AxiosResponse<{
   avatar: string | null
   dateCreated?: string
@@ -144,9 +126,9 @@ type ShowInfoUserRegisterResponse = AxiosResponse<{
   _id?: string
 }>
 export function showInfoUser(userID: string) {
-  return async (dispatch: Dispatch<Action<Users>>) => {
+  return async (dispatch: Dispatch<Action2<ActionTypes.INFORM_USER, User>>) => {
     axiosInstance
-      .get<ShowInfoUserRegisterArgs, ShowInfoUserRegisterResponse>(`users/${userID}`)
+      .get<never, ShowInfoUserRegisterResponse>(`users/${userID}`)
       .then(({ data }) => {
         dispatch(takeInformUser(data))
       })

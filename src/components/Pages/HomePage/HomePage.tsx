@@ -13,7 +13,7 @@ import { getUserInfo } from "../../../api/auth"
 import {
   actionGetCurrentPage,
   actionPostDeleteAllInform,
-} from "../../../redux/actions/types"
+} from "../../../redux/actions/typeActionPost"
 import { FormCreatePost } from "./FormCreatePost"
 import { AllPagin } from "../../Pagination"
 import { CustomizedInputBase } from "./SearchPosts"

@@ -2,20 +2,23 @@ import { AxiosResponse } from "axios"
 import { Dispatch } from "react"
 import { axiosInstance } from "./axios"
 import {
-  actionGetAllPosts,
   actionCreateNewPosts,
-  actionputPostFromDispatch,
+  Action2,
+  ActionTypesPost,
   actionSaveImgPost,
-  actionSaveImgPostPUT,
+  actionGetAllPosts,
   actionTogleIsFetching,
-  Photo,
+  actionputPostFromDispatch,
+  actionSaveImgPostPUT,
+} from "../redux/actions/typeActionPost"
+import {
   CreateNewPost,
-  POST_PUT,
-  Action,
-  SAVE_IMG_POST_PUT,
-  GET_ALL_POST,
-  SAVE_IMG_POST,
-} from "../redux/actions/types"
+  SAVE_IMG_POSTInt,
+  GET_ALL_POSTInt,
+  POST_PUTInt,
+  SAVE_IMG_POST_PUTInt,
+  Photo,
+} from "../redux/actions/interface"
 import {
   AllGetAllPosts,
   AllCommentsForPosts,
@@ -23,12 +26,8 @@ import {
   OnePost,
 } from "../components/Authorization/type"
 
-type putLikePostRegisterArgs = { numberPost: string }
-type OnSubmitRegisterResponse = AxiosResponse<{}>
 export function putLikePost(numberPost: string) {
-  axiosInstance.put<putLikePostRegisterArgs, OnSubmitRegisterResponse>(
-    `posts/like/${numberPost}`
-  )
+  axiosInstance.put<never, never>(`posts/like/${numberPost}`)
 }
 
 interface DataPost {
@@ -49,7 +48,14 @@ export function updatePost(rest: DataPost, file?: File, numberPost?: string) {
   if (file) {
     formData.append("image", file)
   }
-  return async (dispatch: Dispatch<Action<POST_PUT | SAVE_IMG_POST_PUT>>) => {
+  return async (
+    dispatch: Dispatch<
+      Action2<
+        ActionTypesPost.POST_PUT | ActionTypesPost.SAVE_IMG_POST_PUT,
+        POST_PUTInt | SAVE_IMG_POST_PUTInt
+      >
+    >
+  ) => {
     axiosInstance
       .patch<UpdatePostRegisterArgs, UpdatePostRegisterResponse>(
         `posts/${numberPost}`,
@@ -70,8 +76,8 @@ export function updatePost(rest: DataPost, file?: File, numberPost?: string) {
           }
         )
         .then(res => {
-          const { data: payload } = res
-          dispatch(actionSaveImgPostPUT({ res: payload, numberPost }))
+          const { data } = res
+          dispatch(actionSaveImgPostPUT({ res: data, numberPost }))
         })
     }
   }
@@ -107,7 +113,14 @@ export function getAllPosts(
     params.set("postedBy", numberId)
   }
   const url = `posts?${params.toString()}`
-  return async (dispatch: Dispatch<Action<boolean | GET_ALL_POST>>) => {
+  return async (
+    dispatch: Dispatch<
+      Action2<
+        ActionTypesPost.TOGLE_IS_FETCHING | ActionTypesPost.GET_ALL_POST,
+        boolean | GET_ALL_POSTInt
+      >
+    >
+  ) => {
     dispatch(actionTogleIsFetching(true))
     axiosInstance
       .get<GetAllPostsRegisterArgs, GetAllPostsRegisterResponse>(url)
@@ -121,7 +134,14 @@ export function getAllPosts(
 
 type CreateNewPostRegisterResponse = AxiosResponse<CreateNewPost>
 export function createNewPost(rest: DataPost, file?: File) {
-  return async (dispatch: Dispatch<Action<CreateNewPost | SAVE_IMG_POST>>) => {
+  return async (
+    dispatch: Dispatch<
+      Action2<
+        ActionTypesPost.CREATE_NEW_POST | ActionTypesPost.SAVE_IMG_POST,
+        CreateNewPost | SAVE_IMG_POSTInt
+      >
+    >
+  ) => {
     const formData = new FormData()
     if (file) {
       formData.append("image", file)
@@ -147,42 +167,32 @@ export function createNewPost(rest: DataPost, file?: File) {
   }
 }
 
-type DeletePostRegisterArgs = { postId: string }
-type DeletePostRegisterResponse = AxiosResponse<{}>
 export function deletePost(postId: string) {
-  axiosInstance.delete<DeletePostRegisterArgs, DeletePostRegisterResponse>(
-    `posts/${postId}`
-  )
+  axiosInstance.delete<never, never>(`posts/${postId}`)
 }
 
-type ShowChoosePostInfoRegisterArgs = { postId: string }
 type ShowChoosePostInfoRegisterResponse = AxiosResponse<OnePost>
 export async function showChoosePostInfo(postId: string) {
   const postResponse = await axiosInstance.get<
-    ShowChoosePostInfoRegisterArgs,
+    never,
     ShowChoosePostInfoRegisterResponse
   >(`posts/${postId}`)
   return postResponse.data
 }
 
-type LoadAllCommentsForPostRegisterArgs = { postId: string }
 type LoadAllCommentsForPostRegisterResponse = AxiosResponse<
   Array<AllCommentsForPosts>
 >
 export async function loadAllCommentsForPost(postId: string) {
   const allComment = await axiosInstance.get<
-    LoadAllCommentsForPostRegisterArgs,
+    never,
     LoadAllCommentsForPostRegisterResponse
   >(`comments/post/${postId}`)
   return allComment.data
 }
 
-type PutLikeCommitRegisterArgs = { userID: string }
-type PutLikeCommitRegisterResponse = AxiosResponse<{ message: string }>
 export function putLikeCommit(userID: string) {
-  axiosInstance.put<PutLikeCommitRegisterArgs, PutLikeCommitRegisterResponse>(
-    `comments/like/${userID}`
-  )
+  axiosInstance.put<never, never>(`comments/like/${userID}`)
 }
 
 interface CreateNewCommit {
@@ -208,12 +218,6 @@ export function createNewCommit(data: CreateNewCommit, postID: string) {
     })
 }
 
-type DeleteCommitRegisterArgs = {
-  commentId: string
-}
-type DeleteCommitRegisterResponse = AxiosResponse<{}>
 export function deleteCommit(commentId: string) {
-  axiosInstance.delete<DeleteCommitRegisterArgs, DeleteCommitRegisterResponse>(
-    `comments/${commentId}`
-  )
+  axiosInstance.delete<never, never>(`comments/${commentId}`)
 }
