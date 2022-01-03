@@ -2,7 +2,7 @@ import { FormikErrors } from "formik"
 import React from "react"
 import { Labels } from "../../constantsName/constants"
 import "./Login.css"
-import { ObjectComment } from "./type"
+import { ObjectComment } from "../../redux/actions/interface"
 
 interface Props {
   errors: Record<string, string | FormikErrors<ObjectComment>[]>

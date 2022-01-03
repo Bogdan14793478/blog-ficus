@@ -1,7 +1,7 @@
 /* eslint-disable no-return-await */
 import { onSubmitRegister, signUp } from "../api/auth"
 import { removeFromStorage } from "./helpers"
-import { DataType, SubmitFormType } from "../components/Authorization/type"
+import { DataType, SubmitFormType } from "../redux/actions/interface"
 
 export async function registerOrLogin(data: DataType): Promise<boolean> {
   if (data.type === SubmitFormType.SignUp) {

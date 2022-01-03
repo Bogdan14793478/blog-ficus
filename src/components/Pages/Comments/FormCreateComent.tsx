@@ -6,7 +6,7 @@ import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { Errors } from "../../Authorization/Errors"
-import { ObjectComment } from "../../Authorization/type"
+import { ObjectComment } from "../../../redux/actions/interface"
 
 const validationSchema = Yup.object().shape({
   text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),

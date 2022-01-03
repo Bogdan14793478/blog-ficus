@@ -19,8 +19,8 @@ export const UsersPage = () => {
     useAppSelector(state => state.user)
   const { id } = useAppSelector(state => state.auth)
   const namePage = Labels.ulrUsersPage
-  const ofset = +page * skip - 10
-  const newOfset = String(ofset)
+  const offset = +page * skip - 10
+  const newOfset = String(offset)
 
   const passParamToGetUsers = () => {
     dispatch(getAllUsers(newOfset))

@@ -10,7 +10,7 @@ import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
 import { userIsAuth } from "../../redux/actions/typeActionUser"
 import { Labels, ErrorMsg } from "../../constantsName/constants"
-import { AuthFormData, DataType } from "./type"
+import { AuthFormData, DataType } from "../../redux/actions/interface"
 
 const initialValues: AuthFormData = {
   email: "",

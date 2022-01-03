@@ -8,7 +8,7 @@ import { registerOrLogin } from "../../utils/authorization"
 import { Errors } from "./Errors"
 import { passworgExp } from "../../utils/helpers"
 import { Labels, ErrorMsg } from "../../constantsName/constants"
-import { AuthFormData, DataType } from "./type"
+import { AuthFormData, DataType } from "../../redux/actions/interface"
 
 const initialValues: AuthFormData = {
   email: "",

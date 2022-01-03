@@ -36,9 +36,9 @@ const useStyles = makeStyles({
   },
 })
 export const HomePage = () => {
-  const [searchPosts, setSearchPosts] = useState<string>("")
-  const [showAllPost, setShowAllPost] = useState<boolean>(false)
-  const [activeTab, setActiveTab] = useState<number>(Tabs.AllPosts)
+  const [searchPosts, setSearchPosts] = useState("")
+  const [showAllPost, setShowAllPost] = useState(false)
+  const [activeTab, setActiveTab] = useState(Tabs.AllPosts)
   const { handleClickOpenModal } = useContext(ModalContext)
 
   const { page } = useParams<{ page: string }>()
@@ -49,8 +49,8 @@ export const HomePage = () => {
   )
   const { id } = useAppSelector(state => state.auth)
   const history = useHistory()
-  const ofset = +page * skip - 10
-  const newOfset = String(ofset)
+  const offset = +page * skip - 10
+  const newOfset = String(offset)
   const namePage = Labels.nameUrlPostsPage
   const classes = useStyles()
 
@@ -58,13 +58,10 @@ export const HomePage = () => {
     history.push("/posts/page/1")
   }
 
-  const showPostUser = (
-    parameterAffectstheDisplay: boolean,
-    userId?: string
-  ): void => {
+  const showPostUser = (showAllPostOrMyPost: boolean, userId?: string): void => {
     dispatch(getAllPosts("0", userId))
     redirectToPagePosts()
-    setShowAllPost(parameterAffectstheDisplay)
+    setShowAllPost(showAllPostOrMyPost)
   }
 
   const passParamToGetPosts = () => {
@@ -81,10 +78,10 @@ export const HomePage = () => {
 
   const filterPosts = (
     numberShowBtn: number,
-    parameterAffectstheDisplay: boolean,
+    showAllPostOrMyPost: boolean,
     userId?: string
   ): void => {
-    showPostUser(parameterAffectstheDisplay, userId)
+    showPostUser(showAllPostOrMyPost, userId)
     setActiveTab(numberShowBtn)
     setSearchPosts("")
     handleClickOpenModal()

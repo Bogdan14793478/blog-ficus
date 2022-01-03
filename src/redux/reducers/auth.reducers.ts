@@ -12,7 +12,7 @@ export type InitialType = {
   skills?: string
   profession?: string
   details?: string
-  avatar: string | null
+  avatar?: string | null
   informUser: string
   id?: string
 }

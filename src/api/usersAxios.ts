@@ -58,17 +58,7 @@ export function deleteUser(userId: string) {
   }
 }
 
-type UpdatePostRegisterResponse = AxiosResponse<{
-  avatar: string | null
-  dateCreated?: string
-  details?: string
-  email?: string
-  name?: string
-  profession?: string
-  skills?: string
-  __v?: number
-  _id?: string
-}>
+type UpdatePostRegisterResponse = AxiosResponse<User>
 export function updateInformUser(
   data: StandartData,
   photoFile?: File,
@@ -114,17 +104,7 @@ export function updateInformUser(
   }
 }
 
-type ShowInfoUserRegisterResponse = AxiosResponse<{
-  avatar: string | null
-  dateCreated?: string
-  details?: string
-  email?: string
-  name?: string
-  profession?: string
-  skills?: string
-  __v?: number
-  _id?: string
-}>
+type ShowInfoUserRegisterResponse = AxiosResponse<User>
 export function showInfoUser(userID: string) {
   return async (dispatch: Dispatch<Action2<ActionTypes.INFORM_USER, User>>) => {
     axiosInstance

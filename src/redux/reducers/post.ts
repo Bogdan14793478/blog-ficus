@@ -89,18 +89,18 @@ export const userPosts = (state = initial, action: any): InitialType => {
       }
     case ActionTypesPost.POST_PUT:
       const statePosts = [...state.posts]
-      const { data } = action.payload
+      const data = action.payload.rest
       const postId = action.payload.numberPost
 
       const findIndx = statePosts.findIndex(putPost => putPost._id === postId)
       const findPost = statePosts[findIndx]
-
       findPost.title = data.title
       findPost.description = data.description
       findPost.postedBy = data.fullText
 
       return { ...state, posts: statePosts }
     case ActionTypesPost.SAVE_IMG_POST_PUT:
+      debugger
       const statePostImgPut = [...state.posts]
       const imgDataPut = action.payload.res.image
       const imgPostPut = action.payload.numberPost

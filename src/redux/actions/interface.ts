@@ -9,6 +9,18 @@ export interface PostedBy {
   postedBy: string
 }
 
+export interface PostID {
+  postID: string
+}
+
+export interface FollowedCommentID {
+  followedCommentID: null | string
+}
+
+export interface CommentedBy {
+  commentedBy: string
+}
+
 export interface Description {
   description: string
 }
@@ -20,12 +32,20 @@ export interface Title {
   title: string
 }
 
+export interface Text {
+  text: string
+}
+
 export interface FullText {
   fullText: string
 }
 
+export interface V {
+  __v: number
+}
+
 export interface User {
-  avatar: string | null
+  avatar?: string | null
   dateCreated?: string
   details?: string
   email?: string
@@ -37,7 +57,16 @@ export interface User {
 }
 
 export interface AllGetAllUser extends User {
-  extra_details: string
+  extra_details?: string
+}
+
+interface IdPlusEmail {
+  email: string
+  _id: string
+}
+export interface onSubmitRegistr extends AllGetAllUser {
+  data?: IdPlusEmail
+  password: string
 }
 
 export interface SAVE_AVATAR_USERINT {
@@ -65,6 +94,12 @@ export interface PaginGetAll {
   limit: number
   skip: string
   total: number
+}
+
+export interface GetAllPostsRegisterArgs {
+  skip: string
+  numberId?: null | string
+  searchPosts?: string
 }
 
 export interface Photo
@@ -126,4 +161,77 @@ export interface POST_PUTInt {
 export interface SAVE_IMG_POST_PUTInt {
   numberPost?: string
   res: Photo
+}
+
+export interface AuthFormData {
+  email: string
+  password: string
+}
+// eslint-disable-next-line no-shadow
+export enum SubmitFormType {
+  Login = "login",
+  SignUp = "register",
+}
+type SubmitType = `${SubmitFormType}`
+export interface DataType extends AuthFormData {
+  type: SubmitType
+}
+
+export interface DataPost extends Description, FullText, Title {}
+
+export interface CreateNewCommit extends FollowedCommentID {
+  text: string
+  _id?: string
+  postID?: string
+}
+
+export interface DataGetAllPosts extends Id, Description, DateCreated, Likes {
+  title?: string
+  fullText?: string
+  image?: string
+  postedBy?: string
+  __v?: number
+}
+
+export interface AllCommentsForPosts
+  extends FollowedCommentID,
+    CommentedBy,
+    DateCreated,
+    Likes,
+    PostID,
+    Text,
+    V,
+    Id {
+  children: AllCommentsForPosts[]
+}
+
+export interface CommentForComment
+  extends DataGetAllPosts,
+    CommentedBy,
+    FollowedCommentID,
+    PostID,
+    Text {}
+
+export interface OnePost
+  extends Id,
+    Title,
+    Description,
+    DateCreated,
+    Likes,
+    FullText,
+    V {
+  postedBy: string | null
+}
+
+export interface ParamValues extends FollowedCommentID, Text, Id {
+  numberPostID?: string
+  commentedBy?: string
+}
+
+export interface ObjectComment extends ParamValues {
+  children?: ObjectComment[]
+  dateCreated?: string
+  likes?: null | string[]
+  postID?: string
+  __v?: number
 }

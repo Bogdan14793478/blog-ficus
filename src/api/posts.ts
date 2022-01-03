@@ -18,29 +18,20 @@ import {
   POST_PUTInt,
   SAVE_IMG_POST_PUTInt,
   Photo,
-} from "../redux/actions/interface"
-import {
+  DataPost,
+  PaginGetAll,
+  GetAllPostsRegisterArgs,
+  CreateNewCommit,
   AllGetAllPosts,
   AllCommentsForPosts,
   CommentForComment,
   OnePost,
-} from "../components/Authorization/type"
+} from "../redux/actions/interface"
 
 export function putLikePost(numberPost: string) {
   axiosInstance.put<never, never>(`posts/like/${numberPost}`)
 }
 
-interface DataPost {
-  description: string
-  fullText: string
-  title: string
-}
-
-export type UpdatePostRegisterArgs = {
-  description: string
-  fullText: string
-  title: string
-}
 type UpdatePostRegisterResponse = AxiosResponse<Photo>
 
 export function updatePost(rest: DataPost, file?: File, numberPost?: string) {
@@ -57,10 +48,7 @@ export function updatePost(rest: DataPost, file?: File, numberPost?: string) {
     >
   ) => {
     axiosInstance
-      .patch<UpdatePostRegisterArgs, UpdatePostRegisterResponse>(
-        `posts/${numberPost}`,
-        rest
-      )
+      .patch<DataPost, UpdatePostRegisterResponse>(`posts/${numberPost}`, rest)
       .then(() => {
         dispatch(actionputPostFromDispatch({ rest, numberPost }))
       })
@@ -83,20 +71,9 @@ export function updatePost(rest: DataPost, file?: File, numberPost?: string) {
   }
 }
 
-type GetAllPostsRegisterArgs = {
-  skip: string
-  numberId?: null | string
-  searchPosts?: string
-}
-
-export interface PaginationGetAllPost {
-  skip: string
-  limit: number
-  total: number
-}
 type GetAllPostsRegisterResponse = AxiosResponse<{
   data: AllGetAllPosts[]
-  pagination: PaginationGetAllPost
+  pagination: PaginGetAll
 }>
 export function getAllPosts(
   skip: string,
@@ -147,7 +124,7 @@ export function createNewPost(rest: DataPost, file?: File) {
       formData.append("image", file)
     }
     const postResponse = await axiosInstance.post<
-      UpdatePostRegisterArgs,
+      DataPost,
       CreateNewPostRegisterResponse
     >("posts", rest)
     dispatch(actionCreateNewPosts(postResponse.data))
@@ -195,21 +172,10 @@ export function putLikeCommit(userID: string) {
   axiosInstance.put<never, never>(`comments/like/${userID}`)
 }
 
-interface CreateNewCommit {
-  followedCommentID: null | string
-  text: string
-  _id?: string
-}
-type CreateNewCommitRegisterArgs = {
-  followedCommentID: null | string
-  text: string
-  _id?: string
-  postID?: string
-}
 type CreateNewCommitRegisterResponse = AxiosResponse<CommentForComment>
 export function createNewCommit(data: CreateNewCommit, postID: string) {
   return axiosInstance
-    .post<CreateNewCommitRegisterArgs, CreateNewCommitRegisterResponse>(
+    .post<CreateNewCommit, CreateNewCommitRegisterResponse>(
       `comments/post/${postID}`,
       data
     )

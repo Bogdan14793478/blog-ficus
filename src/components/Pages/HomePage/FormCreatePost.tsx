@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useContext } from "react"
 import { useDispatch } from "react-redux"
-import { Form, Formik } from "formik"
+import { Form, Formik, FormikHelpers } from "formik"
 import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
@@ -60,17 +60,16 @@ interface Props {
   onSubmitPost: (rest: DataPost, file?: File, postId?: string) => void
   postId?: string
 }
-interface PropsFormik {
-  resetForm: () => void
-}
+
 export const FormCreatePost: React.FC<Props> = ({ onSubmitPost, postId }) => {
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
-  const onSubmit = (values: DataPost, { resetForm }: PropsFormik): void => {
+  const onSubmit = (values: DataPost, props: FormikHelpers<any>) => {
+    // why FormikHelpers<DataPost> = mistake
     const { file, ...rest } = values
     dispatch(onSubmitPost(rest, file, postId))
-    resetForm()
+    props.resetForm()
     handleClickCloseModal()
   }
 

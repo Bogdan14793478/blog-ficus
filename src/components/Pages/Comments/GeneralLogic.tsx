@@ -5,7 +5,7 @@ import { createNewCommit, deleteCommit } from "../../../api/posts"
 import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
 import { findById, parseJwt, getFromStorage } from "../../../utils/helpers"
-import { ObjectComment } from "../../Authorization/type"
+import { ObjectComment } from "../../../redux/actions/interface"
 
 type PropsType = {
   comments: ObjectComment[]
@@ -123,7 +123,7 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
       </div>
       <div style={{ paddingLeft: "60px" }}>
         <FormCreateComment
-          onSubmit={() => onSubmit}
+          onSubmit={(values, props) => onSubmit(values, props)}
           userId={userId}
           followedCommentID={null}
         />

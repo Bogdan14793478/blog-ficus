@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useContext } from "react"
 import { useDispatch } from "react-redux"
-import { Form, Formik, FieldArray, FormikHelpers } from "formik"
+import { Form, Formik, FormikHelpers } from "formik"
 import * as Yup from "yup"
 import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
@@ -10,6 +10,7 @@ import { ErrorMsg } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
 import { updateInformUser } from "../../../api/usersAxios"
 import { UpdatePostRegisterArgsInt } from "../../../redux/actions/interface"
+import { LoadFile } from "./LoadFile"
 
 const initialValues = {
   name: "",
@@ -38,11 +39,11 @@ export const FormUpdateParamUser: React.FC<Props> = ({ userId }) => {
 
   const onSubmit = (
     values: UpdatePostRegisterArgsInt,
-    actions: FormikHelpers<UpdatePostRegisterArgsInt>
+    props: FormikHelpers<UpdatePostRegisterArgsInt>
   ) => {
     const { file, ...rest } = values
     dispatch(updateInformUser(rest, file, userId))
-    actions.resetForm()
+    props.resetForm()
     handleClickCloseModal()
   }
 
@@ -53,7 +54,7 @@ export const FormUpdateParamUser: React.FC<Props> = ({ userId }) => {
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        {({ errors, values, setFieldValue, handleChange }) => (
+        {({ errors, values, handleChange }) => (
           <Form>
             <TextField
               id="standard-basic"
@@ -91,24 +92,7 @@ export const FormUpdateParamUser: React.FC<Props> = ({ userId }) => {
               sx={{ width: "300px", marginLeft: "20px", paddingBottom: "10px" }}
               onChange={handleChange}
             />
-            <FieldArray
-              name="file"
-              render={() => (
-                <p>
-                  <input
-                    accept="image/*"
-                    id="icon-button-photo"
-                    onChange={event => {
-                      if (event.currentTarget.files !== null) {
-                        setFieldValue("file", event.currentTarget.files[0])
-                      }
-                    }}
-                    type="file"
-                    name="file"
-                  />
-                </p>
-              )}
-            />
+            <LoadFile />
             <img
               id="image-before-load-on-server"
               src={values?.file ? URL.createObjectURL(values.file) : undefined}

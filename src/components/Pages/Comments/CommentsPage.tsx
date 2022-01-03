@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react"
 import { useParams } from "react-router"
 import { Table } from "./Table"
 import { showChoosePostInfo, loadAllCommentsForPost } from "../../../api/posts"
-import { AllCommentsForPosts, OnePost } from "../../Authorization/type"
 import { GeneralLogic } from "./GeneralLogic"
 import "./CommentsPage.css"
+import { AllCommentsForPosts, OnePost } from "../../../redux/actions/interface"
 
 export const CommentsPage = () => {
   const [comments, setComments] = useState<Array<AllCommentsForPosts>>([])

@@ -11,7 +11,7 @@ import { putLikeCommit } from "../../../api/posts"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { FormCreateComment } from "./FormCreateComent"
-import { ParamValues, ObjectComment } from "../../Authorization/type"
+import { ParamValues, ObjectComment } from "../../../redux/actions/interface"
 
 type PropsType = {
   item: ObjectComment

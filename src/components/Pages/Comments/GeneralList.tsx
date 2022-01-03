@@ -2,7 +2,7 @@ import React from "react"
 import { Grid } from "@mui/material"
 import { FormikHelpers } from "formik"
 import { CardComments } from "./CardComments"
-import { ObjectComment } from "../../Authorization/type"
+import { ObjectComment } from "../../../redux/actions/interface"
 
 type PropsType = {
   message: ObjectComment[]
