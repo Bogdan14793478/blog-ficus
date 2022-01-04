@@ -9,6 +9,7 @@ import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg, maxSizeFile } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
 import { LoadFile } from "./LoadFile"
+import { StandartDataPost } from "../../../redux/actions/interface"
 
 const initialValues = {
   title: "",
@@ -50,14 +51,8 @@ const validationSchema = Yup.object().shape({
     .nullable(),
 })
 
-interface DataPost {
-  description: string
-  fullText: string
-  title: string
-  file?: File
-}
 interface Props {
-  onSubmitPost: (rest: DataPost, file?: File, postId?: string) => void
+  onSubmitPost: (rest: StandartDataPost, file?: File, postId?: string) => void
   postId?: string
 }
 
@@ -65,8 +60,8 @@ export const FormCreatePost: React.FC<Props> = ({ onSubmitPost, postId }) => {
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
-  const onSubmit = (values: DataPost, props: FormikHelpers<any>) => {
-    // why FormikHelpers<DataPost> = mistake
+  const onSubmit = (values: StandartDataPost, props: FormikHelpers<any>) => {
+    // why FormikHelpers<StandartDataPost> = mistake
     const { file, ...rest } = values
     dispatch(onSubmitPost(rest, file, postId))
     props.resetForm()

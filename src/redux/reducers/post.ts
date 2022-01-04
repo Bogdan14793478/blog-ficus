@@ -1,25 +1,7 @@
 import { ActionTypesPost } from "../actions/typeActionPost"
+import { InitialType } from "../actions/interface"
 
 /* eslint-disable no-case-declarations */
-export type Posts = {
-  _id: string
-  likes: string[]
-  title: string
-  description: string
-  dateCreated: string
-  postedBy: string
-  image: string
-  __v: number
-}
-export type InitialType = {
-  posts: Posts[]
-  error: string[]
-  currentPage: number
-  skip: number
-  totalPost: number
-  image: string
-  isFetching: boolean
-}
 
 const initial: InitialType = {
   posts: [],
@@ -100,7 +82,6 @@ export const userPosts = (state = initial, action: any): InitialType => {
 
       return { ...state, posts: statePosts }
     case ActionTypesPost.SAVE_IMG_POST_PUT:
-      debugger
       const statePostImgPut = [...state.posts]
       const imgDataPut = action.payload.res.image
       const imgPostPut = action.payload.numberPost

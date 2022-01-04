@@ -187,3 +187,7 @@ export function createNewCommit(data: CreateNewCommit, postID: string) {
 export function deleteCommit(commentId: string) {
   axiosInstance.delete<never, never>(`comments/${commentId}`)
 }
+
+export function updateCommit(commentId: string | null, text?: string) {
+  axiosInstance.patch<string, never>(`comments/${commentId}`, text)
+}

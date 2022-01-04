@@ -1,11 +1,16 @@
 /* eslint-disable no-param-reassign */
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { FormikHelpers } from "formik"
-import { createNewCommit, deleteCommit } from "../../../api/posts"
+import {
+  createNewCommit,
+  deleteCommit,
+  // , updateCommit
+} from "../../../api/posts"
 import { FormCreateComment } from "./FormCreateComent"
 import { GeneralList } from "./GeneralList"
 import { findById, parseJwt, getFromStorage } from "../../../utils/helpers"
 import { ObjectComment } from "../../../redux/actions/interface"
+import { ModalContext } from "../../../context"
 
 type PropsType = {
   comments: ObjectComment[]
@@ -14,6 +19,7 @@ type PropsType = {
 export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
   const [message, setMessage] = useState<Array<ObjectComment>>([])
 
+  const { handleClickCloseModal } = useContext(ModalContext)
   const tokenUser = getFromStorage("passport")
   const userId: string = parseJwt(tokenUser).user._id
 
@@ -35,6 +41,22 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
     values._id = dataReg?._id
     setMessage(clonededMessage)
     props.resetForm()
+  }
+
+  async function updateComment(
+    values: ObjectComment,
+    props: FormikHelpers<ObjectComment>
+  ) {
+    const clonededMessage: ObjectComment[] = [...message]
+    const postId = values.followedCommentID
+    const desiredCommit = findById(clonededMessage, postId)
+    const findIndx = clonededMessage.findIndex(comment => comment._id === postId)
+    desiredCommit.text = values.text
+    clonededMessage[findIndx] = desiredCommit
+    setMessage(clonededMessage)
+    // updateCommit(postId, desiredCommit.text)   как передавая Id поста без Id комента обновить??
+    props.resetForm()
+    handleClickCloseModal()
   }
 
   const deleteComment = (postId: string, followedCommentId: string | null): void => {
@@ -115,6 +137,7 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
         <GeneralList
           message={message}
           onSubmit={(values, props) => onSubmit(values, props)}
+          updateComment={(values, props) => updateComment(values, props)}
           deleteComment={deleteComment}
           userId={userId}
           plusOrMinusLike={plusOrMinusLike}
@@ -123,7 +146,7 @@ export const GeneralLogic: React.FC<PropsType> = ({ comments, postID }) => {
       </div>
       <div style={{ paddingLeft: "60px" }}>
         <FormCreateComment
-          onSubmit={(values, props) => onSubmit(values, props)}
+          onSubmitPost={(values, props) => onSubmit(values, props)}
           userId={userId}
           followedCommentID={null}
         />

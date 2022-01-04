@@ -13,7 +13,7 @@ const validationSchema = Yup.object().shape({
 })
 
 type PropsType = {
-  onSubmit: (
+  onSubmitPost: (
     values: ObjectComment,
     formikHelpers: FormikHelpers<ObjectComment>
   ) => void
@@ -23,7 +23,7 @@ type PropsType = {
 }
 
 export const FormCreateComment: React.FC<PropsType> = ({
-  onSubmit,
+  onSubmitPost,
   commentId,
   followedCommentID,
   userId,
@@ -40,7 +40,7 @@ export const FormCreateComment: React.FC<PropsType> = ({
     <div>
       <Formik
         initialValues={initialValues}
-        onSubmit={onSubmit}
+        onSubmit={onSubmitPost}
         validationSchema={validationSchema}
       >
         {({ errors, values, handleChange }) => (

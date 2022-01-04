@@ -7,6 +7,7 @@ import { ObjectComment } from "../../../redux/actions/interface"
 type PropsType = {
   message: ObjectComment[]
   onSubmit: (values: ObjectComment, props: FormikHelpers<ObjectComment>) => void
+  updateComment: (values: ObjectComment, props: FormikHelpers<ObjectComment>) => void
   deleteComment: (postId: string, followedCommentId: string | null) => void
   userId: string
   plusOrMinusLike: (
@@ -21,6 +22,7 @@ export const GeneralList: React.FC<PropsType> = ({
   postID,
   message,
   onSubmit,
+  updateComment,
   deleteComment,
   userId,
   plusOrMinusLike,
@@ -40,6 +42,7 @@ export const GeneralList: React.FC<PropsType> = ({
               userId={userId}
               item={item}
               onSubmit={onSubmit}
+              updateComment={updateComment}
               deleteComment={deleteComment}
               plusOrMinusLike={plusOrMinusLike}
               postID={postID}
@@ -49,6 +52,7 @@ export const GeneralList: React.FC<PropsType> = ({
                 userId={userId}
                 message={item.children}
                 onSubmit={onSubmit}
+                updateComment={updateComment}
                 deleteComment={deleteComment}
                 plusOrMinusLike={plusOrMinusLike}
                 postID={postID}

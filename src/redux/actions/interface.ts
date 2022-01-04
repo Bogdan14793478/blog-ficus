@@ -24,8 +24,13 @@ export interface CommentedBy {
 export interface Description {
   description: string
 }
+
 export interface Id {
   _id: string
+}
+
+export interface Image {
+  image: string
 }
 
 export interface Title {
@@ -34,6 +39,10 @@ export interface Title {
 
 export interface Text {
   text: string
+}
+
+export interface NumberPost {
+  numberPost: string
 }
 
 export interface FullText {
@@ -80,6 +89,10 @@ export interface StandartData {
   skills: string
 }
 
+export interface StandartDataPost extends FullText, Description, Title {
+  file?: File
+}
+
 export interface UpdatePostRegisterArgsInt extends StandartData {
   userId?: string
   file?: File
@@ -102,15 +115,15 @@ export interface GetAllPostsRegisterArgs {
   searchPosts?: string
 }
 
-export interface Photo
+export interface Blank
   extends DateCreated,
     Likes,
     PostedBy,
     Description,
     Id,
-    Title,
-    FullText {
-  image: string
+    Title {}
+
+export interface Photo extends Image, Blank, FullText {
   __v: number
 }
 export interface AllGetAllPosts
@@ -127,17 +140,15 @@ export interface AllGetAllPosts
 export interface DataPostPut extends Title, FullText, Description {
   file?: File
 }
-export interface CreateNewPost extends Description, Id, Title, FullText {
+export interface CreateNewPost extends NumberPost, Description, Id, Title, FullText {
   fileUploadResponse: Photo
   postResponse: AllGetAllPosts
   postId?: string
   data: DataPostPut
-  numberPost: string
   file?: File
 }
 
-export interface SAVE_IMG_POSTInt {
-  numberPost: string
+export interface SAVE_IMG_POSTInt extends NumberPost {
   fileUploadResponse: Photo
 }
 
@@ -179,8 +190,7 @@ export interface DataType extends AuthFormData {
 
 export interface DataPost extends Description, FullText, Title {}
 
-export interface CreateNewCommit extends FollowedCommentID {
-  text: string
+export interface CreateNewCommit extends Text, FollowedCommentID {
   _id?: string
   postID?: string
 }
@@ -234,4 +244,17 @@ export interface ObjectComment extends ParamValues {
   likes?: null | string[]
   postID?: string
   __v?: number
+}
+
+export interface Posts extends Image, Blank {
+  __v: number
+}
+
+export interface InitialType extends Image {
+  posts: Posts[]
+  error: string[]
+  currentPage: number
+  skip: number
+  totalPost: number
+  isFetching: boolean
 }

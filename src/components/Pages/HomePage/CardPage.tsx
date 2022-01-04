@@ -19,7 +19,7 @@ import {
   actionDeletePosts,
   actionpostPlusOrMinusLike,
 } from "../../../redux/actions/typeActionPost"
-import { Posts } from "../../../redux/reducers/post"
+import { Posts } from "../../../redux/actions/interface"
 
 type Props = {
   item: Posts

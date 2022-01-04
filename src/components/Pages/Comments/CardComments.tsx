@@ -18,6 +18,7 @@ type PropsType = {
   postID: string
   deleteComment: (postId: string, followedCommentId: string | null) => void
   onSubmit: (values: ParamValues, props: FormikHelpers<ObjectComment>) => void
+  updateComment: (values: ParamValues, props: FormikHelpers<ObjectComment>) => void
   userId: string
   plusOrMinusLike: (
     itemId: string,
@@ -31,6 +32,7 @@ export const CardComments: React.FC<PropsType> = ({
   postID,
   deleteComment,
   onSubmit,
+  updateComment,
   userId,
   plusOrMinusLike,
 }) => {
@@ -94,9 +96,16 @@ export const CardComments: React.FC<PropsType> = ({
               {Labels.buttonLike} {countLikes}
             </Button>
             <ModalProvider
-              buttonName="Update comment"
-              buttonNameOnForm="Correct your comment"
-            />
+              buttonName={Labels.updatePost}
+              buttonNameOnForm={Labels.updatePostinForm}
+            >
+              <FormCreateComment
+                onSubmitPost={updateComment}
+                commentId={item._id}
+                followedCommentID={item._id}
+                userId={userId}
+              />
+            </ModalProvider>
             <Button size="small" onClick={commitOnCommit}>
               <ReplyIcon />
             </Button>
@@ -105,7 +114,7 @@ export const CardComments: React.FC<PropsType> = ({
       </Grid>
       {show && (
         <FormCreateComment
-          onSubmit={onSubmit}
+          onSubmitPost={onSubmit}
           commentId={item._id}
           followedCommentID={item._id}
           userId={userId}
