@@ -36,8 +36,8 @@ const useStyles = makeStyles({
 
 const BootstrapDialogTitle = (props: {
   [x: string]: any
-  children: any
-  onClose: any
+  children: string
+  onClose: () => void
 }) => {
   const { children, onClose, ...other } = props
 
@@ -79,6 +79,8 @@ export const ModalProvider: React.FC<ModalProviderType> = ({
 }) => {
   const [open, setOpen] = useState(false)
   const classes = useStyles()
+  // console.log(children, "children")
+  // console.log(takeInfo, "takeInfo")
 
   const handleClickOpenModal = () => {
     if (takeInfo) {
@@ -88,7 +90,6 @@ export const ModalProvider: React.FC<ModalProviderType> = ({
   }
 
   const handleClickCloseModal = () => {
-    debugger
     setOpen(false)
   }
 

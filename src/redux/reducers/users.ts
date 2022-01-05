@@ -1,28 +1,16 @@
 /* eslint-disable no-case-declarations */
 import { ActionTypesUser } from "../actions/typeActionUser"
 import { Labels } from "../../constantsName/constants"
-
-type ObjectUser = {
-  _id: string
-  email: string
-  name: string
-  extra_details: string
-  skills: string
-  profession: string
-  details: string
-  dateCreated: string
-  avatar: string | null
-  __v: number
-}
+import { UserObj } from "../actions/interface"
 
 export type UserType = {
   isAuth: boolean
-  users: ObjectUser[]
+  users: UserObj[]
   skip: number
   totalPost: number
   currentPage: number
   isFetching: boolean
-  findUser: ObjectUser | null
+  findUser: UserObj | null
 }
 const user: UserType = {
   isAuth: !!localStorage.getItem(Labels.token),

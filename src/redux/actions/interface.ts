@@ -4,6 +4,10 @@ export interface DateCreated {
   dateCreated: string
 }
 
+export interface Details {
+  details: string
+}
+
 export interface Likes {
   likes: string[]
 }
@@ -13,6 +17,10 @@ export interface PostedBy {
 
 export interface PostID {
   postID: string
+}
+
+export interface Email {
+  email: string
 }
 
 export interface FollowedCommentID {
@@ -67,12 +75,20 @@ export interface User {
   _id?: string
 }
 
+export interface UserObj extends DateCreated, Details, Email {
+  avatar?: string | null
+  name: string
+  profession: string
+  skills: string
+  __v: number
+  _id: string
+}
+
 export interface AllGetAllUser extends User {
   extra_details?: string
 }
 
-interface IdPlusEmail {
-  email: string
+interface IdPlusEmail extends Email {
   _id: string
 }
 export interface onSubmitRegistr extends AllGetAllUser {
@@ -84,8 +100,7 @@ export interface SAVE_AVATAR_USERINT {
   res: User
 }
 
-export interface StandartData {
-  details: string
+export interface StandartData extends Details {
   name: string
   profession: string
   skills: string
@@ -176,8 +191,7 @@ export interface SAVE_IMG_POST_PUTInt {
   res: Photo
 }
 
-export interface AuthFormData {
-  email: string
+export interface AuthFormData extends Email {
   password: string
 }
 // eslint-disable-next-line no-shadow
@@ -291,4 +305,15 @@ export interface InitialType extends Image {
 export interface RootState {
   user: UserType
   isAuth: boolean
+}
+
+export interface TypeAuthReducers {
+  dateCreated?: string
+  name?: string
+  skills?: string
+  profession?: string
+  details?: string
+  avatar?: string | null
+  informUser: string
+  id?: string
 }
