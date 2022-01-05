@@ -6,29 +6,26 @@ import { Fab, TextField } from "@mui/material"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { Errors } from "../../Authorization/Errors"
-import { ObjectComment } from "../../../redux/actions/interface"
+import { Comment } from "../../../redux/actions/interface"
 
 const validationSchema = Yup.object().shape({
   text: Yup.string().min(4, ErrorMsg.roolMinTitle).required(ErrorMsg.resultRequired),
 })
 
 type PropsType = {
-  onSubmitPost: (
-    values: ObjectComment,
-    formikHelpers: FormikHelpers<ObjectComment>
-  ) => void
+  onSubmitComment: (values: Comment, formikHelpers: FormikHelpers<Comment>) => void
   commentId?: string
-  followedCommentID: string | null
+  followedCommentID: string | (string | null)
   userId: string
 }
 
 export const FormCreateComment: React.FC<PropsType> = ({
-  onSubmitPost,
+  onSubmitComment,
   commentId,
   followedCommentID,
   userId,
 }) => {
-  const initialValues: ObjectComment = {
+  const initialValues: Comment = {
     text: "",
     children: [],
     followedCommentID: followedCommentID || null,
@@ -40,7 +37,7 @@ export const FormCreateComment: React.FC<PropsType> = ({
     <div>
       <Formik
         initialValues={initialValues}
-        onSubmit={onSubmitPost}
+        onSubmit={onSubmitComment}
         validationSchema={validationSchema}
       >
         {({ errors, values, handleChange }) => (

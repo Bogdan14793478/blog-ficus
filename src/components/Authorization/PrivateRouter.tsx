@@ -3,7 +3,7 @@ import React from "react"
 import { Route, Redirect, RouteProps, RouteComponentProps } from "react-router-dom"
 import { Labels } from "../../constantsName/constants"
 
-type Props = RouteProps & { component: React.Component<RouteComponentProps> }
+type Props = RouteProps & { component: React.FC<RouteComponentProps> }
 
 export const PrivateRoute: React.FC<Props> = ({
   component: Component,

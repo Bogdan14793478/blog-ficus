@@ -1,3 +1,5 @@
+import { UserType } from "../reducers/users"
+
 export interface DateCreated {
   dateCreated: string
 }
@@ -238,7 +240,34 @@ export interface ParamValues extends FollowedCommentID, Text, Id {
   commentedBy?: string
 }
 
+export interface ParamValuesUpd extends Text, Id {
+  followedCommentID: string
+  numberPostID: string
+  commentedBy?: string
+}
+
 export interface ObjectComment extends ParamValues {
+  children?: ObjectComment[]
+  dateCreated?: string
+  likes?: null | string[]
+  postID?: string
+  __v?: number
+}
+
+export type Comment = {
+  text: string
+  _id: string
+  children?: ObjectComment[]
+  dateCreated?: string
+  likes?: null | string[]
+  postID?: string
+  __v?: number
+  numberPostID?: string
+  commentedBy?: string
+  followedCommentID: string | null
+}
+
+export interface ObjectCommentUpd extends ParamValuesUpd {
   children?: ObjectComment[]
   dateCreated?: string
   likes?: null | string[]
@@ -257,4 +286,9 @@ export interface InitialType extends Image {
   skip: number
   totalPost: number
   isFetching: boolean
+}
+
+export interface RootState {
+  user: UserType
+  isAuth: boolean
 }

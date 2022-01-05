@@ -11,7 +11,7 @@ import { ModalContext } from "../../../context"
 import { LoadFile } from "./LoadFile"
 import { StandartDataPost } from "../../../redux/actions/interface"
 
-const initialValues = {
+const initialValues: StandartDataPost = {
   title: "",
   fullText: "",
   description: "",
@@ -60,7 +60,10 @@ export const FormCreatePost: React.FC<Props> = ({ onSubmitPost, postId }) => {
   const { handleClickCloseModal } = useContext(ModalContext)
   const dispatch = useDispatch()
 
-  const onSubmit = (values: StandartDataPost, props: FormikHelpers<any>) => {
+  const onSubmit = (
+    values: StandartDataPost,
+    props: FormikHelpers<StandartDataPost>
+  ) => {
     // why FormikHelpers<StandartDataPost> = mistake
     const { file, ...rest } = values
     dispatch(onSubmitPost(rest, file, postId))

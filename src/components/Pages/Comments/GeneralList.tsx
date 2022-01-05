@@ -2,12 +2,12 @@ import React from "react"
 import { Grid } from "@mui/material"
 import { FormikHelpers } from "formik"
 import { CardComments } from "./CardComments"
-import { ObjectComment } from "../../../redux/actions/interface"
+import { Comment } from "../../../redux/actions/interface"
 
 type PropsType = {
-  message: ObjectComment[]
-  onSubmit: (values: ObjectComment, props: FormikHelpers<ObjectComment>) => void
-  updateComment: (values: ObjectComment, props: FormikHelpers<ObjectComment>) => void
+  message: Comment[]
+  onSubmit: (values: Comment, props: FormikHelpers<Comment>) => void
+  updateComment: (values: Comment, props: FormikHelpers<Comment>) => void
   deleteComment: (postId: string, followedCommentId: string | null) => void
   userId: string
   plusOrMinusLike: (

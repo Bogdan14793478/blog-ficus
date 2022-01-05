@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { useHistory } from "react-router-dom"
+import { RouteComponentProps, useHistory } from "react-router-dom"
 import { Button, CardMedia, Grid } from "@mui/material"
 import { useAppSelector } from "../../../hooks/index"
 import { Labels } from "../../../constantsName/constants"
@@ -11,7 +11,7 @@ import { FormUpdateParamUser } from "./FormUpdateParamUser"
 import { ModalProvider } from "../../../context"
 import "./SettingPage.css"
 
-export const SettingPage = () => {
+export const SettingPage: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line operator-linebreak
   const { name, dateCreated, id, skills, profession, details, avatar } =
     useAppSelector(state => state.auth)

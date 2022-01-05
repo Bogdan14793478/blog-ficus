@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { useParams } from "react-router"
+import { RouteComponentProps, useParams } from "react-router"
 import { Grid } from "@mui/material"
 import { actionUsersGetCurrentPage } from "../../../redux/actions/typeActionUser"
 import { AllPagin } from "../../Pagination"
@@ -11,7 +11,7 @@ import { getUserInfo } from "../../../api/auth"
 import { Loader } from "../Loader/Loader"
 import { useAppSelector } from "../../../hooks/index"
 
-export const UsersPage = () => {
+export const UsersPage: React.FC<RouteComponentProps> = () => {
   const { page } = useParams<{ page: string }>()
   const dispatch = useDispatch()
   // eslint-disable-next-line operator-linebreak

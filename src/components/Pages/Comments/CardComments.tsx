@@ -11,14 +11,17 @@ import { putLikeCommit } from "../../../api/posts"
 import { Labels } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { FormCreateComment } from "./FormCreateComent"
-import { ParamValues, ObjectComment } from "../../../redux/actions/interface"
+import {
+  // ParamValues,
+  Comment,
+} from "../../../redux/actions/interface"
 
 type PropsType = {
-  item: ObjectComment
+  item: Comment
   postID: string
   deleteComment: (postId: string, followedCommentId: string | null) => void
-  onSubmit: (values: ParamValues, props: FormikHelpers<ObjectComment>) => void
-  updateComment: (values: ParamValues, props: FormikHelpers<ObjectComment>) => void
+  onSubmit: (values: Comment, props: FormikHelpers<Comment>) => void
+  updateComment: (values: Comment, props: FormikHelpers<Comment>) => void
   userId: string
   plusOrMinusLike: (
     itemId: string,
@@ -95,17 +98,20 @@ export const CardComments: React.FC<PropsType> = ({
             <Button size="small" onClick={countCommentLikes}>
               {Labels.buttonLike} {countLikes}
             </Button>
-            <ModalProvider
-              buttonName={Labels.updatePost}
-              buttonNameOnForm={Labels.updatePostinForm}
-            >
-              <FormCreateComment
-                onSubmitPost={updateComment}
-                commentId={item._id}
-                followedCommentID={item._id}
-                userId={userId}
-              />
-            </ModalProvider>
+            {userId === item.commentedBy && (
+              <ModalProvider
+                buttonName={Labels.updatePost}
+                buttonNameOnForm={Labels.updatePostinForm}
+              >
+                <FormCreateComment
+                  onSubmitComment={updateComment}
+                  commentId={item._id}
+                  followedCommentID={item._id}
+                  userId={userId}
+                />
+              </ModalProvider>
+            )}
+
             <Button size="small" onClick={commitOnCommit}>
               <ReplyIcon />
             </Button>
@@ -114,7 +120,7 @@ export const CardComments: React.FC<PropsType> = ({
       </Grid>
       {show && (
         <FormCreateComment
-          onSubmitPost={onSubmit}
+          onSubmitComment={onSubmit}
           commentId={item._id}
           followedCommentID={item._id}
           userId={userId}

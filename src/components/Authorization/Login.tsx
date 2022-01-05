@@ -1,6 +1,6 @@
 /* eslint-disable react/button-has-type */
 import React from "react"
-import { useHistory } from "react-router-dom"
+import { RouteComponentProps, useHistory } from "react-router-dom"
 import { Form, Formik, FormikHelpers } from "formik"
 import * as Yup from "yup"
 import "./Login.css"
@@ -28,7 +28,7 @@ const validationSchema = Yup.object().shape({
     .required(ErrorMsg.resultRequired),
 })
 
-export const Login = () => {
+export const Login: React.FC<RouteComponentProps> = () => {
   const dispatch = useDispatch()
 
   const history = useHistory()

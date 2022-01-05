@@ -17,11 +17,12 @@ import { HomePage } from "./components/Pages/HomePage/HomePage"
 import history from "./components/history"
 import { SettingPage } from "./components/Pages/Satting/SettingPage"
 import { CommentsPage } from "./components/Pages/Comments/CommentsPage"
+import { RootState } from "./redux/actions/interface"
 
 toast.configure()
 
 export function App() {
-  const isAuth = useSelector(state => state.user.isAuth)
+  const isAuth = useSelector((state: RootState) => state.user.isAuth)
 
   return (
     <Router history={history}>

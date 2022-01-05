@@ -88,6 +88,7 @@ export const ModalProvider: React.FC<ModalProviderType> = ({
   }
 
   const handleClickCloseModal = () => {
+    debugger
     setOpen(false)
   }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react"
-import { useParams } from "react-router"
+import { RouteComponentProps, useParams } from "react-router"
 import { useHistory } from "react-router-dom"
 import { Grid } from "@mui/material"
 import ButtonGroup from "@mui/material/ButtonGroup"
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     padding: "0 30px",
   },
 })
-export const HomePage = () => {
+export const HomePage: React.FC<RouteComponentProps> = () => {
   const [searchPosts, setSearchPosts] = useState("")
   const [showAllPost, setShowAllPost] = useState(false)
   const [activeTab, setActiveTab] = useState(Tabs.AllPosts)

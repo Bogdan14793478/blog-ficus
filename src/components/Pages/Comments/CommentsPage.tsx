@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router"
+import { RouteComponentProps, useParams } from "react-router"
 import { Table } from "./Table"
 import { showChoosePostInfo, loadAllCommentsForPost } from "../../../api/posts"
 import { GeneralLogic } from "./GeneralLogic"
 import "./CommentsPage.css"
 import { AllCommentsForPosts, OnePost } from "../../../redux/actions/interface"
 
-export const CommentsPage = () => {
+export const CommentsPage: React.FC<RouteComponentProps> = () => {
   const [comments, setComments] = useState<Array<AllCommentsForPosts>>([])
   const [findPost, setFindPost] = useState<OnePost | null>(null)
   const { postID } = useParams<{ postID: string }>()

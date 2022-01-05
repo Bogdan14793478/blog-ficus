@@ -188,6 +188,9 @@ export function deleteCommit(commentId: string) {
   axiosInstance.delete<never, never>(`comments/${commentId}`)
 }
 
-export function updateCommit(commentId: string | null, text?: string) {
-  axiosInstance.patch<string, never>(`comments/${commentId}`, text)
+interface TextInt {
+  text: string
+}
+export function updateCommit(commentId: string | null, text: TextInt) {
+  axiosInstance.patch<TextInt, never>(`comments/${commentId}`, text)
 }
