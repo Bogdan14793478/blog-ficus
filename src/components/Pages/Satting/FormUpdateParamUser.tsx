@@ -9,10 +9,12 @@ import { Errors } from "../../Authorization/Errors"
 import { ErrorMsg } from "../../../constantsName/constants"
 import { ModalContext } from "../../../context"
 import { updateInformUser } from "../../../api/usersAxios"
-import { UpdatePostRegisterArgsInt } from "../../../redux/actions/interface"
+import { UpdateUser } from "../../../redux/actions/interface"
 import { LoadFile } from "./LoadFile"
 
-const initialValues = {
+type UpdateUserData = UpdateUser & { file?: File }
+
+const initialValues: UpdateUserData = {
   name: "",
   skills: "",
   profession: "",
@@ -38,8 +40,8 @@ export const FormUpdateParamUser: React.FC<Props> = ({ userId }) => {
   const dispatch = useDispatch()
 
   const onSubmit = (
-    values: UpdatePostRegisterArgsInt,
-    props: FormikHelpers<UpdatePostRegisterArgsInt>
+    values: UpdateUserData,
+    props: FormikHelpers<UpdateUserData>
   ) => {
     const { file, ...rest } = values
     dispatch(updateInformUser(rest, file, userId))

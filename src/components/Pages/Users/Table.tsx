@@ -1,9 +1,9 @@
 import React from "react"
 import { Tableheader } from "../../../constantsName/constants"
-import { AllGetAllUser } from "../../../redux/actions/interface"
+import { User } from "../../../redux/actions/interface"
 
 type Props = {
-  findUser: AllGetAllUser | null
+  findUser: User | null
 }
 export const Table: React.FC<Props> = ({ findUser }) => {
   return (

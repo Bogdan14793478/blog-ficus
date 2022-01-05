@@ -1,4 +1,4 @@
-import { GET_ALL_USER } from "./interface"
+import { Pagination, User } from "./interface"
 
 // eslint-disable-next-line no-shadow
 export enum ActionTypesUser {
@@ -11,6 +11,13 @@ export enum ActionTypesUser {
   SHOW_INFO_CHOOSE_USER = "SHOW_INFO_CHOOSE_USER",
 }
 
+// payload types
+export interface GetAllUsersPayload {
+  data: User[]
+  pagination: Pagination
+}
+
+// action types
 export type Action<T> = { type: `${ActionTypesUser}`; payload: T }
 export type Action2<T, P> = { type: T; payload: P }
 
@@ -26,8 +33,8 @@ export const userDeleteAllInform = (payload: []): UserDelAllInfoType => ({
   payload,
 })
 
-export type GetAllUser = Action2<ActionTypesUser.GET_ALL_USERS, GET_ALL_USER>
-export const actiongetAllUsers = (payload: GET_ALL_USER): GetAllUser => ({
+export type GetAllUser = Action2<ActionTypesUser.GET_ALL_USERS, GetAllUsersPayload>
+export const actiongetAllUsers = (payload: GetAllUsersPayload): GetAllUser => ({
   type: ActionTypesUser.GET_ALL_USERS,
   payload,
 })
@@ -47,10 +54,10 @@ export const actionUsersGetCurrentPage = (page: number): SetCurrentPage => ({
   payload: page,
 })
 
-export type DelUserPage = Action2<ActionTypesUser.DELETE_USER, string>
-export const actionDeleteUser = (payload: string): DelUserPage => ({
+export type DelUserPage = Action2<ActionTypesUser.DELETE_USER, null>
+export const actionDeleteUser = (): DelUserPage => ({
   type: ActionTypesUser.DELETE_USER,
-  payload,
+  payload: null,
 })
 
 export type ShowChooseUSerPage = Action2<
