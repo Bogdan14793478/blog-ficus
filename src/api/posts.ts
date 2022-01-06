@@ -48,7 +48,7 @@ export function updatePost(rest: DataPost, file?: File, numberPost?: string) {
     >
   ) => {
     axiosInstance
-      .patch<DataPost, UpdatePostRegisterResponse>(`posts/${numberPost}`, rest)
+      .patch<DataPost, AxiosResponse<Photo>>(`posts/${numberPost}`, rest)
       .then(() => {
         dispatch(actionputPostFromDispatch({ rest, numberPost }))
       })

@@ -18,6 +18,8 @@ export const SettingPage: React.FC<RouteComponentProps> = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   function redirectToRegister(): void {
     history.push("/register")
   }

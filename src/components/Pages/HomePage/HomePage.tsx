@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect, useContext } from "react"
 import { RouteComponentProps, useParams } from "react-router"
 import { useHistory } from "react-router-dom"
@@ -22,6 +24,7 @@ import { ModalProvider } from "../../../context/ModalContext"
 import { ModalContext } from "../../../context"
 import "./HomePage.css"
 import { Loader } from "../Loader/Loader"
+import { sentMetrik } from "../../SendMetrik"
 
 const useStyles = makeStyles({
   root: {
@@ -103,7 +106,11 @@ export const HomePage: React.FC<RouteComponentProps> = () => {
     <div>
       <h6 className="general-page-name">{Labels.namePagePost}</h6>
       <div className="button-home-page">
-        <ButtonGroup>
+        <ButtonGroup
+          onClick={() => {
+            sentMetrik("click", "ClickOnHomePAgeButton")
+          }}
+        >
           <Button
             variant={activeTab === Tabs.AllPosts ? "contained" : "outlined"}
             onClick={() => filterPosts(Tabs.AllPosts, false)}

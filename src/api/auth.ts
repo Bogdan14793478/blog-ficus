@@ -10,20 +10,17 @@ import {
 } from "../redux/actions/typeActionAuth"
 import { Labels, InformPanel } from "../constantsName/constants"
 
-type GetUserInfoRegisterResponse = AxiosResponse<User>
-
 export function getUserInfo() {
   return async (dispatch: Dispatch<Action2<ActionTypes.INFORM_USER, User>>) => {
-    axiosInstance.get<never, GetUserInfoRegisterResponse>("auth/user/").then(res => {
+    axiosInstance.get<never, AxiosResponse<User>>("auth/user/").then(res => {
       dispatch(takeInformUser(res.data))
     })
   }
 }
 
 // login
-type FetchUserRegisterResponse = AxiosResponse<User>
 const fetchUser = () => {
-  axiosInstance.get<never, FetchUserRegisterResponse>("auth/user/").then(() => {
+  axiosInstance.get<never, AxiosResponse<User>>("auth/user/").then(() => {
     notifySuccess(InformPanel.successfulAuth)
   })
 }

@@ -254,12 +254,6 @@ export interface ParamValues extends FollowedCommentID, Text, Id {
   commentedBy?: string
 }
 
-export interface ParamValuesUpd extends Text, Id {
-  followedCommentID: string
-  numberPostID: string
-  commentedBy?: string
-}
-
 export interface ObjectComment extends ParamValues {
   children?: ObjectComment[]
   dateCreated?: string
@@ -279,14 +273,6 @@ export type Comment = {
   numberPostID?: string
   commentedBy?: string
   followedCommentID: string | null
-}
-
-export interface ObjectCommentUpd extends ParamValuesUpd {
-  children?: ObjectComment[]
-  dateCreated?: string
-  likes?: null | string[]
-  postID?: string
-  __v?: number
 }
 
 export interface Posts extends Image, Blank {

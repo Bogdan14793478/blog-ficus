@@ -7,6 +7,7 @@ import { toast } from "react-toastify"
 import { PrivateRoute } from "./components/Authorization/PrivateRouter"
 import "react-toastify/dist/ReactToastify.css"
 import { theme } from "./utils/themeNavbar"
+import GoogleAnalytics from "./components/GoogleAnalytics"
 import { NavbarMaterial } from "./components/Pages/Navbar/NavbarMaterial"
 import { Login } from "./components/Authorization/Login"
 import { Register } from "./components/Authorization/Register"
@@ -62,6 +63,7 @@ export function App() {
             </>
           )}
         </Switch>
+        <GoogleAnalytics />
       </ThemeProvider>
     </Router>
   )
