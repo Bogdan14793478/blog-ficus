@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios"
 import { Dispatch } from "react"
 import { setToStorage, notifySuccess } from "../utils/helpers"
 import { axiosInstance } from "./axios"
-import { User, AuthFormData, onSubmitRegistr } from "../redux/actions/interface"
+import { User, AuthFormData, RegistrationData } from "../redux/actions/interface"
 import {
   Action2,
   ActionTypes,
@@ -44,10 +44,9 @@ export const signUp = (data: AuthFormData) => {
 }
 
 // Register
-
 export const onSubmitRegister = ({ email, password }: AuthFormData) => {
   return axiosInstance
-    .post<onSubmitRegistr, onSubmitRegistr>("users/", {
+    .post<RegistrationData, AxiosResponse<User>>("users/", {
       email,
       password,
     })

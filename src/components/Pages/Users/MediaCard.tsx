@@ -8,12 +8,12 @@ import { actionShowChooseUser } from "../../../redux/actions/typeActionUser"
 import { Labels, UrlAdress } from "../../../constantsName/constants"
 import { ModalProvider } from "../../../context/ModalContext"
 import { Table } from "./Table"
-import { AllGetAllUser } from "../../../redux/actions/interface"
+import { User } from "../../../redux/actions/interface"
 
 type Props = {
-  item: AllGetAllUser
+  item: User
   itemId: string
-  findUser: AllGetAllUser | null
+  findUser: User | null
 }
 export const MediaCard: React.FC<Props> = ({ item, itemId, findUser }) => {
   const dispatch = useDispatch()

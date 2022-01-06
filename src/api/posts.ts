@@ -10,31 +10,24 @@ import {
   actionTogleIsFetching,
   actionputPostFromDispatch,
   actionSaveImgPostPUT,
+  UpdatePostPayload,
+  UplaodPostImagePayload,
 } from "../redux/actions/typeActionPost"
 import {
-  CreateNewPost,
-  SAVE_IMG_POSTInt,
-  GET_ALL_POSTInt,
-  POST_PUTInt,
-  SAVE_IMG_POST_PUTInt,
-  Photo,
-  DataPost,
-  PaginGetAll,
-  GetAllPostsRegisterArgs,
-  CreateNewCommit,
-  AllGetAllPosts,
-  AllCommentsForPosts,
-  CommentForComment,
-  OnePost,
+  Pagination,
+  Post,
+  Comment,
+  UpdatePost,
+  CreatePost,
+  CreateComment,
+  UpdateComment,
 } from "../redux/actions/interface"
 
 export function putLikePost(numberPost: string) {
   axiosInstance.put<never, never>(`posts/like/${numberPost}`)
 }
 
-type UpdatePostRegisterResponse = AxiosResponse<Photo>
-
-export function updatePost(rest: DataPost, file?: File, numberPost?: string) {
+export function updatePost(rest: UpdatePost, numberPost: string, file?: File) {
   const formData = new FormData()
   if (file) {
     formData.append("image", file)
@@ -43,26 +36,22 @@ export function updatePost(rest: DataPost, file?: File, numberPost?: string) {
     dispatch: Dispatch<
       Action2<
         ActionTypesPost.POST_PUT | ActionTypesPost.SAVE_IMG_POST_PUT,
-        POST_PUTInt | SAVE_IMG_POST_PUTInt
+        UpdatePostPayload | UplaodPostImagePayload
       >
     >
   ) => {
     axiosInstance
-      .patch<DataPost, AxiosResponse<Photo>>(`posts/${numberPost}`, rest)
+      .patch<UpdatePost, AxiosResponse<Post>>(`posts/${numberPost}`, rest)
       .then(() => {
         dispatch(actionputPostFromDispatch({ rest, numberPost }))
       })
     if (file) {
       axiosInstance
-        .put<FormData, UpdatePostRegisterResponse>(
-          `posts/upload/${numberPost}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
+        .put<FormData, AxiosResponse<Post>>(`posts/upload/${numberPost}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
         .then(res => {
           const { data } = res
           dispatch(actionSaveImgPostPUT({ res: data, numberPost }))
@@ -71,9 +60,14 @@ export function updatePost(rest: DataPost, file?: File, numberPost?: string) {
   }
 }
 
+type GetAllPostsRegisterArgs = {
+  skip: string
+  numberId?: null | string
+  searchPosts?: string
+}
 type GetAllPostsRegisterResponse = AxiosResponse<{
-  data: AllGetAllPosts[]
-  pagination: PaginGetAll
+  data: Post[]
+  pagination: Pagination
 }>
 export function getAllPosts(
   skip: string,
@@ -94,7 +88,11 @@ export function getAllPosts(
     dispatch: Dispatch<
       Action2<
         ActionTypesPost.TOGLE_IS_FETCHING | ActionTypesPost.GET_ALL_POST,
-        boolean | GET_ALL_POSTInt
+        | boolean
+        | {
+            pagination: Pagination
+            payload: Post[]
+          }
       >
     >
   ) => {
@@ -109,13 +107,17 @@ export function getAllPosts(
   }
 }
 
-type CreateNewPostRegisterResponse = AxiosResponse<CreateNewPost>
-export function createNewPost(rest: DataPost, file?: File) {
+type CreateNewPostRegisterResponse = AxiosResponse<Post>
+export function createNewPost(rest: CreatePost, file?: File) {
   return async (
     dispatch: Dispatch<
       Action2<
         ActionTypesPost.CREATE_NEW_POST | ActionTypesPost.SAVE_IMG_POST,
-        CreateNewPost | SAVE_IMG_POSTInt
+        | Post
+        | {
+            fileUploadResponse: Post
+            numberPost: string
+          }
       >
     >
   ) => {
@@ -124,13 +126,14 @@ export function createNewPost(rest: DataPost, file?: File) {
       formData.append("image", file)
     }
     const postResponse = await axiosInstance.post<
-      DataPost,
+      CreatePost,
       CreateNewPostRegisterResponse
     >("posts", rest)
     dispatch(actionCreateNewPosts(postResponse.data))
+
     if (file) {
       const numberPost = postResponse.data._id
-      const fileUploadResponse: Photo = await axiosInstance.put(
+      const fileUploadResponse: Post = await axiosInstance.put(
         `posts/upload/${numberPost}`,
         formData,
         {
@@ -148,7 +151,8 @@ export function deletePost(postId: string) {
   axiosInstance.delete<never, never>(`posts/${postId}`)
 }
 
-type ShowChoosePostInfoRegisterResponse = AxiosResponse<OnePost>
+// ???
+type ShowChoosePostInfoRegisterResponse = AxiosResponse<Post>
 export async function showChoosePostInfo(postId: string) {
   const postResponse = await axiosInstance.get<
     never,
@@ -157,9 +161,7 @@ export async function showChoosePostInfo(postId: string) {
   return postResponse.data
 }
 
-type LoadAllCommentsForPostRegisterResponse = AxiosResponse<
-  Array<AllCommentsForPosts>
->
+type LoadAllCommentsForPostRegisterResponse = AxiosResponse<Array<Comment>>
 export async function loadAllCommentsForPost(postId: string) {
   const allComment = await axiosInstance.get<
     never,
@@ -172,10 +174,10 @@ export function putLikeCommit(userID: string) {
   axiosInstance.put<never, never>(`comments/like/${userID}`)
 }
 
-type CreateNewCommitRegisterResponse = AxiosResponse<CommentForComment>
-export function createNewCommit(data: CreateNewCommit, postID: string) {
+type CreateNewCommitRegisterResponse = AxiosResponse<Comment>
+export function createNewCommit(data: CreateComment, postID: string) {
   return axiosInstance
-    .post<CreateNewCommit, CreateNewCommitRegisterResponse>(
+    .post<CreateComment, CreateNewCommitRegisterResponse>(
       `comments/post/${postID}`,
       data
     )
@@ -188,9 +190,6 @@ export function deleteCommit(commentId: string) {
   axiosInstance.delete<never, never>(`comments/${commentId}`)
 }
 
-interface TextInt {
-  text: string
-}
-export function updateCommit(commentId: string | null, text: TextInt) {
-  axiosInstance.patch<TextInt, never>(`comments/${commentId}`, text)
+export function updateCommit(commentId: string | null, text: UpdateComment) {
+  axiosInstance.patch<UpdateComment, never>(`comments/${commentId}`, text)
 }

@@ -4,11 +4,11 @@ import { Table } from "./Table"
 import { showChoosePostInfo, loadAllCommentsForPost } from "../../../api/posts"
 import { GeneralLogic } from "./GeneralLogic"
 import "./CommentsPage.css"
-import { AllCommentsForPosts, OnePost } from "../../../redux/actions/interface"
+import { Post, Comment } from "../../../redux/actions/interface"
 
 export const CommentsPage: React.FC<RouteComponentProps> = () => {
-  const [comments, setComments] = useState<Array<AllCommentsForPosts>>([])
-  const [findPost, setFindPost] = useState<OnePost | null>(null)
+  const [comments, setComments] = useState<Array<Comment>>([])
+  const [findPost, setFindPost] = useState<Post | null>(null)
   const { postID } = useParams<{ postID: string }>()
   useEffect(() => {
     async function takeDate() {
