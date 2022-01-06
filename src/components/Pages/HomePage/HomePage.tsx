@@ -25,6 +25,7 @@ import { ModalContext } from "../../../context"
 import "./HomePage.css"
 import { Loader } from "../Loader/Loader"
 import { CreatePost } from "../../../redux/actions/interface"
+import { sentMetrik } from "../../SendMetrik"
 
 const useStyles = makeStyles({
   root: {
