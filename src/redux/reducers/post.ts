@@ -1,19 +1,27 @@
+import { Post } from "../actions/interface"
 import { ActionTypesPost } from "../actions/typeActionPost"
-import { InitialType } from "../actions/interface"
 
 /* eslint-disable no-case-declarations */
 
-const initial: InitialType = {
+export interface InitialPostType {
+  posts: Post[]
+  error: string[]
+  currentPage: number
+  skip: number
+  totalPost: number
+  isFetching: boolean
+}
+
+const initial: InitialPostType = {
   posts: [],
   error: [],
   currentPage: 1,
   skip: 10,
   totalPost: 0,
-  image: "",
   isFetching: false,
 }
 
-export const userPosts = (state = initial, action: any): InitialType => {
+export const userPosts = (state = initial, action: any): InitialPostType => {
   switch (action.type) {
     case ActionTypesPost.TOGLE_IS_FETCHING:
       return { ...state, isFetching: action.payload }

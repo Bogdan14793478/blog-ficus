@@ -19,10 +19,10 @@ import {
   actionDeletePosts,
   actionpostPlusOrMinusLike,
 } from "../../../redux/actions/typeActionPost"
-import { Posts } from "../../../redux/actions/interface"
+import { UpdatePost, Post } from "../../../redux/actions/interface"
 
 type Props = {
-  item: Posts
+  item: Post
   showAllPost: boolean
   userId?: string
 }
@@ -112,7 +112,12 @@ export const MediaCard: React.FC<Props> = ({ item, showAllPost, userId }) => {
                 buttonName={Labels.updatePost}
                 buttonNameOnForm={Labels.updatePostinForm}
               >
-                <FormCreatePost onSubmitPost={updatePost} postId={item._id} />
+                <FormCreatePost
+                  onSubmitPost={(values, postId, file) =>
+                    updatePost(values as UpdatePost, postId as string, file)
+                  }
+                  postId={item._id}
+                />
               </ModalProvider>
             )}
             <ModalProvider

@@ -5,9 +5,19 @@ import {
   TakeInformUser,
   ActionSaveAvatarUser,
 } from "../actions/typeActionAuth"
-import { TypeAuthReducers } from "../actions/interface"
 
-const initial: TypeAuthReducers = {
+export interface InitialAuthType {
+  dateCreated?: string
+  name?: string
+  skills?: string
+  profession?: string
+  details?: string
+  avatar?: string | null
+  informUser: string
+  id?: string
+}
+
+const initial: InitialAuthType = {
   dateCreated: "",
   name: "",
   skills: "",
@@ -20,7 +30,7 @@ const initial: TypeAuthReducers = {
 
 type Actions = TakeInformUser | ActionUserUpdateInform | ActionSaveAvatarUser
 
-export const authReducer = (state = initial, action: Actions): TypeAuthReducers => {
+export const authReducer = (state = initial, action: Actions): InitialAuthType => {
   switch (action.type) {
     case ActionTypes.INFORM_USER:
       return {

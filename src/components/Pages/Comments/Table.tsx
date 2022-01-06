@@ -1,9 +1,9 @@
 import React from "react"
 import { Tableheader } from "../../../constantsName/constants"
-import { OnePost } from "../../../redux/actions/interface"
+import { Post } from "../../../redux/actions/interface"
 
 type PropsType = {
-  findPost: OnePost | null
+  findPost: Post | null
 }
 export const Table: React.FC<PropsType> = ({ findPost }) => {
   return (

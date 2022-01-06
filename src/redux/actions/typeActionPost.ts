@@ -1,12 +1,6 @@
-import {
-  CreateNewPost,
-  GET_ALL_POSTInt,
-  POST_PLUS_OR_MINUS_LIKEInt,
-  POST_PUTInt,
-  SAVE_IMG_POSTInt,
-  SAVE_IMG_POST_PUTInt,
-} from "./interface"
+import { Post, UpdatePost, Pagination } from "./interface"
 
+// actions
 // eslint-disable-next-line no-shadow
 export enum ActionTypesPost {
   GET_ALL_POST = "GET_ALL_POST",
@@ -24,20 +18,43 @@ export enum ActionTypesPost {
 export type Action<T> = { type: `${ActionTypesPost}`; payload: T }
 export type Action2<T, P> = { type: T; payload: P }
 
-export type CreateNewPostType = Action2<
-  ActionTypesPost.CREATE_NEW_POST,
-  CreateNewPost
->
-export const actionCreateNewPosts = (payload: CreateNewPost): CreateNewPostType => ({
+// payload types
+export interface UpdatePostPayload {
+  rest: UpdatePost
+  file?: File
+  numberPost?: string
+  postId?: string
+}
+
+export interface UplaodPostImagePayload {
+  numberPost?: string
+  res: Post
+}
+export interface GetAllPostsPayload {
+  pagination: Pagination
+  payload: Post[]
+}
+
+export interface UpdatePostLikesPayload {
+  itemId: string
+  userId?: string
+}
+
+// action types
+export type CreateNewPostType = Action2<ActionTypesPost.CREATE_NEW_POST, Post>
+export const actionCreateNewPosts = (payload: Post): CreateNewPostType => ({
   type: ActionTypesPost.CREATE_NEW_POST,
   payload,
 })
 
 export type SaveImgPostType = Action2<
   ActionTypesPost.SAVE_IMG_POST,
-  SAVE_IMG_POSTInt
+  { fileUploadResponse: Post; numberPost: string }
 >
-export const actionSaveImgPost = (payload: SAVE_IMG_POSTInt): SaveImgPostType => ({
+export const actionSaveImgPost = (payload: {
+  fileUploadResponse: Post
+  numberPost: string
+}): SaveImgPostType => ({
   type: ActionTypesPost.SAVE_IMG_POST,
   payload,
 })
@@ -48,8 +65,11 @@ export const actionDeletePosts = (payload: string): DeletePostType => ({
   payload,
 })
 
-export type GetAllPostType = Action2<ActionTypesPost.GET_ALL_POST, GET_ALL_POSTInt>
-export const actionGetAllPosts = (payload: GET_ALL_POSTInt): GetAllPostType => ({
+export type GetAllPostType = Action2<
+  ActionTypesPost.GET_ALL_POST,
+  GetAllPostsPayload
+>
+export const actionGetAllPosts = (payload: GetAllPostsPayload): GetAllPostType => ({
   type: ActionTypesPost.GET_ALL_POST,
   payload,
 })
@@ -74,18 +94,21 @@ export const actionPostDeleteAllInform = (payload: []): DeleteAllInformType => (
 
 export type PlusOrMinusLikeType = Action2<
   ActionTypesPost.POST_PLUS_OR_MINUS_LIKE,
-  POST_PLUS_OR_MINUS_LIKEInt
+  UpdatePostLikesPayload
 >
 export const actionpostPlusOrMinusLike = (
-  payload: POST_PLUS_OR_MINUS_LIKEInt
+  payload: UpdatePostLikesPayload
 ): PlusOrMinusLikeType => ({
   type: ActionTypesPost.POST_PLUS_OR_MINUS_LIKE,
   payload,
 })
 
-export type PostFromDispatchType = Action2<ActionTypesPost.POST_PUT, POST_PUTInt>
+export type PostFromDispatchType = Action2<
+  ActionTypesPost.POST_PUT,
+  UpdatePostPayload
+>
 export const actionputPostFromDispatch = (
-  payload: POST_PUTInt
+  payload: UpdatePostPayload
 ): PostFromDispatchType => ({
   type: ActionTypesPost.POST_PUT,
   payload,
@@ -93,10 +116,10 @@ export const actionputPostFromDispatch = (
 
 export type SaveImgPutType = Action2<
   ActionTypesPost.SAVE_IMG_POST_PUT,
-  SAVE_IMG_POST_PUTInt
+  UplaodPostImagePayload
 >
 export const actionSaveImgPostPUT = (
-  payload: SAVE_IMG_POST_PUTInt
+  payload: UplaodPostImagePayload
 ): SaveImgPutType => ({
   type: ActionTypesPost.SAVE_IMG_POST_PUT,
   payload,

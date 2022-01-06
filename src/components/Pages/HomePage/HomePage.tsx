@@ -22,6 +22,7 @@ import { ModalProvider } from "../../../context/ModalContext"
 import { ModalContext } from "../../../context"
 import "./HomePage.css"
 import { Loader } from "../Loader/Loader"
+import { CreatePost } from "../../../redux/actions/interface"
 
 const useStyles = makeStyles({
   root: {
@@ -137,7 +138,11 @@ export const HomePage: React.FC<RouteComponentProps> = () => {
           buttonName={Labels.buttonNewPost}
           buttonNameOnForm={Labels.enterNewPost}
         >
-          <FormCreatePost onSubmitPost={createNewPost} />
+          <FormCreatePost
+            onSubmitPost={(values, _, file) =>
+              createNewPost(values as CreatePost, file)
+            }
+          />
         </ModalProvider>
       </div>
       {activeTab === Tabs.EmptyPage && (

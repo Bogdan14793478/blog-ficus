@@ -1,18 +1,18 @@
 /* eslint-disable no-case-declarations */
 import { ActionTypesUser } from "../actions/typeActionUser"
 import { Labels } from "../../constantsName/constants"
-import { UserObj } from "../actions/interface"
+import { User } from "../actions/interface"
 
-export type UserType = {
+export type Initial = {
   isAuth: boolean
-  users: UserObj[]
+  users: User[]
   skip: number
   totalPost: number
   currentPage: number
   isFetching: boolean
-  findUser: UserObj | null
+  findUser: User | null
 }
-const user: UserType = {
+const user: Initial = {
   isAuth: !!localStorage.getItem(Labels.token),
   users: [],
   skip: 10,
@@ -21,7 +21,7 @@ const user: UserType = {
   isFetching: false,
   findUser: null,
 }
-export const stateUserReduser = (state = user, action: any): UserType => {
+export const stateUserReduser = (state = user, action: any): Initial => {
   switch (action.type) {
     case ActionTypesUser.TOGLE_IS_FETCHING_USER:
       return { ...state, isFetching: action.payload }

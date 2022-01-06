@@ -1,10 +1,15 @@
-import { User, SAVE_AVATAR_USERINT } from "./interface"
+import { User } from "./interface"
 
 // eslint-disable-next-line no-shadow
 export enum ActionTypes {
   INFORM_USER = "INFORM_USER",
   USER_UPDATE_INFORM = "USER_UPDATE_INFORM",
   SAVE_AVATAR_USER = "SAVE_AVATAR_USER",
+}
+
+// payload type
+export interface UserAvatarPayload {
+  res: User
 }
 
 export type Action<T> = { type: `${ActionTypes}`; payload: T }
@@ -18,10 +23,10 @@ export const takeInformUser = (payload: User): TakeInformUser => ({
 
 export type ActionSaveAvatarUser = Action2<
   ActionTypes.SAVE_AVATAR_USER,
-  SAVE_AVATAR_USERINT
+  UserAvatarPayload
 >
 export const actionSaveUserAvatar = (
-  payload: SAVE_AVATAR_USERINT
+  payload: UserAvatarPayload
 ): ActionSaveAvatarUser => ({
   type: ActionTypes.SAVE_AVATAR_USER,
   payload,
