@@ -109,7 +109,7 @@ export const HomePage: React.FC<RouteComponentProps> = () => {
       <div className="button-home-page">
         <ButtonGroup
           onClick={() => {
-            sentMetrik("click", "ClickOnHomePAgeButton")
+            sentMetrik("click", "ClickOnHomePageButton")
           }}
         >
           <Button

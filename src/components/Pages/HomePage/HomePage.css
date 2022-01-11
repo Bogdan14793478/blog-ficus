@@ -9,39 +9,70 @@
 }
 
 .right-group-btn {
-    display: flex;
-    align-content: center;
-    margin-left: 765px;
-  }
-  
-  .left-group-btn {
-    display: flex;
-    align-content: center;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    align-items: center;
-  }
+  display: flex;
+  align-content: center;
+  margin-left: 765px;
+}
 
-  .avatar-user-user-page {
-    padding-bottom: 10px;
-  }
-  .group-title-deleteicon-card {
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 15px;
-  }
+.left-group-btn {
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+}
 
-  .description-home-post{
-    padding: 0;
-  }
-  .group-like-updete-post {
-    display: flex;
-    position: absolute;
-    flex-wrap: wrap;
-    bottom: 2px;
-  }
-  .general-page-name {
-    padding: 15px 19px 25px 50px;
-  }
+.avatar-user-user-page {
+  padding-bottom: 10px;
+}
+.group-title-deleteicon-card {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 15px;
+}
 
-  
+.description-home-post {
+  padding: 0;
+}
+.group-like-updete-post {
+  display: flex;
+  position: absolute;
+  flex-wrap: wrap;
+  bottom: 2px;
+}
+.general-page-name {
+  padding: 15px 19px 25px 50px;
+}
+
+.bodyCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+}
+
+.searchBox {
+  position: relative;
+  width: 300px;
+  /* height: 50px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchBox input:first-child {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0px 20px;
+  outline: none;
+  font-size: 1.1em;
+  color: #555;
+  background: linear-gradient(#dbdae1, #a3aaba);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1),
+  15px 15px 15px rgba(0, 0, 0, 0.1),
+  20px 20px 20px rgba(0, 0, 0, 0.1),
+  30px 30px 15px rgba(0, 0, 0, 0.1),
+  inset 1px 1px 2px #fff;
+}
