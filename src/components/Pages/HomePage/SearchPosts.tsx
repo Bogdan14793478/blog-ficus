@@ -35,9 +35,11 @@ export const CustomizedInputBase: React.FC<PropsType> = ({
           <SearchIcon />
         </IconButton>
       </Paper>
-      <div className="bodyCont"> </div>
-      <div className="searchBox">
-        <input type="text" placeholder="Search Anything You Wont ..." />
+      <div className="bodyCont">
+        <div className="searchBox">
+          <div className="shadow" />
+          <input type="text" placeholder="Search Anything You Wont ..." />
+        </div>
       </div>
     </>
   )
